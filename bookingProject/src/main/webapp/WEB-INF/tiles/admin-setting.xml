@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tiles-definitions PUBLIC "-//Apache Software Foundation//DTD Tiles Configuration 2.0//EN" "http://tiles.apache.org/dtds/tiles-config_2_0.dtd">
+
+<tiles-definitions>
+	<definition name="adminPage" template="/resources/template/admin/contentLayout.jsp">
+		<put-attribute name="title" value="기본 게시판"></put-attribute>
+		<put-attribute name="header" value="/resources/template/admin/header.jsp"></put-attribute>
+		<put-attribute name="leftbar" value="/resources/template/admin/left.jsp"></put-attribute>
+		<put-attribute name="main" value=""></put-attribute>
+	</definition>
+	<definition name="admin/book/*" extends="adminPage">
+		<put-attribute name="main" value="/WEB-INF/views/admin/book/{1}.jsp"/>
+	</definition>
+	<definition name="admin/member/*" extends="adminPage">
+		<put-attribute name="main" value="/WEB-INF/views/admin/member/{1}.jsp"/>
+	</definition>
+	<definition name="admin/sitelog/*" extends="adminPage">
+		<put-attribute name="main" value="/WEB-INF/views/admin/sitelog/{1}.jsp"/>
+	</definition>
+</tiles-definitions>

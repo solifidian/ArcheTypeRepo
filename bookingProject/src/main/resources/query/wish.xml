@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.booking.wish.dao.WishDAO">
+
+  <!--위시리스트 호출 쿼리 (회원만 가능) -->
+	<select id="wishList" parameterType="wish" resultType="wish">
+
+    select  c.isbn,c.m_no,c.wishlist_date, b.b_title, b.b_author, b.b_pagesize	,b.b_pubdate, b.b_abprice
+	   
+  	 from booking_wishlist_rel c inner join booking_book_data b 
+     on c.isbn=b.isbn 
+     where m_no=#{m_no}
+	
+	</select>
+	
+	  <!--위시리스트 추가 쿼리 (회원만 가능) -->
+	<insert id="wishInsert" parameterType="wish">
+	
+	 insert into booking_wishlist_rel 
+	 values(#{isbn},#{m_no},sysdate) 
+	 
+	</insert>
+	
+	  <!--위시리스트 삭제 쿼리 (회원만 가능) -->
+	<delete id="wishDelete" parameterType="wish">
+	
+	delete booking_wishlist_rel where m_no=#{m_no} and isbn=#{isbn}
+	
+	</delete>
+	
+	
+	
+	
+	 <!--아이디로 유저 no확인 쿼리  -->
+		<select id="searchM_no" parameterType="String" resultType="int">
+	 
+			 select NVL(m_no,0) from booking_member where m_id=#{m_id}
+	
+		</select>
+	
+	<!--카트에 isbn이 있는지 확인하는 쿼리  -->
+	  <select id="isbnNumberCheck" parameterType="wish" resultType="Integer">
+  
+		   select NVL((select 1 from booking_wishlist_rel where m_no=#{m_no} and isbn=#{isbn} ),0) as state from dual
+  
+ 	  </select>
+
+
+</mapper>

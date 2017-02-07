@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.booking.reply.dao.ReplyDAO">
+
+<!-- 댓글 기본 조회 -->
+<select id="replyList" resultType="reply" parameterType="reply">
+	SELECT 	re_no,
+			re_writer,
+			TO_CHAR(re_update, 'YY-MM-DD') as re_update,
+			TO_CHAR(re_update, 'HH24:MI') as re_update_time,
+			re_content,
+			bd_forum_no,
+			bd_post_no	
+	FROM booking_community_board_reply
+	WHERE bd_post_no = #{bd_post_no}
+	ORDER BY re_no desc
+</select>
+
+<!-- 댓글쓰기 -->
+<insert id="replyInsert" parameterType="reply">
+	/* Reply - replyInsert */
+	<selectKey keyProperty="re_no" resultType="int" order="BEFORE">
+		SELECT booking_comminity_reply_seq.nextval FROM dual
+	</selectKey>
+	INSERT INTO booking_community_board_reply(
+		re_no, re_writer, re_update, re_pwd, re_content, bd_forum_no, bd_post_no
+	)VALUES(
+		#{re_no},#{re_writer},sysdate,#{re_pwd},#{re_content},#{bd_forum_no},#{bd_post_no}
+	 )
+	
+</insert>
+
+<!-- 댓글 수정 -->
+<update id="replyUpdate" parameterType="reply">
+	/* Reply - replyUpdate */
+	UPDATE booking_community_board_reply
+	SET re_content = #{re_content}
+		,re_update = sysdate
+	<if test="re_pwd != null and re_pwd != ''">
+		,re_pwd = #{re_pwd}
+	</if>
+	WHERE re_no = #{re_no}
+</update>
+
+<!-- 댓글 삭제  -->
+<delete id="replyDelete" parameterType="reply">
+	/* Reply - replyDelete */
+	DELETE FROM booking_community_board_reply WHERE re_no = #{re_no}
+</delete>
+
+<!-- 댓글 선택 삭제 -->
+<delete id="replyChoiceDelete" parameterType="reply">
+	/* Reply - replyChoiceDelete */
+	DELETE FROM booking_community_board_reply bd_post_no = #{bd_post_no}
+</delete>
+
+<!-- 비밀번호 체크 -->
+<select id ="pwdConfirm" parameterType = "reply" resultType="int">
+	/* Reply - pwdConfirm */
+	SELECT NVL((SELECT 1 FROM booking_community_board_reply
+				WHERE re_no = #{re_no} and re_pwd = #{re_pwd}
+				),0) as state
+	FROM dual
+</select>
+
+
+</mapper>

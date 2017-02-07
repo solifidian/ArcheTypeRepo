@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.booking.cart.dao.CartDAO">
+
+<!--회원 및 비회원 접속 시 BOOKING_CART_RELdb에 있는 정보를 호출   -->
+<select id="cartlist" parameterType="cart" resultType="cart">
+   select  c.isbn,c.cart_amount,c.cart_ip, b.b_title, b.b_author, b.b_pagesize	,b.b_pubdate, b.b_abprice
+	   
+   from BOOKING_CART_REL c inner join booking_book_data b 
+   on c.isbn=b.isbn 
+    <where>
+    <!--만약 세션이 존재한다면 회원 번호로 검색  -->
+     <if test="m_no!=0" >m_no=#{m_no} </if>
+     <!--만약 세션이 존재하지 않으면 쿠키 번호로 검색  -->
+     <if test="m_no==0 || m_no==null">cart_ip=#{cart_ip} </if>
+   </where>
+  </select>
+  
+  <!-- 바로구매 할 경우 선택한 책의  isbn 번호로 책의 정보를 호출-->
+  <select id="nowpaycartlist" parameterType="cart" resultType="cart">
+   select isbn, 1 cart_amount , b_author,b_title, b_pagesize,b_abprice 
+   from BOOKING_BOOK_DATA 
+   where isbn=#{isbn}
+    
+  </select>
+  
+  <!-- 책 삭제 .-->
+  <delete id="cartTableBookDelete" parameterType="cart" >
+  
+    delete from BOOKING_CART_REL
+    
+     <where>
+    <!--만약 세션이 존재한다면 회원 번호로 검색 후 카트에 있는 책을 삭제  -->
+     <if test="m_no!='0'|| m_no!=null">m_no=(select m_no from booking_member where m_id=#{m_id}) and isbn= #{isbn}  </if>
+     <!--만약 세션이 존재하지 않으면 쿠키 번호로 검색 후 카트에 있는 책을 삭제  -->
+     <if test="m_no=='0' || m_no==null">cart_ip=#{cart_ip} and isbn= #{isbn}  </if>
+   </where>
+  </delete>
+  
+   <!-- 책 추가 .-->
+  <insert id="cartInsert" parameterType="cart" >
+   <!-- 장바구니에 책 추가 cart_ip= 쿠키 name .-->
+   insert into BOOKING_CART_REL(isbn,m_no,cart_amount,cart_ip) values(#{isbn},#{m_no},#{cart_amount},#{cart_ip})
+  </insert>
+  
+  
+  <!--아이디로 유저 no확인 쿼리  -->
+  <select id="searchM_no" parameterType="String" resultType="Integer" >
+     select NVL(m_no,0) from booking_member where m_id=#{m_id}
+  </select>
+  
+  <!--카트에 isbn이 있는지 확인하는 쿼리  -->
+  <select id="isbnNumberCheck" parameterType="cart" resultType="Integer">
+  
+   select NVL((select 1 from BOOKING_CART_REL
+    <where>
+     <if test="m_no!=0 ">m_no=#{m_no} and isbn=#{isbn}</if>
+     <if test="m_no==0 || m_no==null">cart_ip=#{cart_ip} and isbn=#{isbn} </if>
+   </where>      
+   ),0) as state from dual
+  
+  </select>
+  
+    <!--카트에 isbn이 있을 경우 수량을 업데이트하는 쿼리  -->
+  <update id="cartUpdate" parameterType="cart" >
+  
+  update BOOKING_CART_REL set cart_amount=(cart_amount+#{cart_amount})
+  
+   <where>
+     <if test="m_no!='0'">m_no=#{m_no} and isbn=#{isbn}</if>
+     <if test="m_no=='0' || m_no==null">cart_ip=#{cart_ip} and isbn=#{isbn} </if>
+   </where>    
+  </update>
+  
+  <!-- 카트에 담긴 책의 수량을 업데이트 했을 때 수량을 수정하는 쿼리   -->
+  <update id="cartTableBookUpdate" parameterType="cart">
+  
+  update BOOKING_CART_REL set cart_amount=#{cart_amount} 
+  
+  <where>
+     <if test="m_no!=0 ">m_no=#{m_no} and isbn=#{isbn}</if>
+     <if test="m_no==0 ">cart_ip=#{cart_ip} and isbn=#{isbn} </if>
+   </where>    
+    
+  </update>
+  
+  
+  
+  
+</mapper>

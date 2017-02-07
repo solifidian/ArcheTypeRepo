@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.booking.member.dao.MemberDAO">
+
+		
+		
+		<!-- 로그인 (아이디, 비밀번호 체크후 vo뿌려주기 -->
+		<select id="memberLogin" parameterType="member" resultType="member">
+				/* MemberLogin 조회 */
+				select m_no, m_id ,m_pwd ,m_nick ,m_name, m_birth, m_sex, m_phone, m_email, m_comment, m_rank, m_point, m_update, m_editdate, m_home_address, m_post_address
+				from booking_member 
+				where m_id = #{m_id} and m_pwd = #{m_pwd}
+		
+		</select>
+
+
+		<!-- 주문내역 조회 + 배송상태 조회 -->
+		<select id="memberMypage" parameterType="member" resultType="delivery">
+		/* memberMypage-주문내역 배송상태 조회 */
+		select 
+		 p.p_no 
+		 ,p.p_abprice
+		 ,p.p_date
+		 ,p.m_no 
+		 ,p.p_totprice 
+		 ,p.p_discount   
+		 ,p.coupon_code 
+		 ,p.m_phone 
+		 ,p.m_post_address 
+		 ,p.m_name
+		 
+		 ,d.del_company_name
+    	 ,d.p_no
+    	 ,d.del_ondate
+    	 ,d.del_num
+    	 ,d.del_site
+    	 ,d.del_status
+    	 ,d.del_company_phone
+		 from BOOKING_PURCHASE_DELIVERY d , booking_purchase p 
+		 where d.p_no(+)=p.p_no and m_no=( select m_no from booking_member where m_id = #{m_id} )
+		</select>
+		
+		<!-- 
+		상세보기 클릭시 주문번호를 불러와서 책정보 가져오기 (우선 책제목, isbn, p_no만 가져오게함) 
+		
+		select b.b_title , b.isbn, pr.p_no from booking_book_data b inner join booking_book_purchase_rel pr on b.isbn = pr.isbn where pr.p_no = 1;
+		 -->
+		
+		<!-- 회원가입  -->
+		<insert id="memberInsert" parameterType="member">
+		/* Member - memberInsert */
+		<selectKey keyProperty = "m_no" resultType="int" order="BEFORE">
+		   SELECT booking_member_m_no_seq.nextval FROM dual
+		</selectKey>
+		   INSERT INTO booking_member(
+		         m_no,
+		         m_id,           
+		         m_pwd,           
+		         m_nick,            
+		         m_name,            
+		         m_birth,          
+		         m_sex,            
+		         m_phone,          
+		         m_email,             
+		           
+		         m_home_address         
+		   )   
+		   VALUES (   
+		         #{m_no},
+		         #{m_id},           
+		         #{m_pwd},           
+		         #{m_nick},            
+		         #{m_name},            
+		         #{m_birth},          
+		         #{m_sex},            
+		         #{m_phone},          
+		         #{m_email},          
+		      
+		         #{m_home_address}
+		   )
+		</insert>
+		
+		<!-- 아이디 중복 체크 -->
+		<select id="idChk" parameterType="member" resultType="int">
+		/* Member - idChk */
+		   SELECT NVL((SELECT 1 FROM booking_member WHERE m_id=#{m_id}), 0) as result FROM dual
+		</select>
+		
+		
+		<!-- 수정화면보기 -->
+		<select id="memberDetail" resultType="member">
+		/* Member - memberDetail */
+		   SELECT 
+		          m_id,           
+		          m_pwd,           
+		          m_nick,            
+		          m_name,            
+		          to_char(m_birth,'yyyy-MM-dd') as m_birth,                  
+		          m_phone,          
+		          m_email,
+		          m_home_address,   
+		          m_post_address  
+		     
+		     FROM booking_member        
+		     WHERE m_no = #{m_no}
+		</select>
+		
+		
+		
+		<!-- 회원 수정  -->
+		<update id="memberUpdate" parameterType="member">
+		/* Member - memberUpdate */
+		   UPDATE booking_member 
+		   SET                      
+		         m_nick = #{m_nick}                  
+		         ,m_phone = #{m_phone}
+		         ,m_email = #{m_email}           
+		         ,m_editdate = sysdate   
+		         ,m_home_address = #{m_home_address}         
+		  
+		         ,m_pwd = #{m_pwd}   
+		 
+		   
+		   WHERE 
+		   		m_no = #{m_no}
+		</update>
+		
+		<!-- 회원 탈퇴 --> 
+		<delete id="memberDelete" parameterType="member">
+		/* Member - memberDelete */
+		   DELETE FROM booking_member
+		   WHERE m_no = #{m_no}
+		</delete>
+		
+		<!-- 아이디 찾기  -->
+		<select id="findId" parameterType="member" resultType="member">
+		/* Member - findId */
+		   SELECT m_id
+		   FROM booking_member
+		   WHERE m_name = #{m_name} and m_email = #{m_email}
+		</select>
+		
+		<!--  비밀번호 찾기 -->
+		<select id="findPwd" parameterType="member" resultType="member">
+		/* Member - findPwd */
+		   SELECT m_pwd 
+		   FROM booking_member
+		   WHERE m_id=#{m_id} and m_name = #{m_name}
+		</select>
+		
+		
+		
+
+
+</mapper>

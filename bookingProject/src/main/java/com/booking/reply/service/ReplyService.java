@@ -1,0 +1,21 @@
+package com.booking.reply.service;
+
+import java.util.List;
+
+import com.booking.reply.vo.ReplyVO;
+
+public interface ReplyService {
+
+	public List<ReplyVO> replyList(Integer bd_post_no);
+
+	public int replyInsert(ReplyVO rvo);
+
+	public int replyUpdate(ReplyVO rvo);
+
+	public int replyDelete(Integer re_no);
+
+	public int pwdConfirm(ReplyVO rvo);
+
+	
+
+}

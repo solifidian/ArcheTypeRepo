@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.booking.search.dao.SearchDAO">
+ 
+ <!--서치 페이지 (기본 리스트 호출) -->
+<select id="booksearchlist" resultType="search">
+ 
+select isbn,cat_no, b_title,b_author ,b_pagesize	,b_pubdate,b_abprice,
+b_totscore 		,b_stock 		, pub_name		,b_update 		,
+b_editdate 		,b_painter		, b_translator  
+
+from booking_book_data
+
+</select>
+
+
+
+
+</mapper>
