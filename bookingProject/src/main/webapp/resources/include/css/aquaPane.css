@@ -1,0 +1,50 @@
+@CHARSET "UTF-8";
+
+.aquaPane table{
+	border-collapse:collapse;
+	margin:auto;
+	border:1px solid;
+	border-color:rgba(100,100,255,0.6);
+	text-align:center;
+}
+.aquaPane th, .aquaPane td{
+	border:1px solid;
+	border-left-style:dotted;
+	border-right-style:dotted;
+	border-color:inherit;
+	padding:5px;
+}
+div.aquaPane{
+	background-color:rgba(180,240,255,0.3);
+	border:1px solid;
+	border-color:rgba(100,100,255,0.6);
+	border-radius:15px;
+	padding:20px;
+	margin:auto;
+}
+.aquaPane #deptTle{
+	border:inherit;
+	border-radius:inherit;
+	text-align:center;
+	margin:auto auto 10px auto;
+}
+
+.aquaPane ul{
+	padding:10px;
+	list-style: none;
+}
+
+.aquaPane li{
+	border-bottom:1px solid;
+	border-color:rgba(100,100,255,0.6);
+}
+
+.aquaPane li p{
+	padding:10px;
+	margin:0px;
+}
+
+.aquaPane li p:FIRST-CHILD{
+	border-bottom:1px dotted;
+	border-color:rgba(100,100,255,0.6);
+} 

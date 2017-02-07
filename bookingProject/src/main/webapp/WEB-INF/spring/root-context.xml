@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+	
+	<!-- Root Context: defines shared resources visible to all other web components -->
+	
+	<!-- BD Connection -->
+	<!--
+		JNDI - Java Naming and Directory Interface
+		디렉토리 서비스에 접근하는데 필요한 API, DB연결등의 경로이다.
+		기본 JNDI의 이름은 "java:comp/env/응용프로그램환경항목"이다.
+	-->
+	<!-- DataSource -->
+	<bean id="dataSource"
+		class="org.springframework.jndi.JndiObjectFactoryBean">
+	<property name="jndiName" value="java:comp/env/jdbc/Oracle11g"></property>
+	</bean>
+	
+	<!-- Mybatis Setting -->
+	<!-- sqlSessionFactory : connection with DB -->
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource"/>
+		<property name="configLocation" value="classpath:config/mybatis-config.xml"/>
+		<property name="mapperLocations" value="classpath:query/*.xml" />
+		<property name="transactionFactory">
+			<bean class="org.apache.ibatis.transaction.managed.ManagedTransactionFactory"/>
+		</property>
+	</bean>
+	
+	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate" destroy-method="clearCache">
+		<constructor-arg name="sqlSessionFactory" ref="sqlSessionFactory"/>
+	</bean>
+	
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<property name="basePackage">
+			<value>com.booking.**.**.dao</value>
+		</property>
+	</bean>	
+</beans>

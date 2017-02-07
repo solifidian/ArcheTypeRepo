@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tiles-definitions PUBLIC "-//Apache Software Foundation//DTD Tiles Configuration 2.0//EN" "http://tiles.apache.org/dtds/tiles-config_2_0.dtd">
+
+<tiles-definitions>
+	<definition name="content" template="/resources/template/layout.jsp">
+		<put-attribute name="title" value="도서왕 Booking"></put-attribute>
+		<put-attribute name="header" value="/resources/template/header.jsp"></put-attribute>
+		<put-attribute name="footer" value="/resources/template/footer.jsp"></put-attribute>
+		<put-attribute name="body" value=""></put-attribute>
+	</definition>
+	
+    <definition name="book/*" extends="content">
+      <put-attribute name="body" value="/WEB-INF/views/book/{1}.jsp" />
+    </definition>
+    <definition name="member/*" extends="content">
+      <put-attribute name="body" value="/WEB-INF/views/member/{1}.jsp" />
+    </definition>
+ 	
+ 	<definition name="cart/*" extends="content">
+      <put-attribute name="body" value="/WEB-INF/views/cart/CartList.jsp" />
+    </definition>
+    
+    <definition name="wish/*" extends="content">
+      <put-attribute name="body" value="/WEB-INF/views/wish/{1}.jsp" />
+    </definition>
+    
+    <definition name="purchase/*" extends="content">
+      <put-attribute name="body" value="/WEB-INF/views/purchase/{1}.jsp" />
+    </definition>
+    
+    <definition name="search/*" extends="content">
+      <put-attribute name="body" value="/WEB-INF/views/search/{1}.jsp" />
+    </definition>
+    
+    <definition name="reply/*" extends="content">
+      <put-attribute name="body" value="/WEB-INF/views/reply/{1}.jsp" />
+    </definition>
+    
+   	<definition name="board/*" extends="content">
+      <put-attribute name="body" value="/WEB-INF/views/board/{1}.jsp" />
+    </definition>
+    
+   	<definition name="member/*" extends="content">
+      <put-attribute name="body" value="/WEB-INF/views/member/{1}.jsp" />
+    </definition>
+</tiles-definitions>

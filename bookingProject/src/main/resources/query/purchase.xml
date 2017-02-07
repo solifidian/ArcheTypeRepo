@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.booking.purchase.dao.PurchaseDAO">
+
+<!--구매완료 로직
+	구매 완료 페이지로 이동하면 
+		1.BOOKING_PURCHASE DB에 결제 내용 저장
+		2.cartdb에 있던 정보 삭제 
+		3.booking_book_purchase_rel에 각각의 도서 정보 저장
+
+  -->
+
+  <!--구매완료 시 BOOKING_PURCHASE DB에 결제 내용 저장 쿼리  -->
+
+	<insert id="purchaseUpdate" parameterType="purchase">
+	
+	 insert into BOOKING_PURCHASE(p_abprice,p_no,m_no,cookie_name,p_totprice,p_discount,coupon_code,m_phone,m_post_address,m_name,p_agreement,p_method)
+	 values(0,(booking_purchase_seq1.nextval+3),nvl((select m_no from booking_member where m_id=#{m_id}),0),#{cookie_name},#{p_totprice},#{p_discount},nvl(#{coupon_code},''),#{m_phone},#{m_post_address},#{m_name},#{p_agreement},#{p_method})
+
+	</insert>
+	
+	  <!--구매완료 시 BOOKING_PURCHASE DB에 저장 후 카트에 있는 모든 내용 삭제 쿼리 (회원만 가능하며 바로구매할 경우 카트는 삭제되지 않음)  -->
+	<delete id="cartAllDelete" parameterType="purchase">
+	
+	delete booking_cart_rel 
+	 <where>
+    <!--만약 세션이 존재한다면 회원 번호로 검색  -->
+     <if test= "m_id!=null ">m_no=(select m_no from booking_member where m_id=#{m_id}) </if>
+     <!--만약 세션이 존재하지 않으면 쿠키 번호로 검색  -->
+     <if test="m_id==null || m_no=='0' ">cart_ip=#{cookie_name} </if>
+   </where>
+	
+	
+	
+	</delete>
+	
+	<!--구매완료 시 BOOKING_PURCHASE DB에 저장 후 카트에 있는 모든 내용 삭제 후 각각의 책 정보를 booking_book_purchase_rel 저장하는 쿼리 (회원만 가능하며 바로구매할 경우 카트는 삭제되지 않음)  -->
+	<insert id="purchaseBookRel" parameterType="purchase">
+	
+	insert into booking_book_purchase_rel(isbn,p_amount,p_no) 
+		select isbn,cart_amount,p_no 
+		from booking_cart_rel c inner join booking_purchase p on c.m_no=p.m_no
+		 where p.p_no=(select max(p_no)
+		from booking_purchase 
+		where m_no=(select m_no from booking_member	where m_id=#{m_id}))
+		
+	</insert>
+	
+	
+	<!-- 즉시구매 -->
+	<select id="nowPay" parameterType="String" resultType="purchase">
+	
+	select  isbn,b_title,b_abprice,b_pagesize from booking_book_data where isbn=#{isbn}
+	   
+   
+	</select>
+	
+	<select id="purchaseDetail" parameterType="int" resultType="purchase">
+		select rel.isbn, book.b_title, rel.p_amount
+		from booking_book_purchase_rel rel, booking_book_data book
+		where rel.p_no = #{p_no}
+	</select>
+	
+	<!-- 포인트 적립  
+	  회원만 포인트 적립 가능함
+	  비회원은 포인트 적립안됨 
+	-->
+	
+	 <update id="pointUpdate" parameterType="purchase">
+	 
+	 update booking_member set m_point=#{m_point} where m_no=nvl((select m_no from booking_member where m_id=#{m_id}),0)
+	
+	 
+	 </update> 
+
+	
+
+</mapper>

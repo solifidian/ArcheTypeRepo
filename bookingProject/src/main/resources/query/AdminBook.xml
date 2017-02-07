@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.booking.admin.book.dao.AdminBookDAO">
+
+	<!-- 
+		book search for admin query
+	 -->
+	<!-- standart bookList query -->
+	<sql id='standardSearchQuery'>
+		<where>
+			<if test="keyword != '' and keyword != null">
+				<choose>
+					<when test="searchMode == 'allSch'">
+						b_title like '%' || #{keyword} || '%'
+						or b_author like '%' || #{keyword} || '%'
+						or pub_name like '%' || #{keyword} || '%'
+					</when>
+					<when test="searchMode == 'titleSch'">
+						b_title like '%' || #{keyword} || '%'
+					</when>
+					<when test="searchMode == 'authorSch'">
+						b_author like '%' || #{keyword} || '%'
+					</when>
+					<when test="searchMode == 'publisherSch'">
+						pub_name like '%' || #{keyword} || '%'
+					</when>
+					<when test="searchMode == 'isbnSch'">
+						isbn like '%' || #{keyword} || '%'
+					</when>
+					<when test="searchMode == 'stockNameSch'">
+						st_name like '%' || #{keyword} || '%'
+					</when>
+					<when test="searchMode == 'releaseNameSch'">
+						rel_name like '%' || #{keyword} || '%'
+					</when>
+					<when test="searchMode == 'seriesSch'">
+						series_name like '%' || #{keyword} || '%'
+					</when>
+				</choose>
+			</if>
+			<if test="searchStartDate != '' and searchStartDate != null">
+				<if test="searchEndDate != '' and searchEndDate != null">
+					<choose>
+						<when test="searchDateMode == 'publishSch'">
+							b_pubdate between #{searchStartDate} and #{searchEndDate}
+						</when>
+						<when test="searchDateMode == 'updateSch'">
+							b_update between #{searchStartDate} and #{searchEndDate}
+						</when>
+						<when test="searchDateMode == 'editdateSch'">
+							b_editdate between #{searchStartDate} and #{searchEndDate}
+						</when>
+					</choose>
+				</if>
+			</if> 
+		</where>
+		<if test="orderTarget != '' and orderTarget != null">
+			order by ${orderTarget}
+		</if>
+		<choose>
+			<when test="orderDirection == 'desc'">
+				desc
+			</when>
+			<when test="orderDirection == 'asc'">
+				asc
+			</when>
+		</choose>
+	</sql>
+	<!-- select Query -->
+	<select id="bookList" parameterType="book" resultType="book">
+	select isbn, b_title, b_author, b_pubdate, b_abprice, b_stock, pub_name
+			, cat_no, b_update, b_editdate, series_name, series_no, series_no_sub
+		from (
+				select list.*, rownum as rnum 
+				from (
+						select isbn, b_title, b_author, to_char(b_pubdate,'YYYY-MM-DD') as b_pubdate
+								, b_abprice, b_stock, pub_name, cat_no, b_update, b_editdate, series_name, series_no, series_no_sub
+						from booking_book_data
+						<include refid="standardSearchQuery"></include>
+				
+				) list
+				
+		)
+		<where>
+			<if test="searchStartRow != null and searchStartRow != ''">
+				<if test="searchEndRow != null and searchEndRow != ''">
+					rnum between #{searchStartRow} and #{searchEndRow}
+				</if>
+			</if>
+		</where>
+	</select>
+	
+	<select id="bookStockList" parameterType="bookStock" resultType="bookStock">
+		select st_no, st_date, st_name, st_name_no, st_amount, isbn
+		from (
+				select rownum as rnum, list.*
+				from (
+						select st_no, st_date, st_name, st_name_no, st_amount, isbn
+						from booking_book_stock
+						<include refid="standardSearchQuery"></include>
+				) list
+		)
+		<where>
+			<if test="searchStartRow != null and searchStartRow != ''">
+				<if test="searchEndRow != null and searchEndRow != ''">
+					rnum between #{searchStartRow} and #{searchEndRow}
+				</if>
+			</if>
+		</where>
+	</select>
+	
+	<select id="bookReleaseList" parameterType="bookRelease" resultType="bookRelease">
+		select rel_no, rel_date, rel_name, rel_name_no, isbn, rel_amount
+		from (
+				select rownum as rnum, list.*
+				from (
+						select rel_no, rel_date, rel_name, rel_name_no, isbn, rel_amount
+						from booking_book_release
+						<include refid="standardSearchQuery"></include>
+				) list
+		)
+		<where>
+			<if test="searchStartRow != null and searchStartRow != ''">
+				<if test="searchEndRow != null and searchEndRow != ''">
+					rnum between #{searchStartRow} and #{searchEndRow}
+				</if>
+			</if>
+		</where>
+	</select>
+	
+	<select id="bookSearchTotal" parameterType="book" resultType="int">
+		select count(isbn) as searchTotal
+		from booking_book_data
+		<include refid="standardSearchQuery"></include>
+	</select>
+	<select id="bookStockTotal" parameterType="bookStock" resultType="int">
+		select count(st_no) as searchTotal
+		from booking_book_stock
+		<include refid="standardSearchQuery"></include>
+	</select>
+	<select id="bookReleaseTotal" parameterType="bookRelease" resultType="int">
+		select count(rel_no) as searchTotal
+		from booking_book_release
+		<include refid="standardSearchQuery"></include>
+	</select>
+	
+	<select id="bookSelect" parameterType="java.lang.String" resultType="book">
+		select isbn, b_title, b_author, to_char(b_pubdate,'YYYY-MM-DD') as b_pubdate
+		, b_abprice, b_stock, cat_no, pub_name, b_update, b_editdate
+		, series_name, series_no, series_no_sub
+		, b_index, b_comment, b_complain
+		from booking_book_data
+		where isbn like #{isbn}
+	</select>
+	
+	<select id="isbnCheck" parameterType="java.lang.String" resultType="java.lang.String">
+		select isbn
+		from booking_book_data
+		where isbn like #{isbn}
+	</select>
+	
+	<!-- insert Query -->
+	<!-- <insert id="bookInsert" parameterType="book">
+	
+	</insert> -->
+	<insert id="bookStockInsert" parameterType="bookStock">
+		<selectKey keyProperty="st_no" resultType="int" order="BEFORE">
+			select booking_book_stock_seq.nextval from dual
+		</selectKey>
+		insert into booking_book_stock
+		(st_no, isbn, st_name, st_name_no, st_amount)
+		values(#{st_no}, #{isbn}, #{st_name}, ${st_name_no}, #{st_amount})
+	</insert>
+	<insert id="bookReleaseInsert" parameterType="bookRelease">
+		<selectKey keyProperty="rel_no" resultType="int" order="BEFORE">
+			select booking_book_release_seq.nextval from dual
+		</selectKey>
+		insert into booking_book_release
+		(rel_no, isbn, rel_name, rel_name_no, rel_amount)
+		values(#{rel_no}, #{isbn}, #{rel_name}, #{rel_name_no}, #{rel_amount})
+	</insert>
+	<insert id="bookInsert" parameterType="book">
+		insert into booking_book_data
+		(isbn, b_title, b_author, pub_name, cat_no, b_pubdate, b_abprice
+			, b_index, b_comment, b_complain
+			, series_name, series_no, series_no_sub)
+		values(#{isbn}, #{b_title}, #{b_author}, #{pub_name}, #{cat_no}, #{b_pubdate}, #{b_abprice}
+				, #{b_index}, #{b_comment}, #{b_complain}
+				, #{series_name}, #{series_no}, #{series_no_sub})
+	</insert>
+	<!-- update Query -->
+	<update id="bookStockIn" parameterType="bookStock">
+		update booking_book_data
+		set b_stock = b_stock + #{st_amount}
+		where isbn = #{isbn}
+	</update>
+	<update id="bookReleaseOut" parameterType="bookRelease">
+		update booking_book_data
+		set b_stock = b_stock - #{rel_amount}
+		where isbn = #{isbn}
+	</update>
+	<update id="bookUpdate" parameterType="book">
+		update booking_book_data
+		set b_title = #{b_title}, b_author = #{b_author}
+		, pub_name = #{pub_name}, b_pubdate = #{b_pubdate}
+		, b_abprice = #{b_abprice}
+		, cat_no = #{cat_no}
+		, b_editdate = sysdate
+		, b_index = #{b_index}, b_comment = #{b_comment}, b_complain = #{b_complain}
+		, series_name = #{series_name}, series_no = #{series_no}, series_no_sub = #{series_no_sub}  
+		where isbn = #{isbn}
+	</update>
+	<!-- deleteQuery -->
+</mapper>

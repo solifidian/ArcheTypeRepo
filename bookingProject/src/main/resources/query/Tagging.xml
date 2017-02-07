@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.booking.tagging.dao.TaggingDAO">
+
+	<!-- select -->
+	
+	<select id="tagList" parameterType="java.lang.String" resultType="tagging">
+		select t.tag_no, t.tag_name, r.tag_score
+		from booking_book_tag t, booking_book_tag_rel r
+		where t.tag_no = r.tag_no and r.isbn = #{isbn}
+	</select>
+	
+	<select id="checkTag" parameterType="tagging" resultType="tagging">
+		select tag_no
+		from booking_book_tag
+		where tag_name = #{tag_name}
+	</select>
+	
+	<select id="checkTagLink" parameterType="tagging" resultType="tagging">
+		select tag_no
+		from booking_book_tag_rel
+		where tag_no = #{tag_no} and isbn = #{isbn}
+	</select>
+	
+	
+	
+	<!-- insert -->
+	
+	<insert id="insertTag" parameterType="tagging">
+		<selectKey keyProperty="tag_no" resultType="int" order="BEFORE">
+			select booking_book_tag_seq.nextval from dual
+		</selectKey>
+		insert into booking_book_tag
+		(tag_no, tag_name)
+		values(#{tag_no}, #{tag_name})
+	</insert>
+	
+	<insert id="insertTagLink" parameterType="tagging">
+		insert into booking_book_tag_rel
+		(tag_no, isbn, tag_score)
+		values(#{tag_no}, #{isbn}, 1)
+	</insert>
+	
+	
+	
+	<!-- update -->
+	
+	<update id="tagScoreUp" parameterType="tagging">
+		update booking_book_tag_rel
+		set tag_score = tag_score + 1
+		where tag_no = #{tag_no} and isbn = #{isbn}
+	</update>
+	
+	<update id="tagScoreDown" parameterType="tagging">
+		update booking_book_tag_rel
+		set tag_score = tag_score - 1
+		where tag_no = #{tag_no} and isbn = #{isbn}
+	</update>
+</mapper>

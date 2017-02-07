@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.booking.board.dao.BoardDAO">
+
+
+<!-- 여러가지 칼럼으로 검색 -->
+<sql id="boardCommon">
+	SELECT 	bd_forum_no,
+			bd_forum_name,
+	 		bd_post_no,
+			bd_category,
+			bd_head,
+			bd_title,
+			bd_writer,
+			bd_update,		
+			bd_editdate,	
+			bd_status,
+			bd_readcnt,
+			bd_score,
+			bd_reindent,
+			bd_restep,	
+			bd_reroot			
+	FROM booking_community_board
+	<where>
+		<if test="searchMode == 'bd_post_no' ">
+			<![CDATA[bd_post_no LIKE '%' || #{keyword} || '%']]>			
+		</if>
+		<if test="searchMode == 'bd_category' ">
+			<![CDATA[bd_category LIKE '%' || #{keyword} || '%']]>			
+		</if>
+		<if test="searchMode == 'bd_head' ">
+			<![CDATA[bd_head LIKE '%' || #{keyword} || '%']]>			
+		</if>
+		<if test="searchMode == 'bd_title' ">
+			<![CDATA[bd_title LIKE '%' || #{keyword} || '%']]>			
+		</if>
+		<if test="searchMode == 'bd_writer' ">
+			<![CDATA[bd_writer LIKE '%' || #{keyword} || '%']]>				
+		</if>
+		<if test="searchMode == 'bd_content' ">
+			<![CDATA[bd_content LIKE '%' || #{keyword} || '%']]>			
+		</if>		
+		<if test="searchStartDate != null and searchStartDate != ''">
+			<if test="searchEndDate != null and searchEndDate != ''">
+				<![CDATA[to_char(bd_editdate, 'YY-MM-DD HH:mm') between #{searchStartDate} and #{searchEndDate}]]>
+			</if>
+		</if>		
+	</where>
+</sql>
+
+
+
+<!-- 게시글 목록 -->
+<select id="boardList" resultType="board">
+	/* board - boardList */
+	   SELECT   bd_forum_no,
+		        bd_forum_name,
+		        bd_post_no,
+		        bd_category,
+		        bd_head,
+		        bd_title,
+		        bd_writer,
+		        bd_update,      
+		        bd_editdate,   
+		        bd_status,
+		        bd_readcnt,
+		        bd_score,
+		        bd_reindent,
+		        bd_restep,   
+		        bd_reroot,
+		        (select count(re_no) from booking_community_board_reply r where bd_post_no = r.bd_post_no) as bd_rcount 
+		        		
+	FROM (SELECT list.*, rownum as rnum FROM(
+		<include refid="boardCommon"></include>
+		<choose>
+			<when test="orderTarget == 'bd_post_no'">
+				order by bd_post_no
+			</when>
+			<when test="orderTarget == 'bd_editdate'">
+				order by bd_editdate
+			</when>
+		
+			<when test="orderTarget == 'bd_score'">
+				order by bd_score
+			</when>
+			<when test="orderTarget == 'bd_readcnt'">
+				order by bd_readcnt
+			</when>		
+		</choose>
+		<choose>
+			<when test="orderDirection == 'ASC'">
+				ASC
+			</when>
+			<when test="orderDirection == 'DESC'">
+				DESC
+			</when>
+		</choose>
+		) list
+	)
+	<where>
+		<if test="searchStartRow != null and searchStartRow != ''">
+			<if test="searchEndRow != null and searchEndRow !=''">
+				rnum between #{searchStartRow} and #{searchEndRow}
+			</if>
+		</if>
+	</where>
+
+
+</select>
+
+<!-- 글쓰기  -->
+<insert id="boardInsert" parameterType="board">
+	/* board - boardInsert */
+<selectKey keyProperty = "bd_post_no" resultType="int" order="BEFORE">
+	SELECT booking_community_board_seq.nextval FROM dual
+</selectKey>
+
+	INSERT INTO booking_community_board(
+				bd_forum_no,
+				bd_forum_name,
+				bd_post_no,
+				bd_category,
+				bd_head,
+				bd_title,
+				bd_writer,
+				bd_content,
+				bd_update,
+				bd_editdate,
+				bd_pwd,
+				bd_status,
+				bd_score,
+				bd_readcnt,
+				bd_reindent,
+				bd_restep,
+				bd_reroot								
+	) 
+	VALUES(
+				#{bd_forum_no},
+				#{bd_forum_name},
+				#{bd_post_no},
+				#{bd_category},
+				#{bd_head},
+				#{bd_title},
+				#{bd_writer},
+				#{bd_content},
+				sysdate,
+				sysdate,
+				#{bd_pwd},
+				#{bd_status},
+				0,
+				0,
+				0,
+				0,
+				booking_community_board_seq.currval
+	)
+	
+</insert>
+<!-- 전체 레코드 수 구현 -->
+<select id="boardListCnt" parameterType="board" resultType="int">
+	/* Board - boardListCnt */
+	SELECT NVL(count(1), 0) FROM
+	(SELECT list.*, ROWNUM AS RNUM
+		FROM (
+			<include refid="boardCommon"></include>
+			order by bd_post_no desc
+		) list
+	)
+</select>
+
+<!-- 글 자세히 보기 -->
+<select id="boardDetail" resultType="board" parameterType="board">
+/* Board - boardDetail */
+
+	SELECT  bd_forum_no,
+			bd_forum_name,
+			bd_post_no,
+			bd_category,
+			bd_head,
+			bd_title,
+			bd_writer,
+			bd_content,
+			to_char(bd_editdate,'YYYY-MM-DD') as bd_update,		
+			to_char(bd_editdate,'hh24:mi') as bd_editdate,	
+			bd_pwd,
+			bd_status,
+			bd_score,
+			bd_readcnt,
+			bd_reindent,
+			bd_restep,
+			bd_reroot
+	FROM booking_community_board
+	WHERE bd_post_no = #{bd_post_no}
+</select>
+
+<!-- 조회수 증가 -->
+<update id="readCount" parameterType="board" >
+/* board - readCount */
+	UPDATE booking_community_board 
+	SET bd_readcnt = bd_readcnt + 1 
+	WHERE bd_post_no = #{bd_post_no}
+</update>
+
+<!-- 비밀번호 체크 -->
+<select id="pwdConfirm" parameterType="board" resultType="int">
+/* board - pwdConfirm */
+	SELECT NVL((
+				SELECT 1 FROM booking_community_board 
+				WHERE bd_post_no = #{bd_post_no}
+					AND bd_pwd = #{bd_pwd}
+				 ), 0) as state
+	FROM DUAL
+</select>
+
+
+
+<!-- 글 수정하기 -->
+<update id="boardUpdate" parameterType="board">
+/* board - boardUpdate */
+	UPDATE booking_community_board
+	SET bd_category 	= #{bd_category}
+		,bd_head 		= #{bd_head}
+		,bd_title 		= #{bd_title}
+		,bd_content 	= #{bd_content}
+		,bd_editdate 	= sysdate
+		,bd_status 		= #{bd_status}	
+		<if test="bd_pwd != null and bd_pwd != ''">
+		,bd_pwd 		= #{bd_pwd}
+		</if>		
+		
+	WHERE bd_post_no 	= #{bd_post_no}
+</update>
+
+<!-- 글 삭제하기  -->
+<delete id="boardDelete" parameterType="int">
+/* board - boardDelete */
+	DELETE FROM booking_community_board WHERE bd_post_no = #{bd_post_no}
+</delete>
+
+
+
+</mapper>
+

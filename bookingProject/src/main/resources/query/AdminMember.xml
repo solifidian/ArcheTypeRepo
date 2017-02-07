@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.booking.admin.member.dao.AdminMemberDAO">
+
+	<sql id='standardSearchQuery'>
+		<where>
+			<if test="keyword != '' and keyword != null">
+				<choose>
+					<when test="searchMode == 'allSch'">
+						b_title like '%' || #{keyword} || '%'
+						or b_author like '%' || #{keyword} || '%'
+						or pub_name like '%' || #{keyword} || '%'
+					</when>
+					<when test="searchMode == 'titleSch'">
+						b_title like '%' || #{keyword} || '%'
+					</when>
+					<when test="searchMode == 'authorSch'">
+						b_author like '%' || #{keyword} || '%'
+					</when>
+					<when test="searchMode == 'publisherSch'">
+						pub_name like '%' || #{keyword} || '%'
+					</when>
+					<when test="searchMode == 'isbnSch'">
+						isbn like '%' || #{keyword} || '%'
+					</when>
+					<when test="searchMode == 'stockNameSch'">
+						st_name like '%' || #{keyword} || '%'
+					</when>
+					<when test="searchMode == 'releaseNameSch'">
+						rel_name like '%' || #{keyword} || '%'
+					</when>
+					<when test="searchMode == 'seriesSch'">
+						series_name like '%' || #{keyword} || '%'
+					</when>
+				</choose>
+			</if>
+			<if test="searchStartDate != '' and searchStartDate != null">
+				<if test="searchEndDate != '' and searchEndDate != null">
+					<choose>
+						<when test="searchDateMode == 'publishSch'">
+							b_pubdate between #{searchStartDate} and #{searchEndDate}
+						</when>
+						<when test="searchDateMode == 'updateSch'">
+							b_update between #{searchStartDate} and #{searchEndDate}
+						</when>
+						<when test="searchDateMode == 'editdateSch'">
+							b_editdate between #{searchStartDate} and #{searchEndDate}
+						</when>
+					</choose>
+				</if>
+			</if> 
+		</where>
+		<if test="orderTarget != '' and orderTarget != null">
+			order by ${orderTarget}
+		</if>
+		<choose>
+			<when test="orderDirection == 'desc'">
+				desc
+			</when>
+			<when test="orderDirection == 'asc'">
+				asc
+			</when>
+		</choose>
+	</sql>
+	
+	<!-- 회원 리스트 불러오기  -->
+	<select id="memberList" parameterType="member" resultType="member">
+		/* MemberLogin 조회 */
+		select m_id 
+				, m_pwd 
+				, m_nick 
+				, m_name
+				, m_birth
+				, m_sex
+				, m_phone
+				, m_email
+				, m_comment
+				, m_rank
+				, m_point
+				, m_update
+				, m_editdate
+				, m_home_address
+				, m_post_address
+		from (
+			select list.*, rownum as rnum 
+			from ( select m_id 
+							, m_pwd 
+							, m_nick 
+							, m_name
+							, m_birth
+							, m_sex
+							, m_phone
+							, m_email
+							, m_comment
+							, m_rank
+							, m_point
+							, m_update
+							, m_editdate
+							, m_home_address
+							, m_post_address
+					from booking_member
+					<include refid="standardSearchQuery"></include>
+				) list
+				
+		)
+		<where>
+			<if test="searchStartRow != null and searchStartRow != ''">
+				<if test="searchEndRow != null and searchEndRow != ''">
+					rnum between #{searchStartRow} and #{searchEndRow}
+				</if>
+			</if>
+		</where>
+	</select>
+
+</mapper>
