@@ -9,9 +9,9 @@ import com.booking.member.vo.MemberVO;
 
 public interface MemberService {
 	public MemberVO memberLogin(MemberVO mvo);
-	public List<Purchase_DeliveryVO> myPurchase(MemberVO mvo);
+	public List<Purchase_DeliveryVO> myPurchase(Purchase_DeliveryVO listVO);
 	
-	public List<Purchase_DeliveryVO> myDelivery(MemberVO mvo);
+	public List<Purchase_DeliveryVO> myDelivery(Purchase_DeliveryVO listVO);
 	
 	public int myPurchaseCnt(MemberVO mvo);
 	

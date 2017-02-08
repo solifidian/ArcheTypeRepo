@@ -37,9 +37,9 @@ public class MemberServiceImpl implements MemberService {
 	
 	//주문내역
 	@Override
-	public List<Purchase_DeliveryVO> myPurchase(MemberVO mvo){
+	public List<Purchase_DeliveryVO> myPurchase(Purchase_DeliveryVO listVO){
 		List<Purchase_DeliveryVO> pvo = null;
-		pvo = memberDAO.myPurchase(mvo);
+		pvo = memberDAO.myPurchase(listVO);
 		
 		
 		
@@ -48,9 +48,9 @@ public class MemberServiceImpl implements MemberService {
 	
 	//배송내역
 	@Override
-	public List<Purchase_DeliveryVO> myDelivery(MemberVO mvo){
+	public List<Purchase_DeliveryVO> myDelivery(Purchase_DeliveryVO listVO){
 		List<Purchase_DeliveryVO> pvo = null;
-		pvo = memberDAO.myDelivery(mvo);
+		pvo = memberDAO.myDelivery(listVO);
 			
 			
 			

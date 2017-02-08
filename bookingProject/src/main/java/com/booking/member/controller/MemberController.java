@@ -2,7 +2,6 @@ package com.booking.member.controller;
 
 import java.util.List;
 
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -12,14 +11,15 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.booking.admin.sitelog.service.SiteLogService;
 import com.booking.book.vo.Purchase_DeliveryVO;
 import com.booking.book.vo.Purchase_relVO;
+import com.booking.common.paging.Paging;
 import com.booking.member.service.MemberService;
 import com.booking.member.vo.MemberVO;
 
@@ -45,35 +45,57 @@ public class MemberController {
 	
 	// 마이페이지로 이동
 	@RequestMapping(value="/memberMypage.do")
-	public String memberMypage(@ModelAttribute MemberVO mvo, Model model, HttpServletRequest request){
+	public String memberMypage(@ModelAttribute Purchase_DeliveryVO listVO, Model model, HttpServletRequest request, HttpSession session){
 		logger.info("memberMypage 호출 성공");
-		HttpSession session = request.getSession();
+
+		/* *******************************
+		 * session으로부터 M_no 전달.
+		 * null이면 0으로 반환
+		 * */
+		MemberVO mvo = (MemberVO)session.getAttribute("memSession");
+		if(mvo != null){
+			listVO.setM_no(mvo.getM_no());
+		}else{
+			listVO.setM_no(0);
+		}
 		
-		mvo = (MemberVO)session.getAttribute("memSession");
+		//listData default nvl
+		listVO.setOrderDirection("desc");
+		listVO.setOrderTarget("p_no");
 		
-		logger.info("m_id"+mvo.getM_id());
+		Paging.setBookPaging(listVO);
 		
-		//주문내역
-		List<Purchase_DeliveryVO> pvo = memberService.myPurchase(mvo);
+		/*********************
+		 * 선택 되지 않은 List는 null값만 jsp페이지로 보내게 됨
+		 ********************/
+		List<Purchase_DeliveryVO> pvoList = null;
+		List<Purchase_DeliveryVO> dvoList = null;
+		
+		if(listVO.getPur_del_mode() != null){
+			//배송 내역이 선택
+			logger.info("mode: "+listVO.getPur_del_mode());
+			if(listVO.getPur_del_mode().equals("deliveryTable")){
+				listVO.setSearchMode("deliveryTable");
+				dvoList = memberService.myDelivery(listVO);
+				listVO.setSearchTotal(memberService.myDeliveryCnt(mvo));
+			}
+			//주문 내역이 선택
+			else if(listVO.getPur_del_mode().equals("purchaseTable")){
+				listVO.setSearchMode("purchaseTable");
+				pvoList = memberService.myPurchase(listVO);
+				listVO.setSearchTotal(memberService.myPurchaseCnt(mvo));
+			}
+		}else{
+			//default값은 주문 내역으로
+			listVO.setSearchMode("purchaseTable");
+			pvoList = memberService.myPurchase(listVO);
+			listVO.setSearchTotal(memberService.myPurchaseCnt(mvo));
+		}
 				
-		//배송내역
-		List<Purchase_DeliveryVO> dvo = memberService.myDelivery(mvo);
-				
-				
-		//주문전체레코드수
-		int p_total = memberService.myPurchaseCnt(mvo);
-		logger.info("Purchase_total = " + p_total);
-		//배송전체레코드수
-		int d_total = memberService.myDeliveryCnt(mvo);
-		logger.info("Delivery_total = " + d_total);
-			
-				
-		logger.info(pvo);
-		logger.info(dvo);
-				
-				
-		model.addAttribute("purchase", pvo);
-		model.addAttribute("delivery", dvo);
+		model.addAttribute("purchase", pvoList);
+		model.addAttribute("delivery", dvoList);
+		model.addAttribute("listData", listVO);
+		
 		
 		return "member/memberMypage";
 	}

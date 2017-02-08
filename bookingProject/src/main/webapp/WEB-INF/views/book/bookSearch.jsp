@@ -263,8 +263,6 @@
 		<!--검색 조건 테이블 영역  -->
 		<div class="row">
 		<div class="col-md-8 col-md-offset-4">
-		 
-	             ${sessionScope.memSession.m_id} 세션스코프 쿠키값${cookie.JSESSIONID.value}
 	               <table class="table table-bordered">
 	               <tr>
 	               <td>새로나온책</td>
@@ -315,7 +313,11 @@
 						
 						<c:forEach var="d" items="${bookList}">							
 							<tr data-num="${d.isbn}">
-							  <td class="col-sm-2"><span class="thumbnail"><img src="/images/do.jpg" alt="" /></span></td>
+							  <td class="col-sm-2">
+							  	<span class="thumbnail">
+							  		<img class="img-thumnail" src="/images/NoImageIcon.png">
+							  	</span>
+							  </td>
 							  <td class="col-sm-8" >
 							 
 							  <h3><a href="/book/bookDetail.do?isbn=${d.isbn}">${d.b_title}</a></h3>

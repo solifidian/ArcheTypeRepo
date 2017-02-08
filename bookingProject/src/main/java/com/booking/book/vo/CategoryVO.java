@@ -20,7 +20,7 @@ public class CategoryVO {
 	private int lc_no;
 	
 	private String lc2;
-	private int lc_no2;
+	private int lc2_no;
 	
 	
 	public int getCat_no() {
@@ -90,10 +90,10 @@ public class CategoryVO {
 		this.lc2 = lc2;
 	}
 	public int getLc_no2() {
-		return lc_no2;
+		return lc2_no;
 	}
 	public void setLc_no2(int lc_no2) {
-		this.lc_no2 = lc_no2;
+		this.lc2_no = lc_no2;
 	}
 
 	

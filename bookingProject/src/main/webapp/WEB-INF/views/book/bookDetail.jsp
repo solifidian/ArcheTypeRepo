@@ -255,7 +255,9 @@
 				<div class="col-sm-9 padding-right d_form" >
 					<div class="col-sm-4 tt" id="test2">
 						<label>이미지자리</label>
-						<img src="" >
+						<%-- <img class="img-thumnail" src="/images/bookImg/${detail.isbn}_1.png"> --%>
+						<img width="auto" src="/images/NoImageIcon.png">
+						
 					</div>
 					<div class="col-sm-8" id="test3">
 						<div class="row-sm-6 tet tt" id="test4">

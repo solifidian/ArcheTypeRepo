@@ -2,12 +2,14 @@ package com.booking.book.vo;
 
 public class Purchase_DeliveryVO  extends PurchaseVO {
 	private String del_company_name;    //배송사명
+	private int m_no;
 	private int p_no;                   //주문번호
 	private String del_ondate;          //도착예정일
 	private String del_num;             //배송번호
 	private String del_site;            //바송사
 	private String del_status;          //배송상태
 	private String del_company_phone;   //배송사전화
+	private String pur_del_mode; // 주문내역 / 배송내역 구분
 	
 	
 	
@@ -52,6 +54,12 @@ public class Purchase_DeliveryVO  extends PurchaseVO {
 	}
 	public void setDel_company_phone(String del_company_phone) {
 		this.del_company_phone = del_company_phone;
+	}
+	public String getPur_del_mode() {
+		return pur_del_mode;
+	}
+	public void setPur_del_mode(String pur_del_mode) {
+		this.pur_del_mode = pur_del_mode;
 	}
 	
 	

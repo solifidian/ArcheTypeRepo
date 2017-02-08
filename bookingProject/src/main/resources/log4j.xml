@@ -22,6 +22,11 @@
 	<logger name="com.booking.admin.book">
 		<level value="TRACE" />
 	</logger>
+	
+	<logger name="com.booking.**.**">
+		<level value="TRACE" />
+	</logger>
+	
 
 	<!-- 3rdparty Loggers -->
 	<logger name="org.springframework.core">

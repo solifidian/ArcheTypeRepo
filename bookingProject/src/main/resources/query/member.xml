@@ -2,7 +2,19 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.booking.member.dao.MemberDAO">
 
-		
+	<sql id='standardSearchQuery'>
+		<if test="orderTarget != '' and orderTarget != null">
+			order by ${orderTarget}
+		</if>
+		<choose>
+			<when test="orderDirection == 'desc'">
+				desc
+			</when>
+			<when test="orderDirection == 'asc'">
+				asc
+			</when>
+		</choose>
+	</sql>
 		
 		<!-- 로그인 (아이디, 비밀번호 체크후 vo뿌려주기 -->
 		<select id="memberLogin" parameterType="member" resultType="member">
@@ -16,27 +28,50 @@
 
 
 		<!-- 주문내역 조회-->
-		<select id="myPurchase" parameterType="member" resultType="delivery">
+		<select id="myPurchase" parameterType="delivery" resultType="delivery">
 		/* memberMypage-주문내역  조회 */
 		select 
-		 p.p_no 
-		 ,p.p_abprice
-		 ,p.p_date
-		 ,p.m_no 
-		 ,p.p_totprice 
-		 ,p.p_discount   
-		 ,p.coupon_code 
-		 ,p.m_phone 
-		 ,p.m_post_address 
-		 ,p.m_name
+		  p_no 
+		 ,p_abprice
+		 ,p_date
+		 ,m_no 
+		 ,p_totprice 
+		 ,p_discount   
+		 ,coupon_code 
+		 ,m_phone 
+		 ,m_post_address 
+		 ,m_name
 		 
-		 from BOOKING_PURCHASE_DELIVERY d , booking_purchase p 
-		 where d.p_no(+)=p.p_no and m_no=( select m_no from booking_member where m_id = #{m_id} )
-		  order by p.p_no
+		 from (
+				select list.*, rownum as rnum 
+				from ( select
+						p.p_no 
+						 ,p.p_abprice
+						 ,p.p_date
+						 ,p.m_no 
+						 ,p.p_totprice 
+						 ,p.p_discount   
+						 ,p.coupon_code 
+						 ,p.m_phone 
+						 ,p.m_post_address 
+						 ,p.m_name
+						from BOOKING_PURCHASE_DELIVERY d , booking_purchase p 
+						where d.p_no(+)=p.p_no and m_no=#{m_no} 
+				
+				) list
+				
+		)
+		<where>
+			<if test="searchStartRow != null and searchStartRow != ''">
+				<if test="searchEndRow != null and searchEndRow != ''">
+					rnum between #{searchStartRow} and #{searchEndRow}
+				</if>
+			</if>
+		</where>
 		</select>
 		
 		<!--  배송상태 조회 -->
-		<select id="myDelivery" parameterType="member" resultType="delivery">
+		<select id="myDelivery" parameterType="delivery" resultType="delivery">
 		/* memberMypage-배송상태 조회 */
 		select 
 		 d.del_company_name
@@ -47,7 +82,7 @@
     	 ,d.del_status
     	 ,d.del_company_phone
 		 from BOOKING_PURCHASE_DELIVERY d , booking_purchase p 
-		 where d.p_no(+)=p.p_no and m_no=( select m_no from booking_member where m_id = #{m_id} ) 
+		where d.p_no(+)=p.p_no and m_no=#{m_no} 
 		 and d.del_num is not null  
 		 order by p.p_no
 		</select>

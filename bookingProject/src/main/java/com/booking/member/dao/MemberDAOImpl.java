@@ -23,14 +23,14 @@ public class MemberDAOImpl implements MemberDAO {
 	
 	//주문내역 불러오기
 	@Override
-	public List<Purchase_DeliveryVO> myPurchase(MemberVO mvo){
-		return session.selectList("myPurchase", mvo);
+	public List<Purchase_DeliveryVO> myPurchase(Purchase_DeliveryVO listVO){
+		return session.selectList("myPurchase", listVO);
 	}
 	
 	//주문내역 불러오기
 	@Override
-	public List<Purchase_DeliveryVO> myDelivery(MemberVO mvo){
-		return session.selectList("myDelivery", mvo);
+	public List<Purchase_DeliveryVO> myDelivery(Purchase_DeliveryVO listVO){
+		return session.selectList("myDelivery", listVO);
 	}
 	
 	
