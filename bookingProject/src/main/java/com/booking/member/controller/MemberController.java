@@ -18,6 +18,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.booking.admin.sitelog.service.SiteLogService;
 import com.booking.book.vo.Purchase_DeliveryVO;
+
+import com.booking.common.util.Util;
 import com.booking.book.vo.Purchase_relVO;
 import com.booking.common.paging.Paging;
 import com.booking.member.service.MemberService;
@@ -249,21 +251,40 @@ public class MemberController {
 	}
 	
 	//회원수정
+	@ResponseBody
 	@RequestMapping(value="/memberUpdate.do")
-	public String memberUpdate(@ModelAttribute MemberVO mvo){
+	public String memberUpdate(@ModelAttribute MemberVO mvo, HttpSession session){
 		logger.info("memberUpdate 호출 성공");
-	/*	mvo.setM_no(35);*/
-		logger.info("m_no : "+mvo.getM_no());
-		int result = 0;
-		String url = "";
+		/**********************************
+		 * 세션 확인
+		 * memSession is not null = 회원
+		 *********************************/
+		String m_id = "";
+		int m_no = 0;
+		MemberVO memSession = (MemberVO)session.getAttribute("memSession");
 		
-		result = memberService.memberUpdate(mvo);
-		
-		if(result == 1){
-			url = "/booking/boardlist.do";	//회원수정후 메인화면으로 돌리기
+		if(memSession != null && !memSession.getM_id().equals("")){
+			logger.info("회원 확인 됨");
+			m_id = memSession.getM_id();			
+			m_no = memSession.getM_no();			
 		}
-		
-		return "redirect : " + url;
+		/*********** 세션 확인 종료 ***********/	
+		logger.info("memSession.m_id :"+memSession.getM_id());
+		logger.info("memSession.m_no :"+memSession.getM_no());
+		int result = 0;
+		String resultStr ="FAILED";
+		String url = "";
+		mvo.setM_no(m_no);
+		mvo.setM_id(m_id);
+		logger.info("mvo.m_no:"+mvo.getM_no());
+		logger.info("mvo.m_id:"+mvo.getM_id());
+		logger.info("mvo.m_nick:"+mvo.getM_nick());
+		result = memberService.memberUpdate(mvo);
+		logger.info("result :"+result);
+		if(result==1){
+			resultStr ="SUCCESS";
+		}		
+		return resultStr;
 	}	
 
 	//회원탈퇴
@@ -276,7 +297,7 @@ public class MemberController {
 		
 		result = memberService.memberDelete(mvo);
 		if(result == 1){
-			url = "/booking/boardlist.do";	//회원탈퇴후 메인화면으로 돌리기
+			url = "/book/bookIndex.do";	//회원탈퇴후 메인화면으로 돌리기
 		}
 		
 		 return "redirect : " +url;

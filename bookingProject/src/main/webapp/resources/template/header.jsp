@@ -9,15 +9,14 @@
     <script src="/resources/include/js/jquery.prettyPhoto.js"></script>
     <script src="/resources/include/js/main.js"></script>
   	<script>
-  		$(function(){
-
-  			$(".for-admin").hide();
+  		$(function(){	
   			
+  			$(".for-admin,.hi").hide();
   			var m_id="${sessionScope.memSession.m_id}";
   			
   			if(m_id != null && m_id != "" && m_id != "0"){
-  				$(".for-member").show();
-  	  			$(".for-non-member").hide();
+  				$(".for-member,.hi").show();
+  	  			$(".for-non-member").hide();  	  			
   	  			if(m_id == "admin"){
   	  				$(".for-admin").show();
   	  			}
@@ -26,9 +25,10 @@
   				$(".for-member").hide();
   	  			$(".for-non-member").show();
   			}
-  			
+  		
   		})
-  	</script>
+  		
+</script>
 </head><!--/head-->
 
 <body>
@@ -39,10 +39,10 @@
 					<div class="col-sm-6">
 						<div class="contactinfo">
 							<ul class="nav nav-pills">
-								<li><a href="#"><i class="fa fa-phone"></i> +2 95 01 88 821</a></li>
-								<li><a href="#"><i class="fa fa-envelope"></i> 변화가 온다!!!!!!!!</a></li>
-								<li>${sessionScope.memSession.m_id}</li>
-							</ul>
+								<li><a href="#"><i class="fa fa-phone"></i> +82 010 1234 5678</a></li>
+								<li><a href="#"><i class="fa fa-envelope"></i> 변화가 온다!!!!!!!!</a></li>													
+								<li class="hi"><a href="#"><i class="fa fa-user"></i> ${sessionScope.memSession.m_name}님 안녕하세요 </a></li>
+							</ul> 
 						</div>
 					</div>
 					<div class="col-sm-6">
@@ -140,9 +140,11 @@
 						</div>
 					</div>
 					<div class="col-sm-3">
+					
 						<div class="search_box pull-right">
-							<input type="text" placeholder="Search"/>
+							<input type="text" placeholder="Search.." "/>
 						</div>
+				
 					</div>
 				</div>
 			</div>

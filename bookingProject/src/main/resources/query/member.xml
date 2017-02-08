@@ -193,12 +193,12 @@
 		          m_pwd,           
 		          m_nick,            
 		          m_name,            
-		          to_char(m_birth,'yyyy-MM-dd') as m_birth,                  
+		          TO_CHAR(m_birth,'YY-MM-DD') as m_birth,                  
 		          m_phone,          
 		          m_email,
 		          m_home_address,   
-		          m_post_address  
-		     
+		          m_post_address,
+		          m_comment
 		     FROM booking_member        
 		     WHERE m_no = #{m_no}
 		</select>
@@ -213,12 +213,16 @@
 		         m_nick = #{m_nick}                  
 		         ,m_phone = #{m_phone}
 		         ,m_email = #{m_email}           
-		         ,m_editdate = sysdate   
-		         ,m_home_address = #{m_home_address}         
-		  
-		         ,m_pwd = #{m_pwd}   
-		 
-		   
+		         ,m_editdate = sysdate
+		         ,m_pwd = #{m_pwd}   		   
+        	<if test="m_home_address != null and m_home_address != ''">    
+		         ,m_home_address = #{m_home_address}
+		         ,m_post_address = #{m_home_address}      
+		  	</if>
+		  	<if test="m_comment != null and m_comment != ''">  
+		  		,m_comment = #{m_comment}  
+		  	</if>
+		  	
 		   WHERE 
 		   		m_no = #{m_no}
 		</update>
