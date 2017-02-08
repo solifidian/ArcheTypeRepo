@@ -8,7 +8,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
+<style>
 
+</style>
 
  	<script src="/resources/include/js/jquery-1.12.4.min.js"></script>
  	<script type="text/javascript" src="/resources/include/js/common.js"></script>
@@ -55,20 +57,23 @@
 	<section id="form"><!--form-->
 		<div class="container">
 			<div class="row">
-				<div class="col-sm-4 col-sm-offset-1">
-					<div class="login-form"><!--login form-->
+				<div class="col-sm-5 col-sm-offset-3">
+					<div class="login-form "><!--login form-->
 						<h2>Login to your account</h2>
 						<form id="login_form">
-							<input type="text" name="m_id" id="m_id"/>
-							<input type="password" id="m_pwd" name="m_pwd" />
-							<button type="button" class="btn btn-default" id="btn_login">로그인</button>
-							<button type="button" class="btn btn-default" id="btn_find">아이디/비밀번호 찾기</button><br>
-							<button type="button" class="btn btn-default" id="btn_member">회원 가입</button>
+							<input type="text" name="m_id" id="m_id" placeholder="아이디를 입력해주세요"/>
+							<input type="password" id="m_pwd" name="m_pwd" placeholder="비밀번호를 입력해주세요" />					
 							
-						</form>
-					</div><!--/login form-->
+							<div class="btn-group" role="group" aria-label="...">
+							<button type="button" class="btn btn-default " id="btn_login"><i class="glyphicon glyphicon-music" aria-hidden="true"></i> 로그인<i class="glyphicon glyphicon-music" aria-hidden="true"></i></button>
+							  <button type="button" class="btn btn-default" id="btn_find"><i class="fa fa-search"></i>아이디/비밀번호 찾기</button>
+							  <button type="button" class="btn btn-default" id="btn_member">
+								<i class="fa fa-heart" aria-hidden="true"></i>회원 가입<i class="fa fa-heart" aria-hidden="true"></i></button>
+							</div>
+						</form>								
+						
+					</div>				
 				</div>
-				
 			</div>
 		</div>
 	</section><!--/form-->

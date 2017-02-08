@@ -52,7 +52,31 @@
 						</when>
 					</choose>
 				</if>
-			</if> 
+			</if>
+			<if test="cat_no != null and cat_no != '' and cat_no != '0'">
+				cat_no = ${cat_no}
+					or cat_no in (select cat_no
+									from booking_book_category
+									where cat_root = ${cat_no}
+									)
+					or cat_no in (select cat_no
+									from booking_book_category
+                					where cat_root in (select cat_no
+                										from booking_book_category
+                										where cat_root = ${cat_no}
+                										)
+                                  	)
+					or cat_no in (select cat_no
+									from booking_book_category
+                					where cat_root in (select cat_no
+                										from booking_book_category
+                                      					where cat_root in (select cat_no
+                                      										from booking_book_category
+                                      										where cat_root = ${cat_no}
+                                      										)
+                                      					)
+                                  	)
+			</if>
 		</where>
 		<if test="orderTarget != '' and orderTarget != null">
 			order by ${orderTarget}

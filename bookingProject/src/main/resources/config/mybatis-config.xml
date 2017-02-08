@@ -8,6 +8,7 @@
 		<typeAlias type="com.booking.admin.book.vo.BookReleaseVO" alias="bookRelease"/>
 		<typeAlias type="com.booking.book.vo.CategoryVO" alias="category"/>
 		<typeAlias type="com.booking.book.vo.Purchase_DeliveryVO" alias="delivery" />
+		<typeAlias type="com.booking.book.vo.Purchase_relVO" alias="rel" />
 		
 		<typeAlias type="com.booking.admin.sitelog.vo.SiteLogVO" alias="siteLog"/>
 		<typeAlias type="com.booking.tagging.vo.TaggingVO" alias="tagging"/>
