@@ -8,6 +8,8 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -17,6 +19,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.booking.admin.sitelog.service.SiteLogService;
 import com.booking.book.vo.Purchase_DeliveryVO;
+import com.booking.book.vo.Purchase_relVO;
 import com.booking.member.service.MemberService;
 import com.booking.member.vo.MemberVO;
 
@@ -50,11 +53,27 @@ public class MemberController {
 		
 		logger.info("m_id"+mvo.getM_id());
 		
-		List<Purchase_DeliveryVO> pvo = memberService.memberMypage(mvo);
-		
+		//주문내역
+		List<Purchase_DeliveryVO> pvo = memberService.myPurchase(mvo);
+				
+		//배송내역
+		List<Purchase_DeliveryVO> dvo = memberService.myDelivery(mvo);
+				
+				
+		//주문전체레코드수
+		int p_total = memberService.myPurchaseCnt(mvo);
+		logger.info("Purchase_total = " + p_total);
+		//배송전체레코드수
+		int d_total = memberService.myDeliveryCnt(mvo);
+		logger.info("Delivery_total = " + d_total);
+			
+				
 		logger.info(pvo);
-		
+		logger.info(dvo);
+				
+				
 		model.addAttribute("purchase", pvo);
+		model.addAttribute("delivery", dvo);
 		
 		return "member/memberMypage";
 	}
@@ -64,11 +83,31 @@ public class MemberController {
 	
 	
 	//boots_view (상세보기 클릭 )
+	@ResponseBody
 	@RequestMapping(value="/boots_view.do")
-	public String boots_view(@ModelAttribute Purchase_DeliveryVO dvo, Model model){
+	public ResponseEntity<List<Purchase_relVO>> boots_view(@ModelAttribute Purchase_DeliveryVO pvo, Model model){
+		logger.info("boots_view 호출 성공");
+		
+		ResponseEntity<List<Purchase_relVO>> entity = null;
+		logger.info("요청받은 주문번호 = "+pvo.getP_no());
 		
 		
-		return "boots/boots_view";
+		List<Purchase_relVO> plist = memberService.purchaseDetail(pvo);
+		logger.info(plist);
+		logger.info("사이즈"+plist.size());
+		
+		model.addAttribute("pdetail", plist);
+		String result="success";
+		
+		
+		try {
+			entity = new ResponseEntity<List<Purchase_relVO>> (memberService.purchaseDetail(pvo), HttpStatus.OK);
+			logger.info("성공"+entity);
+		}catch (Exception e) {
+			entity = new ResponseEntity<List<Purchase_relVO>> (HttpStatus.BAD_REQUEST);
+			logger.info("실패"+entity);
+		}
+		return entity;
 	}
 	
 	
