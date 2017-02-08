@@ -18,6 +18,7 @@
 	#comment_list{background-color:white;}
 	ul.reply-title-bar{background-color:white}
 	#newscore{width:150px;}
+	
 </style>
 <script type="text/javascript">
 
@@ -28,6 +29,7 @@
 		
 	//입력버튼 클릭시
 		$("#replyInsertBtn").click(function(){
+			
 			 if(!chkSubmit($("#br_content"),"내용을"))return;
 			else{
 				var insertUrl = "/bookReplies/bReplyInsert.do";				
@@ -272,20 +274,26 @@
 				
 				<div class="replay-box">
 					<div class="row">			
-						<form id="comment_form">								
-							<i class="fa fa-user"> : </i><input type="text" name="br_writer" id="br_writer" placeholder="${sessionScope.memSession.m_id}" value="${sessionScope.memSession.m_id}" disabled >
-							<i class="fa fa-star"> : </i><select name="br_score" id="br_score" class="size" >
-								<option value="5" selected>★★★★★															
-								<option value="4">★★★★☆
-								<option value="3">★★★☆☆
-								<option value="2">★★☆☆☆
-								<option value="1">★☆☆☆☆								
-							</select>				
+						<form id="comment_form " class="form-inline">
+						  <div class="well well-lg">
+						 	 <div class="form-group">
+    								<label for="2"><i class="fa fa-star"></i></label>
+   									<select name="br_score" id="br_score" class="form-control size" >
+										<option value="5" selected>★★★★★															
+										<option value="4">★★★★☆
+										<option value="3">★★★☆☆
+										<option value="2">★★☆☆☆
+										<option value="1">★☆☆☆☆								
+									</select>
+ 							 </div>
+ 							 
+							   
 							
-							<textarea name="br_content" id="br_content" rows="3" placeholder="한줄평을 입력해주세요" maxlength="50"></textarea>
-							<input type="button" id="replyInsertBtn" class="btn btn-default usa" value="작성">
-							</form>
-				
+							 
+							  	<textarea name="br_content" id="br_content" rows="3" placeholder="한줄평을 입력해주세요" maxlength="50"></textarea>
+								<input type="button" id="replyInsertBtn" class="btn btn-default usa" value="작성">
+								</div>
+							</form>			
 					</div><!--/class="row"  -->		
 				</div><!--/class="reply-box" -->
 			</div><!--/class="col-sm-12"  -->
