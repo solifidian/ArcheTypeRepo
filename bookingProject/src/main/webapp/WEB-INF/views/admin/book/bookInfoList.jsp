@@ -233,7 +233,7 @@
 					<div class="form-group col-md-4">
 						<label for="categoryBoxes">분류</label>
 						<div class="form-inline" id="categoryBoxes">
-						
+						<input type="hidden" name="cat_no" id="cat_no" value="0"/>
 						</div>
 					</div>
          	 	</div>

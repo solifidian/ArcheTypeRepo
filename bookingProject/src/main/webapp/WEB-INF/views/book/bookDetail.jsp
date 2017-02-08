@@ -255,7 +255,9 @@
 				<div class="col-sm-9 padding-right d_form" >
 					<div class="col-sm-4 tt" id="test2">
 						<label>이미지자리</label>
-						<img src="" >
+						<%-- <img class="img-thumnail" src="/images/bookImg/${detail.isbn}_1.png"> --%>
+						<img width="auto" src="/images/NoImageIcon.png">
+						
 					</div>
 					<div class="col-sm-8" id="test3">
 						<div class="row-sm-6 tet tt" id="test4">
@@ -429,12 +431,13 @@
 								<li><a href="#byAuthor" data-toggle="tab">저자 소개</a></li>
 								<li><a href="#bookInfo" data-toggle="tab">책 소개</a></li>
 								<li><a href="#complainText" data-toggle="tab">환불/교환 규정</a></li>
+								<li><a href="#score" data-toggle="tab">한줄평점</a></li>
 							</ul>
 						</div>
 						<div class="tab-content">
 							<div class="tab-pane fade active in" id="b_intro" >
 							<style>
-								.tte {background-color:white;}
+								.tte{background-color:white;}
 							</style>
 								<div class="col-sm-12 tte">
 								 	<table>
@@ -492,7 +495,18 @@
 								 		${detail.b_complain}
 								 	</div>
 								</div>
-							</div>							
+							</div>			
+							<div class="tab-pane fade" id="score" >
+								<div class="col-sm-12 tte">
+								 	<div class="row">
+<%-- 리플영역  --%>
+
+	<jsp:include page="/WEB-INF/views/reply/bookReply.jsp" /> 	
+
+								 	</div>
+	
+								</div>
+							</div>				
 						</div>
 					</div><!--/category-tab-->
 

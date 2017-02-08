@@ -22,21 +22,17 @@
 <style>
 		#line{border-bottom:5px solid gray; font-size:25px;}
 		.contentTit{text-align:center;}
-		.InsertTable{border-collapse: collapse; width: 100%;}
+		.UpdateTable{border-collapse: collapse; width: 100%;}
 		th, td {text-align: left; padding: 8px;}
 		tr:nth-child(even){background-color: #f2f2f2}
 		.tc{color: #333333; font-size: 12px; text-align:center;}
 		.add{font-size:9px; color:orange;}
-		.insertFormBut{text-align:center; margin:100px;}
 		 input[type="button"]:hover{background-color:orange;}
 		 .boxSize{width:90px;}
 		  img{width:50px; height:50px;} 
+		 .updateFormBut{text-align:center; margin:50px; }
 		 
 </style>
-	
-	<!-- ajax만 확인하면 됌 -->
-	
-	
 	<script src="/resources/include/js/jquery-1.12.4.min.js"></script>
 	<script src="/resources/include/js/common.js"></script>
 	 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
@@ -48,6 +44,11 @@
 	var regEmailId = /([\w-\.]+)/;
 	var regEmailDomain = /((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
 
+	var all ="<c:out value='${updateData.m_email}'/>"; 
+	var seperate = all.split('@');
+
+	
+	
 	$(function(){
 		
 	//sns연동
@@ -66,12 +67,16 @@
                 }
             }; */
 
-    
-    
+         //아이디랑 도메인 값 가져오기    		
+       	$("#m_emailId").val(seperate[0]);
+        $("#m_domain").val(seperate[1]);
+
+        //주소 수정칸 숨겨놓기
+        $("#addressHide").hide();
             
 		/* 뒤로 버튼 클릭시 처리 이벤트 */
 		$("#back").click(function(){
-			location.href="/boardlist.do";	//우선 게시판으로 가게함
+			location.href="/member/memberMypage.do";
 		});
 		
 		 //주소 찾기 버튼 클릭시
@@ -89,8 +94,7 @@
 		$("#memberDeleteBtn").click(function(){
 			var result = confirm("정말로 탈퇴하시겠습니까?");
 			if(result){
-				var target = 35;
-				/* var target = ${SessionScope.m_no}; */
+				var target = ${sessionScope.memSession.m_no};
 				location.href = "/member/memberDelete.do?m_no="+target;
 				alert("탈퇴 되셨습니다.");
 			}else{
@@ -98,6 +102,19 @@
 			}
 		});
 		 
+		//우편번호 수정버튼 클릭시
+		$("#addUpdateBtn").click(function(){
+			$("#addressHide").show();
+			$(this).hide();
+		});
+		
+		//우편번호 수정취소버튼 클릭시
+		$("#addUpdateResetBtn").click(function(){
+			$(this).hide();
+			$("#addressHide").hide();
+			$("#addUpdateBtn").show();
+		});
+		
 		//수정 버튼 클릭시 처리 이벤트
 		$("#memberUpdateBtn").click(function(){
 			if(!chkSubmit($('#m_pwd'),"비밀번호를")) return;
@@ -140,11 +157,11 @@
 					error : function(){
 						alert ("오류입니다. 관리자에게 문의하세요.");
 					},
-					success : function(result){
-						if(result == "1"){
+					success : function(resultStr){
+						if(resultStr == "SUCCESS"){
 							alert("수정이 완료되었습니다.");
-						
-						}
+						location.href="/member/memberMypage.do";
+						}					
 					}
 					
 				});
@@ -217,8 +234,8 @@
 		<div class="contentTit"><h3>회원수정</h3></div>
 		
 		<form name="f_data" id="f_data" method="POST">
-			<%-- <input type="hidden" name="m_no" id="m_no" value="${sessionScope.m_no}"> --%>
-			<input type="hidden" name="m_no" id="m_no" value="${updateData.m_no}">	
+			
+			<input type="hidden" name="m_no" id="m_no" value="${sessionScope.memSession.m_no}">	
 		</form>
 	<div class="contentTB">	
 	
@@ -234,9 +251,8 @@
 						<col width="85%">
 					</colgroup>
 					<tr>
-						<td class="tc">*아이디</td>
-						<%-- <td>${sessionScope.m_id}</td> --%>
-						<td>${updateData.m_id}</td>
+						<td class="tc">*아이디</td>					
+						<td>${sessionScope.memSession.m_id}</td>
 					</tr>
 					<tr>
 						<td class="tc">*비밀번호</td>
@@ -251,11 +267,11 @@
 					</tr>
 					<tr>
 						<td class="tc">*닉네임</td>
-						<td><input type="text" id="m_nick" name="m_nick" maxlength="20" value="${updateData.m_nick}" ></td>
+						<td><input type="text" id="m_nick" name="m_nick" maxlength="20" value="${sessionScope.memSession.m_nick}" ></td>
 					</tr>
 					<tr>
 						<td class="tc">*이름</td>
-						<td>${updateData.m_name}</td>
+						<td>${sessionScope.memSession.m_name}</td>
 					</tr>
 					 <tr>
 				        <td class="tc">*생년월일</td>
@@ -264,9 +280,9 @@
 				    </tr>
 					<tr>
 						<td class="tc">*이메일</td>
-						<td>${updateData.m_email}
-							<input type="text" id="m_emailId" name="m_emailId" maxlength="20" >@
-							<input type="text" id="m_domain" name="m_domain" maxlength="20">
+						<td>				
+							<input type="text" id="m_emailId" name="m_emailId" maxlength="20" value="">@
+							<input type="text" id="m_domain" name="m_domain" maxlength="20" value="">
 							<select class="boxSize" id="domain">
 								<option value="none" selected >직접입력</option>
 								<option value="naver.com">naver.com</option>
@@ -279,21 +295,26 @@
 				
 					<tr>
 						<td class="tc">*휴대전화</td>
-						<td><input type="text" id="m_phone" name="m_phone" maxlength="13" value="${updateData.m_phone}">
+						<td><input type="text" id="m_phone" name="m_phone" maxlength="13" value="${sessionScope.memSession.m_phone}">
 							<span class="add">주문배송문자등 본인확인용으로 사용</span></td>
 					</tr>
 					<tr>
 						<td class="tc">주소</td>
 						<td>
-			               <input type="text" id="postcode" placeholder="우편번호">
-				            <input type="button" class="btn btn-default" id="execDaumPostcode" value="우편번호 찾기"><br>
-				            <input type="text" name="m_home_address" id="m_home_address" placeholder="도로명주소" size="50px">
-				            <input type="text" id="jibunAddress" placeholder="지번주소">
-				            <span id="guide" style="color:#999"></span>
+							${sessionScope.memSession.m_home_address}
+							<input type="button" value="주소 수정" id="addUpdateBtn" class="btn btn-default">
+							<span id="addressHide">
+				               <input type="text" id="postcode" placeholder="우편번호">
+					            <input type="button" class="btn btn-default" id="execDaumPostcode" value="우편번호 찾기"><br>
+					            <input type="text" name="m_home_address" id="m_home_address" placeholder="도로명주소" size="50px">
+					            <input type="text" id="jibunAddress" placeholder="지번주소">
+					            <span id="guide" style="color:#999"></span>
+					            <input type="button" id="addUpdateResetBtn" value="수정취소" class="btn btn-default">
+				            </span>
 			            </td>		
 					<tr>
 						<td class="tc">메모</td>
-						<td><textarea id="m_memo" name="m_memo" placeholder="메모를 입력하세요..."></textarea></td>
+						<td><textarea id="m_memo" name="m_memo" placeholder="메모를 입력하세요..." maxlength="200" value="${sessionScope.memSession.m_comment}"></textarea></td>
 					</tr>
 					<tr>
 						<td class="tc">SNS연동</td>
@@ -305,16 +326,19 @@
 						</td>
 					</tr>				
 				</table>
+			
 			</form>
 			
+			
+			<div class="updateFormBut">
+			<input type="button" value="수정완료" class="btn btn-default" id="memberUpdateBtn">
+				<input type="button" value="회원탈퇴" class="btn btn-default" id="memberDeleteBtn">
+				<input type="button" value="뒤로" class="btn btn-default" id="back">
+			</div><!-- "updateFormBut" 끝 -->
 		</div><!-- "contentTB" 끝 -->
 	
 	
-		<div class="updateFormBut">
-				<input type="button" value="수정완료" class="btn btn-default" id="memberUpdateBtn">
-				<input type="button" value="회원탈퇴" class="btn btn-default" id="memberDeleteBtn">
-				<input type="button" value="뒤로" class="btn btn-default" id="back">
-		</div><!-- "contentBtn" 끝 -->
+		
 	
 	</div><!--"contentContainter" 끝 -->
 	

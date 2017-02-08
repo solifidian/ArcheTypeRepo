@@ -2,21 +2,26 @@ package com.booking.member.controller;
 
 import java.util.List;
 
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.booking.admin.sitelog.service.SiteLogService;
 import com.booking.book.vo.Purchase_DeliveryVO;
+
+import com.booking.common.util.Util;
+import com.booking.book.vo.Purchase_relVO;
+import com.booking.common.paging.Paging;
 import com.booking.member.service.MemberService;
 import com.booking.member.vo.MemberVO;
 
@@ -42,19 +47,57 @@ public class MemberController {
 	
 	// 마이페이지로 이동
 	@RequestMapping(value="/memberMypage.do")
-	public String memberMypage(@ModelAttribute MemberVO mvo, Model model, HttpServletRequest request){
+	public String memberMypage(@ModelAttribute Purchase_DeliveryVO listVO, Model model, HttpServletRequest request, HttpSession session){
 		logger.info("memberMypage 호출 성공");
-		HttpSession session = request.getSession();
+
+		/* *******************************
+		 * session으로부터 M_no 전달.
+		 * null이면 0으로 반환
+		 * */
+		MemberVO mvo = (MemberVO)session.getAttribute("memSession");
+		if(mvo != null){
+			listVO.setM_no(mvo.getM_no());
+		}else{
+			listVO.setM_no(0);
+		}
 		
-		mvo = (MemberVO)session.getAttribute("memSession");
+		//listData default nvl
+		listVO.setOrderDirection("desc");
+		listVO.setOrderTarget("p_no");
 		
-		logger.info("m_id"+mvo.getM_id());
+		Paging.setBookPaging(listVO);
 		
-		List<Purchase_DeliveryVO> pvo = memberService.memberMypage(mvo);
+		/*********************
+		 * 선택 되지 않은 List는 null값만 jsp페이지로 보내게 됨
+		 ********************/
+		List<Purchase_DeliveryVO> pvoList = null;
+		List<Purchase_DeliveryVO> dvoList = null;
 		
-		logger.info(pvo);
+		if(listVO.getPur_del_mode() != null){
+			//배송 내역이 선택
+			logger.info("mode: "+listVO.getPur_del_mode());
+			if(listVO.getPur_del_mode().equals("deliveryTable")){
+				listVO.setSearchMode("deliveryTable");
+				dvoList = memberService.myDelivery(listVO);
+				listVO.setSearchTotal(memberService.myDeliveryCnt(mvo));
+			}
+			//주문 내역이 선택
+			else if(listVO.getPur_del_mode().equals("purchaseTable")){
+				listVO.setSearchMode("purchaseTable");
+				pvoList = memberService.myPurchase(listVO);
+				listVO.setSearchTotal(memberService.myPurchaseCnt(mvo));
+			}
+		}else{
+			//default값은 주문 내역으로
+			listVO.setSearchMode("purchaseTable");
+			pvoList = memberService.myPurchase(listVO);
+			listVO.setSearchTotal(memberService.myPurchaseCnt(mvo));
+		}
+				
+		model.addAttribute("purchase", pvoList);
+		model.addAttribute("delivery", dvoList);
+		model.addAttribute("listData", listVO);
 		
-		model.addAttribute("purchase", pvo);
 		
 		return "member/memberMypage";
 	}
@@ -64,11 +107,31 @@ public class MemberController {
 	
 	
 	//boots_view (상세보기 클릭 )
+	@ResponseBody
 	@RequestMapping(value="/boots_view.do")
-	public String boots_view(@ModelAttribute Purchase_DeliveryVO dvo, Model model){
+	public ResponseEntity<List<Purchase_relVO>> boots_view(@ModelAttribute Purchase_DeliveryVO pvo, Model model){
+		logger.info("boots_view 호출 성공");
+		
+		ResponseEntity<List<Purchase_relVO>> entity = null;
+		logger.info("요청받은 주문번호 = "+pvo.getP_no());
 		
 		
-		return "boots/boots_view";
+		List<Purchase_relVO> plist = memberService.purchaseDetail(pvo);
+		logger.info(plist);
+		logger.info("사이즈"+plist.size());
+		
+		model.addAttribute("pdetail", plist);
+		String result="success";
+		
+		
+		try {
+			entity = new ResponseEntity<List<Purchase_relVO>> (memberService.purchaseDetail(pvo), HttpStatus.OK);
+			logger.info("성공"+entity);
+		}catch (Exception e) {
+			entity = new ResponseEntity<List<Purchase_relVO>> (HttpStatus.BAD_REQUEST);
+			logger.info("실패"+entity);
+		}
+		return entity;
 	}
 	
 	
@@ -188,21 +251,47 @@ public class MemberController {
 	}
 	
 	//회원수정
+	@ResponseBody
 	@RequestMapping(value="/memberUpdate.do")
-	public String memberUpdate(@ModelAttribute MemberVO mvo){
+	public String memberUpdate(@ModelAttribute MemberVO mvo, HttpSession session){
 		logger.info("memberUpdate 호출 성공");
-	/*	mvo.setM_no(35);*/
-		logger.info("m_no : "+mvo.getM_no());
-		int result = 0;
-		String url = "";
+		/**********************************
+		 * 세션 확인
+		 * memSession is not null = 회원
+		 *********************************/
+		String m_id = "";
+		int m_no = 0;
+		MemberVO memSession = (MemberVO)session.getAttribute("memSession");
 		
-		result = memberService.memberUpdate(mvo);
-		
-		if(result == 1){
-			url = "/booking/boardlist.do";	//회원수정후 메인화면으로 돌리기
+		if(memSession != null && !memSession.getM_id().equals("")){
+			logger.info("회원 확인 됨");
+			m_id = memSession.getM_id();			
+			m_no = memSession.getM_no();			
 		}
-		
-		return "redirect : " + url;
+		/*********** 세션 확인 종료 ***********/	
+		logger.info("memSession.m_id :"+memSession.getM_id());
+		logger.info("memSession.m_no :"+memSession.getM_no());
+		int result = 0;
+		String resultStr ="FAILED";
+		String url = "";
+		mvo.setM_no(m_no);
+		mvo.setM_id(m_id);
+		logger.info("mvo.m_no:"+mvo.getM_no());
+		logger.info("mvo.m_id:"+mvo.getM_id());
+		logger.info("mvo.m_nick:"+mvo.getM_nick());
+		result = memberService.memberUpdate(mvo);
+		logger.info("result :"+result);
+		if(result==1){
+			resultStr ="SUCCESS";
+			/************  세션 갱신  시작 **************/
+			MemberVO memVO = memberService.memberLogin(mvo);
+			if(memVO!=null){
+				// 세션 , 쿠키값 뿌려주기
+				session.setAttribute("memSession", memVO);
+			}
+			/************  세션 갱신 종료 **************/
+		}		
+		return resultStr;
 	}	
 
 	//회원탈퇴
@@ -215,7 +304,7 @@ public class MemberController {
 		
 		result = memberService.memberDelete(mvo);
 		if(result == 1){
-			url = "/booking/boardlist.do";	//회원탈퇴후 메인화면으로 돌리기
+			url = "/book/bookIndex.do";	//회원탈퇴후 메인화면으로 돌리기
 		}
 		
 		 return "redirect : " +url;

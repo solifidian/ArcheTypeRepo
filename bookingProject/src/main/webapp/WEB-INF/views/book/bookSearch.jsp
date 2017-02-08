@@ -263,8 +263,6 @@
 		<!--검색 조건 테이블 영역  -->
 		<div class="row">
 		<div class="col-md-8 col-md-offset-4">
-		 
-	             ${sessionScope.memSession.m_id} 세션스코프 쿠키값${cookie.JSESSIONID.value}
 	               <table class="table table-bordered">
 	               <tr>
 	               <td>새로나온책</td>
@@ -283,23 +281,21 @@
 	    
 	    
 	    <!--검색창 영역  -->
-	    	<div class="row">
-		     	<div class="navbar navbar-default">
-	         		페이지당 표시 건 수
-	         		<select name="pageSizeChange" id="pageSizeChange" >
+	    	<div class="well">
+	         	<div class="col-sm-6">
+	         		<label class="col-sm-4">페이지당 표시 건 수</label>
+	         		<select class="col-sm-2" name="pageSizeChange" id="pageSizeChange" >	         			
 	         			<option value="5">5</option>
 	         			<option value="10">10</option>
 	         			<option value="30">30</option>
-	         		</select>건
-	         		&nbsp;&nbsp;/&nbsp;검색 결과 : ${listData.searchTotal} 건 &nbsp;&nbsp;/&nbsp;
-	         		<button type="button" id="excelDownBtn" class="btn btn-primary">엑셀로 다운로드</button>
+	         		</select>
+	         		건
+	         		&nbsp;&nbsp;/&nbsp;검색 결과 :${listData.searchTotal}건
 	         	</div>
-         	</div>
-         	<div class="row">
-         		<div class="paginationBar text-center" >
-		           	<tag:PagingBar page="${listData.page}" searchTotal="${listData.searchTotal}" pageSize="${listData.pageSize}"/>
-		       	</div> 
-		     </div>
+	            <div class="paginationBar text-center paginate">
+	            	<tag:PagingBar page="${listData.page}" searchTotal="${listData.searchTotal}" pageSize="${listData.pageSize}"/>
+	            </div>         
+           </div>
 	         <div class="col-sm-12 padding-right">
 			        
 	         
@@ -315,7 +311,11 @@
 						
 						<c:forEach var="d" items="${bookList}">							
 							<tr data-num="${d.isbn}">
-							  <td class="col-sm-2"><span class="thumbnail"><img src="/images/do.jpg" alt="" /></span></td>
+							  <td class="col-sm-2">
+							  	<span class="thumbnail">
+							  		<img class="img-thumnail" src="/images/NoImageIcon.png">
+							  	</span>
+							  </td>
 							  <td class="col-sm-8" >
 							 
 							  <h3><a href="/book/bookDetail.do?isbn=${d.isbn}">${d.b_title}</a></h3>

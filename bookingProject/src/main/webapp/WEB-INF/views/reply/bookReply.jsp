@@ -15,6 +15,10 @@
 <style>
 	#br_writer{width:150px;}
 	.size{width:150px;}
+	#comment_list{background-color:white;}
+	ul.reply-title-bar{background-color:white}
+	#newscore{width:150px;}
+	
 </style>
 <script type="text/javascript">
 
@@ -25,6 +29,7 @@
 		
 	//입력버튼 클릭시
 		$("#replyInsertBtn").click(function(){
+			
 			 if(!chkSubmit($("#br_content"),"내용을"))return;
 			else{
 				var insertUrl = "/bookReplies/bReplyInsert.do";				
@@ -58,21 +63,26 @@
 		});
 		
 		//수정하기 버튼 눌렀을때 수정폼 출력
-		$("#replyUpdateBtn").click(function(){
+		$(document).on("click",".replyUpdateBtn",function(){		
 			var currLi = $(this).parents("li");
+			currLi.find("input[type='button']").hide();
 			var conText = currLi.children().find("p").html();
 			var conArea = currLi.children().find("p");				
-				conArea.html("");
-				var data = "<textArea name='content' id='content'>"+conText+"</textArea>";
-				data += "<input type='button' class='update_btn btn btn-primary ' value='수정완료'>";
-				data += "<input type='button' class='reset_btn btn btn-primary' value='수정취소'>";
-				conArea.html(data);
+			conArea.html("");
+			var score = "<select name='newscore' class='form-control' id='newscore'><option value='5' selected>★★★★★<option value='4'>★★★★☆<option value='3'>★★★☆☆<option value='2'>★★☆☆☆<option value='1'>★☆☆☆☆	</select>";
+			var data = "<textArea name='content' id='content'>"+conText+"</textArea>";
+			data += score;
+			data += "<input type='button' class='update_btn btn btn-primary ' value='수정완료'>";
+			data += "<input type='button' class='reset_btn btn btn-primary' value='수정취소'>";
+			
+			conArea.html(data);
 			
 		});
 		
 		//수정취소 버튼 클릭시
 		$(document).on("click",".reset_btn",function(){
 			var conText = $(this).parents("li").find("textarea").html();
+			$(this).parents("li").find("input[type='button']").show();
 			var conArea = $(this).parents("li").children().find("p");
 			conArea.html(conText);
 		});
@@ -80,8 +90,9 @@
 		//댓글 수정을 위한 ajax연동처리
 		$(document).on("click",".update_btn",function(){
 			var currLi = $(this).parents("li");
-			var re_no = $(this).parents("li").attr("data-num");
-			var re_content = $("#content").val();
+			var br_no = $(this).parents("li").attr("data-num");
+			var br_score = $("#newscore").val();
+			var br_content = $("#content").val();
 			if(!chkSubmit($("#content"), "댓글 내용을"))return;
 			else{
 				$.ajax({
@@ -89,7 +100,7 @@
 					type : 'put',
 					headers : {
 						"Content-Type" : "application/json",
-						"X-HTTP-Method-Override" : "PUT"
+						"X-HTTP-Method-Override":"PUT"
 					},
 					data : JSON.stringify({
 						br_score:br_score,
@@ -107,7 +118,7 @@
 		});
 		
 		//댓글 삭제를 위한 ajax 연동처리
-		$("#replyDeleteBtn").click(function(){
+		$(document).on("click",".replyDeleteBtn",function(){			
 			var currLi = $(this).parents("li");
 			replyNum = currLi.attr("data-num");			
 			var br_no = $(this).parents("li").attr("data-num");
@@ -163,11 +174,11 @@
 	}
 	
 	
-	function addNewItem(br_no, br_writer, br_content, br_editdate, br_score, br_update){
+	function addNewItem(br_no, br_writer, br_content, br_editdate,br_update, br_score){
 	
 		//새로운 글이 추가될 <li>
 		var new_li = $("<li>");
-		new_li.attr("data-num", br_no);
+		new_li.attr("data-num",br_no);
 		new_li.addClass("comment_item media");
 		
 		//하나의 댓글을 감싸는 <div>
@@ -177,7 +188,7 @@
 		// 이미지 추가될 ul
 		var ul_img = $("<ul>");
 		ul_img.addClass("sinlge-post-meta");
-		
+		ul_img.addClass("reply-title-bar");
 		
 		//작성자 이름을 저장하는 <li>와 아이콘<i>
 		var li_writer = $("<li>");
@@ -203,6 +214,9 @@
 	
 		//별점을 저장하는 <li>
 		var li_score = $("<li>");
+		var i_score=$("<i>");
+		i_score.addClass("fa fa-star");
+		li_score.append(i_score);
 		li_score.append(br_score);
 		
 		//내용
@@ -243,7 +257,7 @@
 		<div class="row">				
 			<div class="col-sm-12">		
 			<!----------------------리플 영역------------------  -->	
-				<div class="response-area">
+				<div class="response-area ">
 					<ul class="media-list" id="comment_list">					
 							
 							<!-- 여기에 동적 생성 요소가 들어가게 됩니다.  -->
@@ -260,20 +274,26 @@
 				
 				<div class="replay-box">
 					<div class="row">			
-						<form id="comment_form">								
-							<i class="fa fa-user"> : </i><input type="text" name="br_writer" id="br_writer" placeholder="${sessionScope.memSession.m_id}" value="${sessionScope.memSession.m_id}" disabled >
-							<i class="fa fa-star"> : </i><select name="br_score" id="br_score" class="size" >
-								<option value="5" selected>★★★★★															
-								<option value="4">★★★★☆
-								<option value="3">★★★☆☆
-								<option value="2">★★☆☆☆
-								<option value="1">★☆☆☆☆								
-							</select>				
+						<form id="comment_form " class="form-inline">
+						  <div class="well well-lg">
+						 	 <div class="form-group">
+    								<label for="2"><i class="fa fa-star"></i></label>
+   									<select name="br_score" id="br_score" class="form-control size" >
+										<option value="5" selected>★★★★★															
+										<option value="4">★★★★☆
+										<option value="3">★★★☆☆
+										<option value="2">★★☆☆☆
+										<option value="1">★☆☆☆☆								
+									</select>
+ 							 </div>
+ 							 
+							   
 							
-							<textarea name="br_content" id="br_content" rows="3" placeholder="한줄평을 입력해주세요" maxlength="50"></textarea>
-							<input type="button" id="replyInsertBtn" class="btn btn-default usa" value="작성">
-							</form>
-				
+							 
+							  	<textarea name="br_content" id="br_content" rows="3" placeholder="한줄평을 입력해주세요" maxlength="50"></textarea>
+								<input type="button" id="replyInsertBtn" class="btn btn-default usa" value="작성">
+								</div>
+							</form>			
 					</div><!--/class="row"  -->		
 				</div><!--/class="reply-box" -->
 			</div><!--/class="col-sm-12"  -->

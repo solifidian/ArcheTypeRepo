@@ -3,7 +3,7 @@ function makeCateBox(target,cat_step,cat_root,name){
 	var conStr = "";
 	
 	$.ajax({
-		url:"/booking/common/categoryBoxList.do",
+		url:"/common/categoryBoxList.do",
 		type:"post",
 		data:"cat_root="+cat_root+"&cat_step="+cat_step,
 		success:function(resultData){
@@ -25,7 +25,7 @@ function makeCateBoxSelected(target,cat_step,cat_root,name,sel_no,callback){
 	var conStr = "";
 	
 	$.ajax({
-		url:"/booking/common/categoryBoxList.do",
+		url:"/common/categoryBoxList.do",
 		type:"post",
 		data:"cat_root="+cat_root+"&cat_step="+cat_step,
 		success:function(resultData){
@@ -51,7 +51,7 @@ function makeCateBoxFromNo(target,cat_no){
 	var conStr = "";
 	
 	$.ajax({
-		url:"/booking/common/categoryOne.do",
+		url:"/common/categoryOne.do",
 		type:"post",
 		data:"cat_no="+cat_no,
 		success:function(data){
@@ -77,18 +77,50 @@ $(function(){
 	$(document).on("change","#hc",function(){
 		var sel_no = $("#hc").val();
 		$("#mc").remove();
-		$("#cat_no").remove();
+		$("#lc").remove();
+		$("#lc2").remove();
 		if(sel_no != 0){
 			makeCateBox("#categoryBoxes",2,sel_no,"mc");
+			$("#cat_no").val(sel_no);
+		}
+		else{
+			$("#cat_no").val(0);
 		}
 		
 	})
 	
 	$(document).on("change","#mc",function(){
 		var sel_no = $("#mc").val();
-		$("#cat_no").remove();
+		$("#lc").remove();
+		$("#lc2").remove();
 		if(sel_no != 0){
-			makeCateBox("#categoryBoxes",3,sel_no,"cat_no");
+			makeCateBox("#categoryBoxes",3,sel_no,"lc");
+			$("#cat_no").val(sel_no);
+		}
+		else{
+			$("#cat_no").val($("#hc").val());
+		}
+	})
+	
+	$(document).on("change","#lc",function(){
+		var sel_no = $("#lc").val();
+		$("#lc2").remove();
+		if(sel_no != 0){
+			makeCateBox("#categoryBoxes",4,sel_no,"lc2");
+			$("#cat_no").val(sel_no);
+		}
+		else{
+			$("#cat_no").val($("#mc").val());
+		}
+	})
+	
+	$(document).on("change","#lc2",function(){
+		var sel_no = $("#lc2").val();
+		if(sel_no != 0){
+			$("#cat_no").val(sel_no);
+		}
+		else{
+			$("#cat_no").val($("#lc").val());
 		}
 	})
 })
