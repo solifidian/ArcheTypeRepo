@@ -5,8 +5,9 @@
 				<div class="row">
 					<div class="col-sm-2">
 						<div class="companyinfo">
-							<h2><span>e</span>-shopper</h2>
-							<p>한글 한글 한글 한글 한글 한글 한글 한글</p>
+							<h2><span>도서왕</span>  BOOKING</h2>
+							<p>ENJOY BOOKING</p>
+							<p>ENJOY SHOPPING</p>
 						</div>
 					</div>
 					<div class="col-sm-7">
@@ -73,7 +74,7 @@
 					<div class="col-sm-3">
 						<div class="address">
 							<img src="/images/home/map.png" alt="" />
-							<p>505 S Atlantic Ave Virginia Beach, VA(Virginia)</p>
+							<p>서울특별시 영등포구 당산동</p>
 						</div>
 					</div>
 				</div>
@@ -89,21 +90,20 @@
 							<ul class="nav nav-pills nav-stacked">
 								<li><a href="#">Online Help</a></li>
 								<li><a href="#">Contact Us</a></li>
-								<li><a href="#">Order Status</a></li>
-								<li><a href="#">Change Location</a></li>
+								<li><a href="#">마이페이지</a></li>
+								<li><a href="#">장바구니</a></li>
 								<li><a href="#">FAQ’s</a></li>
 							</ul>
 						</div>
 					</div>
 					<div class="col-sm-2">
 						<div class="single-widget">
-							<h2>Quock Shop</h2>
+							<h2>Quick Shop</h2>
 							<ul class="nav nav-pills nav-stacked">
-								<li><a href="#">T-Shirt</a></li>
-								<li><a href="#">Mens</a></li>
-								<li><a href="#">Womens</a></li>
-								<li><a href="#">Gift Cards</a></li>
-								<li><a href="#">Shoes</a></li>
+								<li><a href="#">BOOK</a></li>
+								<li><a href="#">BOOK</a></li>
+								<li><a href="#">BOOK</a></li>
+								
 							</ul>
 						</div>
 					</div>
@@ -149,8 +149,8 @@
 		<div class="footer-bottom">
 			<div class="container">
 				<div class="row">
-					<p class="pull-left">Copyright ⓒ 2013 E-SHOPPER Inc. All rights reserved.</p>
-					<p class="pull-right">Designed by <span><a target="_blank" href="http://www.themeum.com">Themeum</a></span></p>
+					<p class="pull-left">Copyright ⓒ 2017 도서왕 BOOKING  All rights reserved.</p>
+					<p class="pull-right">Designed by <span>4조</span></p>
 				</div>
 			</div>
 		</div>

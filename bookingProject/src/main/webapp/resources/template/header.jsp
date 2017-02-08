@@ -63,7 +63,7 @@
 				<div class="row">
 					<div class="col-sm-4">
 						<div class="logo pull-left">
-							<a href="/resources/index.html"><img src="/images/home/logo.png" alt="" /></a>
+							<a href="/resources/index.html"><img src="/images/home/log.png" alt="" /></a>
 						</div>
 						<!-- <div class="btn-group pull-right">
 							<div class="btn-group">
@@ -133,7 +133,7 @@
                                         <li><a href="/board/boardList.do">전체 게시판</a></li>
                                     </ul>
                                 </li> 
-								<li><a href="404.html">404</a></li>
+								<li><a href="/book/errorPage.do">404</a></li>
 								<li><a href="contact-us.html">Contact</a></li>
 							</ul>
 						</div>
