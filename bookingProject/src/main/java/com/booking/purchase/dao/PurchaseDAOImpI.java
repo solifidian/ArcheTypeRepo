@@ -6,6 +6,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.booking.coupon.vo.CouponVO;
 import com.booking.purchase.vo.PurchaseVO;
 @Repository
 public class PurchaseDAOImpI implements PurchaseDAO{
@@ -41,4 +42,16 @@ public class PurchaseDAOImpI implements PurchaseDAO{
 		return session.selectList("puchaseDetail",p_no);
 	}
 
+	
+	@Override
+	public List<CouponVO> couponList(PurchaseVO pvo) {
+		// TODO Auto-generated method stub
+		return session.selectList("couponList");
+	}
+
+	@Override
+	public int givePoint(PurchaseVO pvo) {
+		// TODO Auto-generated method stub
+		return session.update("givePoint");
+	}
 }

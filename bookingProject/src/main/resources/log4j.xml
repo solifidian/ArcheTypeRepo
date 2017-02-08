@@ -39,6 +39,27 @@
 	<logger name="org.springframework.web">
 		<level value="info" />
 	</logger>
+	
+	
+	
+	<logger name="com.booking.cart.dao">
+		<level value="TRACE" />
+	</logger>
+	<logger name="com.booking.purchase.dao">
+		<level value="TRACE" />
+	</logger>
+	<logger name="com.booking.search.dao">
+		<level value="TRACE" />
+	</logger>
+	<logger name="com.booking.wish.dao">
+		<level value="TRACE" />
+	</logger>
+	<logger name="com.booking.coupon.dao">
+		<level value="TRACE" />
+	</logger>
+	
+	
+	
 
 	<!-- Root Logger -->
 	<root>

@@ -17,6 +17,7 @@
 		<typeAlias type="com.booking.cart.vo.CartVO" alias="cart" />
 		<typeAlias type="com.booking.wish.vo.WishVO" alias="wish" />
 		<typeAlias type="com.booking.purchase.vo.PurchaseVO" alias="purchase" />
+		<typeAlias type="com.booking.coupon.vo.CouponVO" alias="coupon" />
 		
 		<typeAlias type="com.booking.board.vo.BoardVO" alias="board" />
 		<typeAlias type="com.booking.reply.vo.ReplyVO" alias="reply" />

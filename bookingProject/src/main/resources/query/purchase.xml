@@ -66,13 +66,23 @@
 	  비회원은 포인트 적립안됨 
 	-->
 	
-	 <update id="pointUpdate" parameterType="purchase">
+	 <update id="givePoint" parameterType="purchase">
 	 
-	 update booking_member set m_point=#{m_point} where m_no=nvl((select m_no from booking_member where m_id=#{m_id}),0)
-	
+	 
+	 update booking_member set m_point=#{m_point} where m_no=#{m_no}
+	 
 	 
 	 </update> 
-
+   <!-- 쿠폰 호출 쿼리  -->
+	
+	<select id="couponList" parameterType="purchase" resultType="coupon">
+	
+	select m_no,bc.coupon_name , bc.coupon_no, bc.coupon_discount_ratio 
+	   from BOOKING_COUPON bc inner join booking_member_coupon_rel bcr 
+	   			on bc.coupon_no=bcr.coupon_no
+	   					 where m_no=(select m_no from booking_member where m_id=#{m_id})
+	
+	</select>
 	
 
 </mapper>
