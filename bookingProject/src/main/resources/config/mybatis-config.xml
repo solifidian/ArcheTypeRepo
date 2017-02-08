@@ -21,5 +21,7 @@
 		<typeAlias type="com.booking.board.vo.BoardVO" alias="board" />
 		<typeAlias type="com.booking.reply.vo.ReplyVO" alias="reply" />
 	
+	
+		<typeAlias type="com.booking.bookReply.vo.BookReplyVO" alias="bookReply" />
 	</typeAliases>
 </configuration>
