@@ -51,7 +51,10 @@ public class AdminBookController {
 		Paging.setBookPaging(bvo);
 		
 		List<BookVO> bookList = adminBookService.bookList(bvo);
-		bvo.setSearchTotal(bookList.get(0).getSearchTotal());
+		if(bookList.size() > 0 ){
+			bvo.setSearchTotal(bookList.get(0).getSearchTotal());
+		} 
+		
 		
 		logger.info("searchTotal : "+bvo.getSearchTotal());
 		logger.info("orderTarget : "+bvo.getOrderTarget());
@@ -83,7 +86,9 @@ public class AdminBookController {
 		Paging.setBookPaging(bvo);
 		
 		List<BookVO> bookList = adminBookService.bookList(bvo);
-		bvo.setSearchTotal(bookList.get(0).getSearchTotal());
+		if(bookList.size() > 0){
+			bvo.setSearchTotal(bookList.get(0).getSearchTotal());
+		}
 		
 	/*	logger.info("searchTotal : "+bvo.getSearchTotal());
 		logger.info("orderTarget : "+bvo.getOrderTarget());
@@ -115,7 +120,10 @@ public class AdminBookController {
 		Paging.setBookPaging(bvo);
 		
 		List<BookVO> bookList = adminBookService.bookList(bvo);
-		bvo.setSearchTotal(bookList.get(0).getSearchTotal());
+		if(bookList.size() > 0){
+			bvo.setSearchTotal(bookList.get(0).getSearchTotal());
+		}
+		
 		
 	/*	logger.info("searchTotal : "+bvo.getSearchTotal());
 		logger.info("orderTarget : "+bvo.getOrderTarget());
