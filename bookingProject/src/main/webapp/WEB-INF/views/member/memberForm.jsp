@@ -69,7 +69,7 @@
             
 		/* 뒤로 버튼 클릭시 처리 이벤트 */
 		$("#back").click(function(){
-			location.href="/boardlist.do";	//우선 게시판으로 가게함
+			location.href="/book/bookIndex.do";	
 		});
 		
 		 //주소 찾기 버튼 클릭시
