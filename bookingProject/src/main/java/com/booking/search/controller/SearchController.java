@@ -38,16 +38,7 @@ public class SearchController {
 		List<SearchVO> list=searchService.booksearchlist(svo);
 		model.addAttribute("data" , list);
 		 
-		session.setAttribute("id","");
-		
-		Cookie cookie = new Cookie("id", "test");
-    	cookie.setMaxAge(7*24*60*1);
-    		
-    	
-    	response.addCookie(cookie);
-	
-
-		
+				
 		
 		
 		return "search/searchpage";

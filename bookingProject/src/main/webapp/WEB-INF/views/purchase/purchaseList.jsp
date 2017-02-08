@@ -34,17 +34,17 @@ var point=0.01; //적립금 1%
 var m_id="${sessionScope.memSession.m_id}";
 var c_id="${cookie.JSESSIONID.value}";
 
- $(function(){
+$(function(){
+	 alert("m_id"+m_id)
 	$("#nonMemberPurchaseAgree").hide();
 	listAll();
 	
+	 //비회원일 경우 약관동의 내용 보여주는 스크립트
+    $('#myTab a:last').tab('show');
 	
-    //비회원일 경우 약관동의 내용 보여주는 스크립트
-      $('#myTab a:last').tab('show');
-      
 	//로그인 하지 않았을 경우 사용가능한 쿠폰 버튼을 클릭할 수 없습니다.
 	if(m_id==""){
-	 $("#couponBtn").attr("disabled","true")
+	 $("#useCoupon").attr("disabled","true")
 	 $("#nonMemberPurchaseAgree").show();
 	 //배송지 정보에 사용자 정보 부분이 hide됩니다.
 	 $("#purchaseUserInfo").hide();
@@ -52,23 +52,56 @@ var c_id="${cookie.JSESSIONID.value}";
 	
 	
 	//validate
-	//장바구니 돌아가기 버튼
+    //장바구니 돌아가기 버튼
 	$("#goBackCartBtn").click(function(){
+		
 		history.go(-1)
+		
+	})
+	
+	
+	//쿠폰적용
+	$("#useCoupon").click(function(){
+		
+		var couponratio=$("#coupon").val()
+		alert(couponratio)
+		//쿠폰값이 null일 경우 쿠폰 값을 적용x
+		if(couponratio==null){
+		$("#lastTotPrice").html((total+delivery)+"원");  //합계 +배송비용
+		}
+		//쿠폰값이 null일 경우 쿠폰 값을 적용x
+		var ratio=couponratio*total
+		$("#lastTotPrice").html(((total-ratio)+delivery)+"원");  //합계 +배송비용
 		
 	})
 	
 	//결제 버튼 클릭 시 
 	$("#purchaseBtn").click(function(){
-	  
+		alert($("#coupon").val())  
+		var couponname=$(this).attr("data-name");
+		alert(couponname)
+		var couponratio=$("#coupon").val()
 		var paymethod = $(':radio[name="pay"]:checked').val(); //페이방법
 		var name=$("#name").val();  //배송자 연락처
 		var address=$("#address1").val()+"  "+$("#address2").val()//주소
 		var mobile=$("#mobilePhone1").val()+"-"+$("#mobilePhone2").val()+"-"+$("#mobilePhone3").val()//모바일
 		var home=$("#homePhone1").val()+"-"+$("#homePhone2").val()+"-"+$("#homePhone3").val()//home
-		var agree="";
+		var agree=0;
 		var payprice=(total+delivery)
+		var coupon_code=couponratio;
+		var p_discount=couponratio;
+		var nowpay=0;
 		alert(paymethod+name+address+mobile+home)
+		
+		if(m_id==""){
+			m_id='0';
+			p_discount=0;
+			coupon_code=0;
+		}
+		
+		
+		
+		
 		//주문동의 체크 박스 값 
 		if ($('#purchaseAgree').is(":checked"))
 				{
@@ -86,12 +119,12 @@ var c_id="${cookie.JSESSIONID.value}";
 		$("#m_post_address").val(address)
 		$("#m_name").val(name)
 		$("#p_agreement").val(agree)
-		$("#coupon_code").val("")
+		$("#coupon_code").val(coupon_code)
 		$("#cookie_name").val(c_id)
 		$("#p_totprice").val(payprice)
 		$("#p_method").val(paymethod)
-		$("#p_discount").val(1.1)
-		$("#nowpay").val(${pay})
+		$("#p_discount").val(p_discount)
+		$("#nowpay").val(nowpay)
 	    $("#m_point").val(total*point)
 		
 		
@@ -153,7 +186,7 @@ var c_id="${cookie.JSESSIONID.value}";
 		        
 		        $("#purchaseHiddenForm").attr({
 		        	"method":"post",
-		        	"action":"/purchase/purchaseUpdate.do"
+		        	"action":"purchase/purchaseUpdate.do"
 		        })
 		        $("#purchaseHiddenForm").submit();
 		        
@@ -191,6 +224,7 @@ var c_id="${cookie.JSESSIONID.value}";
 		
 		var url="";
 		if(isbn==""){
+			alert("정상구매")
 			//isbn값이 ""일경우 정상 구매
 		   url="/carttable/cart.do?m_id="+m_id+"&cart_ip="+cart_ip
 		   
@@ -312,12 +346,9 @@ var c_id="${cookie.JSESSIONID.value}";
 <title>Insert title here</title>
 </head>
 <body>
-      <h1>${pay} </h1>
-	  ${sessionScope.id} 세션스코프
-	  
-	  
-	  
-	  
+      ${cookie.JSESSIONID.value}  
+	  ${sessionScope.memSession.m_id} 세션스코프
+	    
 	  
 	  <!-- purchase 정보를 전달하기 위한  히든 폼  -->
 	  <form id="purchaseHiddenForm">
@@ -490,7 +521,7 @@ var c_id="${cookie.JSESSIONID.value}";
 					   <table class="table table-bordered">
 					     <tr id="purchaseUserInfo">
 					     	<td ><label class="control-label">주문자 정보</label></td>
-					     	<td colspan=3>윤지환 | yoonjh238@naver.com | 010-2931-2954 주문/배송에 관한 SMS 및 메일이 발송됩니다</td>
+					     	<td colspan=3>${sessionScope.memSession.m_name} | ${sessionScope.memSession.m_email}| ${sessionScope.memSession.m_phone} 주문/배송에 관한 SMS 및 메일이 발송됩니다</td>
 					     	
 					     </tr>
 					     <tr>
@@ -596,16 +627,27 @@ var c_id="${cookie.JSESSIONID.value}";
 					     	<td>
 					     		<div class=col-sm-10>
 					     		<form class="form-horizontal">
-					     		  <!-- 쿠폰   입력 폼 -->
+					     		     		  <!-- 쿠폰   입력 폼 -->
 									  <div class="form-group">
-										    <label for="address1" class="col-sm-2 control-label">할인쿠폰 </label>
-										
-										    <label for="address1" id="coupon" class="col-sm-8 control-label">적용된 쿠폰이 없습니다. </label>
-										    <div class="col-sm-2">
-										    <input type="button"  class="btn btn-default" id="couponBtn" name="couponBtn" value="사용가능한 쿠폰" >
+										   
+										    <div class="col-sm-5">
+										     <select id="coupon">
+										      <c:if test="${empty coupon}">
+													 <option>쿠폰 없음</option>
+											          
+											  </c:if>
+											  
+												 <option value="">쿠폰을 선택하세요</option>	
+												<c:forEach var="d" items="${coupon}">	
+										        
+										        <option value="${d.coupon_discount_ratio}">${d.coupon_name}</option>
+										        </c:forEach>
+										      
+										    
+										    </select> 
 										     
 										    </div>
-										    
+										    <input type="button" id="useCoupon" class="btn btn-default" value="쿠폰 적용" />
 											   
 										   								 
 											    						    
@@ -684,7 +726,7 @@ var c_id="${cookie.JSESSIONID.value}";
 										  
 										  <div class="radio">
 										    <label>
-										      <input type="radio" name="pay" value="phone" checked="checked">
+										      <input type="radio" name="pay" value="phone" >
 										      		휴대폰 결제
 										    </label>
 										    

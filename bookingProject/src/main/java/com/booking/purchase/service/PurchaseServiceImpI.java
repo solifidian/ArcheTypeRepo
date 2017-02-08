@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.booking.coupon.vo.CouponVO;
 import com.booking.purchase.dao.PurchaseDAO;
 import com.booking.purchase.vo.PurchaseVO;
 
@@ -49,7 +50,23 @@ public class PurchaseServiceImpI implements PurchaseService {
 		return purchaseDAO.purchaseDetail(p_no);
 	}
 
+	@Override
+	public List<CouponVO> couponList(PurchaseVO pvo) {
+		// TODO Auto-generated method stub
+		
+			
+		List<CouponVO> cvo=null;
+		cvo=purchaseDAO.couponList(pvo);
+		
+		return cvo;
+	}
 
+
+	@Override
+	public int givePoint(PurchaseVO pvo) {
+		// TODO Auto-generated method stub
+		return purchaseDAO.givePoint(pvo);
+	}
 
  
 }

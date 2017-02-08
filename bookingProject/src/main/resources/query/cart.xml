@@ -31,9 +31,9 @@
     
      <where>
     <!--만약 세션이 존재한다면 회원 번호로 검색 후 카트에 있는 책을 삭제  -->
-     <if test="m_no!='0'|| m_no!=null">m_no=(select m_no from booking_member where m_id=#{m_id}) and isbn= #{isbn}  </if>
+     <if test="m_no!=0">m_no=#{m_no} and isbn= #{isbn}  </if>
      <!--만약 세션이 존재하지 않으면 쿠키 번호로 검색 후 카트에 있는 책을 삭제  -->
-     <if test="m_no=='0' || m_no==null">cart_ip=#{cart_ip} and isbn= #{isbn}  </if>
+     <if test="m_no==0 || m_no==null">cart_ip=#{cart_ip} and isbn= #{isbn}  </if>
    </where>
   </delete>
   
@@ -67,8 +67,8 @@
   update BOOKING_CART_REL set cart_amount=(cart_amount+#{cart_amount})
   
    <where>
-     <if test="m_no!='0'">m_no=#{m_no} and isbn=#{isbn}</if>
-     <if test="m_no=='0' || m_no==null">cart_ip=#{cart_ip} and isbn=#{isbn} </if>
+     <if test="m_no!=0">m_no=#{m_no} and isbn=#{isbn}</if>
+     <if test="m_no==0 || m_no==null">cart_ip=#{cart_ip} and isbn=#{isbn} </if>
    </where>    
   </update>
   

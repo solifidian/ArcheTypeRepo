@@ -41,21 +41,21 @@ $(function(){
 		
 		
 		alert(cart_amount)
-	    var m_id="${sessionScope.memSession.m_id}";
+	/*     var m_id="${sessionScope.memSession.m_id}";
 	    
 	    if(m_id!="")
 		m_id="${sessionScope.memSession.m_id}";
 		else if(m_id=="")
 		m_id='0';	
 	    
-		var cart_ip="${cookie.JSESSIONID.value}"
+		var cart_ip="${cookie.JSESSIONID.value}" */
 		$("#isbn").val(isbn);
 		$("#cart_amount").val(cart_amount);
 		alert(isbn+"//"+cart_amount)
 		
 		 	 $.ajax({
 				 type:'GET',
-				  url:'/carttable/cartBookUpdate.do?isbn='+isbn+'&cart_amount='+cart_amount+'&m_id='+m_id+'&cart_ip='+cart_ip,
+				  url:'/carttable/cartBookUpdate.do?isbn='+isbn+'&cart_amount='+cart_amount,
 				  
 				 headers:{
 					 
@@ -69,9 +69,9 @@ $(function(){
 				 },
 				 success:function(result){
 					 if(result=='SUCCESS'){
-						 
-						 listAll();
 						 location.reload();
+						 listAll();
+						 
 						 alert("수량 수정 성공 ")
 					 }
 				 }
@@ -86,26 +86,17 @@ $(function(){
 	//장바구니 책 삭제 
 	$(document).on("click",".deletebtn",function(){
 		var isbn=$(this).parents("tr").attr("data-num");
-	    var m_id="${sessionScope.memSession.m_id}";
-	 
-	    if(m_id!="")
-		m_id="${sessionScope.memSession.m_id}"
-		else if(m_id=="")
-		m_id='0';	
-	    	    
-		var cart_ip="${cookie.JSESSIONID.value}"
-		
-		$("#isbn").val(isbn);
+	   
 	
-		 alert($("#isbn").val())
+		 alert(isbn)
 		 if(confirm("선택하신 책을 삭제 하겠습니까?")){
 					 $.ajax({
-						 type:'DELETE',
-						  url:'/carttable/'+isbn+'.do?m_id='+m_id+'&cart_ip='+cart_ip,
+						 type:'POST',
+						  url:'/carttable/'+isbn+'.do',
 						 headers:{
 							 
 							"Content-Type":"application/json",
-							"X-http-Method-Override":"DELETE"
+							"X-http-Method-Override":"POST"
 						 },
 						 dataTyep : "TEXT",
 						 	    						
@@ -191,6 +182,7 @@ $(function(){
 	$("#totalprice").html(total+"원");
 	$("#deliveryprice").html(delivery+"원");
 	$("#price").html((total+delivery)+"원");
+	$("#point").html((total*0.01)+"원"); //적립금
 	}
 	
 	

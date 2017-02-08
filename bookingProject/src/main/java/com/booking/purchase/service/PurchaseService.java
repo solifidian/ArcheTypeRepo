@@ -2,6 +2,7 @@ package com.booking.purchase.service;
 
 import java.util.List;
 
+import com.booking.coupon.vo.CouponVO;
 import com.booking.purchase.vo.PurchaseVO;
 
 public interface PurchaseService {
@@ -11,5 +12,7 @@ public interface PurchaseService {
 	public PurchaseVO nowPay(String isbn);
 	
 	public List<PurchaseVO> purchaseDetail(int p_no);
+	public List<CouponVO> couponList(PurchaseVO pvo);
+    public int givePoint(PurchaseVO pvo);
 
 }
