@@ -2,7 +2,19 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.booking.member.dao.MemberDAO">
 
-		
+	<sql id='standardSearchQuery'>
+		<if test="orderTarget != '' and orderTarget != null">
+			order by ${orderTarget}
+		</if>
+		<choose>
+			<when test="orderDirection == 'desc'">
+				desc
+			</when>
+			<when test="orderDirection == 'asc'">
+				asc
+			</when>
+		</choose>
+	</sql>
 		
 		<!-- 로그인 (아이디, 비밀번호 체크후 vo뿌려주기 -->
 		<select id="memberLogin" parameterType="member" resultType="member">
@@ -14,9 +26,85 @@
 		</select>
 
 
-		<!-- 주문내역 조회 + 배송상태 조회 -->
-		<select id="memberMypage" parameterType="member" resultType="delivery">
-		/* memberMypage-주문내역 배송상태 조회 */
+
+		<!-- 주문내역 조회-->
+		<select id="myPurchase" parameterType="delivery" resultType="delivery">
+		/* memberMypage-주문내역  조회 */
+		select 
+		  p_no 
+		 ,p_abprice
+		 ,p_date
+		 ,m_no 
+		 ,p_totprice 
+		 ,p_discount   
+		 ,coupon_code 
+		 ,m_phone 
+		 ,m_post_address 
+		 ,m_name
+		 
+		 from (
+				select list.*, rownum as rnum 
+				from ( select
+						p.p_no 
+						 ,p.p_abprice
+						 ,p.p_date
+						 ,p.m_no 
+						 ,p.p_totprice 
+						 ,p.p_discount   
+						 ,p.coupon_code 
+						 ,p.m_phone 
+						 ,p.m_post_address 
+						 ,p.m_name
+						from BOOKING_PURCHASE_DELIVERY d , booking_purchase p 
+						where d.p_no(+)=p.p_no and m_no=#{m_no} 
+				
+				) list
+				
+		)
+		<where>
+			<if test="searchStartRow != null and searchStartRow != ''">
+				<if test="searchEndRow != null and searchEndRow != ''">
+					rnum between #{searchStartRow} and #{searchEndRow}
+				</if>
+			</if>
+		</where>
+		</select>
+		
+		<!--  배송상태 조회 -->
+		<select id="myDelivery" parameterType="delivery" resultType="delivery">
+		/* memberMypage-배송상태 조회 */
+		select 
+		 d.del_company_name
+    	 ,d.p_no
+    	 ,d.del_ondate
+    	 ,d.del_num
+    	 ,d.del_site
+    	 ,d.del_status
+    	 ,d.del_company_phone
+		 from BOOKING_PURCHASE_DELIVERY d , booking_purchase p 
+		where d.p_no(+)=p.p_no and m_no=#{m_no} 
+		 and d.del_num is not null  
+		 order by p.p_no
+		</select>
+		
+		<select id="purchaseDetail" parameterType="delivery" resultType="rel">
+		 /* memberDetail - 주문내역 책, 수량 */
+		 select 
+		 b.b_title
+		 ,b.b_author 
+		 ,prt.p_amount 
+		 from booking_book_data b inner join booking_book_purchase_rel prt 
+		 on b.isbn = prt.isbn 
+		 where prt.p_no = #{p_no}
+		 
+		</select>
+		
+		<!-- 주문내역 조회-->
+		<select id="myPurchaseCnt" parameterType="member" resultType="int">
+		/* memberMypage-주문내역 총레코드수  조회 */
+		SELECT NVL(count(1), 0) FROM
+	(SELECT list.*, ROWNUM AS RNUM
+		FROM (
 		select 
 		 p.p_no 
 		 ,p.p_abprice
@@ -29,7 +117,20 @@
 		 ,p.m_post_address 
 		 ,p.m_name
 		 
-		 ,d.del_company_name
+		 from BOOKING_PURCHASE_DELIVERY d , booking_purchase p 
+		 where d.p_no(+)=p.p_no and m_no=( select m_no from booking_member where m_id = #{m_id} )
+		  order by p.p_no
+		  ) list )
+		</select>
+		
+		<!--  배송상태 조회 -->
+		<select id="myDeliveryCnt" parameterType="member" resultType="int">
+		/* memberMypage-배송내셕 총레코드수 조회 */
+		SELECT NVL(count(1), 0) FROM
+	(SELECT list.*, ROWNUM AS RNUM
+		FROM (
+		select 
+		 d.del_company_name
     	 ,d.p_no
     	 ,d.del_ondate
     	 ,d.del_num
@@ -37,15 +138,12 @@
     	 ,d.del_status
     	 ,d.del_company_phone
 		 from BOOKING_PURCHASE_DELIVERY d , booking_purchase p 
-		 where d.p_no(+)=p.p_no and m_no=( select m_no from booking_member where m_id = #{m_id} )
+		 where d.p_no(+)=p.p_no and m_no=( select m_no from booking_member where m_id = #{m_id} ) 
+		 and d.del_num is not null  
+		 order by p.p_no
+		 ) list )
 		</select>
-		
-		<!-- 
-		상세보기 클릭시 주문번호를 불러와서 책정보 가져오기 (우선 책제목, isbn, p_no만 가져오게함) 
-		
-		select b.b_title , b.isbn, pr.p_no from booking_book_data b inner join booking_book_purchase_rel pr on b.isbn = pr.isbn where pr.p_no = 1;
-		 -->
-		
+			
 		<!-- 회원가입  -->
 		<insert id="memberInsert" parameterType="member">
 		/* Member - memberInsert */

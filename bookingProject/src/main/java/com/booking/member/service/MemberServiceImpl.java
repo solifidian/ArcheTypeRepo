@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.booking.book.vo.Purchase_DeliveryVO;
+import com.booking.book.vo.Purchase_relVO;
 import com.booking.member.dao.MemberDAO;
 import com.booking.member.vo.MemberVO;
 
@@ -34,15 +35,38 @@ public class MemberServiceImpl implements MemberService {
 	}
 	
 	
-	//마이페이지
+	//주문내역
 	@Override
-	public List<Purchase_DeliveryVO> memberMypage(MemberVO mvo){
+	public List<Purchase_DeliveryVO> myPurchase(Purchase_DeliveryVO listVO){
 		List<Purchase_DeliveryVO> pvo = null;
-		pvo = memberDAO.memberMypage(mvo);
+		pvo = memberDAO.myPurchase(listVO);
 		
 		
 		
 		return pvo;
+	}
+	
+	//배송내역
+	@Override
+	public List<Purchase_DeliveryVO> myDelivery(Purchase_DeliveryVO listVO){
+		List<Purchase_DeliveryVO> pvo = null;
+		pvo = memberDAO.myDelivery(listVO);
+			
+			
+			
+		return pvo;
+	}
+	
+	//주문전체레코드수
+	@Override
+	public int myPurchaseCnt(MemberVO mvo){
+		return  memberDAO.myPurchaseCnt(mvo);
+	}
+	
+	
+	@Override
+	public int myDeliveryCnt(MemberVO mvo){
+		return memberDAO.myDeliveryCnt(mvo);
 	}
 	
 //회원 가입	
@@ -110,6 +134,13 @@ public class MemberServiceImpl implements MemberService {
 		return result;
 	}
 	
-
+	//주문 상세정보
+	@Override
+	public List<Purchase_relVO> purchaseDetail(Purchase_DeliveryVO pvo){
+		List<Purchase_relVO> result = null;
+		result = memberDAO.purchaseDetail(pvo);
+		return result;
+	}
+	
 
 }

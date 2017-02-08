@@ -11,6 +11,7 @@
 			}
 		</style>
 		<script type="text/javascript" src="/resources/include/js/listCommon.js"></script>
+		<script type="text/javascript" src="/resources/include/js/categoryBox.js"></script>
 		<script type="text/javascript">
 			
 			$(function(){
@@ -55,6 +56,13 @@
 		      		<input type="text" class="form-control" name="keyword" id="keyword" value="${listData.keyword}"/>
 		      		
 		      		<br/><br/>
+		      		
+		      		<h3><span class="label label-default">분류</span></h3>
+					<div class="form-inline" id="categoryBoxes">
+						<input type="hidden" name="cat_no" id="cat_no" value="0"/>
+					</div>
+					
+		      		<br/><br/>
 		      			      		
 		      		<!-- 일자 검색 -->
 	          		<h3><span class="label label-default">일자 검색</span></h3>
@@ -66,6 +74,7 @@
 		          	<input type="date" class="form-control" name="searchStartDate" id="searchStartDate" value="${listData.searchStartDate}">
 		          	<input type="date" class="form-control" name="searchEndDate" id="searchEndDate" value="${listData.searchEndDate}">
 		          	<button id="searchKeywordBtn" class="btn btn-primary">검색</button>
+					
 	          	</form>
 	          </div>
          </div>
