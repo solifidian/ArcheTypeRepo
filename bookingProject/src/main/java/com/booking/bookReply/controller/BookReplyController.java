@@ -75,6 +75,7 @@ public class BookReplyController {
 	@RequestMapping(value="/{br_no}.do", method= RequestMethod.PUT)
 	public ResponseEntity<String> bReplyUpdate(@PathVariable("br_no") Integer br_no, @RequestBody BookReplyVO brvo){
 		logger.info("bReplyUpdate 호출 성공");
+		logger.info("br_score:"+brvo.getBr_score());
 		ResponseEntity<String> entity = null;
 		
 		try{
