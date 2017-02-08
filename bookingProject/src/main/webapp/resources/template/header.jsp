@@ -95,7 +95,7 @@
 						<div class="shop-menu pull-right">
 							<ul class="nav navbar-nav">
 								<li><a href="/wish/wishList.do"><i class="fa fa-star"></i> 위시리스트</a></li>
-								<li><a href="/cart/cartlist.do"><i class="fa fa-shopping-cart"></i> 장바구니</a></li>
+								<li><a href="/cart/cartlist.do"><i class="fa fa-shopping-cart"></i> 장바구니2</a></li>
 								<li class="for-member"><a href="/member/memberMypage.do"><i class="fa fa-user"></i> 마이페이지</a></li>
 								<li class="for-non-member"><a href="/member/memberLoginPage.do"><i class="fa fa-lock"></i> 로그인</a></li>
 								<li class="for-member"><a href="/member/memberLogout.do"><i class="fa fa-lock"></i> 로그아웃</a></li>
