@@ -283,6 +283,13 @@ public class MemberController {
 		logger.info("result :"+result);
 		if(result==1){
 			resultStr ="SUCCESS";
+			/************  세션 갱신  시작 **************/
+			MemberVO memVO = memberService.memberLogin(mvo);
+			if(memVO!=null){
+				// 세션 , 쿠키값 뿌려주기
+				session.setAttribute("memSession", memVO);
+			}
+			/************  세션 갱신 종료 **************/
 		}		
 		return resultStr;
 	}	
