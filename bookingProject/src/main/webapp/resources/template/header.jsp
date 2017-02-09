@@ -132,17 +132,23 @@
 									 <ul role="menu" class="sub-menu">
 									 	<li><a href="/book/bookSearch.do">도서 검색</a></li>
 									 </ul>
-								 </li>		
-								<li><a href="/book/bookBestSeller.do" class="active">베스트셀러</a></li>	
-								<li><a href="/book/bookNew.do" >신간</a></li>					
-								<li><a href="/book/bookMonth.do">이달의책</a></li>	
+								 </li>
+								 <li class="dropdown"><a href="" >책추천<i class="fa fa-angle-down"></i></a>
+									 <ul role="menu" class="sub-menu">
+									 	<li><a href="/book/bookBestSeller.do" class="active">베스트셀러</a></li>	
+							 			<li><a href="/book/bookNew.do" >신간</a></li>					
+										<li><a href="/book/bookMonth.do">이달의책</a></li>	
+									 </ul>
+								 </li>					
+						
 								<li><a href="/book/bookSearch.do">도서 검색</a></li>	
-								<li class="dropdown"><a href="#">게시판<i class="fa fa-angle-down"></i></a>
+								<li class="dropdown"><a href="#">커뮤니티<i class="fa fa-angle-down"></i></a>
                                     <ul role="menu" class="sub-menu">
-                                        <li><a href="/board/boardList.do">게시판 리스트</a></li>
-                                          <li><a href="/book/bookFAQ.do">FAQ</a></li>
+                                        <li><a href="/board/boardList.do">커뮤니티 게시판</a></li>
+                                        
                                     </ul>
-                                </li> 
+                                </li>
+                               	<li><a href="/board/cusService.do">고객센터</a></li>                                 
 								<li><a href="/book/errorPage.do">404</a></li>							
 								
 							</ul>
