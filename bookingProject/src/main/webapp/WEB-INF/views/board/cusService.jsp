@@ -118,8 +118,9 @@
 	    		<div class="col-sm-9">  			   			
 					<h2 class="title text-center"> <strong>고객센터</strong></h2>    			    				    				
 					<div>
-						<h2>도서왕 BOOKING 고객센터 입니다.</h2>
+						<img src="/resources/images/ping.png">
 					
+						
 					</div>
 				 		
 			
