@@ -2,6 +2,9 @@
     pageEncoding="UTF-8"%>
 		  <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 		  <%@ taglib prefix="tag" uri="/WEB-INF/tld/custom_tag.tld" %>
+          <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+          
+          <fmt:formatNumber value=”${data.b_abprice}” pattern=”###,###,###”/>
 	<head>
 	<style>
 		span.currentPage{
@@ -321,7 +324,7 @@
 							  <h3><a href="/book/bookDetail.do?isbn=${d.isbn}">${d.b_title}</a></h3>
 								 <span> ${d.b_author} &nbps; / &nbps; ${d.b_pubdate}</span><br>
 								 <span> 리뷰(4건) 회원평점 ***** 만점에 5점 관련이벤트(0건) 중고상품(3건)</span><br>
-								 <span> ${d.b_abprice}원 </span><br>
+								 <span> ${price}원 </span><br>
 								 <span> 주제어 스마트폰 , 시력 회복법 , 생활습관 , 스트레칭 , 콘택트렌즈  더보기</span><br>
 							  
 							

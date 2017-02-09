@@ -40,3 +40,9 @@ function chkFile(item){
 	}
 	
 }
+
+
+//금액 영역에 , 콤마 출력 
+function priceNumber(x) {
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}

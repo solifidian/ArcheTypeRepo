@@ -165,3 +165,4 @@
 	<script src="/resources/include/js/price-range.js"></script>
     <script src="/resources/include/js/jquery.prettyPhoto.js"></script>
     <script src="/resources/include/js/main.js"></script>
+    <script src="/resources/include/assets/js/chk.js"></script>

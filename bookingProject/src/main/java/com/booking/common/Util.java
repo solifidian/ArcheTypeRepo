@@ -2,6 +2,7 @@ package com.booking.common;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;
+import java.text.DecimalFormat;
 import java.util.Random;
 
 import javax.servlet.http.Cookie;
@@ -67,6 +68,9 @@ public class Util {
 		    System.out.println(shapass);
 		    return shapass;
 		  }
+	  
+	  
+
 	  
 	  
 	  
