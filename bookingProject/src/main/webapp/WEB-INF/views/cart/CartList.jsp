@@ -7,13 +7,67 @@
 <html>
 <head>
 <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+
 <script type="text/javascript">
 	
  $(function(){
+	//로그인 했을 경우 m_id=로그인 아이디 
+	    var m_id="${sessionScope.memSession.m_id}";
+	    
+	    if(m_id!="")
+		m_id="${sessionScope.memSession.m_id}";
+		else if(m_id=="")
+		m_id='0';	
+	    
+		  
+	 //쇼핑 계속하기
+ 	 
+	 $("#continueShoppingBtn").click(function(){
+			alert("메인페이지로 이동")
+			location.href="/search/search.do"
+				
+			})
+	 //비회원 주문 하기
+	 $("#noMemberPurchaseBtn").click(function(){
+			 alert("비회원구매")
+	 //회원이 비회원주문 클릭했을  경우 로그인 창으로 이동
+		 if(m_id!='0'){
+			alert("회원 구매를 이용해주세요 ")
+	 		return;
+	  	}
 	
+	 //카트가 비어있는 상태에서 구매를 클릭했을 때 경고
+	     if(cartSize==0){
+	    	 alert("카트가 비어있습니다.")
+	    	 return;
+		     }		 
+			 
+			 
+	  $("#m_id").val(0);
+	  $("#cart_form").attr({
+		"method":"get",
+		"action":"/purchase/purchaseList.do"
+										
+	   	 })
+		$("#cart_form").submit();
+		 })
+	 
+	 
 	//회원주문 계속하기 
 	 $("#memberPurchaseBtn").click(function(){
-		var m_id="${sessionScope.memSession.m_id}"
+		//비회원이 회원주문 클릭했을  경우 로그인 창으로 이동
+			if(m_id=='0'){
+				alert("로그인 후 이용해주세요 ")
+				return;
+			}
+		//카트가 비어있는 상태에서 구매를 클릭했을 때 경고
+		     if(cartSize==0){
+		    	 alert("카트가 비어있습니다.")
+		    	 return;
+		     }
+		 
+		 
+		 
 		$("#m_id").val(m_id);
 		$("#cart_form").attr({
 			"method":"get",
@@ -42,7 +96,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-
+      ${cookie.JSESSIONID.value}  
 	  ${sessionScope.memSession.m_id} 세션스코프
 	<section id="cart_items">
 		<div class="container">
@@ -69,44 +123,7 @@
 						 <jsp:include page="cart.jsp"></jsp:include>
 						
 						
-					
-					
-					
-					
-<%-- 					<c:if test="${empty data }">
-							  <tr>
-							  <td colspan=5> <div class="text-center"><h3>장바구니가 비어 있습니다.</h3></div>	  
-							  </tr>
-					 </c:if>
-									
-					<c:forEach var="d" items="${data}">	
-						<tr data-num="${d.cat_no}">
-							<td class="cart_product">
-								<a href=""><img src="images/cart/one.png" alt=""></a>
-							</td>
-							<td class="cart_description">
-								<h4><a href="">${d.b_name}</a></h4>
-								<p>Web ID: 1089772</p>
-								
-							</td>
-							<td class="cart_price">
-								<p>${d.b_abprice}원</p>
-							</td>
-							<td class="cart_quantity">
-								<div class="cart_quantity_button">
-									<a class="cart_quantity_up" href=""> + </a>
-									<input class="cart_quantity_input" type="text" name="quantity" value="1" autocomplete="off" size="2">
-									<a class="cart_quantity_down" href=""> - </a>
-								</div>
-							</td>
-							<td class="cart_total">
-								<p class="cart_total_price">${b.b_abprice}원</p>
-							</td>
-							<td class="cart_delete">
-								<a class="cart_quantity_delete" href=""><i class="fa fa-times"></i></a>
-							</td>
-						</tr>
-                </c:forEach> --%>
+				
 					</tbody>
 				
 				</table>
@@ -126,7 +143,7 @@
 							<li>총 합계 <span id="totalprice">원</span></li>
 							<li>배 송 비 <span id="deliveryprice">원</span></li>
 							<li>결제 예정금액  <span id="price"></span></li>
-							<li>적립 예정 <span>$61</span></li>
+							<li>적립 예정 <span id="point">원</span></li>
 						</ul>
 						 
 						 <form id="cartform">
@@ -135,8 +152,8 @@
 							<input type="hidden" id="m_id" name="m_id" />
 							
 							<input type="button" class="btn btn-default update" value="회원 주문하기" id="memberPurchaseBtn"/>							
-							<input type="button" class="btn btn-default check_out" value="비회원 주문하기" />
-							<input type="button" class="btn btn-default check_out" value="쇼핑 계속하기" />
+							<input type="button" class="btn btn-default check_out" value="비회원 주문하기" id="noMemberPurchaseBtn" />
+							<input type="button" class="btn btn-default check_out" value="쇼핑 계속하기" id="continueShoppingBtn" />
 						</div>
 					</form>
 					</div>

@@ -68,9 +68,31 @@ function makeCateBoxFromNo(target,cat_no){
 
 		}
 	})
-	
+	$("#hc").remove();
 }
 
+function makeCateBoxSearched(target,cat_no){
+	var conStr = "";
+	
+	$.ajax({
+		url:"/common/categoryOne.do",
+		type:"post",
+		data:"cat_no="+cat_no,
+		success:function(data){
+			console.log(data.hc_no)
+			$("#hc").remove();
+			makeCateBoxSelected(target,1,0,"hc",data.hc_no,function(){
+				if(data.hc_no != null && data.hc_no != '' && data.hc_no != '0'){
+					makeCateBoxSelected(target,2,data.hc_no,"mc",data.mc_no,function(){
+						if(data.mc_no != null && data.mc_no != ''){
+							makeCateBoxSelected(target,3,data.mc_no,"cat_no",data.lc_no);
+						}
+					});
+				}
+			});
+		}
+	})
+}
 $(function(){
 	makeCateBox("#categoryBoxes",1,0,"hc");
 				

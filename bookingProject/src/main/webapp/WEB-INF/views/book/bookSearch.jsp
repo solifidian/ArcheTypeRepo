@@ -2,6 +2,9 @@
     pageEncoding="UTF-8"%>
 		  <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 		  <%@ taglib prefix="tag" uri="/WEB-INF/tld/custom_tag.tld" %>
+          <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+          
+          <fmt:formatNumber value=”${data.b_abprice}” pattern=”###,###,###”/>
 	<head>
 	<style>
 		span.currentPage{
@@ -281,23 +284,21 @@
 	    
 	    
 	    <!--검색창 영역  -->
-	    	<div class="row">
-		     	<div class="navbar navbar-default">
-	         		페이지당 표시 건 수
-	         		<select name="pageSizeChange" id="pageSizeChange" >
+	    	<div class="well">
+	         	<div class="col-sm-6">
+	         		<label class="col-sm-4">페이지당 표시 건 수</label>
+	         		<select class="col-sm-2" name="pageSizeChange" id="pageSizeChange" >	         			
 	         			<option value="5">5</option>
 	         			<option value="10">10</option>
 	         			<option value="30">30</option>
-	         		</select>건
-	         		&nbsp;&nbsp;/&nbsp;검색 결과 : ${listData.searchTotal} 건 &nbsp;&nbsp;/&nbsp;
-	         		<button type="button" id="excelDownBtn" class="btn btn-primary">엑셀로 다운로드</button>
+	         		</select>
+	         		건
+	         		&nbsp;&nbsp;/&nbsp;검색 결과 :${listData.searchTotal}건
 	         	</div>
-         	</div>
-         	<div class="row">
-         		<div class="paginationBar text-center" >
-		           	<tag:PagingBar page="${listData.page}" searchTotal="${listData.searchTotal}" pageSize="${listData.pageSize}"/>
-		       	</div> 
-		     </div>
+	            <div class="paginationBar text-center paginate">
+	            	<tag:PagingBar page="${listData.page}" searchTotal="${listData.searchTotal}" pageSize="${listData.pageSize}"/>
+	            </div>         
+           </div>
 	         <div class="col-sm-12 padding-right">
 			        
 	         
@@ -323,7 +324,7 @@
 							  <h3><a href="/book/bookDetail.do?isbn=${d.isbn}">${d.b_title}</a></h3>
 								 <span> ${d.b_author} &nbps; / &nbps; ${d.b_pubdate}</span><br>
 								 <span> 리뷰(4건) 회원평점 ***** 만점에 5점 관련이벤트(0건) 중고상품(3건)</span><br>
-								 <span> ${d.b_abprice}원 </span><br>
+								 <span> ${price}원 </span><br>
 								 <span> 주제어 스마트폰 , 시력 회복법 , 생활습관 , 스트레칭 , 콘택트렌즈  더보기</span><br>
 							  
 							

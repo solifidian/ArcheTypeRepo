@@ -15,7 +15,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-
+import com.booking.common.util.Util;
 import com.booking.search.service.SearchService;
 import com.booking.search.vo.SearchVO;
 
@@ -36,18 +36,12 @@ public class SearchController {
 		
 			
 		List<SearchVO> list=searchService.booksearchlist(svo);
-		model.addAttribute("data" , list);
+		   //결제 완료 페이지에 뿌려줄 데이터
+	   
+		
+	     model.addAttribute("data" , list);
 		 
-		session.setAttribute("id","");
-		
-		Cookie cookie = new Cookie("id", "test");
-    	cookie.setMaxAge(7*24*60*1);
-    		
-    	
-    	response.addCookie(cookie);
-	
-
-		
+				
 		
 		
 		return "search/searchpage";

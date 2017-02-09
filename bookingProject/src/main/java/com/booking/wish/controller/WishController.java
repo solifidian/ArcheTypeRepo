@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.booking.cart.service.CartService;
+import com.booking.common.util.Util;
 import com.booking.member.vo.MemberVO;
 import com.booking.wish.service.WishService;
 import com.booking.wish.vo.WishVO;
@@ -39,8 +40,9 @@ public class WishController {
 	@RequestMapping(value="/wishList.do",method=RequestMethod.GET)
 	public String wishList(@ModelAttribute WishVO wvo , Model model, HttpServletRequest request, HttpSession session){
 		logger.info("위시 리스트 호출"+wvo.getM_id());
-		String m_id = "";
 		
+		String m_id="";
+		int m_no=0;
 		Cookie[] cookies = request.getCookies();
 		
 		logger.info(cookies.length);
@@ -57,17 +59,16 @@ public class WishController {
 		}else{
 			 
 			 m_id = memSession.getM_id();
+			 m_no=  memSession.getM_no();
 		}
 		
 		
 		logger.info("id = "+m_id);
 		//id를 m_no 값으로 확인
-		int no=wishService.searchM_no(m_id);
-		logger.info("m_no="+no);
-		wvo.setM_no(no);
 		
+		
+		wvo.setM_no(m_no);
 		List<WishVO> list=wishService.wishList(wvo);
-		
 		model.addAttribute("wish" , list);
 		
 		
@@ -78,16 +79,40 @@ public class WishController {
 	//위시 리스트 삭제 
 	@RequestMapping(value="wishDelete.do",method=RequestMethod.GET)
 	@ResponseBody
-	public String wishDelete(@ModelAttribute WishVO wvo){
+	public String wishDelete(@ModelAttribute WishVO wvo, HttpSession session, HttpServletRequest request){
 		logger.info("위시 delete 호출");
 		logger.info("위시 delete 입력값"+wvo.getM_id()+wvo.getIsbn());
 		
 		
+		String m_id="";
+		int m_no=0;
+		Cookie[] cookies = request.getCookies();
+		
+		logger.info(cookies.length);
+		
+		for(Cookie cookie : cookies){
+			logger.info(cookie.getName() + " = " + cookie.getValue());
+		}
+		
+		MemberVO memSession = (MemberVO)session.getAttribute("memSession");
+		
+		if(memSession == null){
+			logger.info("비회원");
+			return "member/memberLoginPage";
+		}else{
+			 
+			 m_id = memSession.getM_id();
+			 m_no=  memSession.getM_no();
+		}
+		
+		
+		
+		
+		
 		
 		//위시 리스트에 같은 m_id로 m_no를 확인
-		int no=wishService.searchM_no(wvo.getM_id());
-		logger.info("m_no="+no);
-		wvo.setM_no(no);
+	
+		wvo.setM_no(m_no);
 		
 		String result="";
 		int value=0;
@@ -106,17 +131,48 @@ public class WishController {
 	//위시 리스트 입력 /booking/wish/wishInsert.do
 	@RequestMapping(value="wishInsert.do" , method=RequestMethod.POST)
 	@ResponseBody
-	public String wishInsert(@ModelAttribute WishVO wvo){
+	public String wishInsert(@ModelAttribute WishVO wvo,HttpSession session, HttpServletRequest request){
+		
+		
+		
 		
 		logger.info("위시 리스트 입력 호출");
 		logger.info("위시 리스트 입력값"+wvo.getM_id()+wvo.getIsbn());
 		
+		
+		/**********************************
+		 * 세션 확인
+		 * memSession is not null = 회원
+		 *********************************/
+		String m_id = "0";
+		int m_no = 0;
+		MemberVO memSession = (MemberVO)session.getAttribute("memSession");
+		
+		if(memSession != null && !memSession.getM_id().equals("")){
+			logger.info("회원 확인 됨");
+			m_id = memSession.getM_id();
+			
+			m_no = memSession.getM_no();
+			
+		}
+		/*********** 세션 확인 종료 ***********/
+		
+		/************************************
+		 * 쿠키로부터 JSESSIONID 가져오기
+		 ***********************************/
+		String cart_ip = "";
+		cart_ip = Util.getCookieValue(request.getCookies(), "JSESSIONID");
+		/************ 쿠기 가져오기 종료  ************/
+					
+		
+		wvo.setM_id(m_id);
+		wvo.setM_no(m_no);
+		
+		
+		
+		
 		//위시 리스트에 같은 m_id로 m_no를 확인
-		int no=wishService.searchM_no(wvo.getM_id());
-		logger.info("m_no="+no);
-		wvo.setM_no(no);
-		
-		
+						
 		String result="";
 		int value=0;
 	

@@ -79,19 +79,19 @@ public class MemberController {
 			if(listVO.getPur_del_mode().equals("deliveryTable")){
 				listVO.setSearchMode("deliveryTable");
 				dvoList = memberService.myDelivery(listVO);
-				listVO.setSearchTotal(memberService.myDeliveryCnt(mvo));
+				listVO.setSearchTotal(memberService.myDeliveryCnt(listVO));
 			}
 			//주문 내역이 선택
 			else if(listVO.getPur_del_mode().equals("purchaseTable")){
 				listVO.setSearchMode("purchaseTable");
 				pvoList = memberService.myPurchase(listVO);
-				listVO.setSearchTotal(memberService.myPurchaseCnt(mvo));
+				listVO.setSearchTotal(memberService.myPurchaseCnt(listVO));
 			}
 		}else{
 			//default값은 주문 내역으로
 			listVO.setSearchMode("purchaseTable");
 			pvoList = memberService.myPurchase(listVO);
-			listVO.setSearchTotal(memberService.myPurchaseCnt(mvo));
+			listVO.setSearchTotal(memberService.myPurchaseCnt(listVO));
 		}
 				
 		model.addAttribute("purchase", pvoList);
@@ -283,6 +283,13 @@ public class MemberController {
 		logger.info("result :"+result);
 		if(result==1){
 			resultStr ="SUCCESS";
+			/************  세션 갱신  시작 **************/
+			MemberVO memVO = memberService.memberLogin(mvo);
+			if(memVO!=null){
+				// 세션 , 쿠키값 뿌려주기
+				session.setAttribute("memSession", memVO);
+			}
+			/************  세션 갱신 종료 **************/
 		}		
 		return resultStr;
 	}	

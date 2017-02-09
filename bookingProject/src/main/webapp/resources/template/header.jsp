@@ -38,10 +38,8 @@
 				<div class="row">
 					<div class="col-sm-6">
 						<div class="contactinfo">
-							<ul class="nav nav-pills">
-								<li><a href="#"><i class="fa fa-phone"></i> +82 010 1234 5678</a></li>
-								<li><a href="#"><i class="fa fa-envelope"></i> 변화가 온다!!!!!!!!</a></li>													
-								<li class="hi"><a href="#"><i class="fa fa-user"></i> ${sessionScope.memSession.m_name}님 안녕하세요 </a></li>
+							<ul class="nav nav-pills">										
+								<li class="hi"><a href="#"><i class="fa fa-user"></i> ${sessionScope.memSession.m_nick}님 안녕하세요 </a></li>
 							</ul> 
 						</div>
 					</div>
@@ -94,6 +92,7 @@
 					<div class="col-sm-8">
 						<div class="shop-menu pull-right">
 							<ul class="nav navbar-nav">
+
 								<li><a href="/wish/wishList.do"><i class="fa fa-star"></i> 위시리스트</a></li>
 								<li><a href="/cart/cartlist.do"><i class="fa fa-shopping-cart"></i> 장바구니</a></li>
 								<li class="for-member"><a href="/member/memberMypage.do"><i class="fa fa-user"></i> 마이페이지</a></li>

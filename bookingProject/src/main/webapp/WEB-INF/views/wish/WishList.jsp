@@ -13,18 +13,45 @@
 
 $(function(){
 	
+ //쇼핑 계속하기
+	 
+	 $("#goPurchaseBtn").click(function(){
+			alert("쇼핑 페이지로 이동")
+			location.href="/search/search.do"
+				
+			})
+	
+ //바로 구매 버튼 클릭 시 nowPurchaseBtn
+	 $(".nowPurchaseBtn").click(function(){
+	 alert("이것은 바로구매입니다.")
+		 var isbnv=$(this).parents("tr").attr("data-num");
+		 	alert(isbn)
+		  var isbn=$("#isbn").val(isbnv);
+		  $("#nowpay").val(1); 
+		  $("#cart_amount").val(1);
+		 				 
+		 $("#wishListForm").attr({
+				"method":"get",
+				"action":"/purchase/purchaseList.do"
+											
+				})
+				$("#wishListForm").submit();
+				 
+		 
+				 
+	 })
 //위시리스트 책 삭제 
 
 $(".cartDeleteBtn").click(function(){
-	var num=$(this).parents("tr").attr("data-num");
-	$("#isbn").val(num) 
+	var isbn=$(this).parents("tr").attr("data-num");
+	$("#isbn").val(isbn) 
 	
 	if(confirm("위시리스트에서 삭제 하겠습니까?")){
 		
 		$.ajax({
 			   url:"/wish/wishDelete.do",
 			   type:"GET",
-			   data:$("#wishListForm").serialize(),
+			   data:{"isbn":isbn},
 			   dataType:"text",
 			   error:function(request,status,error){
 				   alert("code : " + request.status + "\r\ nmessage : "
@@ -47,12 +74,9 @@ $(".cartDeleteBtn").click(function(){
 //장바구니에 책 추가 
 $(".cartInsertBtn").click(function(){ 				 
 	 var num=$(this).parents("tr").attr("data-num");
-	 var m_id="${sessionScope.memSession.m_id}"
-	 
 	$("#isbn").val(num) 
-	$("#m_id").val(m_id) 
 	$("#cart_amount").val(1)
-	alert(m_id);
+	
 	 
 	 $.ajax({
 		   url:"/cart/cartInsert.do",
@@ -68,9 +92,7 @@ $(".cartInsertBtn").click(function(){
 			    if(Data=="SUCCESS"){
 	 				
 	 				if(confirm("장바구니에 추가 되었습니다  장바구니로 이동하시겠습니까?")){
-	 					$("#m_id").val(m_id) 
-	 				
-	 				
+	 					 				
 	 					$("#wishListForm").attr({
 	 						"method":"get",
 	 						"action":"/cart/cartlist.do"
@@ -150,12 +172,12 @@ $(".cartInsertBtn").click(function(){
 							  
  								<input type="hidden" id="isbn" name="isbn"  />
  								<input type="hidden" id="cart_amount" name="cart_amount"  />
- 								<input type="hidden" id="m_id" name="m_id" value="${sessionScope.memSession.m_id}" />
- 								<input type="hidden" id="cart_ip" name="cart_ip" value="${cookie.JSESSIONID.value}" />
+ 								<input type="hidden" id="nowpay" name="nowpay"  />
+ 								
  								 <div class="form-group">
 							  
 							  <span class="cartInsertBtn"><input type="button" class="btn btn-default" value="장바구니"  />	</span>																			
-							   <input type="button" class="btn btn-default" value="바로구매" class="btn1" />
+							  <span class="nowPurchaseBtn"> <input type="button" class="btn btn-default" value="바로구매" /> </span>
 							  <span class="cartDeleteBtn"><input type="button" class="btn btn-default" value="삭제" /></span>
 						
 							  </div>
@@ -169,6 +191,12 @@ $(".cartInsertBtn").click(function(){
 						</table>
 						
 						</div>
+							<div class="text-center" >
+											<input type="button" class="btn btn-default update" value="쇼핑 계속하기" id="goPurchaseBtn"/>
+											
+							</div>
+							<p></p>		
+						
 						</div>
 		
 		

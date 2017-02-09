@@ -12,9 +12,9 @@ public List<Purchase_DeliveryVO> myPurchase(Purchase_DeliveryVO listVO);
 	
 	public List<Purchase_DeliveryVO> myDelivery(Purchase_DeliveryVO listVO);
 	
-	public int myPurchaseCnt(MemberVO mvo);
+	public int myPurchaseCnt(Purchase_DeliveryVO listVO);
 	
-	public int myDeliveryCnt(MemberVO mvo);
+	public int myDeliveryCnt(Purchase_DeliveryVO listVO);
 	
 	public int memberInsert(MemberVO mvo);
 

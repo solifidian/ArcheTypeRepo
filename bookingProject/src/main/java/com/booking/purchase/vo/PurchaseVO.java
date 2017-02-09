@@ -21,6 +21,8 @@ public class PurchaseVO extends BookVO{
    private int bookea;
    private String m_id="";
    private int nowpay=0; //즉시주문인지 구별 0 일반구매 1즉시주문
+   
+   
 public int getP_no() {
 	return p_no;
 }
