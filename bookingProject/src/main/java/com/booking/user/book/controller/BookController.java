@@ -15,7 +15,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.booking.admin.book.service.CategoryService;
 import com.booking.book.vo.BookVO;
+import com.booking.book.vo.CategoryVO;
 import com.booking.common.paging.Paging;
 import com.booking.user.book.service.BookService;
 
@@ -27,6 +29,9 @@ public class BookController {
 	
 	@Autowired
 	private BookService bookService;
+	
+	@Autowired
+	private CategoryService categoryService;
 	
 		
 	@RequestMapping(value="/bookOrder.do")
@@ -68,7 +73,10 @@ public class BookController {
 	
 	//index페이지로 이동
 	@RequestMapping(value="/bookIndex.do")
-	public String bookIndex(){
+	public String bookIndex(@ModelAttribute CategoryVO ctvo, Model model){
+		List<CategoryVO> ctvoList = categoryService.categoryBoxList(ctvo);
+		
+		model.addAttribute("cateList",ctvoList);
 		return "book/bookIndex";
 	}
 	
@@ -116,6 +124,7 @@ public class BookController {
 		Paging.setBookPaging(bvo);
 		
 		List<BookVO> bookList = bookService.bookList(bvo);
+		if(bookList != null)
 		bvo.setSearchTotal(bookList.get(0).getSearchTotal());
 		
 		logger.info("searchTotal : "+bvo.getSearchTotal());
