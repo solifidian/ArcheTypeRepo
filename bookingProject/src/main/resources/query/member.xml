@@ -1,333 +1,3 @@
-<<<<<<< HEAD
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.booking.member.dao.MemberDAO">
-
-	<sql id='standardSearchQuery'>
-		<where>
-			<if test="keyword != '' and keyword != null">
-				<choose>
-					<when test="searchMode == 'purAllSch'">
-						p_no like '%' || #{keyword} || '%'
-						or m_id like '%' || #{keyword} || '%'
-					</when>
-					<when test="searchMode == 'purNoSch'">
-						p_no like '%' || #{keyword} || '%'
-					</when>
-					<when test="searchMode == 'purIdSch'">
-						m_id like '%' || #{keyword} || '%'
-					</when>
-				</choose>
-			</if>
-			<if test="searchStartDate != '' and searchStartDate != null">
-				<if test="searchEndDate != '' and searchEndDate != null">
-					<choose>
-						<when test="searchDateMode == 'publishSch'">
-							b_pubdate between #{searchStartDate} and #{searchEndDate}
-						</when>
-						<when test="searchDateMode == 'updateSch'">
-							b_update between #{searchStartDate} and #{searchEndDate}
-						</when>
-						<when test="searchDateMode == 'editdateSch'">
-							b_editdate between #{searchStartDate} and #{searchEndDate}
-						</when>
-					</choose>
-				</if>
-			</if> 
-		</where>
-		<if test="orderTarget != '' and orderTarget != null">
-			order by ${orderTarget}
-		</if>
-		<choose>
-			<when test="orderDirection == 'desc'">
-				desc
-			</when>
-			<when test="orderDirection == 'asc'">
-				asc
-			</when>
-		</choose>
-	</sql>
-		
-		<!-- 로그인 (아이디, 비밀번호 체크후 vo뿌려주기 -->
-		<select id="memberLogin" parameterType="member" resultType="member">
-				/* MemberLogin 조회 */
-				select m_no, m_id ,m_pwd ,m_nick ,m_name, m_birth, m_sex, m_phone, m_email, m_comment, m_rank, m_point, m_update, m_editdate, m_home_address, m_post_address
-				from booking_member 
-				where m_id = #{m_id} and m_pwd = #{m_pwd}
-		
-		</select>
-
-
-
-		<!-- 주문내역 조회-->
-		<select id="myPurchase" parameterType="delivery" resultType="delivery">
-		/* memberMypage-주문내역  조회 */
-		select 
-		  p_no 
-		 ,p_abprice
-		 ,p_date
-		 ,m_no 
-		 ,m_id
-		 ,p_totprice 
-		 ,p_discount   
-		 ,coupon_code 
-		 ,m_phone 
-		 ,m_post_address 
-		 ,m_name
-		 
-		 from (
-				select list.*, rownum as rnum 
-				from ( select
-						p.p_no 
-						 ,p.p_abprice
-						 ,p.p_date
-						 ,p.m_no
-						 ,m.m_id
-						 ,p.p_totprice 
-						 ,p.p_discount   
-						 ,p.coupon_code 
-						 ,p.m_phone 
-						 ,p.m_post_address 
-						 ,p.m_name
-						from booking_purchase p, booking_member m
-						<where>
-							<choose>
-								<when test="m_no != null and m_no != '' and m_no != '0'">
-									p.m_no=#{m_no} and p.m_no= m.m_no
-								</when>
-								<otherwise>
-									p.m_no= m.m_no
-								</otherwise>
-							</choose>
-							<if test="keyword != '' and keyword != null">
-								<choose>
-									<when test="searchMode == 'purAllSch'">
-										and p.p_no like '%' || #{keyword} || '%'
-										or m.m_id like '%' || #{keyword} || '%'
-									</when>
-									<when test="searchMode == 'purNoSch'">
-										and p.p_no like '%' || #{keyword} || '%'
-									</when>
-									<when test="searchMode == 'purIdSch'">
-										and m.m_id like '%' || #{keyword} || '%'
-									</when>
-								</choose>
-							</if>
-							<if test="searchStartDate != '' and searchStartDate != null">
-								<if test="searchEndDate != '' and searchEndDate != null">
-									and p.p_date between #{searchStartDate} and #{searchEndDate}
-								</if>
-							</if> 
-						</where>
-						<if test="orderTarget != '' and orderTarget != null">
-							order by ${orderTarget}
-						</if>
-						<choose>
-							<when test="orderDirection == 'desc'">
-								desc
-							</when>
-							<when test="orderDirection == 'asc'">
-								asc
-							</when>
-						</choose>
-				) list
-				
-				
-		)
-		<where>
-			<if test="searchStartRow != null and searchStartRow != ''">
-				<if test="searchEndRow != null and searchEndRow != ''">
-					rnum between #{searchStartRow} and #{searchEndRow}
-				</if>
-			</if>
-		</where>
-		</select>
-		
-		<!--  배송상태 조회 -->
-		<select id="myDelivery" parameterType="delivery" resultType="delivery">
-		/* memberMypage-배송상태 조회 */
-		select 
-		 d.del_company_name
-    	 ,d.p_no
-    	 ,d.del_ondate
-    	 ,d.del_num
-    	 ,d.del_site
-    	 ,d.del_status
-    	 ,d.del_company_phone
-		 from BOOKING_PURCHASE_DELIVERY d , booking_purchase p 
-		where d.p_no(+)=p.p_no and m_no=#{m_no} 
-		 and d.del_num is not null  
-		 order by p.p_no
-		</select>
-		
-		<select id="purchaseDetail" parameterType="delivery" resultType="rel">
-		 /* memberDetail - 주문내역 책, 수량 */
-		 select 
-		 b.b_title
-		 ,b.b_author 
-		 ,prt.p_amount 
-		 from booking_book_data b inner join booking_book_purchase_rel prt 
-		 on b.isbn = prt.isbn 
-		 where prt.p_no = #{p_no}
-		 
-		</select>
-		
-		<!-- 주문내역 조회-->
-		<select id="myPurchaseCnt" parameterType="delivery" resultType="int">
-		/* memberMypage-주문내역 총레코드수  조회 */
-		SELECT NVL(count(1), 0) FROM
-	(SELECT list.*, ROWNUM AS RNUM
-		FROM (
-		select 
-		 p.p_no 
-		 ,p.p_abprice
-		 ,p.p_date
-		 ,p.m_no 
-		 ,p.p_totprice 
-		 ,p.p_discount   
-		 ,p.coupon_code 
-		 ,p.m_phone 
-		 ,p.m_post_address 
-		 ,p.m_name
-		 
-		 from BOOKING_PURCHASE_DELIVERY d , booking_purchase p 
-		 where d.p_no(+)=p.p_no and m_no=#{m_no}
-		  order by p.p_no
-		  ) list )
-		</select>
-		
-		<!--  배송상태 조회 -->
-		<select id="myDeliveryCnt" parameterType="delivery" resultType="int">
-		/* memberMypage-배송내셕 총레코드수 조회 */
-		SELECT NVL(count(1), 0) FROM
-	(SELECT list.*, ROWNUM AS RNUM
-		FROM (
-		select 
-		 d.del_company_name
-    	 ,d.p_no
-    	 ,d.del_ondate
-    	 ,d.del_num
-    	 ,d.del_site
-    	 ,d.del_status
-    	 ,d.del_company_phone
-		 from BOOKING_PURCHASE_DELIVERY d , booking_purchase p 
-		 where d.p_no(+)=p.p_no and m_no=#{m_no}
-		 and d.del_num is not null  
-		 order by p.p_no
-		 ) list )
-		</select>
-			
-		<!-- 회원가입  -->
-		<insert id="memberInsert" parameterType="member">
-		/* Member - memberInsert */
-		<selectKey keyProperty = "m_no" resultType="int" order="BEFORE">
-		   SELECT booking_member_m_no_seq.nextval FROM dual
-		</selectKey>
-		   INSERT INTO booking_member(
-		         m_no,
-		         m_id,           
-		         m_pwd,           
-		         m_nick,            
-		         m_name,            
-		         m_birth,          
-		         m_sex,            
-		         m_phone,          
-		         m_email,             
-		           
-		         m_home_address         
-		   )   
-		   VALUES (   
-		         #{m_no},
-		         #{m_id},           
-		         #{m_pwd},           
-		         #{m_nick},            
-		         #{m_name},            
-		         #{m_birth},          
-		         #{m_sex},            
-		         #{m_phone},          
-		         #{m_email},          
-		      
-		         #{m_home_address}
-		   )
-		</insert>
-		
-		<!-- 아이디 중복 체크 -->
-		<select id="idChk" parameterType="member" resultType="int">
-		/* Member - idChk */
-		   SELECT NVL((SELECT 1 FROM booking_member WHERE m_id=#{m_id}), 0) as result FROM dual
-		</select>
-		
-		
-		<!-- 수정화면보기 -->
-		<select id="memberDetail" resultType="member">
-		/* Member - memberDetail */
-		   SELECT 
-		          m_id,           
-		          m_pwd,           
-		          m_nick,            
-		          m_name,            
-		          TO_CHAR(m_birth,'YY-MM-DD') as m_birth,                  
-		          m_phone,          
-		          m_email,
-		          m_home_address,   
-		          m_post_address,
-		          m_comment
-		     FROM booking_member        
-		     WHERE m_no = #{m_no}
-		</select>
-		
-		
-		
-		<!-- 회원 수정  -->
-		<update id="memberUpdate" parameterType="member">
-		/* Member - memberUpdate */
-		   UPDATE booking_member 
-		   SET                      
-		         m_nick = #{m_nick}                  
-		         ,m_phone = #{m_phone}
-		         ,m_email = #{m_email}           
-		         ,m_editdate = sysdate
-		         ,m_pwd = #{m_pwd}   		   
-        	<if test="m_home_address != null and m_home_address != ''">    
-		         ,m_home_address = #{m_home_address}
-		         ,m_post_address = #{m_home_address}      
-		  	</if>
-		  	<if test="m_comment != null and m_comment != ''">  
-		  		,m_comment = #{m_comment}  
-		  	</if>
-		  	
-		   WHERE 
-		   		m_no = #{m_no}
-		</update>
-		
-		<!-- 회원 탈퇴 --> 
-		<delete id="memberDelete" parameterType="member">
-		/* Member - memberDelete */
-		   DELETE FROM booking_member
-		   WHERE m_no = #{m_no}
-		</delete>
-		
-		<!-- 아이디 찾기  -->
-		<select id="findId" parameterType="member" resultType="member">
-		/* Member - findId */
-		   SELECT m_id
-		   FROM booking_member
-		   WHERE m_name = #{m_name} and m_email = #{m_email}
-		</select>
-		
-		<!--  비밀번호 찾기 -->
-		<select id="findPwd" parameterType="member" resultType="member">
-		/* Member - findPwd */
-		   SELECT m_pwd 
-		   FROM booking_member
-		   WHERE m_id=#{m_id} and m_name = #{m_name}
-		</select>
-		
-		
-		
-
-
-=======
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.booking.member.dao.MemberDAO">
@@ -422,7 +92,7 @@
 						<where>
 							<choose>
 								<when test="m_no != null and m_no != '' and m_no != '0'">
-									d.p_no=p.p_no and m_no=#{m_no} and p.m_no= m.m_no
+									d.p_no=p.p_no and p.m_no=#{m_no} and p.m_no= m.m_no
 								</when>
 								<otherwise>
 									d.p_no=p.p_no and p.m_no= m.m_no
@@ -484,7 +154,7 @@
     	 ,d.del_status
     	 ,d.del_company_phone
 		 from BOOKING_PURCHASE_DELIVERY d , booking_purchase p 
-		where d.p_no(+)=p.p_no and m_no=#{m_no} 
+		where d.p_no(+)=p.p_no and p.m_no=#{m_no} 
 		 and d.del_num is not null  
 		 order by p.p_no
 		</select>
@@ -520,7 +190,7 @@
 		 ,p.m_name
 		 
 		 from BOOKING_PURCHASE_DELIVERY d , booking_purchase p 
-		 where d.p_no(+)=p.p_no and m_no=#{m_no}
+		 where d.p_no(+)=p.p_no and p.m_no=#{m_no}
 		  order by p.p_no
 		  ) list )
 		</select>
@@ -540,7 +210,7 @@
     	 ,d.del_status
     	 ,d.del_company_phone
 		 from BOOKING_PURCHASE_DELIVERY d , booking_purchase p 
-		 where d.p_no(+)=p.p_no and m_no=#{m_no}
+		 where d.p_no(+)=p.p_no and p.m_no=#{m_no}
 		 and d.del_num is not null  
 		 order by p.p_no
 		 ) list )
@@ -587,13 +257,6 @@
 		/* Member - idChk */
 		   SELECT NVL((SELECT 1 FROM booking_member WHERE m_id=#{m_id}), 0) as result FROM dual
 		</select>
-		
-		<!-- 아이디 중복 체크 -->
-		<select id="idChk" parameterType="member" resultType="int">
-		/* Member - idChk */
-		   SELECT NVL((SELECT 1 FROM booking_member WHERE m_id=#{m_id}), 0) as result FROM dual
-		</select>
-		
 		
 		<!-- 수정화면보기 -->
 		<select id="memberDetail" resultType="member">
@@ -659,5 +322,4 @@
 		   FROM booking_member
 		   WHERE m_id=#{m_id} and m_name = #{m_name}
 		</select>
->>>>>>> branch 'master' of https://github.com/solifidian/ArcheTypeRepo.git
 </mapper>

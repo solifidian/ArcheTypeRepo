@@ -5,6 +5,8 @@ import java.util.List;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -43,5 +45,14 @@ public class CategoryController {
 		ctvo = categoryService.categoryOne(cat_no);
 		
 		return ctvo;
+	}
+	
+	@RequestMapping(value="/categoryListPanel")
+	public String categoryBoxPanel(@ModelAttribute CategoryVO ctvo, Model model){
+		List<CategoryVO> ctvoList = categoryService.categoryBoxList(ctvo);
+		
+		model.addAttribute("cateList",ctvoList);
+		
+		return "book/bookCategoryLink";
 	}
 }

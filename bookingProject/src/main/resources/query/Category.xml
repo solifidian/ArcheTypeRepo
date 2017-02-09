@@ -105,6 +105,8 @@
 	<select id="categoryBoxList" parameterType="category" resultType="category">
 		select cat_no, cat_name, cat_step, cat_root
 		from booking_book_category
+		<if test="cat_step != 0">
 		where cat_step = #{cat_step} and cat_root = #{cat_root}
+		</if>
 	</select>
 </mapper>
