@@ -88,14 +88,14 @@
 						 ,p.m_phone 
 						 ,p.m_post_address 
 						 ,p.m_name
-						from BOOKING_PURCHASE_DELIVERY d , booking_purchase p, booking_member m
+						from booking_purchase p, booking_member m
 						<where>
 							<choose>
 								<when test="m_no != null and m_no != '' and m_no != '0'">
-									d.p_no=p.p_no and m_no=#{m_no} and p.m_no= m.m_no
+									p.m_no=#{m_no} and p.m_no= m.m_no
 								</when>
 								<otherwise>
-									d.p_no=p.p_no and p.m_no= m.m_no
+									p.m_no= m.m_no
 								</otherwise>
 							</choose>
 							<if test="keyword != '' and keyword != null">
