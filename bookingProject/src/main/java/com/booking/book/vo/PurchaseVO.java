@@ -1,6 +1,8 @@
 package com.booking.book.vo;
 
-public class PurchaseVO {
+import com.booking.common.vo.ListCommonVO;
+
+public class PurchaseVO extends ListCommonVO{
 	private int     p_no;			//주문번호	       
 	private int     p_abprice;	   	//주문가격
 	private String  p_date;	       	//주문일자

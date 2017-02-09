@@ -1,25 +1,45 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.booking.admin.book.dao.CategoryDAO">
+
 	<select id="categoryList" parameterType="int" resultType="category">
-		select hc.cat_name as hc, mc.cat_name as mc, lc.cat_name as lc, lc.cat_no as lc_no
-		from booking_book_category lc, booking_book_category mc, booking_book_category hc
+		select hc.cat_name as hc
+				, mc.cat_name as mc
+				, lc.cat_name as lc
+				, lc.cat_no as lc_no
+				, lc2.cat_no as lc2_no
+		from booking_book_category lc
+			, booking_book_category mc
+			, booking_book_category hc
+			, booking_book_category lc2
 		where
-		lc.cat_step = 3 and mc.cat_step = 2 and hc.cat_step = 1 
-		and lc.cat_root = mc.cat_no and mc.cat_root = hc.cat_no
-		order by mc
+		lc2.cat_step = 4
+			and lc.cat_step = 3
+			and mc.cat_step = 2
+			and hc.cat_step = 1
+		and lc2.cat_root = lc.cat_no
+			and lc.cat_root = mc.cat_no
+			and mc.cat_root = hc.cat_no
+		order by hc
 	</select>
 	
 	<select id="categorySelectOne" parameterType="int" resultType="category">
 		select hc.cat_name as hc, hc.cat_no as hc_no
 				, mc.cat_name as mc, mc.cat_no as mc_no
 				, lc.cat_name as lc, lc.cat_no as lc_no
+				, lc2.cat_name as lc2, lc2.cat_no as lc2_no
 		from booking_book_category lc
 			, booking_book_category mc
 			, booking_book_category hc
+			, booking_book_category lc2
 		where
-		lc.cat_step = 3 and mc.cat_step = 2 and hc.cat_step = 1 
-		and lc.cat_root = mc.cat_no and mc.cat_root = hc.cat_no
+		lc2.cat_step = 4
+			and lc.cat_step = 3
+			and mc.cat_step = 2
+			and hc.cat_step = 1
+		and lc2.cat_root = lc.cat_no
+			and lc.cat_root = mc.cat_no
+			and mc.cat_root = hc.cat_no
 		and lc.cat_no = #{cat_no}
 		order by mc
 	</select>
@@ -28,13 +48,20 @@
 		select hc.cat_name as hc, hc.cat_no as hc_no
 				, mc.cat_name as mc, mc.cat_no as mc_no
 				, lc.cat_name as lc, lc.cat_no as lc_no
+				, lc2.cat_name as lc2, lc2.cat_no as lc2_no
 		from booking_book_category lc
 			, booking_book_category mc
 			, booking_book_category hc
+			, booking_book_category lc2
 		where
-		lc.cat_step = 3 and mc.cat_step = 2 and hc.cat_step = 1 
-		and lc.cat_root = mc.cat_no and mc.cat_root = hc.cat_no
-		and (lc.cat_no = #{cat_no} or mc.cat_no = #{cat_no} or hc.cat_no = #{cat_no})
+		lc2.cat_step = 4
+			and lc.cat_step = 3
+			and mc.cat_step = 2
+			and hc.cat_step = 1
+		and lc2.cat_root = lc.cat_no
+			and lc.cat_root = mc.cat_no
+			and mc.cat_root = hc.cat_no
+		and (lc2.cat_no = #{cat_no} lc.cat_no = #{cat_no} or mc.cat_no = #{cat_no} or hc.cat_no = #{cat_no})
 		order by mc
 	</select>
 	

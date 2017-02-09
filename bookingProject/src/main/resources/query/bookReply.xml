@@ -8,7 +8,7 @@
 			br_score,
 			br_no,
 			br_writer,
-			TO_CHAR(br_editdate, 'hh24:mi') as bd_update,
+			TO_CHAR(br_editdate, 'hh24:mi') as br_update,
 			br_content,
 			TO_CHAR(br_editdate, 'YY-MM-DD') as br_editdate
 	FROM booking_book_reply

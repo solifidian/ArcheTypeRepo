@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.booking.book.vo.Purchase_DeliveryVO;
+import com.booking.book.vo.Purchase_relVO;
 import com.booking.member.vo.MemberVO;
 
 @Repository
@@ -22,8 +23,27 @@ public class MemberDAOImpl implements MemberDAO {
 	
 	//주문내역 불러오기
 	@Override
-	public List<Purchase_DeliveryVO> memberMypage(MemberVO mvo){
-		return session.selectList("memberPurchase", mvo);
+	public List<Purchase_DeliveryVO> myPurchase(Purchase_DeliveryVO listVO){
+		return session.selectList("myPurchase", listVO);
+	}
+	
+	//주문내역 불러오기
+	@Override
+	public List<Purchase_DeliveryVO> myDelivery(Purchase_DeliveryVO listVO){
+		return session.selectList("myDelivery", listVO);
+	}
+	
+	
+	//주문전체레코드수
+	@Override
+	public int myPurchaseCnt(MemberVO mvo){
+		return (Integer)session.selectOne("myPurchaseCnt", mvo);
+	}
+	
+	//배송전체레코드수
+	@Override
+	public int myDeliveryCnt(MemberVO mvo){
+		return (Integer)session.selectOne("myDeliveryCnt", mvo);
 	}
 	
 	//회원가입
@@ -72,5 +92,10 @@ public class MemberDAOImpl implements MemberDAO {
 	@Override
 	public MemberVO findPwd(MemberVO mvo) {
 		return session.selectOne("findPwd", mvo);
+	}
+	//주문 상세보기 클릭
+	@Override
+	public List<Purchase_relVO> purchaseDetail(Purchase_DeliveryVO pvo){
+		return session.selectList("purchaseDetail", pvo);
 	}
 }

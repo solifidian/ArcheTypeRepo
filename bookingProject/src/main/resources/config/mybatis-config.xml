@@ -8,6 +8,8 @@
 		<typeAlias type="com.booking.admin.book.vo.BookReleaseVO" alias="bookRelease"/>
 		<typeAlias type="com.booking.book.vo.CategoryVO" alias="category"/>
 		<typeAlias type="com.booking.book.vo.Purchase_DeliveryVO" alias="delivery" />
+
+		<typeAlias type="com.booking.book.vo.Purchase_relVO" alias="rel" />
 		
 		<typeAlias type="com.booking.admin.sitelog.vo.SiteLogVO" alias="siteLog"/>
 		<typeAlias type="com.booking.tagging.vo.TaggingVO" alias="tagging"/>
@@ -17,6 +19,7 @@
 		<typeAlias type="com.booking.cart.vo.CartVO" alias="cart" />
 		<typeAlias type="com.booking.wish.vo.WishVO" alias="wish" />
 		<typeAlias type="com.booking.purchase.vo.PurchaseVO" alias="purchase" />
+
 		<typeAlias type="com.booking.coupon.vo.CouponVO" alias="coupon" />
 		
 		<typeAlias type="com.booking.board.vo.BoardVO" alias="board" />
