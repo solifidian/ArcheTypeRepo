@@ -6,6 +6,7 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -29,7 +30,7 @@ public class BookReplyController {
 	 * 참고 : @PathVariable는 URI의 경로에서 원하는 데이터를 추출하는 용도의 어노테이션
 		 ****************************************/
 	@RequestMapping(value="/br/{isbn}.do", method=RequestMethod.GET)
-	public ResponseEntity<List<BookReplyVO>>list(@PathVariable("isbn") String isbn){
+	public ResponseEntity<List<BookReplyVO>>list(@PathVariable("isbn") String isbn, Model model){
 	
 		ResponseEntity<List<BookReplyVO>> entity = null;
 		BookReplyVO brvo = new BookReplyVO();
@@ -43,6 +44,9 @@ public class BookReplyController {
 			e.printStackTrace();
 			entity = new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
+		
+		model.addAttribute("replyDetail", entity);
+		
 		return entity;
 	}
 

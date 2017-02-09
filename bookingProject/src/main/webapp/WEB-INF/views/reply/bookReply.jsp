@@ -27,6 +27,8 @@
 		var isbn = "<c:out value='${detail.isbn}'/>"; 
 		listAll(isbn);
 		
+				
+		
 	//입력버튼 클릭시
 		$("#replyInsertBtn").click(function(){
 			
@@ -214,9 +216,9 @@
 	
 		//별점을 저장하는 <li>
 		var li_score = $("<li>");
-		var i_score=$("<i>");
+		var i_score=$("<i>");		
 		i_score.addClass("fa fa-star");
-		li_score.append(i_score);
+		li_score.append(i_score);		
 		li_score.append(br_score);
 		
 		//내용

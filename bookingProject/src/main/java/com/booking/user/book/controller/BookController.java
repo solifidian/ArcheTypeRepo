@@ -53,6 +53,11 @@ public class BookController {
 		return "book/bookIndex";
 	}
 	
+	//에러404 페이지로 이동
+	@RequestMapping(value="/errorPage.do")
+	public String errorPage(){
+		return "book/error";
+	}
 	
 	//FAQ틀
 	@RequestMapping(value="/bookFAQ.do")
