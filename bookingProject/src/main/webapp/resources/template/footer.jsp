@@ -3,75 +3,20 @@
 		<div class="footer-top">
 			<div class="container">
 				<div class="row">
-					<div class="col-sm-2">
+					<div class="col-sm-3">
 						<div class="companyinfo">
 							<h2><span>도서왕</span>  BOOKING</h2>
 							<p>ENJOY BOOKING</p>
 							<p>ENJOY SHOPPING</p>
 						</div>
-					</div>
-					<div class="col-sm-7">
-						<div class="col-sm-3">
-							<div class="video-gallery text-center">
-								<a href="#">
-									<div class="iframe-img">
-										<img src="/images/home/iframe1.png" alt="" />
-									</div>
-									<div class="overlay-icon">
-										<i class="fa fa-play-circle-o"></i>
-									</div>
-								</a>
-								<p>Circle of Hands</p>
-								<h2>24 DEC 2014</h2>
-							</div>
-						</div>
-						
-						<div class="col-sm-3">
-							<div class="video-gallery text-center">
-								<a href="#">
-									<div class="iframe-img">
-										<img src="/images/home/iframe2.png" alt="" />
-									</div>
-									<div class="overlay-icon">
-										<i class="fa fa-play-circle-o"></i>
-									</div>
-								</a>
-								<p>Circle of Hands</p>
-								<h2>24 DEC 2014</h2>
-							</div>
-						</div>
-						
-						<div class="col-sm-3">
-							<div class="video-gallery text-center">
-								<a href="#">
-									<div class="iframe-img">
-										<img src="/images/home/iframe3.png" alt="" />
-									</div>
-									<div class="overlay-icon">
-										<i class="fa fa-play-circle-o"></i>
-									</div>
-								</a>
-								<p>Circle of Hands</p>
-								<h2>24 DEC 2014</h2>
-							</div>
-						</div>
-						
-						<div class="col-sm-3">
-							<div class="video-gallery text-center">
-								<a href="#">
-									<div class="iframe-img">
-										<img src="/images/home/iframe4.png" alt="" />
-									</div>
-									<div class="overlay-icon">
-										<i class="fa fa-play-circle-o"></i>
-									</div>
-								</a>
-								<p>Circle of Hands</p>
-								<h2>24 DEC 2014</h2>
-							</div>
-						</div>
+					</div>					
+					<!--<div class="col-sm-3">
+					<p></p>
 					</div>
 					<div class="col-sm-3">
+					<p></p>
+					</div> -->
+					<div class="col-sm-3 col-sm-offset-6">
 						<div class="address">
 							<img src="/images/home/map.png" alt="" />
 							<p>서울특별시 영등포구 당산동</p>
@@ -80,7 +25,7 @@
 				</div>
 			</div>
 		</div>
-		
+		<img src="/resources/images/ab.gif" alt="" />
 		<div class="footer-widget">
 			<div class="container">
 				<div class="row">

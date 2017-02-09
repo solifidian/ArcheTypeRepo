@@ -64,6 +64,12 @@ $(".cartDeleteBtn").click(function(){
 	
 })
 
+//쇼핑 계속하기 버튼 클릭시
+$("#goPurchaseBtn").click(function(){
+	location.href="/book/bookIndex.do";
+});
+
+
 //장바구니에 책 추가 
 $(".cartInsertBtn").click(function(){ 				 
 	 var num=$(this).parents("tr").attr("data-num");

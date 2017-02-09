@@ -84,7 +84,6 @@
 	<form id="hidden_form">
 		<input type="hidden" id="m_id" name="m_id">
 	</form>
-	<input type="button" id="mypage" value="mypage">
 	<section id="slider"><!--slider-->
 		<div class="container">
 			<div class="row">
