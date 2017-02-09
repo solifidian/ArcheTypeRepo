@@ -79,7 +79,7 @@
 									<c:when test="${cate.cat_step == 1}">
 										<div class="panel panel-default">
 											<div class="panel-body">
-													<a class="collapsed" data-toggle="collapse" data-parent="#accordian" href="#${cate.cat_no}" aria-control="${cate.cat_no}">
+													<a data-toggle="collapse" data-parent="#accordian" href="#${cate.cat_no}">
 														<span class="badge pull-right"><i class="fa fa-plus"></i></span>
 														<c:out value="${cate.cat_name}"/>
 														<c:set var="root" value="${cate.cat_no}"/>
@@ -91,7 +91,7 @@
 												<c:choose>
 													<c:when test="${cate2.cat_step == 2 && cate2.cat_root == root && (cate2.cat_no == 3 || cate2.cat_no == 7 ||cate2.cat_no == 28 )}">									
 																<ul><li>
-																	<a class="collapsed" data-toggle="collapse" data-parent="#${root}" href="#${cate2.cat_no}"  aria-expanded="false">
+																	<a data-toggle="collapse" data-parent="#${root}" href="#${cate2.cat_no}">
 																		<span class="badge pull-right"><i class="fa fa-plus"></i></span>
 																		<c:out value="${cate2.cat_name}"/>
 																		<c:set var="root2" value="${cate2.cat_no}"/>
@@ -114,7 +114,7 @@
 													</c:when>
 												</c:choose>
 												</c:forEach>
-												</div>
+											</div>
 											<c:remove var="root"/>
 											</div>
 										</div>
