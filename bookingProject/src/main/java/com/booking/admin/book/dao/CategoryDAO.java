@@ -13,4 +13,6 @@ public interface CategoryDAO {
 	public List<CategoryVO> categorySelectList(int cat_no);
 	
 	public List<CategoryVO> categoryBoxList(CategoryVO ctvo);
+	
+	public CategoryVO categorySelectToParent(CategoryVO ctvo);
 }

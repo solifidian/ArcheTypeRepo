@@ -27,7 +27,7 @@
 <ul class="nav nav-sidebar">
 	<li class="active">
 	<a href="javascript:;">주문 관리</a></li>
-	<li><a href="javascript:;">주문 리스트</a></li>
+	<li><a href="/admin/purchase/purchaseList.do">주문 리스트</a></li>
 	<li><a href="javascript:;">예약 리스트</a></li>
 	<li><a href="javascript:;">배송 리스트</a></li>
 </ul>

@@ -1,8 +1,8 @@
 package com.booking.admin.book.vo;
 
-import com.booking.common.vo.ListCommonVO;
+import com.booking.book.vo.BookVO;
 
-public class BookReleaseVO extends ListCommonVO{
+public class BookReleaseVO extends BookVO{
 	
 	private int rel_no; // 출고번호
 	

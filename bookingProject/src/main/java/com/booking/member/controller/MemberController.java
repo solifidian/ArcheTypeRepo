@@ -79,19 +79,19 @@ public class MemberController {
 			if(listVO.getPur_del_mode().equals("deliveryTable")){
 				listVO.setSearchMode("deliveryTable");
 				dvoList = memberService.myDelivery(listVO);
-				listVO.setSearchTotal(memberService.myDeliveryCnt(mvo));
+				listVO.setSearchTotal(memberService.myDeliveryCnt(listVO));
 			}
 			//주문 내역이 선택
 			else if(listVO.getPur_del_mode().equals("purchaseTable")){
 				listVO.setSearchMode("purchaseTable");
 				pvoList = memberService.myPurchase(listVO);
-				listVO.setSearchTotal(memberService.myPurchaseCnt(mvo));
+				listVO.setSearchTotal(memberService.myPurchaseCnt(listVO));
 			}
 		}else{
 			//default값은 주문 내역으로
 			listVO.setSearchMode("purchaseTable");
 			pvoList = memberService.myPurchase(listVO);
-			listVO.setSearchTotal(memberService.myPurchaseCnt(mvo));
+			listVO.setSearchTotal(memberService.myPurchaseCnt(listVO));
 		}
 				
 		model.addAttribute("purchase", pvoList);

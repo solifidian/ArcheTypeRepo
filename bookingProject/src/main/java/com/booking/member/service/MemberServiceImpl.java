@@ -59,14 +59,14 @@ public class MemberServiceImpl implements MemberService {
 	
 	//주문전체레코드수
 	@Override
-	public int myPurchaseCnt(MemberVO mvo){
-		return  memberDAO.myPurchaseCnt(mvo);
+	public int myPurchaseCnt(Purchase_DeliveryVO listVO){
+		return  memberDAO.myPurchaseCnt(listVO);
 	}
 	
 	
 	@Override
-	public int myDeliveryCnt(MemberVO mvo){
-		return memberDAO.myDeliveryCnt(mvo);
+	public int myDeliveryCnt(Purchase_DeliveryVO listVO){
+		return memberDAO.myDeliveryCnt(listVO);
 	}
 	
 //회원 가입	
