@@ -66,6 +66,36 @@ public class BoardController {
 	}
 	
 	/***********************************
+	 *개인정보 취급방침
+	 * ***************************/
+	@RequestMapping(value="/boardInfo.do")
+	public String boardInfo(){
+		logger.info("boardInfo 호출 성공");
+		
+		return "board/boardInfo";
+	}
+	/***********************************
+	 *고객센터
+	 * ***************************/
+	@RequestMapping(value="/cusService.do")
+	public String cusService(){
+		logger.info("cusService 호출 성공");
+		
+		return "board/cusService";
+	}
+	
+	/***********************************
+	 *문의 게시판 출력
+	 * ***************************/
+	@RequestMapping(value="/questionBoardList.do")
+	public String questionBoardList(){
+		logger.info("questionBoardList 호출 성공");
+		
+		return "board/QuestionBoardList";
+	}
+	
+	
+	/***********************************
 	 * 글쓰기 폼 출력하기
 	 * ***************************/
 	@RequestMapping(value="/boardInsertForm.do")

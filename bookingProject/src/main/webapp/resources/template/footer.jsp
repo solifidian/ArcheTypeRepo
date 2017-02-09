@@ -107,7 +107,8 @@
 						<div class="single-widget">
 							<h2>고객센터</h2>
 							<ul class="nav nav-pills nav-stacked">
-								<li><a href="/board/boardList.do">문의게시판</a></li>
+								<li><a href="/board/cusService.do">고객센터</a></li>
+								<li><a href="/board/questionBoardList.do">문의게시판</a></li>
 								<li><a href="/book/bookFAQ.do">FAQ’s</a></li>
 								
 							</ul>
@@ -115,9 +116,9 @@
 					</div>
 					<div class="col-sm-2">
 						<div class="single-widget">
-							<h2>관리자페이지</h2>
+							<h2>개인정보 취급방침</h2>
 							<ul class="nav nav-pills nav-stacked">
-								<li><a href="/admin/book/bookList.do">관리자페이지</a></li>
+								<li><a href="/board/boardInfo.do">개인정보 취급방침</a></li>
 								
 							</ul>
 						</div>

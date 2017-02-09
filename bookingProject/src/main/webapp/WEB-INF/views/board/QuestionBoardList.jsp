@@ -24,7 +24,7 @@
 <script src="/resources/include/js/jquery-1.12.4.min.js"></script>
 <script src="/resources/include/js/listCommon.js"></script>
 <script src="/resources/include/js/common.js"></script>
-<title>게시판 리스트</title>
+<title>문의 게시판</title>
 </head>
 <style>
 		#pageSizeChange{width:50px; }
@@ -146,7 +146,7 @@
 		<div class="row">
 			<div class="col-sm-3">
 				<div class="left-sidebar">
-					<h2>Category</h2>
+					<h2>문의게시판</h2>
 					<div class="panel-group category-products" id="accordian"><!-- 카테고리  -->
 					
 						<div class="panel panel-default">
@@ -154,15 +154,14 @@
 								<h4 class="panel-title">
 									<a data-toggle="collapse" data-parent="#accordian" href="#bookAndPeople">
 										<span class="badge pull-right"><i class="fa fa-plus"></i></span>
-										북&피플
+										1:1문의
 									</a>
 								</h4>
 							</div><!--class: panel-heading끝  -->
 							<div id="bookAndPeople" class="panel-collapse collapse">
 								<div class="panel-body">
 										<ul>
-											<li><a href="">이슈 </a></li>
-											<li><a href="">칼럼 </a></li>											
+											<li><a href="">비밀글로 문의하기 </a></li>																			
 										</ul>
 								</div><!--class: panel-body끝  -->
 							</div><!-- id:review 끝 -->				
@@ -174,15 +173,15 @@
 								<h4 class="panel-title">
 									<a data-toggle="collapse" data-parent="#accordian" href="#powerBook">
 										<span class="badge pull-right"><i class="fa fa-plus"></i></span>
-											파워북로거
+											자주묻는질문
 									</a>
 								</h4>
 							</div><!--class: panel-heading끝  -->
 							<div id="powerBook" class="panel-collapse collapse">
 									<div class="panel-body">
 										<ul>
-											<li><a href="">베스트 북로거 </a></li>
-											<li><a href="">파워 북로거 </a></li>										
+											<li><a href="/book/bookFAQ.do">FAQ </a></li>
+																		
 										</ul>
 									</div><!--class: panel-body끝  -->
 							</div><!-- id:review 끝 -->							
@@ -207,24 +206,7 @@
 							</div><!-- id:review 끝 -->
 						</div><!--class: panel panel-default 끝  -->	
 						
-						<div class="brands_products"><!-- 리뷰 -->
-								<h2>Review</h2>
-								<div class="brands-name">
-									<ul class="nav nav-pills nav-stacked">
-										<li><a href=""> <span class="pull-right">(#)</span>해외소설</a></li>
-										<li><a href=""> <span class="pull-right">(#)</span>국내소설</a></li>									
-									</ul>
-								</div>
-						</div><!--/리뷰-->
-							
-	<!--우선 딱히 쓸것같진 않아서 우선 주석처리함  -->
-					<!-- 	<div class="price-range">price-range
-								<h2>Price Range</h2>
-								<div class="well">
-									 <input type="text" class="span2" value="" data-slider-min="0" data-slider-max="600" data-slider-step="5" data-slider-value="[250,450]" id="sl2" ><br />
-									 <b>$ 0</b> <b class="pull-right">$ 600</b>
-								</div>
-						</div>/price-range -->
+
 						
 <!--현재 하는 이벤트 이미지 첨부  -->
 						<div class="shipping text-center"><!--이벤트-->
@@ -237,7 +219,7 @@
 			
 			<div class="col-sm-9">
 				<div class="blog-post-area">
-					<h2 class="title text-center">커뮤니티 게시판</h2>
+					<h2 class="title text-center">문의 게시판</h2>
 <!--	================ 리스트 시작 ======================  -->
 <!--  	================= 상세 페이지 이동을 위한 form ==========-->
 						<form name="detailForm" id="detailForm">
