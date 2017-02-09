@@ -27,6 +27,9 @@
 			if(searchDateMode != ''){
 				$("#searchDateMode").val(searchDateMode);
 			}
+			
+			
+			
 			 $("#cart_ip").val("${cookie.JSESSIONID.value}");
 			
 			 /* $.ajax({
@@ -127,6 +130,7 @@
 				 }//else종료
 				 
 			 })
+			 
 			//장바구니에 책 추가 
 			 $(".cartInsertBtn").click(function(){ 				 
 				 var num=$(this).parents("tr").attr("data-num");
@@ -218,10 +222,8 @@
 				   }(document, 'script', 'facebook-jssdk'));
 			</script>
 	
-		<section>
-		
-		
-		
+		<section>		
+			
 		 <!--검색 조건 테이블 영역  -->
 		<div class="row">
 	          	<!-- 전체 리스트 제어 폼 -->
@@ -237,47 +239,12 @@
 	          		<input type="hidden" name="orderTarget" id="orderTarget" value="${listData.orderTarget}"/>
 	          		<input type="hidden" name="orderDirection" id="orderDirection" value="${listData.orderDirection}"/>
 	          		
-	          		<!-- 키워드 검색 -->
-	          		<div class="form-inline">
-		          		<h3><span class="label label-default">검색</span></h3>
-			          	<select class="form-control" name="searchMode" id="searchMode">
-			      			<option value="allSch">전체</option>
-			      			<option value="titleSch">글제목</option>
-			      			<option value="authorSch">저자</option>
-			      			<option value="publisherSch">출판사</option>
-			      			<option value="isbnSch">ISBN</option>
-			      			<option value="seriesSch">시리즈명</option>
-			      		</select>
-			      		<input type="text" class="form-control" name="keyword" id="keyword" value="${listData.keyword}"/>
-		      		</div>
-		      		<br/><br/>
+	          		
 		      			      		
-		      		<!-- 일자 검색 -->
-		      		<div class="form-inline">
-		          		<h3><span class="label label-default">일자 검색</span></h3>
-		          		<input type="hidden" class="form-control" name="searchDateMode" id="searchDateMode" value="publishSch">
-			          	<input type="date" class="form-control" name="searchStartDate" id="searchStartDate" value="${listData.searchStartDate}">
-			          	<input type="date" class="form-control" name="searchEndDate" id="searchEndDate" value="${listData.searchEndDate}">
-			          	<button id="searchKeywordBtn" class="btn btn-primary">검색</button>
-		          	</div>
+		   
 	          	</form>
         </div>
 		
-		<!--검색 조건 테이블 영역  -->
-		<div class="row">
-			<div class="col-md-8 col-md-offset-4">
-	               <table class="table table-bordered">
-	               <tr>
-	               <td>새로나온책</td>
-	               <td>베스트셀러</td>
-	               <td>정가 인하</td>
-	               <td>이벤트 도서</td>
-	               <td>회원 리뷰</td>
-	               </tr>
-	               </table>
-	       </div>
-	    </div>
-	    
 	    
 	    
 	    <!--검색창 영역  -->
@@ -290,7 +257,6 @@
 	         			<option value="10">10</option>
 	         			<option value="30">30</option>
 	         		</select>
-	         		/ 검색 결과 :${listData.searchTotal}건
         			</label>
          		</div>
          		
@@ -299,7 +265,7 @@
 			        
 	         
 					<div class="features_items"><!--features_items-->
-						<h2 class="title text-center">도서 목록</h2>
+						<h2 class="title text-center">IT도서 목록</h2>
 						<div class="row">
 				            <div class="paginationBar text-center paginate">
 				            	<tag:PagingBar page="${listData.page}" searchTotal="${listData.searchTotal}" pageSize="${listData.pageSize}"/>
@@ -307,23 +273,23 @@
 	            		</div>
 						<table class="col-sm-12" >
 						
-						<c:if test="${empty bookList }">
+						<c:if test="${empty bookList}">
 							  <tr>
 							  <td colspan=3> 등록 정보가 존재하지않습니다.	  
 							  </tr>
 						 </c:if>
 						
-						<c:forEach var="d" items="${bookList}">							
-							<tr data-num="${d.isbn}">
+						<c:forEach var="fore" items="${bookList}">							
+							<tr data-num="${fore.isbn}">
 							  <td class="col-sm-2">
-							  	<object class="thumbnail" data="/images/bookImg/${d.isbn}.jpg" type="image/jpg">
+							  	<object class="thumbnail" data="/images/bookImg/${fore.isbn}.jpg" type="image/jpg">
 								  	<img src="/images/bookImg/no_book_img.png"/>
 							  	</object>
 							  </td>
 							  <td class="col-sm-8" >
 							 
-							  <h3><a href="/book/bookDetail.do?isbn=${d.isbn}">${d.b_title}</a></h3>
-								 <span> ${d.b_author} &nbps; / &nbps; ${d.b_pubdate}</span><br>
+							  <h3><a href="/book/bookDetail.do?isbn=${fore.isbn}">${fore.b_title}</a></h3>
+								 <span> ${fore.b_author} &nbps; / &nbps; ${fore.b_pubdate}</span><br>
 								 <span> 리뷰(4건) 회원평점 ***** 만점에 5점 관련이벤트(0건) 중고상품(3건)</span><br>
 								 <span> ${price}원 </span><br>
 								 <span> 주제어 스마트폰 , 시력 회복법 , 생활습관 , 스트레칭 , 콘택트렌즈  더보기</span><br>
