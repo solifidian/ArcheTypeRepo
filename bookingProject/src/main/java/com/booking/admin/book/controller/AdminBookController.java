@@ -51,6 +51,7 @@ public class AdminBookController {
 		Paging.setBookPaging(bvo);
 		
 		List<BookVO> bookList = adminBookService.bookList(bvo);
+		if(bookList != null)
 		bvo.setSearchTotal(bookList.get(0).getSearchTotal());
 		
 		logger.info("searchTotal : "+bvo.getSearchTotal());
@@ -83,6 +84,7 @@ public class AdminBookController {
 		Paging.setBookPaging(bvo);
 		
 		List<BookVO> bookList = adminBookService.bookList(bvo);
+		if(bookList != null)
 		bvo.setSearchTotal(bookList.get(0).getSearchTotal());
 		
 	/*	logger.info("searchTotal : "+bvo.getSearchTotal());
@@ -115,6 +117,7 @@ public class AdminBookController {
 		Paging.setBookPaging(bvo);
 		
 		List<BookVO> bookList = adminBookService.bookList(bvo);
+		if(bookList != null)
 		bvo.setSearchTotal(bookList.get(0).getSearchTotal());
 		
 	/*	logger.info("searchTotal : "+bvo.getSearchTotal());
