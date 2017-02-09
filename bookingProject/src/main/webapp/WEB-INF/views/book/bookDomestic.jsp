@@ -19,14 +19,7 @@
 
 		 $(function(){
 			 
-			var searchMode = "<c:out value='${listData.searchMode}'/>";
-			var searchDateMode = "<c:out value='${listData.searchDateMode}'/>"
-			if(searchMode != ''){
-				$("#searchMode").val(searchMode);
-			}
-			if(searchDateMode != ''){
-				$("#searchDateMode").val(searchDateMode);
-			}
+			
 			 $("#cart_ip").val("${cookie.JSESSIONID.value}");
 			
 			 /* $.ajax({
@@ -57,7 +50,7 @@
 				 				 
 				 $("#searchform").attr({
 						"method":"get",
-						"action":"/purchase/purchaseList.do?isbn="+isbn
+						"action":"/purchase/purchaseList.do?m_id="+m_id+"&isbn="+isbn
 													
 						})
 						$("#searchform").submit();
@@ -71,11 +64,10 @@
 			 
 			 //위시리스트 버튼 클릭 시 
 			 $(".wishListInsertBtn").click(function(){
-				 var isbn=$(this).parents("tr").attr("data-num");
+				 var num=$(this).parents("tr").attr("data-num");
 				 $("#isbn").val(num);
-				 alert(cart_ip)
 				 alert(num)
-				  //1=바로구매 0=x		 
+						 
 				 if(m_id==""){
 					 alert("로그인 페이지로 이동")
 				 }else{
@@ -83,7 +75,7 @@
 					 $.ajax({
 						   url:"/wish/wishInsert.do",
 						   type:"POST",
-						   data:isbn,
+						   data:$("#searchform").serialize(),
 						   dataType:"text",
 						   error:function(request,status,error){
 							   alert("code : " + request.status + "\r\ nmessage : "
@@ -128,6 +120,7 @@
 				 }//else종료
 				 
 			 })
+			 
 			//장바구니에 책 추가 
 			 $(".cartInsertBtn").click(function(){ 				 
 				 var num=$(this).parents("tr").attr("data-num");
@@ -219,88 +212,13 @@
 				   }(document, 'script', 'facebook-jssdk'));
 			</script>
 	
-		<section>
+		<section>		
 		
-		
-		
-		 <!--검색 조건 테이블 영역  -->
-		<div class="row">
-	          	<!-- 전체 리스트 제어 폼 -->
-	          	<form class="navbar-form navbar-left" id="searchForm" method="get" action="/book/bookSearch.do">
-	          		<!-- 페이지 정렬을 위한 hidden input들 -->
-	          		<input type="hidden" name="page" id="page" value="${listData.page}"/>
-	          		<input type="hidden" name="pageSize" id="pageSize" value="${listData.pageSize}"/>
-	          		
-	          		<!-- 리스트 사이즈 제어 기본 value = 8 -->
-	          		<input type="hidden" name="listSize" id="listSize" value="8"/>
-	          		
-	          		<!-- 정렬 제어를 위한 파라메터 -->
-	          		<input type="hidden" name="orderTarget" id="orderTarget" value="${listData.orderTarget}"/>
-	          		<input type="hidden" name="orderDirection" id="orderDirection" value="${listData.orderDirection}"/>
-	          		
-	          		<!-- 키워드 검색 -->
-	          		<div class="form-inline">
-		          		<h3><span class="label label-default">검색</span></h3>
-			          	<select class="form-control" name="searchMode" id="searchMode">
-			      			<option value="allSch">전체</option>
-			      			<option value="titleSch">글제목</option>
-			      			<option value="authorSch">저자</option>
-			      			<option value="publisherSch">출판사</option>
-			      			<option value="isbnSch">ISBN</option>
-			      			<option value="seriesSch">시리즈명</option>
-			      		</select>
-			      		<input type="text" class="form-control" name="keyword" id="keyword" value="${listData.keyword}"/>
-		      		</div>
-		      		<br/><br/>
-		      			      		
-		      		<!-- 일자 검색 -->
-		      		<div class="form-inline">
-		          		<h3><span class="label label-default">일자 검색</span></h3>
-		          		<input type="hidden" class="form-control" name="searchDateMode" id="searchDateMode" value="publishSch">
-			          	<input type="date" class="form-control" name="searchStartDate" id="searchStartDate" value="${listData.searchStartDate}">
-			          	<input type="date" class="form-control" name="searchEndDate" id="searchEndDate" value="${listData.searchEndDate}">
-			          	<button id="searchKeywordBtn" class="btn btn-primary">검색</button>
-		          	</div>
-	          	</form>
-        </div>
-		
-		<!--검색 조건 테이블 영역  -->
-		<div class="row">
-			<div class="col-md-8 col-md-offset-4">
-	               <table class="table table-bordered">
-	               <tr>
-	               <td>새로나온책</td>
-	               <td>베스트셀러</td>
-	               <td>정가 인하</td>
-	               <td>이벤트 도서</td>
-	               <td>회원 리뷰</td>
-	               </tr>
-	               </table>
-	       </div>
-	    </div>
-	    
-	    
-	    
-	    <!--검색창 영역  -->
-	    	<div class="navbar-form navbar-left" role="navigation">
-         		
-         		<div class="form-inline">
-         			<label for="form-control">페이지당 표시 건 수
-	         		<select class="form-control" name="pageSizeChange" id="pageSizeChange" >	         			
-	         			<option value="5">5</option>
-	         			<option value="10">10</option>
-	         			<option value="30">30</option>
-	         		</select>
-	         		/ 검색 결과 :${listData.searchTotal}건
-        			</label>
-         		</div>
-         		
-           </div>
 	         <div class="col-sm-12 padding-right">
 			        
 	         
 					<div class="features_items"><!--features_items-->
-						<h2 class="title text-center">도서 목록</h2>
+						<h2 class="title text-center">국내도서 목록</h2>
 						<div class="row">
 				            <div class="paginationBar text-center paginate">
 				            	<tag:PagingBar page="${listData.page}" searchTotal="${listData.searchTotal}" pageSize="${listData.pageSize}"/>
@@ -335,7 +253,8 @@
 							  <form class="form-horizontal" id="searchform" name="searchform">
 							  
  								<input type="hidden" id="isbn" name="isbn"  />
- 								<input type="hidden" id="nowpay" name="nowpay" value=0  />
+ 								<input type="hidden" id="cart_ip" name="cart_ip" value="${cookie.JSESSIONID.value}" />
+ 								<input type="hidden" id="nowpay" name="nowpay"  />
  								 <div class="form-group">
 							  
 							  <span class="cartInsertBtn"><input type="button" class="btn btn-default" value="장바구니"  />	</span>																			

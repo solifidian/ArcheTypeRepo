@@ -194,7 +194,7 @@
 						
 <!--현재 하는 이벤트 이미지 첨부  -->
 						<div class="shipping text-center"><!--이벤트-->
-								<img src="/resources/include/assets/images/home/shipping.jpg" alt="" />
+								<img src="/resources/images/home/shipping.jpg" alt="" />
 						</div><!--/이벤트-->
 													
 					</div><!--/카테고리 class: panel-group category-products  -->
@@ -323,7 +323,7 @@
 				</div><!--/rating-area-->
 <!-- ============= 소셜 연결  시작========== -->						
 				<div class="socials-share">
-						<a href=""><img src="/resources/include/assets/images/blog/socials.png" alt=""></a>
+						<a href=""><img src="/resources/images/blog/socials.png" alt=""></a>
 				</div><!--/socials-share-->		
 <!-- ============= 소셜 연결  끝========== -->	
 

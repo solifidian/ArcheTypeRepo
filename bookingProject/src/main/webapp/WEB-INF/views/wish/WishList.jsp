@@ -13,17 +13,10 @@
 
 $(function(){
 	
- //쇼핑 계속하기
-	 
-	 $("#goPurchaseBtn").click(function(){
-			alert("쇼핑 페이지로 이동")
-			location.href="/search/search.do"
-				
-			})
-	
+
  //바로 구매 버튼 클릭 시 nowPurchaseBtn
 	 $(".nowPurchaseBtn").click(function(){
-	 alert("이것은 바로구매입니다.")
+	alert("이것은 바로구매입니다.")
 		 var isbnv=$(this).parents("tr").attr("data-num");
 		 	alert(isbn)
 		  var isbn=$("#isbn").val(isbnv);

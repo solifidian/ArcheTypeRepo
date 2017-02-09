@@ -154,7 +154,7 @@
     	 ,d.del_status
     	 ,d.del_company_phone
 		 from BOOKING_PURCHASE_DELIVERY d , booking_purchase p 
-		where d.p_no(+)=p.p_no and p.m_no=#{m_no} 
+		where d.p_no(+)= p.p_no and m_no=#{m_no} 
 		 and d.del_num is not null  
 		 order by p.p_no
 		</select>
@@ -178,7 +178,7 @@
 	(SELECT list.*, ROWNUM AS RNUM
 		FROM (
 		select 
-		 p.p_no 
+		  p.p_no 
 		 ,p.p_abprice
 		 ,p.p_date
 		 ,p.m_no 
@@ -257,6 +257,8 @@
 		/* Member - idChk */
 		   SELECT NVL((SELECT 1 FROM booking_member WHERE m_id=#{m_id}), 0) as result FROM dual
 		</select>
+		
+	
 		
 		<!-- 수정화면보기 -->
 		<select id="memberDetail" resultType="member">
