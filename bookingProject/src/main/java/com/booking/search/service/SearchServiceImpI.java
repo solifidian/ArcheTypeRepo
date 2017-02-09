@@ -29,4 +29,16 @@ public class SearchServiceImpI implements SearchService{
 		return searchDAO.booksearchdetail(svo);
 	}
 
+	@Override
+	public List<SearchVO> bookForeignList(SearchVO svo) {
+		List<SearchVO> list=searchDAO.bookForeignList(svo);
+		return list;
+	}
+
+	@Override
+	public List<SearchVO> bookDomesticList(SearchVO svo) {
+		List<SearchVO> list=searchDAO.bookDomesticList(svo);
+		return list;
+	}
+
 }

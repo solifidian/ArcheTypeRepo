@@ -123,18 +123,18 @@
 						<div class="mainmenu pull-left">
 							<ul class="nav navbar-nav collapse navbar-collapse">
 								<li><a href="/book/bookIndex.do" class="active">Home</a></li>
-								<li class="dropdown"><a href="">외국도서<i class="fa fa-angle-down"></i></a>
+								<li class="dropdown"><a href="/book/bookForeign.do">IT도서<i class="fa fa-angle-down"></i></a>
 									 <ul role="menu" class="sub-menu">
-										 <li><a href="/member/memberLoginPage.do">Login</a></li> 
+										<li><a href="/book/bookSearch.do">도서 검색</a></li>
 									 </ul>
 								 </li>
-								<li class="dropdown"><a href="" >국내도서<i class="fa fa-angle-down"></i></a>
+								<li class="dropdown"><a href="/book/bookDomestic.do" >국내도서<i class="fa fa-angle-down"></i></a>
 									 <ul role="menu" class="sub-menu">
-									 	<li><a href="/member/memberLoginPage.do">Login</a></li> 
+									 	<li><a href="/book/bookSearch.do">도서 검색</a></li>
 									 </ul>
 								 </li>		
-								<li><a href="" class="active">베스트셀러</a></li>	
-								<li><a href="" >신간</a></li>					
+								<li><a href="/book/bookBestSeller.do" class="active">베스트셀러</a></li>	
+								<li><a href="/book/bookNew.do" >신간</a></li>					
 								<li><a href="/book/bookMonth.do">이달의책</a></li>	
 								<li><a href="/book/bookSearch.do">도서 검색</a></li>	
 								<li class="dropdown"><a href="#">게시판<i class="fa fa-angle-down"></i></a>
@@ -150,9 +150,7 @@
 					</div>
 					<div class="col-sm-3">
 					
-						<div class="search_box pull-right">
-							<input type="text" placeholder="Search.." />
-						</div>
+					
 				
 					</div>
 				</div>
