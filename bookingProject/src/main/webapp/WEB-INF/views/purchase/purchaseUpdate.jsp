@@ -29,13 +29,13 @@
 		
 		$("#purchaseListBtn").click(function(){
 			alert("구매내역페이지로 이동")
-			location.href="/booking/search.do"
-			
+			location.href="/member/memberMypage.do"
+				
 		})
 		
 		$("#continueShoppingBtn").click(function(){
 			alert("메인페이지로 이동")
-			location.href="/booking/search.do"
+			location.href="/book/bookIndex.do"
 			
 		})
 		
@@ -76,7 +76,9 @@
 	<!--결제 영역  -->
 	
 	    	<div class="purchaseSuccess"><!--features_items-->
-					<h2 class="title text-center">구매가 정상적으로 완료되었습니다. </h2>
+					<div class="text-center col-sm-12">
+					<div class="col-sm-3"></div><div class="col-sm-4 offset-sm-3"><img src="/resources/images/home/log2.png" alt="" /></div>
+				    </div>
 					<table class="table table-bordered">
 						<tr>
 							<td rowspan="3"><h2>주문 완료</h2></td>

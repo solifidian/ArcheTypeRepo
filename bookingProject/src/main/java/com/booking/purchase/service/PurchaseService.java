@@ -14,5 +14,6 @@ public interface PurchaseService {
 	public List<PurchaseVO> purchaseDetail(int p_no);
 	public List<CouponVO> couponList(PurchaseVO pvo);
     public int givePoint(PurchaseVO pvo);
+    public int useCouponDelete(PurchaseVO pvo);
 
 }

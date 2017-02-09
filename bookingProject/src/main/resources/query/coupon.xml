@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.booking.coupon.dao.CouponDAO">
+
+  <insert id="couponInsert" parameterType="coupon">
+  
+  	insert into booking_member_coupon_rel(coupon_no,m_no)
+  	values(#{coupon_no},#{m_no})
+   
+  </insert>
+  
+  
+  <select id="couponCheck" parameterType="coupon" resultType="int">
+  
+  select nvl(( select 1 
+                   from booking_member_coupon_rel 
+  					       where m_no=#{m_no} and coupon_no=#{coupon_no}),0) as status
+  					           from dual
+  
+  </select>
+
+
+
+
+</mapper>

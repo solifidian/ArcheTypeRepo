@@ -98,35 +98,70 @@ public class PurchaseController {
 		
 		//결제 완료 시 정보를 booking_purchase에 등록  
 			@RequestMapping(value="/purchaseUpdate.do" , method=RequestMethod.POST)
-			public String purchaseUpdate(@ModelAttribute PurchaseVO pvo, Model model){
+			public String purchaseUpdate(@ModelAttribute PurchaseVO pvo, Model model , HttpSession session){
 				logger.info("회원 결제 완료 페이지 호출"+pvo.getNowpay());
 			    logger.info(pvo.getM_id()+pvo.getM_phone()+pvo.getM_post_address()+pvo.getP_method()+pvo.getCookie_name()+pvo.getCoupon_code());
+			  
+			    /**********************************
+				 * 세션 확인
+				 * memSession is not null = 회원
+				 *********************************/
+				String m_id = "0";
+				int m_no = 0;
+				MemberVO memSession = (MemberVO)session.getAttribute("memSession");
+				
+				if(memSession != null && !memSession.getM_id().equals("")){
+					logger.info("회원 확인 됨");
+					m_id = memSession.getM_id();
+					
+					m_no = memSession.getM_no();
+					
+					 pvo.setM_id(m_id);
+					 pvo.setM_no(m_no);
+				}
+				/*********** 세션 확인 종료 ***********/
+			    
+			    
+			    
 			    int result=0;
 			    int nowpay=pvo.getNowpay();//1=즉시구매 0=일반구매
 			  //결제 완료 시 정보를 booking_purchase에 등록  
 			    result=purchaseService.purchaseUpdate(pvo);
-			    String m_id=pvo.getM_id();
-			    System.out.println("받은 m_id"+m_id);
+			   
 			    
+			    
+			    System.out.println("받은 m_id"+m_id);
+			    logger.info("discpont"+pvo.getP_discount());
 			    PurchaseVO vo=pvo;
 			    
 			    if(result==1){
 			    	//결제 완료 시 정보를 booking_purchase에 등록 성공 시 해당 카트에 있던 각 책의 정보를 저장  
 			    	int bookpurchaserel=purchaseService.purchaseBookRel(pvo);
-			    	logger.info(bookpurchaserel+" 0은 e등록안됨");
+			    	logger.info(bookpurchaserel+"결제 정보  booking_purchase에 저장 0은 e등록안됨");
+			    	
+			     	//사용한 쿠폰 삭제
+				     if(pvo.getP_discount()!=0 ){
+				    	 logger.info("discpont"+pvo.getP_discount());
+				    	int couponResult=purchaseService.useCouponDelete(pvo);
+				        logger.info(couponResult+"사용한 쿠폰 삭제 1은 삭제 0은 안삭제");
+				     }
+			    	
 			    	
 			    	//결제에 따른 포인트 지급 (결제금액의 1%) 회원만 포인트 지급
 			    if(m_id!="0"){	
 			    	int givePoint=purchaseService.givePoint(pvo);
-			    	logger.info(givePoint+"1은 지급 0은 지급 실패");
+			    	logger.info(givePoint+"결제에 따른 포인트 지급 1은 지급 0은 지급 실패");
 			    			    	
 			    }
 			    if(nowpay==0){		
 			    	//결제 완료 시 회원의 장바구니에 있던 모든 아이템 삭제 ( 바로구매의 경우 삭제 안함)
 			    	int cartDelResult=purchaseService.cartAllDelete(pvo);
-			    	logger.info(cartDelResult+"1은 삭제 0은 안삭제");	 
-			    
+			    	logger.info(cartDelResult+"결제 완료 시 회원의 장바구니에 있던 모든 아이템 삭제  1은 삭제 0은 안삭제");	 
+			    	
+			   
 			    	if(cartDelResult!=0){
+			   
+			    		
 			    		logger.info("결제 완료");	 
 			    		  
 			    		  

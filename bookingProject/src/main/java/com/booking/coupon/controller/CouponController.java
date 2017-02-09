@@ -15,8 +15,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.booking.cart.controller.CartController;
+import com.booking.common.util.Util;
 import com.booking.coupon.service.CouponService;
 import com.booking.coupon.vo.CouponVO;
+import com.booking.member.vo.MemberVO;
 
 @Controller
 @RequestMapping(value="/coupon")
@@ -42,15 +44,33 @@ public class CouponController {
 	@RequestMapping(value="/couponInsert.do")
 	public String couponInsert(@ModelAttribute CouponVO cvo,HttpSession session, HttpServletRequest request ){
 		logger.info("쿠폰등록");
-		logger.info("mno"+cvo.getM_no());
+	
 		
-		cvo.setM_no(51);
-		cvo.setCoupon_no(2);
-	   session = request.getSession();
 	   String result="";
 	   
 	   
-		if(session.getAttribute("id") == null || session.getAttribute("id").equals("")){
+	   /**********************************
+		 * 세션 확인
+		 * memSession is not null = 회원
+		 *********************************/
+		String m_id = "0";
+		int m_no = 0;
+		MemberVO memSession = (MemberVO)session.getAttribute("memSession");
+		
+		if(memSession != null && !memSession.getM_id().equals("")){
+			logger.info("회원 확인 됨");
+			m_id = memSession.getM_id();
+			
+			m_no = memSession.getM_no();
+			logger.info("회원 확인 됨"+m_id+m_no);
+		}
+		/*********** 세션 확인 종료 ***********/
+		
+		cvo.setM_id(m_id);
+		cvo.setM_no(m_no);
+	   
+	   
+		if(memSession == null || memSession.equals("")){
 			logger.info("NoMember nocouponuse");
 			result = "fail";
 			

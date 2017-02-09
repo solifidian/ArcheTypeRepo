@@ -29,6 +29,9 @@
 			}
 			 $("#cart_ip").val("${cookie.JSESSIONID.value}");
 			
+			
+			 
+			 
 			 /* $.ajax({
 				 url:"/admin/member/loginCheck.do",
 				 success:function(resultData){
@@ -194,6 +197,7 @@
 			 
 		 })
 
+		
 		
 		</script>	
 				
