@@ -95,11 +95,13 @@
 						<div class="shop-menu pull-right">
 							<ul class="nav navbar-nav">
 								<li><a href="/wish/wishList.do"><i class="fa fa-star"></i> 위시리스트</a></li>
-								<li><a href="/cart/cartlist.do"><i class="fa fa-shopping-cart"></i> 장바구니2</a></li>
+								<li><a href="/cart/cartlist.do"><i class="fa fa-shopping-cart"></i> 장바구니</a></li>
 								<li class="for-member"><a href="/member/memberMypage.do"><i class="fa fa-user"></i> 마이페이지</a></li>
+								<li class="for-non-member"><a href="/member/memberForm.do"><i class="glyphicon glyphicon-thumbs-up"></i>회원가입</a></li>
 								<li class="for-non-member"><a href="/member/memberLoginPage.do"><i class="fa fa-lock"></i> 로그인</a></li>
 								<li class="for-member"><a href="/member/memberLogout.do"><i class="fa fa-lock"></i> 로그아웃</a></li>
 								<li class="for-admin"><a href="/admin/sitelog/siteLogList.do"><i class="fa fa-lock"></i> 관리자 페이지</a></li>
+							
 							</ul>
 						</div>
 					</div>
@@ -122,27 +124,35 @@
 						<div class="mainmenu pull-left">
 							<ul class="nav navbar-nav collapse navbar-collapse">
 								<li><a href="/book/bookIndex.do" class="active">Home</a></li>
-								<li class="dropdown"><a href="#">Shop<i class="fa fa-angle-down"></i></a>
-                                    <ul role="menu" class="sub-menu">
-                                        <li><a href="/book/bookSearch.do">도서 검색</a></li>
-										<li><a href="cart.html">Cart</a></li> 
-										<li><a href="login.html">Login</a></li> 
-                                    </ul>
-                                </li> 
+								<li class="dropdown"><a href="">외국도서<i class="fa fa-angle-down"></i></a>
+									 <ul role="menu" class="sub-menu">
+										 <li><a href="/member/memberLoginPage.do">Login</a></li> 
+									 </ul>
+								 </li>
+								<li class="dropdown"><a href="" >국내도서<i class="fa fa-angle-down"></i></a>
+									 <ul role="menu" class="sub-menu">
+									 	<li><a href="/member/memberLoginPage.do">Login</a></li> 
+									 </ul>
+								 </li>		
+								<li><a href="" class="active">베스트셀러</a></li>	
+								<li><a href="" >신간</a></li>					
+								<li><a href="/book/bookMonth.do">이달의책</a></li>	
+								<li><a href="/book/bookSearch.do">도서 검색</a></li>	
 								<li class="dropdown"><a href="#">게시판<i class="fa fa-angle-down"></i></a>
                                     <ul role="menu" class="sub-menu">
-                                        <li><a href="/board/boardList.do">전체 게시판</a></li>
+                                        <li><a href="/board/boardList.do">게시판 리스트</a></li>
+                                          <li><a href="/book/bookFAQ.do">FAQ</a></li>
                                     </ul>
                                 </li> 
-								<li><a href="/book/errorPage.do">404</a></li>
-								<li><a href="contact-us.html">Contact</a></li>
+								<li><a href="/book/errorPage.do">404</a></li>							
+								
 							</ul>
 						</div>
 					</div>
 					<div class="col-sm-3">
 					
 						<div class="search_box pull-right">
-							<input type="text" placeholder="Search.." "/>
+							<input type="text" placeholder="Search.." />
 						</div>
 				
 					</div>

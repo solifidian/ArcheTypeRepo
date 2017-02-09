@@ -159,9 +159,10 @@
 		         m_birth,          
 		         m_sex,            
 		         m_phone,          
-		         m_email,             
-		           
-		         m_home_address         
+		         m_email,        
+				 m_post_address,
+				 m_home_address,
+				 m_comment  
 		   )   
 		   VALUES (   
 		         #{m_no},
@@ -172,9 +173,10 @@
 		         #{m_birth},          
 		         #{m_sex},            
 		         #{m_phone},          
-		         #{m_email},          
-		      
-		         #{m_home_address}
+		         #{m_email}, 
+		         #{m_home_address},        
+		      	 #{m_home_address},
+		      	 #{m_comment}  
 		   )
 		</insert>
 		

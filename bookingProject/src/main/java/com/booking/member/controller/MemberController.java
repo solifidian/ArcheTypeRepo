@@ -221,19 +221,19 @@ public class MemberController {
 	 
 			
 	//회원등록
+	@ResponseBody
 	@RequestMapping(value="/memberInsert.do")
 	public String memberInsert(@ModelAttribute MemberVO mvo){
 		logger.info("memberInsert 호출 성공");
 			
-		int result = 0;
-		String url = "";
+		int result = 0;		
+		String resultStr ="FAILED";
 		
 		result = memberService.memberInsert(mvo);
-		if(result == 1){
-			url = "/member/memberLoginPage.do";	//로그인 페이지로 돌아가게 바꿀것!
-		}
-		
-		return "redirect:"+url;
+		if(result==1){
+			resultStr ="SUCCESS";
+		}		
+		return resultStr;
 	}
 	
 	//회원수정 폼 출력
@@ -300,7 +300,7 @@ public class MemberController {
 			url = "/book/bookIndex.do";	//회원탈퇴후 메인화면으로 돌리기
 		}
 		
-		 return "redirect : " +url;
+		 return "redirect:" +url;
 	}
 	
 	//아이디 중복체크
