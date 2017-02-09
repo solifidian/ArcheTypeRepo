@@ -231,9 +231,10 @@
 		         m_birth,          
 		         m_sex,            
 		         m_phone,          
-		         m_email,             
-		           
-		         m_home_address         
+		         m_email,        
+				 m_post_address,
+				 m_home_address,
+				 m_comment  
 		   )   
 		   VALUES (   
 		         #{m_no},
@@ -244,11 +245,18 @@
 		         #{m_birth},          
 		         #{m_sex},            
 		         #{m_phone},          
-		         #{m_email},          
-		      
-		         #{m_home_address}
+		         #{m_email}, 
+		         #{m_home_address},        
+		      	 #{m_home_address},
+		      	 #{m_comment}  
 		   )
 		</insert>
+		
+		<!-- 아이디 중복 체크 -->
+		<select id="idChk" parameterType="member" resultType="int">
+		/* Member - idChk */
+		   SELECT NVL((SELECT 1 FROM booking_member WHERE m_id=#{m_id}), 0) as result FROM dual
+		</select>
 		
 		<!-- 아이디 중복 체크 -->
 		<select id="idChk" parameterType="member" resultType="int">
@@ -321,9 +329,4 @@
 		   FROM booking_member
 		   WHERE m_id=#{m_id} and m_name = #{m_name}
 		</select>
-		
-		
-		
-
-
 </mapper>
