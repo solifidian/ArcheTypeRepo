@@ -15,4 +15,6 @@ public interface PurchaseDAO {
 	public List<CouponVO> couponList(PurchaseVO pvo);
 
 	public int givePoint(PurchaseVO pvo);
+	public int useCouponDelete(PurchaseVO pvo);
+
 }

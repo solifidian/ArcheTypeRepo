@@ -15,7 +15,7 @@
 	<insert id="purchaseUpdate" parameterType="purchase">
 	
 	 insert into BOOKING_PURCHASE(p_abprice,p_no,m_no,cookie_name,p_totprice,p_discount,coupon_code,m_phone,m_post_address,m_name,p_agreement,p_method)
-	 values(0,(booking_purchase_seq1.nextval+3),nvl((select m_no from booking_member where m_id=#{m_id}),0),#{cookie_name},#{p_totprice},#{p_discount},nvl(#{coupon_code},''),#{m_phone},#{m_post_address},#{m_name},#{p_agreement},#{p_method})
+	 values(0,(booking_purchase_seq1.nextval+3),#{m_no},#{cookie_name},#{p_totprice},#{p_discount},nvl(#{coupon_code},''),#{m_phone},#{m_post_address},#{m_name},#{p_agreement},#{p_method})
 
 	</insert>
 	
@@ -25,7 +25,7 @@
 	delete booking_cart_rel 
 	 <where>
     <!--만약 세션이 존재한다면 회원 번호로 검색  -->
-     <if test= "m_id!=null ">m_no=(select m_no from booking_member where m_id=#{m_id}) </if>
+     <if test= "m_id!=null ">m_no=#{m_no} </if>
      <!--만약 세션이 존재하지 않으면 쿠키 번호로 검색  -->
      <if test="m_id==null || m_no=='0' ">cart_ip=#{cookie_name} </if>
    </where>
@@ -42,7 +42,7 @@
 		from booking_cart_rel c inner join booking_purchase p on c.m_no=p.m_no
 		 where p.p_no=(select max(p_no)
 		from booking_purchase 
-		where m_no=(select m_no from booking_member	where m_id=#{m_id}))
+		where m_no=#{m_no})
 		
 	</insert>
 	
@@ -83,6 +83,20 @@
 	   					 where m_no=(select m_no from booking_member where m_id=#{m_id})
 	
 	</select>
+	
+	
+	<!--사용한 쿠폰 삭제 쿼리  -->
+	
+	<delete id="useCouponDelete" parameterType="purchase">
+	
+	delete booking_member_coupon_rel 
+	    where coupon_no=(select coupon_no  from booking_coupon where coupon_discount_ratio=${p_discount})
+	      and m_no=#{m_no}
+	
+	</delete>
+	
+	
+	
 	
 
 </mapper>

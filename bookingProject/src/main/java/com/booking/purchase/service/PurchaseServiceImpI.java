@@ -68,5 +68,12 @@ public class PurchaseServiceImpI implements PurchaseService {
 		return purchaseDAO.givePoint(pvo);
 	}
 
+
+	@Override
+	public int useCouponDelete(PurchaseVO pvo) {
+		// TODO Auto-generated method stub
+		return purchaseDAO.useCouponDelete(pvo);
+	}
+
  
 }

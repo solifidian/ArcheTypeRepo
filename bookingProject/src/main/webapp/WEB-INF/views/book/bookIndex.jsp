@@ -22,6 +22,18 @@
 	 if(id=="")id=0;
 	 
 		$(function(){
+			
+			
+			if (getCookie("coupon_pop") != "${cookie.JSESSIONID.value}"){
+				//회원일 경우에만 쿠폰 팝업 활성화
+				if(id!=0){
+					 coupon_pop()
+				}
+				
+			}
+			
+			
+			
 			$("#mypage").click(function(){
 				if(id==0) {
 					alert(id);
@@ -39,6 +51,33 @@
 			});
 			
 		});
+		
+	
+		//팝업 오늘 하루보기 쿠키 체크 function
+		function getCookie(name) { 
+			   var cookieName = name + "=";
+			   var x = 0;
+			   while ( x <= document.cookie.length ) { 
+			      var y = (x+cookieName.length); 
+			      if ( document.cookie.substring( x, y ) == cookieName) { 
+			         if ((lastChrCookie=document.cookie.indexOf(";", y)) == -1) 
+			            lastChrCookie = document.cookie.length;
+			         return decodeURI(document.cookie.substring(y, lastChrCookie));
+			      }
+			      x = document.cookie.indexOf(" ", x ) + 1; 
+			      if ( x == 0 )
+			         break; 
+			      } 
+			   return "";
+			}
+		
+
+		 //쿠폰 이벤트 팝업
+		 function coupon_pop(){
+			 
+		 window.open("/coupon/coupon_pop.do","이벤트 쿠폰","width=300,height=200,toolbar='no',location='no',status='no',menubar='no',resizable='no'");
+		
+		 }
 	 
 	</script>
 	<h1>3번 ${sessionScope.memVO.m_id}</h1>
