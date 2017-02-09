@@ -10,6 +10,7 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -31,7 +32,7 @@ public class CartTableController {
 	
 // 카트 리스트 호출	
 	@RequestMapping(value="/cart.do",method=RequestMethod.GET)
-	public ResponseEntity<List<CartVO>> list(@ModelAttribute CartVO cvo, HttpSession session,HttpServletRequest request){
+	public ResponseEntity<List<CartVO>> list(@ModelAttribute CartVO cvo,Model model, HttpSession session,HttpServletRequest request){
 	    logger.info("카트 리스트 호출");
 		ResponseEntity<List<CartVO>> entity=null;
 		  
@@ -75,7 +76,8 @@ public class CartTableController {
 			  
 				logger.info("정상구매 호출");
 				entity=new ResponseEntity<List<CartVO>>(cartservice.cartlist(cvo),HttpStatus.OK);
-			  
+			   			    
+				
 		  }else{
 			  logger.info("바로구매 호출");
 		      entity=new ResponseEntity<List<CartVO>>(cartservice.nowpaycartlist(cvo),HttpStatus.OK);  

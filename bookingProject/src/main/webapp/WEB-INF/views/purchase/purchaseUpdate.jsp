@@ -80,7 +80,7 @@
 					<table class="table table-bordered">
 						<tr>
 							<td rowspan="3"><h2>주문 완료</h2></td>
-							<td colspan="2" rowspan="3"><h2>총 결제 금액       ${data.p_totprice } 원</h2></td>
+							<td colspan="2" rowspan="3"><h2>총 결제 금액       ${price} 원</h2></td>
 							
 						</tr>
 						<tr>

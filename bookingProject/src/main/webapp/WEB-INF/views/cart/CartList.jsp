@@ -7,6 +7,7 @@
 <html>
 <head>
 <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+
 <script type="text/javascript">
 	
  $(function(){
@@ -17,6 +18,8 @@
 		m_id="${sessionScope.memSession.m_id}";
 		else if(m_id=="")
 		m_id='0';	
+	    
+		  
 	 //쇼핑 계속하기
  	 
 	 $("#continueShoppingBtn").click(function(){
@@ -32,6 +35,13 @@
 			alert("회원 구매를 이용해주세요 ")
 	 		return;
 	  	}
+	
+	 //카트가 비어있는 상태에서 구매를 클릭했을 때 경고
+	     if(cartSize==0){
+	    	 alert("카트가 비어있습니다.")
+	    	 return;
+		     }		 
+			 
 			 
 	  $("#m_id").val(0);
 	  $("#cart_form").attr({
@@ -50,6 +60,11 @@
 				alert("로그인 후 이용해주세요 ")
 				return;
 			}
+		//카트가 비어있는 상태에서 구매를 클릭했을 때 경고
+		     if(cartSize==0){
+		    	 alert("카트가 비어있습니다.")
+		    	 return;
+		     }
 		 
 		 
 		 
