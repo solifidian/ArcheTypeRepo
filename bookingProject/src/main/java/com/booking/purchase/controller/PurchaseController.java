@@ -111,9 +111,9 @@ public class PurchaseController {
 			    PurchaseVO vo=pvo;
 			    
 			    if(result==1){
-			    	//결제 완료 시 정보를 booking_purchase에 등록 성공 시 해당 카트에 있던 정보를 삭제  
+			    	//결제 완료 시 정보를 booking_purchase에 등록 성공 시 해당 카트에 있던 각 책의 정보를 저장  
 			    	int bookpurchaserel=purchaseService.purchaseBookRel(pvo);
-			    	logger.info(bookpurchaserel+"1은 삭제 0은 안삭제");
+			    	logger.info(bookpurchaserel+" 0은 e등록안됨");
 			    	
 			    	//결제에 따른 포인트 지급 (결제금액의 1%) 회원만 포인트 지급
 			    if(m_id!="0"){	
@@ -134,9 +134,12 @@ public class PurchaseController {
 			    	  		 }
 			    	    
 			           }
-			  
+			         
 			        //결제 완료 페이지에 뿌려줄 데이터
+			       String price=Util.priceNumber(pvo.getP_totprice());
+			        
 			          model.addAttribute("data",vo);
+			          model.addAttribute("price",price);
 	  		  		  logger.info("가격"+pvo.getP_totprice());
 			    }    
 			    

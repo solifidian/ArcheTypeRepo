@@ -30,4 +30,8 @@ public class CategoryDAOImpl implements CategoryDAO{
 	public List<CategoryVO> categoryBoxList(CategoryVO ctvo){
 		return session.selectList("categoryBoxList",ctvo);
 	}
+	@Override
+	public CategoryVO categorySelectToParent(CategoryVO ctvo){
+		return session.selectOne("categorySelectToParent",ctvo);
+	}
 }

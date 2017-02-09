@@ -39,7 +39,6 @@
 	
 	<script type="text/javascript">
 	
-	
 	var regExp = /^01([0|1|6|7|8|9]?)-?([0-9]{3,4})-?([0-9]{4})$/;
 	var regEmailId = /([\w-\.]+)/;
 	var regEmailDomain = /((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
@@ -118,6 +117,9 @@
 		//수정 버튼 클릭시 처리 이벤트
 		$("#memberUpdateBtn").click(function(){
 			if(!chkSubmit($('#m_pwd'),"비밀번호를")) return;
+			//비밀번호 유효성 체크 한번 더 !		
+			else if(!checkPassword($("#m_pwd").val()))return;			
+			
 			else if(!chkSubmit($('#m_pwdChk'),"비밀번호 확인을")) return;
 			else if(!chkSubmit($('#m_nick'),"닉네임을")) return;			
 			else if(!chkSubmit($('#m_emailId'),"이메일을")) return;
@@ -143,7 +145,8 @@
 			else if($('#m_pwd').val()!= $('#m_pwdChk').val()){
 				alert("비밀번호가 일치하지 않습니다. 다시 입력해주세요!!");
 				return;
-			} 
+			}	
+			
 			else{
 				var email = $("#m_emailId").val();
 			    var domain = $("#m_domain").val();
@@ -169,12 +172,52 @@
 			
 		});
 		
-	
+		//textarea maxlength설정
+		$("#m_comment").on('keyup',function(){
+			if($(this).val().length>4000){
+				alert("글자수는 영문4000, 한글 2000자로 제한됩니다!")
+				$(this).val($(this).val().subString(0,4000));
+				$("#m_comment").focus();
+			}
+	});
 
 		
 	});/* 최상위 function 종결 */
 	
-	
+	//비밀번호 체크 숫자와 영문자 조합으로 10~15자리를 사용해야함
+	var idss = "${sessionScope.memSession.m_id}";
+	console.log(idss);
+	function checkPassword(id,password){
+		if(!/^[a-zA-Z0-9]{8,15}$/.test($("#m_pwd").val())){
+			alert('숫자와 영문자 조합으로 8~15자리를 사용해야 합니다.');
+			$("#m_pwd").focus();
+			return false;
+		}
+		
+		var checkNumber = ($("#m_pwd").val()).search(/[0-9]/g);
+		var checkEnglish = ($("#m_pwd").val()).search(/[a-z]/ig);
+		
+		if(checkNumber <0 || checkEnglish <0){
+			alert("숫자와 영문자를 혼용하여야 합니다.");
+			$("#m_pwd").focus();
+			return false;
+		}
+		if(/(\w)\1\1\1/.test($("#m_pwd").val())){
+			alert('444같은 문자를 4번 이상 사용하실 수 없습니다.');
+			$("#m_pwd").focus();
+			return false;
+		}
+		if(($("#m_pwd").val()==idss)){
+			console.log($("#m_pwd").val());
+			console.log(idss);
+			console.log($("#m_pwd").val()==id);
+			alert("비밀번호를 아이디와 동일하게 설정하실수 없습니다.");
+			$("#m_pwd").focus();
+			return false;
+		}
+			return true;
+		}
+		
 	
 	//우편번호
 	  function execDaumPostcode() {
@@ -314,7 +357,7 @@
 			            </td>		
 					<tr>
 						<td class="tc">메모</td>
-						<td><textarea id="m_memo" name="m_memo" placeholder="메모를 입력하세요..." maxlength="200" value="${sessionScope.memSession.m_comment}"></textarea></td>
+						<td><textarea id="m_comment" name="m_comment" placeholder="메모를 입력하세요...">${sessionScope.memSession.m_comment}</textarea></td>
 					</tr>
 					<tr>
 						<td class="tc">SNS연동</td>

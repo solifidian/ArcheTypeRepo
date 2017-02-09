@@ -13,6 +13,7 @@
 
 $(function(){
 	
+
  //바로 구매 버튼 클릭 시 nowPurchaseBtn
 	 $(".nowPurchaseBtn").click(function(){
 	alert("이것은 바로구매입니다.")
@@ -183,6 +184,12 @@ $(".cartInsertBtn").click(function(){
 						</table>
 						
 						</div>
+							<div class="text-center" >
+											<input type="button" class="btn btn-default update" value="쇼핑 계속하기" id="goPurchaseBtn"/>
+											
+							</div>
+							<p></p>		
+						
 						</div>
 		
 		

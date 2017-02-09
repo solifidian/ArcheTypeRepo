@@ -5,7 +5,10 @@
 	<head>
 	<style>
 		span.currentPage{
-			color:red;
+			background-color:grey;
+		}
+		.pagination{
+			
 		}
 	</style>
 	<script type="text/javascript" src="/resources/include/js/listCommon.js"></script>
@@ -263,7 +266,7 @@
 		
 		<!--검색 조건 테이블 영역  -->
 		<div class="row">
-		<div class="col-md-8 col-md-offset-4">
+			<div class="col-md-8 col-md-offset-4">
 	               <table class="table table-bordered">
 	               <tr>
 	               <td>새로나온책</td>
@@ -273,35 +276,36 @@
 	               <td>회원 리뷰</td>
 	               </tr>
 	               </table>
-	                      
-	            
-	             </div>
-	             
+	       </div>
 	    </div>
 	    
 	    
 	    
 	    <!--검색창 영역  -->
-	    	<div class="well">
-	         	<div class="col-sm-6">
-	         		<label class="col-sm-4">페이지당 표시 건 수</label>
-	         		<select class="col-sm-2" name="pageSizeChange" id="pageSizeChange" >	         			
+	    	<div class="navbar-form navbar-left" role="navigation">
+         		
+         		<div class="form-inline">
+         			<label for="form-control">페이지당 표시 건 수
+	         		<select class="form-control" name="pageSizeChange" id="pageSizeChange" >	         			
 	         			<option value="5">5</option>
 	         			<option value="10">10</option>
 	         			<option value="30">30</option>
 	         		</select>
-	         		건
-	         		&nbsp;&nbsp;/&nbsp;검색 결과 :${listData.searchTotal}건
-	         	</div>
-	            <div class="paginationBar text-center paginate">
-	            	<tag:PagingBar page="${listData.page}" searchTotal="${listData.searchTotal}" pageSize="${listData.pageSize}"/>
-	            </div>         
+	         		/ 검색 결과 :${listData.searchTotal}건
+        			</label>
+         		</div>
+         		
            </div>
 	         <div class="col-sm-12 padding-right">
 			        
 	         
 					<div class="features_items"><!--features_items-->
-						<h2 class="title text-center">Features Items</h2>
+						<h2 class="title text-center">도서 목록</h2>
+						<div class="row">
+				            <div class="paginationBar text-center paginate">
+				            	<tag:PagingBar page="${listData.page}" searchTotal="${listData.searchTotal}" pageSize="${listData.pageSize}"/>
+				            </div>
+	            		</div>
 						<table class="col-sm-12" >
 						
 						<c:if test="${empty bookList }">
@@ -313,16 +317,16 @@
 						<c:forEach var="d" items="${bookList}">							
 							<tr data-num="${d.isbn}">
 							  <td class="col-sm-2">
-							  	<span class="thumbnail">
-							  		<img class="img-thumnail" src="/images/NoImageIcon.png">
-							  	</span>
+							  	<object class="thumbnail" data="/images/bookImg/${d.isbn}.jpg" type="image/jpg">
+								  	<img src="/images/bookImg/no_book_img.png"/>
+							  	</object>
 							  </td>
 							  <td class="col-sm-8" >
 							 
 							  <h3><a href="/book/bookDetail.do?isbn=${d.isbn}">${d.b_title}</a></h3>
 								 <span> ${d.b_author} &nbps; / &nbps; ${d.b_pubdate}</span><br>
 								 <span> 리뷰(4건) 회원평점 ***** 만점에 5점 관련이벤트(0건) 중고상품(3건)</span><br>
-								 <span> ${d.b_abprice}원 </span><br>
+								 <span> ${price}원 </span><br>
 								 <span> 주제어 스마트폰 , 시력 회복법 , 생활습관 , 스트레칭 , 콘택트렌즈  더보기</span><br>
 							  
 							

@@ -101,6 +101,7 @@
 								, b_abprice, b_stock, pub_name, cat_no, b_update, b_editdate, series_name, series_no, series_no_sub
 						from booking_book_data
 						<include refid="standardSearchQuery"></include>
+						
 				
 				) list
 				

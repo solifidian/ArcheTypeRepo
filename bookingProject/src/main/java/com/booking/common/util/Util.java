@@ -1,5 +1,7 @@
 package com.booking.common.util;
 
+import java.text.DecimalFormat;
+
 import javax.servlet.http.Cookie;
 
 public class Util {
@@ -34,4 +36,17 @@ public class Util {
 		}
 		return cookieValue; 
 	}
+	
+	  public static String priceNumber(int price){
+		  
+		  DecimalFormat dc = new DecimalFormat("###,###,###,###");    
+	        String ch = dc.format(price);
+	         
+	        
+	        System.out.println("작업전 : " + price);
+	        System.out.println("작업후 : " + ch);
+		  
+	        return ch;
+	  }
+	  
 }

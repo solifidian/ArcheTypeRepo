@@ -3,6 +3,7 @@ package com.booking.book.vo;
 public class Purchase_DeliveryVO  extends PurchaseVO {
 	private String del_company_name;    //배송사명
 	private int m_no;
+	private String m_id;
 	private int p_no;                   //주문번호
 	private String del_ondate;          //도착예정일
 	private String del_num;             //배송번호
@@ -60,6 +61,18 @@ public class Purchase_DeliveryVO  extends PurchaseVO {
 	}
 	public void setPur_del_mode(String pur_del_mode) {
 		this.pur_del_mode = pur_del_mode;
+	}
+	public int getM_no() {
+		return m_no;
+	}
+	public void setM_no(int m_no) {
+		this.m_no = m_no;
+	}
+	public String getM_id() {
+		return m_id;
+	}
+	public void setM_id(String m_id) {
+		this.m_id = m_id;
 	}
 	
 	

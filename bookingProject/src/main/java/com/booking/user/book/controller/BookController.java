@@ -28,22 +28,41 @@ public class BookController {
 	@Autowired
 	private BookService bookService;
 	
-	/*@RequestMapping(value="/boardlist.do")
-	public String index(){
-		return "book/boardlist";
-	}*/
-	
-	
-	
+		
 	@RequestMapping(value="/bookOrder.do")
 	public String bookOrder(){
 		return "book/bookOrder";
 	}
 	
+	//외국도서 목록
+	@RequestMapping(value="/bookForeign.do")
+	public String bookForeign(){
+		return "book/bookForeign";
+	}
+	
+	//국내도서 목록
+	@RequestMapping(value="/bookDomestic.do")
+	public String bookDomestic(){
+		return "book/bookDomestic";
+	}
+	
+	
 	//이달의 책
 	@RequestMapping(value="/bookMonth.do")
 	public String bookMonth(){
 		return "book/bookMonth";
+	}
+	
+	//베스트셀러
+	@RequestMapping(value="/bookBestSeller.do")
+	public String bookBestSeller(){
+		return "book/bookBestSeller";
+	}
+	
+	//신간
+	@RequestMapping(value="/bookNew.do")
+	public String bookNew(){
+		return "book/bookNew";
 	}
 	
 	
@@ -53,6 +72,11 @@ public class BookController {
 		return "book/bookIndex";
 	}
 	
+	//에러404 페이지로 이동
+	@RequestMapping(value="/errorPage.do")
+	public String errorPage(){
+		return "book/error";
+	}
 	
 	//FAQ틀
 	@RequestMapping(value="/bookFAQ.do")

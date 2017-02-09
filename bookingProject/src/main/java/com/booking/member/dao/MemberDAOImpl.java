@@ -36,14 +36,14 @@ public class MemberDAOImpl implements MemberDAO {
 	
 	//주문전체레코드수
 	@Override
-	public int myPurchaseCnt(MemberVO mvo){
-		return (Integer)session.selectOne("myPurchaseCnt", mvo);
+	public int myPurchaseCnt(Purchase_DeliveryVO listVO){
+		return (Integer)session.selectOne("myPurchaseCnt", listVO);
 	}
 	
 	//배송전체레코드수
 	@Override
-	public int myDeliveryCnt(MemberVO mvo){
-		return (Integer)session.selectOne("myDeliveryCnt", mvo);
+	public int myDeliveryCnt(Purchase_DeliveryVO listVO){
+		return (Integer)session.selectOne("myDeliveryCnt", listVO);
 	}
 	
 	//회원가입

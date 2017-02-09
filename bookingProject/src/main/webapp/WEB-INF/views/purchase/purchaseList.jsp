@@ -14,7 +14,7 @@
 <!--pg연동 api js  -->
 <script src="https://service.iamport.kr/js/iamport.payment-1.1.4.js" type="text/javascript"></script>
 <!--validate  -->
-<script src="/resources/include/assets/js/chk.js"></script>
+<!-- <script src="/resources/include/assets/js/chk.js"></script> -->
 
 <script type="text/javascript">
 
@@ -71,7 +71,7 @@ $(function(){
 		}
 		//쿠폰값이 null일 경우 쿠폰 값을 적용x
 		var ratio=couponratio*total
-		$("#lastTotPrice").html(((total-ratio)+delivery)+"원");  //합계 +배송비용
+		$("#lastTotPrice").html(priceNumber((total-ratio)+delivery)+"원");  //합계 +배송비용
 		
 	})
 	
@@ -276,16 +276,16 @@ $(function(){
     		total+=totalprice;
     		
     		
-	$('#cart_table > tbody:last').append("<tr data-num="+isbn+"><td class='col-md-1'>"+img+"</td><td class='col-md-4'>"+b_title+"</td><td>"+b_abprice+"</td><td >"+amount+"</td><td>"+b_abprice*cart_amount+"</td></tr>");
+	$('#cart_table > tbody:last').append("<tr data-num="+isbn+"><td class='col-md-1'>"+img+"</td><td class='col-md-4'>"+b_title+"</td><td>"+priceNumber(b_abprice)+"</td><td >"+amount+"</td><td>"+priceNumber(b_abprice*cart_amount)+"</td></tr>");
 	  
 	/*총 합계 계산 영역   */
 	
 	
-	$("#totalprice").html(total+"원");  //합계비용
-	$("#deliveryprice").html(delivery+"원"); //배송비용
-	$("#price").html((total+delivery)+"원");  //합계 +배송비용
-	$("#lastTotPrice").html((total+delivery)+"원"); //합계+배송비용
-	$("#point").html((total*point)+"원"); //합계+배송비용
+	$("#totalprice").html(priceNumber(total)+"원");  //합계비용
+	$("#deliveryprice").html(priceNumber(delivery)+"원"); //배송비용
+	$("#price").html(priceNumber(total+delivery)+"원");  //합계 +배송비용
+	$("#lastTotPrice").html(priceNumber(total+delivery)+"원"); //합계+배송비용
+	$("#point").html(priceNumber(total*point)+"원"); //합계+배송비용
 	
 	}
 	
@@ -320,7 +320,6 @@ $(function(){
     }
 	
 
-	
 	
 	
 </script>
@@ -633,7 +632,7 @@ $(function(){
 										    <div class="col-sm-5">
 										     <select id="coupon">
 										      <c:if test="${empty coupon}">
-													 <option>쿠폰 없음</option>
+													 <option value="">쿠폰 없음</option>
 											          
 											  </c:if>
 											  
@@ -765,12 +764,7 @@ $(function(){
 										      		스마트 문화 상품권
 										    </label>
 										  </div>
-										       <div class="radio">
-										    <label>
-										      <input type=radio name="pay" value="happymoney">
-										      		해피머니 상품권
-										    </label>
-										  </div>
+										
 										  
 										  
 										  	 <div >
@@ -786,8 +780,10 @@ $(function(){
 								
 								</td>
 								<td id="lastPrice" class="col-sm-2 text-center" rowspan="3" valign="middle">
-									<h4><label>최종 결제   </label></h4>
-									<h2><span id="lastTotPrice">원</span></h2>
+									<h4><label> 최종 결제 금액   </label></h4>
+									<h2><span id="lastTotPrice">원</span></h2><br>
+									
+									
 									
 												
 								

@@ -11,7 +11,7 @@
  
 var total=0;/*총합계 계산  */
 var delivery=2500;/* 배송비 */
-
+var cartSize=0; //카트에 들어있는 책의 수량
 $(function(){
 	listAll();
 	
@@ -141,6 +141,20 @@ $(function(){
 		var url="/carttable/cart.do?m_id="+m_id+"&cart_ip="+cart_ip
 		$.getJSON(url,function(data){
 			console.log(data.length);
+			//장바구니에 들어있는 책의 수량을 체크 하는 변수
+			cartSize=data.length;
+
+			//장바구니에 아무것도 없을 때 나오는 메시지
+			if(data.length==0){
+				$('#cart_table > tbody:last').append("<tr><td colspan=5 class='text-center'><h2>장바구니가 비어 있습니다.</h2></td></tr>")
+				$("#totalprice").html("0 원");
+				$("#deliveryprice").html("0 원");
+				$("#price").html("0 원");
+				$("#point").html("0 원"); //적립금
+				
+				
+				
+			}
 			
 			
 			$(data).each(function(){
@@ -173,16 +187,16 @@ $(function(){
     	var	totalprice=b_abprice*cart_amount
     	    total+=totalprice;
     /* 카트에 값이 있을 경우 */		
-   	$('#cart_table > tbody:last').append("<tr data-num="+isbn+"><td class='col-md-1'>"+img+"</td><td class='col-md-4'>"+b_title+"</td><td>"+b_abprice+"</td><td >"+amount+"</td><td>"+b_abprice*cart_amount+"</td><td >"+emoti+"</td></tr>");
+   	$('#cart_table > tbody:last').append("<tr data-num="+isbn+"><td class='col-md-1'>"+img+"</td><td class='col-md-4'>"+b_title+"</td><td>"+priceNumber(b_abprice)+"</td><td >"+amount+"</td><td>"+priceNumber(b_abprice*cart_amount)+"</td><td >"+emoti+"</td></tr>");
  
 	
 	/*총 합계 계산 영역   */
 	
 	
-	$("#totalprice").html(total+"원");
-	$("#deliveryprice").html(delivery+"원");
-	$("#price").html((total+delivery)+"원");
-	$("#point").html((total*0.01)+"원"); //적립금
+	$("#totalprice").html(priceNumber(total)+"원");
+	$("#deliveryprice").html(priceNumber(delivery)+"원");
+	$("#price").html(priceNumber(total+delivery)+"원");
+	$("#point").html(priceNumber(total*0.01)+"원"); //적립금
 	}
 	
 	
