@@ -57,7 +57,7 @@
 				 				 
 				 $("#searchform").attr({
 						"method":"get",
-						"action":"/purchase/purchaseList.do?m_id="+m_id+"&isbn="+isbn
+						"action":"/purchase/purchaseList.do?isbn="+isbn
 													
 						})
 						$("#searchform").submit();
@@ -71,10 +71,11 @@
 			 
 			 //위시리스트 버튼 클릭 시 
 			 $(".wishListInsertBtn").click(function(){
-				 var num=$(this).parents("tr").attr("data-num");
+				 var isbn=$(this).parents("tr").attr("data-num");
 				 $("#isbn").val(num);
+				 alert(cart_ip)
 				 alert(num)
-						 
+				  //1=바로구매 0=x		 
 				 if(m_id==""){
 					 alert("로그인 페이지로 이동")
 				 }else{
@@ -82,7 +83,7 @@
 					 $.ajax({
 						   url:"/wish/wishInsert.do",
 						   type:"POST",
-						   data:$("#searchform").serialize(),
+						   data:isbn,
 						   dataType:"text",
 						   error:function(request,status,error){
 							   alert("code : " + request.status + "\r\ nmessage : "
@@ -334,8 +335,7 @@
 							  <form class="form-horizontal" id="searchform" name="searchform">
 							  
  								<input type="hidden" id="isbn" name="isbn"  />
- 								<input type="hidden" id="cart_ip" name="cart_ip" value="${cookie.JSESSIONID.value}" />
- 								<input type="hidden" id="nowpay" name="nowpay"  />
+ 								<input type="hidden" id="nowpay" name="nowpay" value=0  />
  								 <div class="form-group">
 							  
 							  <span class="cartInsertBtn"><input type="button" class="btn btn-default" value="장바구니"  />	</span>																			
