@@ -66,17 +66,18 @@ public class BoardController {
 		Paging.setBookPaging(bvo);
 		if(bvo.getBd_forum_no()==1){
 			List<BoardVO> boardList = boardService.boardList(bvo);
+			model.addAttribute("boardList", boardList);
 		}else{
-			List<BoardVO> questionBoardList = boardService.questionBoardList(bvo);
+			List<BoardVO> boardList = boardService.questionBoardList(bvo);
+			model.addAttribute("boardList", boardList);
 		}
 		
 		
 		
 		model.addAttribute("cateList",cateList);
-		model.addAttribute("boardList", boardList);
-		model.addAttribute("data", bvo);
-	
 		
+		
+	
 		
 		return "board/boardList";
 	}
