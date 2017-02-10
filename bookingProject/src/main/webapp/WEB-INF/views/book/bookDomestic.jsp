@@ -66,7 +66,7 @@
 			 $(".wishListInsertBtn").click(function(){
 				 var num=$(this).parents("tr").attr("data-num");
 				 $("#isbn").val(num);
-				/*  alert(num) */
+				 alert(num)
 						 
 				 if(m_id==""){
 					 alert("로그인 페이지로 이동")
@@ -126,7 +126,7 @@
 				 var num=$(this).parents("tr").attr("data-num");
 				 var m_id="${sessionScope.memSession.m_id}"
 				 var amount= $(this).parents("tr").find("input[type='text']").val();
-//				alert(amount)	
+				alert(amount)	
 				 if( m_id==""){
 					 m_id="0";
 				 }else if( m_id!=""){
@@ -135,7 +135,7 @@
 				$("#isbn").val(num) 
 				$("#m_id").val(m_id) 
 				$("#cart_amount").val(amount)
-//				alert(m_id);
+				alert(m_id);
 				 
 				$.ajax({
 					   url:"/cart/cartInsert.do",
@@ -178,7 +178,7 @@
 			 
 			 $("#marketbtn").click(function(){
 				 var num=$(this).parents("tr").attr("data-num");
-//				 alert(num)
+				 alert(num)
 				 
 			 })
 			 

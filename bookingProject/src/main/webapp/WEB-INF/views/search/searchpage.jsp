@@ -38,7 +38,7 @@
 				$("#searchDateMode").val(searchDateMode);
 			}
 				
-//			 alert(document.cookie)
+			 alert(document.cookie)
 			 $("#cart_ip").val("${cookie.id.value}")
 			
 			 $.ajax({
@@ -154,7 +154,7 @@
 				 var num=$(this).parents("tr").attr("data-num");
 				 var m_id="${sessionScope.memSession.m_id}"
 				 var amount= $(this).parents("tr").find("input[type='text']").val();
-//				alert(amount)	
+				alert(amount)	
 				 if( m_id==""){
 					 m_id="0";
 				 }else if( m_id!=""){
@@ -163,7 +163,7 @@
 				$("#isbn").val(num) 
 				$("#m_id").val(m_id) 
 				$("#cart_amount").val(amount)
-//				alert(m_id);
+				alert(m_id);
 				 
 				$.ajax({
 					   url:"/cart/cartInsert.do",
@@ -206,14 +206,14 @@
 			 
 			 $("#marketbtn").click(function(){
 				 var num=$(this).parents("tr").attr("data-num");
-//s				 alert(num)
+				 alert(num)
 				 
 			 })
 			 
 			 //디테일 페이지로 이동
 			  $(".godetail").click(function(){
 				 var num=$(this).parents("tr").attr("data-num");
-//				 alert(num)	
+				 alert(num)	
 				 $("#cat_no").val(num);
 				$("#searchform").attr({
 				"method":"GET",

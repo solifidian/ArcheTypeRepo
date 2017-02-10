@@ -76,8 +76,8 @@
 			 $(".wishListInsertBtn").click(function(){
 				 var isbn=$(this).parents("tr").attr("data-num");
 				 $("#isbn").val(num);
-//				 alert(cart_ip)
-//				 alert(num)
+				 alert(cart_ip)
+				 alert(num)
 				  //1=바로구매 0=x		 
 				 if(m_id==""){
 					 alert("로그인 페이지로 이동")
@@ -136,7 +136,7 @@
 				 var num=$(this).parents("tr").attr("data-num");
 				 var m_id="${sessionScope.memSession.m_id}"
 				 var amount= $(this).parents("tr").find("input[type='text']").val();
-//				alert(amount)	
+				alert(amount)	
 				 if( m_id==""){
 					 m_id="0";
 				 }else if( m_id!=""){
@@ -145,7 +145,7 @@
 				$("#isbn").val(num) 
 				$("#m_id").val(m_id) 
 				$("#cart_amount").val(amount)
-//				alert(m_id);
+				alert(m_id);
 				 
 				$.ajax({
 					   url:"/cart/cartInsert.do",
@@ -188,7 +188,7 @@
 			 
 			 $("#marketbtn").click(function(){
 				 var num=$(this).parents("tr").attr("data-num");
-//				 alert(num)
+				 alert(num)
 				 
 			 })
 			 
@@ -228,7 +228,7 @@
 		
 		
 		 <!--검색 조건 테이블 영역  -->
-		<div class="row">
+		<div class="col-xs-6">
 	          	<!-- 전체 리스트 제어 폼 -->
 	          	<form class="navbar-form navbar-left" id="searchForm" method="get" action="/book/bookSearch.do">
 	          		<!-- 페이지 정렬을 위한 hidden input들 -->
@@ -243,7 +243,7 @@
 	          		<input type="hidden" name="orderDirection" id="orderDirection" value="${listData.orderDirection}"/>
 	          		
 	          		<!-- 키워드 검색 -->
-	          		<div class="form-inline">
+	          		<div class="form-inline col-xs-6">
 		          		<h3><span class="label label-default">검색</span></h3>
 			          	<select class="form-control" name="searchMode" id="searchMode">
 			      			<option value="allSch">전체</option>
@@ -255,10 +255,10 @@
 			      		</select>
 			      		<input type="text" class="form-control" name="keyword" id="keyword" value="${listData.keyword}"/>
 		      		</div>
-		      		<br/><br/>
+		      		
 		      			      		
 		      		<!-- 일자 검색 -->
-		      		<div class="form-inline">
+		      		<div class="form-inline col-xs-6">
 		          		<h3><span class="label label-default">일자 검색</span></h3>
 		          		<input type="hidden" class="form-control" name="searchDateMode" id="searchDateMode" value="publishSch">
 			          	<input type="date" class="form-control" name="searchStartDate" id="searchStartDate" value="${listData.searchStartDate}">
@@ -269,8 +269,8 @@
         </div>
 		
 		<!--검색 조건 테이블 영역  -->
-		<div class="row">
-			<div class="col-md-8 col-md-offset-4">
+		<div class="col-xs-12">
+			<div class="col-xs-12">
 	               <table class="table table-bordered">
 	               <tr>
 	               <td>새로나온책</td>
@@ -286,9 +286,9 @@
 	    
 	    
 	    <!--검색창 영역  -->
-	    	<div class="navbar-form navbar-left" role="navigation">
+	    	<div class="col-xs-6 padding-right">
          		
-         		<div class="form-inline">
+         		<div class="col-xs-6">
          			<label for="form-control">페이지당 표시 건 수
 	         		<select class="form-control" name="pageSizeChange" id="pageSizeChange" >	         			
 	         			<option value="5">5</option>
