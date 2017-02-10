@@ -243,7 +243,8 @@
 	</update>
 	<update id="bookUpdate" parameterType="book">
 		update booking_book_data
-		set b_title = #{b_title}, b_author = #{b_author}
+		set b_title = #{b_title}
+		, b_author = #{b_author}
 		, pub_name = #{pub_name}, b_pubdate = #{b_pubdate}
 		, b_abprice = #{b_abprice}
 		, cat_no = #{cat_no}
