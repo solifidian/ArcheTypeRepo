@@ -86,6 +86,13 @@ public class BookController {
 		return "book/error";
 	}
 	
+	//FAQ틀
+	@RequestMapping(value="/bookFAQ.do")
+	public String bookFAQ(){
+		return "book/bookFAQ";
+	}
+	
+	
 	
 	// 책 상세보기 페이지로
 	@RequestMapping(value="/bookDetail.do", method=RequestMethod.GET)

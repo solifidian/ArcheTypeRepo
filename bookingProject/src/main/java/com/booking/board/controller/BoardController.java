@@ -11,9 +11,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.booking.admin.book.service.CategoryService;
 import com.booking.board.service.BoardService;
 import com.booking.board.vo.BoardVO;
-import com.booking.board.vo.FaqVO;
+import com.booking.book.vo.CategoryVO;
 import com.booking.common.paging.Paging;
 
 @Controller
@@ -23,6 +24,9 @@ public class BoardController {
 	
 	@Autowired
 	private BoardService boardService;
+	
+	@Autowired
+	private CategoryService categoryService;
 	
 		
 	/***********************************
@@ -57,7 +61,10 @@ public class BoardController {
 		//페이지 세팅
 		Paging.setBookPaging(bvo);
 		List<BoardVO> boardList = boardService.boardList(bvo);
+		CategoryVO ctvo = new CategoryVO();
+		List<CategoryVO> cateList = categoryService.categoryBoxList(ctvo);
 		
+		model.addAttribute("cateList",cateList);
 		model.addAttribute("boardList", boardList);
 		model.addAttribute("data", bvo);
 	
@@ -299,32 +306,5 @@ public class BoardController {
 		
 		return "redirect:"+url;
 	}
-	
-	/*********************************
-	 * FAQ 목록 출력하기
-	 ********************************/
-	@RequestMapping(value="/boardFAQList.do")
-	public String boardFAQList(Model model){
-		logger.info("faqList hello");
-		
-		List<FaqVO> faqList = boardService.faqList();
-		
-		logger.info("faqList size = "+faqList.size());
-		logger.info(faqList.toString());
-		model.addAttribute("faqList", faqList);
-		return "board/boardFAQList";
-	}
-	
-	/*********************************
-	 * FAQ Detail 출력하기
-	 ********************************/
-	@RequestMapping(value="/boardFAQDetail.do")
-	public String boardFAQDetail(){
-		return "board/boardFAQDetail";
-	}
-	
-	
-	
-	
 }
 

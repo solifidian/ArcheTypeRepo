@@ -44,7 +44,13 @@
 	//목록버튼 클릭시 이벤트
 		$("#boardListBtn").click(function(){
 			
-			location.href= "/board/boardList.do";
+			if($("#bd_forum_no") == 1){
+				location.href= "/board/boardList.do";	//기본 커뮤니티 게시판으로
+			}else{
+				location.href= "/board/questionBoardList.do";	//문의게시판으로
+			}
+			
+		
 		});
 		
 	//저장버튼 클릭시 이벤트
@@ -150,10 +156,10 @@
 								<h2>말머리</h2>
 								<div class="brands-name">
 									<ul class="nav nav-pills nav-stacked">
-										<li><a href=""> <span class="pull-right">(0)</span>전체</a></li>
-										<li><a href=""> <span class="pull-right">(0)</span>리뷰</a></li>
-										<li><a href=""> <span class="pull-right">(0)</span>사담</a></li>
-										<li><a href=""> <span class="pull-right">(0)</span>기타</a></li>
+										<li><a href=""> <span class="pull-right"></span>전체</a></li>
+										<li><a href=""> <span class="pull-right"></span>리뷰</a></li>
+										<li><a href=""> <span class="pull-right"></span>사담</a></li>
+										<li><a href=""> <span class="pull-right"></span>기타</a></li>
 															
 									</ul>
 								</div>
@@ -183,7 +189,7 @@
 <!--	================ 리스트 시작 ======================  -->
 						<div class="single-blog-post" id="boardInsert" >
 							<form id="bd_writeForm" name="bd_writeForm" >
-							<!--게시판 번호 자동으로 넘겨주게 설정할것 -->
+							<!--게시판 번호 자동으로 넘겨주게 설정할것 지금은 기본 1 -->
 							<input type="hidden" name="bd_forum_no" value="${bd_forum_name}">
 							
 							<table summary="게시글 작성" class="tb">
