@@ -14,6 +14,7 @@
 			}
 		</style>
 		<script type="text/javascript" src="/resources/include/js/listCommon.js"></script>
+		
 		<script type="text/javascript">
 			$(function(){
 				var searchMode = "<c:out value='${listData.searchMode}'/>";
@@ -33,7 +34,7 @@
           <div class="well">
           <div class="table-responsive">
           	<!-- 전체 리스트 제어 폼 -->
-          	<form class="navbar-form navbar-left" id="searchForm" method="get" action="/admin/book/bookList.do">
+          	<form class="navbar-form navbar-left" id="searchForm" method="get" action="/admin/member/memberList.do">
           		<!-- 페이지 정렬을 위한 hidden input들 -->
           		<input type="hidden" name="page" id="page" value="${listData.page}"/>
           		<input type="hidden" name="pageSize" id="pageSize" value="${listData.pageSize}"/>
@@ -49,22 +50,17 @@
           		<h3><span class="label label-default">검색</span></h3>
 	          	<select class="form-control" name="searchMode" id="searchMode">
 	      			<option value="allSch">전체</option>
-	      			<option value="titleSch">글제목</option>
-	      			<option value="authorSch">저자</option>
-	      			<option value="publisherSch">출판사</option>
-	      			<option value="isbnSch">ISBN</option>
+	      			<option value="idSch">ID</option>
+	      			<option value="nickSch">닉네임</option>
+	      			<option value="nameSch">이름</option>
+	      			<option value="emailSch">이메일</option>
 	      		</select>
 	      		<input type="text" class="form-control" name="keyword" id="keyword" value="${listData.keyword}"/>
 	      		
 	      		<br/><br/>
 	      			      		
 	      		<!-- 일자 검색 -->
-          		<h3><span class="label label-default">일자 검색</span></h3>
-          		<select class="form-control" name="searchDateMode" id="searchDateMode">
-	      			<option value="publishSch">발매일</option>
-	      			<option value="updateSch">등록일</option>
-	      			<option value="editdateSch">수정일</option>
-	      		</select>
+          		<h3><span class="label label-default">등록일 검색</span></h3>
 	          	<input type="date" class="form-control" name="searchStartDate" id="searchStartDate" value="${listData.searchStartDate}">
 	          	<input type="date" class="form-control" name="searchEndDate" id="searchEndDate" value="${listData.searchEndDate}">
 	          	<button id="searchKeywordBtn" class="btn btn-primary">검색</button>

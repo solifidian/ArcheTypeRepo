@@ -66,7 +66,7 @@ public class AdminMemberController {
 		Paging.setBookPaging(mvo);
 		
 		List<MemberVO> memberList = adminMemberService.memberList(mvo);
-		//mvo.setSearchTotal(memberList.get(0).getSearchTotal());
+		mvo.setSearchTotal(adminMemberService.memberListTotal(mvo));
 		
 		logger.info("searchTotal : "+mvo.getSearchTotal());
 		logger.info("orderTarget : "+mvo.getOrderTarget());

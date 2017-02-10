@@ -7,5 +7,6 @@ import com.booking.member.vo.MemberVO;
 public interface AdminMemberDAO {
 	
 	public List<MemberVO> memberList(MemberVO mvo);
+	public int memberListTotal(MemberVO mvo);
 	
 }

@@ -28,7 +28,7 @@ public class AdminPurchaseController {
 	
 	// 마이페이지로 이동
 	@RequestMapping(value="/purchaseList.do")
-	public String memberMypage(@ModelAttribute Purchase_DeliveryVO listVO, Model model, HttpServletRequest request){
+	public String memberPurchaseList(@ModelAttribute Purchase_DeliveryVO listVO, Model model, HttpServletRequest request){
 		logger.info("memberMypage 호출 성공");
 		
 		/************* 관리자 계정아닐시 로그인 페이지로 던짐 시작***************/
@@ -72,4 +72,50 @@ public class AdminPurchaseController {
 		
 		return "admin/purchase/purchaseList";
 	}
+	// 마이페이지로 이동
+		@RequestMapping(value="/deliveryList.do")
+		public String memberDeliveryList(@ModelAttribute Purchase_DeliveryVO listVO, Model model, HttpServletRequest request){
+			logger.info("memberMypage 호출 성공");
+			
+			/************* 관리자 계정아닐시 로그인 페이지로 던짐 시작***************/
+			HttpSession session = request.getSession(false);
+			if(session == null){
+				return "redirect:/admin/member/adminLoginPage.do";
+			}
+			MemberVO memSession
+			= (MemberVO)session.getAttribute("memSession");
+			if(memSession == null){
+				return "redirect:/admin/member/adminLoginPage.do";
+			}
+			else if(!memSession.getM_id().equals("admin")){
+				return "redirect:/admin/member/adminLoginPage.do";
+			}
+			/************* 관리자 계정아닐시 로그인 페이지로 던짐 끝***************/
+			
+			/* *******************************
+			 * session으로부터 M_no 전달.
+			 * null이면 0으로 반환
+			 * */
+			//listData default nvl
+			listVO.setOrderDirection("desc");
+			listVO.setOrderTarget("p_no");
+			
+			Paging.setBookPaging(listVO);
+			
+			/*********************
+			 * 선택 되지 않은 List는 null값만 jsp페이지로 보내게 됨
+			 ********************/
+			List<Purchase_DeliveryVO> pvoList = null;
+			pvoList = memberService.myDelivery(listVO);
+			
+			listVO.setSearchTotal(memberService.myDeliveryCnt(listVO));
+			
+
+					
+			model.addAttribute("deliveryList", pvoList);
+			model.addAttribute("listData", listVO);
+			
+			
+			return "admin/purchase/deliveryList";
+		}
 }

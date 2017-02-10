@@ -28,5 +28,9 @@ public class AdminMemberServiceImpl implements AdminMemberService {
 		
 		return memberList;
 	}
+	@Override
+	public int memberListTotal(MemberVO mvo){
+		return adminMemberDAO.memberListTotal(mvo);
+	}
 
 }

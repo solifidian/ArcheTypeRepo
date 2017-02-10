@@ -20,5 +20,10 @@ public class AdminMemberDAOImpl implements AdminMemberDAO {
 		return session.selectOne("memberList", mvo);
 	}
 	
+	@Override
+	public int memberListTotal(MemberVO mvo){
+		return session.selectOne("memberListTotal", mvo);
+	}
+	
 	
 }
