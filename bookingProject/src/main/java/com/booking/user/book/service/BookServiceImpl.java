@@ -57,4 +57,49 @@ public class BookServiceImpl implements BookService {
 	public BookVO bookSelect(String isbn){
 		return bookDAO.bookSelect(isbn);
 	}
+
+	@Override
+	public List<BookVO> etcListCall() {
+		// TODO Auto-generated method stub
+		List<BookVO> bookList =bookDAO.etcListCall();
+		
+		return bookList;
+	}
+
+	@Override
+	public List<BookVO> list1() {
+		// TODO Auto-generated method stub
+		List<BookVO> list1 =bookDAO.list1();
+		return list1;
+	}
+
+	@Override
+	public List<BookVO> list2() {
+		// TODO Auto-generated method stub
+		List<BookVO> list2 =bookDAO.list2();
+		return list2;
+	}
+
+	@Override
+	public List<BookVO> list3() {
+		// TODO Auto-generated method stub
+		List<BookVO> list3 =bookDAO.list3();
+		return list3;
+	}
+
+	@Override
+	public List<BookVO> list4() {
+		// TODO Auto-generated method stub
+
+		List<BookVO> list4 =bookDAO.list4();
+		return list4;
+		
+	}
+
+	@Override
+	public List<BookVO> list5() {
+		// TODO Auto-generated method stub
+		List<BookVO> list5 =bookDAO.list5();
+		return list5;
+	}
 }

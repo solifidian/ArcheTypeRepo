@@ -228,62 +228,9 @@
 		
 		
 		
-		 <!--검색 조건 테이블 영역  -->
-		<div class="row">
-	          	<!-- 전체 리스트 제어 폼 -->
-	          	<form class="navbar-form navbar-left" id="searchForm" method="get" action="/book/bookSearch.do">
-	          		<!-- 페이지 정렬을 위한 hidden input들 -->
-	          		<input type="hidden" name="page" id="page" value="${listData.page}"/>
-	          		<input type="hidden" name="pageSize" id="pageSize" value="${listData.pageSize}"/>
-	          		
-	          		<!-- 리스트 사이즈 제어 기본 value = 8 -->
-	          		<input type="hidden" name="listSize" id="listSize" value="8"/>
-	          		
-	          		<!-- 정렬 제어를 위한 파라메터 -->
-	          		<input type="hidden" name="orderTarget" id="orderTarget" value="${listData.orderTarget}"/>
-	          		<input type="hidden" name="orderDirection" id="orderDirection" value="${listData.orderDirection}"/>
-	          		
-	          		<!-- 키워드 검색 -->
-	          		<div class="form-inline">
-		          		<h3><span class="label label-default">검색</span></h3>
-			          	<select class="form-control" name="searchMode" id="searchMode">
-			      			<option value="allSch">전체</option>
-			      			<option value="titleSch">글제목</option>
-			      			<option value="authorSch">저자</option>
-			      			<option value="publisherSch">출판사</option>
-			      			<option value="isbnSch">ISBN</option>
-			      			<option value="seriesSch">시리즈명</option>
-			      		</select>
-			      		<input type="text" class="form-control" name="keyword" id="keyword" value="${listData.keyword}"/>
-		      		</div>
-		      		<br/><br/>
-		      			      		
-		      		<!-- 일자 검색 -->
-		      		<div class="form-inline">
-		          		<h3><span class="label label-default">일자 검색</span></h3>
-		          		<input type="hidden" class="form-control" name="searchDateMode" id="searchDateMode" value="publishSch">
-			          	<input type="date" class="form-control" name="searchStartDate" id="searchStartDate" value="${listData.searchStartDate}">
-			          	<input type="date" class="form-control" name="searchEndDate" id="searchEndDate" value="${listData.searchEndDate}">
-			          	<button id="searchKeywordBtn" class="btn btn-primary">검색</button>
-		          	</div>
-	          	</form>
-        </div>
 		
-		<!--검색 조건 테이블 영역  -->
-		<div class="row">
-			<div class="col-md-8 col-md-offset-4">
-	               <table class="table table-bordered">
-	               <tr>
-	               <td>새로나온책</td>
-	               <td>베스트셀러</td>
-	               <td>정가 인하</td>
-	               <td>이벤트 도서</td>
-	               <td>회원 리뷰</td>
-	               </tr>
-	               </table>
-	       </div>
-	    </div>
-	    
+		
+		
 	    
 	    
 	    <!--검색창 영역  -->
@@ -398,7 +345,39 @@
 							
 								
 		 <!--메인종료  -->
-						
+		<div class="col-xs-5">	
+		          		<div class="col-xs-4">	
+			          		<span class="label label-default label-xl">일자 검색</span>
+			          	</div>
+			          	<div class="col-xs-4">
+				          	<input type="date" class="form-control" name="searchStartDate" id="searchStartDate" value="${listData.searchStartDate}">
+				     	</div>
+				     	<div class="col-xs-4">
+				     		<input type="date" class="form-control" name="searchEndDate" id="searchEndDate" value="${listData.searchEndDate}">
+						</div>
+					</div>
+	          		<!-- 키워드 검색 -->
+					<div class="col-xs-5">
+						<div class="col-xs-4">
+			          		<h3><span class="label label-default">검색</span></h3>		          	
+						</div>	
+						<div class="col-xs-4">					
+				          	<select class="form-control" name="searchMode" id="searchMode">
+				      			<option value="allSch">전체</option>
+				      			<option value="titleSch">글제목</option>
+				      			<option value="authorSch">저자</option>
+				      			<option value="publisherSch">출판사</option>
+				      			<option value="isbnSch">ISBN</option>
+				      			<option value="seriesSch">시리즈명</option>
+				      		</select>
+				      	</div>
+				      	<div class="col-xs-4">
+				      		<input type="text" class="form-control" name="keyword" id="keyword" value="${listData.keyword}"/>
+						</div>
+		      		</div>
+		      		<div class="col-xs-2">
+		      			<button id="searchKeywordBtn" class="btn btn-primary btn-block">검색</button>
+		      		</div>	    				
 					
 						
 						

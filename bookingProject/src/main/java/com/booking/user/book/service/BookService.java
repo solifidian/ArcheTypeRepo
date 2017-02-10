@@ -11,4 +11,14 @@ public interface BookService {
 	
 	public int bookSearchTotal(BookVO bvo);
 	public BookVO bookSelect(String isbn);
+	
+	public List<BookVO> etcListCall();
+	
+	public List<BookVO> list1();
+	public List<BookVO> list2();
+	public List<BookVO> list3();
+	public List<BookVO> list4();
+	public List<BookVO> list5();
+
+	
 }

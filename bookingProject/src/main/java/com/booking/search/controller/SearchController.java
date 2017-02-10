@@ -30,6 +30,8 @@ public class SearchController {
 	
 	
 	
+	
+	
 	@RequestMapping(value="/search.do")
 	public String booksearchlist(@ModelAttribute SearchVO svo,Model model, HttpSession session,  HttpServletResponse response ){
 		logger.info("searchlist 호출");

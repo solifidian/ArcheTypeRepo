@@ -29,6 +29,17 @@
   		
   		})
   		
+  		
+  		//페이스북 연동 부분
+  			(function(d, s, id) {
+  			  var js, fjs = d.getElementsByTagName(s)[0];
+  			  if (d.getElementById(id)) return;
+  			  js = d.createElement(s); js.id = id;
+  			  js.src = "//connect.facebook.net/ko_KR/sdk.js#xfbml=1&version=v2.8&appId=170080446812154";
+  			  fjs.parentNode.insertBefore(js, fjs);
+  			}(document, 'script', 'facebook-jssdk'));
+
+  		
 </script>
 </head><!--/head-->
 
@@ -104,6 +115,10 @@
 							
 							</ul>
 						</div>
+						<!--페이스북 좋아요 /공유하기 버튼 영역  -->
+							<div class="fb-like col-sm-4 col-md-offset-7" data-href="https://www.facebook.com/greatbookbooking/" data-layout="standard" data-action="like" data-size="small" data-show-faces="false" data-share="true">
+		                 	</div>
+						
 					</div>
 				</div>
 			</div>

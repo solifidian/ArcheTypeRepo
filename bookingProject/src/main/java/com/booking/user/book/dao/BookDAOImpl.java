@@ -37,4 +37,40 @@ public class BookDAOImpl implements BookDAO{
 	public String isbnCheck(String isbn){
 		return session.selectOne("isbnCheck",isbn);
 	}
+
+	@Override
+	public List<BookVO> etcListCall() {
+		// TODO Auto-generated method stub
+		return  session.selectList("etcListCall");
+	}
+
+	@Override
+	public List<BookVO> list1() {
+		// TODO Auto-generated method stub
+		return session.selectList("list1");
+	}
+
+	@Override
+	public List<BookVO> list2() {
+		// TODO Auto-generated method stub
+		return session.selectList("list2");
+	}
+
+	@Override
+	public List<BookVO> list3() {
+		// TODO Auto-generated method stub
+		return session.selectList("list3");
+	}
+
+	@Override
+	public List<BookVO> list4() {
+		// TODO Auto-generated method stub
+		return session.selectList("list4");
+	}
+
+	@Override
+	public List<BookVO> list5() {
+		// TODO Auto-generated method stub
+		return session.selectList("list5");
+	}
 }

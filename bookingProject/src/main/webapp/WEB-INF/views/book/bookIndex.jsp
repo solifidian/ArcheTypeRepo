@@ -229,319 +229,32 @@
 				
 				<div class="col-sm-9 padding-right">
 					
-					<div class="category-tab"><!--category-tab-->
-						<div class="col-sm-12">
-							<ul class="nav nav-tabs">
-								<li class="active"><a href="#group1" data-toggle="tab">분류1</a></li>
-								<li><a href="#group2" data-toggle="tab">분류2</a></li>
-								<li><a href="#group3" data-toggle="tab">분류3</a></li>
-								<li><a href="#group4" data-toggle="tab">분류4</a></li>
-								<li><a href="#group5" data-toggle="tab">분류5</a></li>
-							</ul>
-						</div>
-						<div class="tab-content">
-							<div class="tab-pane fade active in" id="group1" >
-								<div class="col-sm-3">
-									<div class="product-image-wrapper">
-										<div class="single-products">
-											<div class="productinfo text-center">
-												<img src="/images/home/gallery1.jpg" alt="" />
-												<h2>가격</h2>
-												<p>상품이름</p>
-												<a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
-											</div>
-											
-										</div>
-									</div>
-								</div>
-								<div class="col-sm-3">
-									<div class="product-image-wrapper">
-										<div class="single-products">
-											<div class="productinfo text-center">
-												<img src="/images/home/gallery2.jpg" alt="" />
-												<h2>가격</h2>
-												<p>상품이름</p>
-												<a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
-											</div>
-											
-										</div>
-									</div>
-								</div>
-								<div class="col-sm-3">
-									<div class="product-image-wrapper">
-										<div class="single-products">
-											<div class="productinfo text-center">
-												<img src="/images/home/gallery3.jpg" alt="" />
-												<h2>가격</h2>
-												<p>상품이름</p>
-												<a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
-											</div>
-											
-										</div>
-									</div>
-								</div>
-								<div class="col-sm-3">
-									<div class="product-image-wrapper">
-										<div class="single-products">
-											<div class="productinfo text-center">
-												<img src="/images/home/gallery4.jpg" alt="" />
-												<h2>가격</h2>
-												<p>상품이름</p>
-												<a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
-											</div>
-											
-										</div>
-									</div>
-								</div>
-							</div>
-							
-							
-							<!-- group2 시작 -->
-							<div class="tab-pane fade" id="group2" >
-								<div class="col-sm-3">
-									<div class="product-image-wrapper">
-										<div class="single-products">
-											<div class="productinfo text-center">
-												<img src="/images/home/gallery4.jpg" alt="" />
-												<h2>가격</h2>
-												<p>상품이름</p>
-												<a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
-											</div>
-											
-										</div>
-									</div>
-								</div>
-								<div class="col-sm-3">
-									<div class="product-image-wrapper">
-										<div class="single-products">
-											<div class="productinfo text-center">
-												<img src="/images/home/gallery3.jpg" alt="" />
-												<h2>가격</h2>
-												<p>상품이름</p>
-												<a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
-											</div>
-											
-										</div>
-									</div>
-								</div>
-								<div class="col-sm-3">
-									<div class="product-image-wrapper">
-										<div class="single-products">
-											<div class="productinfo text-center">
-												<img src="/images/home/gallery2.jpg" alt="" />
-												<h2>가격</h2>
-												<p>상품이름</p>
-												<a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
-											</div>
-											
-										</div>
-									</div>
-								</div>
-								<div class="col-sm-3">
-									<div class="product-image-wrapper">
-										<div class="single-products">
-											<div class="productinfo text-center">
-												<img src="/images/home/gallery1.jpg" alt="" />
-												<h2>가격</h2>
-												<p>상품이름</p>
-												<a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
-											</div>
-											
-										</div>
-									</div>
-								</div>
-							</div>
-							
-							<!-- group3 시작 -->
-							<div class="tab-pane fade" id="group3" >
-								<div class="col-sm-3">
-									<div class="product-image-wrapper">
-										<div class="single-products">
-											<div class="productinfo text-center">
-												<img src="/images/home/gallery3.jpg" alt="" />
-												<h2>가격</h2>
-												<p>상품이름</p>
-												<a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
-											</div>
-											
-										</div>
-									</div>
-								</div>
-								<div class="col-sm-3">
-									<div class="product-image-wrapper">
-										<div class="single-products">
-											<div class="productinfo text-center">
-												<img src="/images/home/gallery4.jpg" alt="" />
-												<h2>가격</h2>
-												<p>상품이름</p>
-												<a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
-											</div>
-											
-										</div>
-									</div>
-								</div>
-								<div class="col-sm-3">
-									<div class="product-image-wrapper">
-										<div class="single-products">
-											<div class="productinfo text-center">
-												<img src="/images/home/gallery1.jpg" alt="" />
-												<h2>가격</h2>
-												<p>상품이름</p>
-												<a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
-											</div>
-											
-										</div>
-									</div>
-								</div>
-								<div class="col-sm-3">
-									<div class="product-image-wrapper">
-										<div class="single-products">
-											<div class="productinfo text-center">
-												<img src="/images/home/gallery2.jpg" alt="" />
-												<h2>가격</h2>
-												<p>상품이름</p>
-												<a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
-											</div>
-											
-										</div>
-									</div>
-								</div>
-							</div>
-							
-							
-							<!-- group4시작 -->
-							<div class="tab-pane fade" id="group4" >
-								<div class="col-sm-3">
-									<div class="product-image-wrapper">
-										<div class="single-products">
-											<div class="productinfo text-center">
-												<img src="/images/home/gallery1.jpg" alt="" />
-												<h2>가격</h2>
-												<p>상품이름</p>
-												<a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
-											</div>
-											
-										</div>
-									</div>
-								</div>
-								<div class="col-sm-3">
-									<div class="product-image-wrapper">
-										<div class="single-products">
-											<div class="productinfo text-center">
-												<img src="/images/home/gallery2.jpg" alt="" />
-												<h2>가격</h2>
-												<p>상품이름</p>
-												<a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
-											</div>
-											
-										</div>
-									</div>
-								</div>
-								<div class="col-sm-3">
-									<div class="product-image-wrapper">
-										<div class="single-products">
-											<div class="productinfo text-center">
-												<img src="/images/home/gallery3.jpg" alt="" />
-												<h2>가격</h2>
-												<p>상품이름</p>
-												<a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
-											</div>
-											
-										</div>
-									</div>
-								</div>
-								<div class="col-sm-3">
-									<div class="product-image-wrapper">
-										<div class="single-products">
-											<div class="productinfo text-center">
-												<img src="/images/home/gallery4.jpg" alt="" />
-												<h2>가격</h2>
-												<p>상품이름</p>
-												<a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
-											</div>
-											
-										</div>
-									</div>
-								</div>
-							</div>
-							
-							<!-- group5 시작 -->
-							<div class="tab-pane fade" id="group5" >
-								<div class="col-sm-3">
-									<div class="product-image-wrapper">
-										<div class="single-products">
-											<div class="productinfo text-center">
-												<img src="/images/home/gallery2.jpg" alt="" />
-												<h2>가격</h2>
-												<p>상품이름</p>
-												<a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
-											</div>
-											
-										</div>
-									</div>
-								</div>
-								<div class="col-sm-3">
-									<div class="product-image-wrapper">
-										<div class="single-products">
-											<div class="productinfo text-center">
-												<img src="/images/home/gallery4.jpg" alt="" />
-												<h2>가격</h2>
-												<p>상품이름</p>
-												<a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
-											</div>
-											
-										</div>
-									</div>
-								</div>
-								<div class="col-sm-3">
-									<div class="product-image-wrapper">
-										<div class="single-products">
-											<div class="productinfo text-center">
-												<img src="/images/home/gallery3.jpg" alt="" />
-												<h2>가격</h2>
-												<p>상품이름</p>
-												<a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
-											</div>
-											
-										</div>
-									</div>
-								</div>
-								<div class="col-sm-3">
-									<div class="product-image-wrapper">
-										<div class="single-products">
-											<div class="productinfo text-center">
-												<img src="/images/home/gallery1.jpg" alt="" />
-												<h2>가격</h2>
-												<p>상품이름</p>
-												<a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
-											</div>
-											
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div><!--/category-tab-->
+					
 					
 					<div class="recommended_items"><!--recommended_items-->
-						<h2 class="title text-center">별도 상품</h2>
+						<h2 class="title text-center">2016년 출시 상품</h2>
 						
 						<div id="recommended-item-carousel" class="carousel slide" data-ride="carousel">
 							<div class="carousel-inner">
 								<div class="item active">	
+									
+									<c:forEach var="etc" items="${etcList}">
+									
 									<div class="col-sm-4">
 										<div class="product-image-wrapper">
 											<div class="single-products">
 												<div class="productinfo text-center">
-													<img src="/images/home/recommend1.jpg" alt="" />
-													<h2>가격</h2>
-													<p>상품이름</p>
+													<img class="thumnail" src="/images/bookImg/${etc.isbn}.jpg" />
+													<h2>${etc.b_abprice}</h2>
+													<p>${etc.b_title}</p>
 													<a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
 												</div>
 												
 											</div>
 										</div>
 									</div>
+									</c:forEach>
+									<!-- 
 									<div class="col-sm-4">
 										<div class="product-image-wrapper">
 											<div class="single-products">
@@ -596,27 +309,20 @@
 											</div>
 										</div>
 									</div>
-									<div class="col-sm-4">
-										<div class="product-image-wrapper">
-											<div class="single-products">
-												<div class="productinfo text-center">
-													<img src="/images/home/recommend3.jpg" alt="" />
-													<h2>가격</h2>
-													<p>상품이름</p>
-													<a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
-												</div>
-												
-											</div>
-										</div>
-									</div>
+								 -->
+								 
+								 <!--별도 상품 종료  -->
+								 
+								 
+								 
 								</div>
 							</div>
-							 <a class="left recommended-item-control" href="#recommended-item-carousel" data-slide="prev">
-								<i class="fa fa-angle-left"></i>
-							  </a>
-							  <a class="right recommended-item-control" href="#recommended-item-carousel" data-slide="next">
-								<i class="fa fa-angle-right"></i>
-							  </a>			
+							<!-- 	 <a class="left recommended-item-control" href="#recommended-item-carousel" data-slide="prev">
+									<i class="fa fa-angle-left"></i>
+								  </a>
+								  <a class="right recommended-item-control" href="#recommended-item-carousel" data-slide="next">
+									<i class="fa fa-angle-right"></i>
+								  </a>	 -->		
 						</div>
 					</div><!--/recommended_items-->
 					

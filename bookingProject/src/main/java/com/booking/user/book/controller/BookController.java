@@ -74,9 +74,29 @@ public class BookController {
 	//index페이지로 이동
 	@RequestMapping(value="/bookIndex.do")
 	public String bookIndex(@ModelAttribute CategoryVO ctvo, Model model){
+		
 		List<CategoryVO> ctvoList = categoryService.categoryBoxList(ctvo);
+		//별도 책 호출
+		List<BookVO> etcbookList=bookService.etcListCall();
+		
+		//List<BookVO> list1=bookService.list1();
+		/*List<BookVO> list2=bookService.list2();
+		/*List<BookVO> list3=bookService.list3();
+		List<BookVO> list4=bookService.list4();
+		List<BookVO> list5=bookService.list5();*/
+		
 		
 		model.addAttribute("cateList",ctvoList);
+		model.addAttribute("etcList" ,etcbookList);
+		/*	model.addAttribute("list2" ,list1);
+	/*	model.addAttribute("list2" ,list2);
+		model.addAttribute("List3" ,list3);
+		model.addAttribute("List4" ,list4);
+		model.addAttribute("List5" ,list5);*/
+		
+		
+		/*공학 영상 에너지 이론 건축
+		*/
 		return "book/bookIndex";
 	}
 	
