@@ -169,7 +169,7 @@
 						}
 					.d_form label{margin-top:10px;}
 					.d_form .bu {margin-top:10px;}
-					.d_form .tt {border:2px gray dashed;}
+					.d_form .tt {border:1px gray dashed;}
 						
 				</style>
 				<script src="/resources/include/js/jquery-1.12.4.min.js"></script>
@@ -254,7 +254,7 @@
 				
 				<div class="col-sm-9 padding-right d_form" >
 					<div class="col-sm-4 tt" id="test2">
-						<label>이미지자리</label>
+						<label></label>
 						<object class="thumbnail" data="/images/bookImg/${detail.isbn}.jpg" type="image/jpg">
 								  	<img src="/images/bookImg/no_book_img.png"/>
 							  	</object>
@@ -472,7 +472,7 @@
 							
 							<div class="tab-pane fade" id="byAuthor" >
 								<div class="col-sm-12 tte">
-								 	내용넣으면됨
+								 	내용
 								</div>
 							</div>
 							

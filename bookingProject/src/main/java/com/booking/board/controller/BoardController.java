@@ -125,7 +125,12 @@ public class BoardController {
 		
 		result = boardService.boardInsert(bvo);
 		if(result == 1){
-			url = "/board/boardList.do";
+			if(bvo.getBd_forum_no()==1){
+				url = "/board/boardList.do";		//커뮤니티게시판으로
+			}else{
+				url = "/board/questionBoardList.do";		//문의게시판으로
+			}
+			
 		}
 		return "redirect:"+url;
 	}

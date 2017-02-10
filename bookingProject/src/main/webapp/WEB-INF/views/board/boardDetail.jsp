@@ -57,6 +57,7 @@
 			butChk = 2;
 		});
 		
+		
 	/* 	//답변버튼 클릭시 이벤트
 		$("#boardReply").click(function(){
 			$()	
@@ -247,14 +248,7 @@
 									<li><i class="fa fa-user">조회수</i> ${detail.bd_readcnt}</li>
 								</ul>
 								<p></p>
-<!-- 별점처리할수있음 : 당장 필요없어서 주석처리함 --!>
-			<!-- 				<span>
-									<i class="fa fa-star"></i>
-									<i class="fa fa-star"></i>
-									<i class="fa fa-star"></i>
-									<i class="fa fa-star"></i>
-									<i class="fa fa-star-half-o"></i>
-								</span> -->
+
 							</div><!--/class="post-meta"  -->
 							<table class="table table-condensed">
 								<colgroup>
