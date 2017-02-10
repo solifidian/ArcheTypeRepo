@@ -206,7 +206,7 @@
 					<div class="col-sm-8" id="test3">
 						<div class="row-sm-6 tet tt" id="test4">
 							<label>도서  : ${detail.b_title}</label>
-							<br>
+							
 							<label>저자  : ${detail.b_author}</label>	
 						</div>
 						
