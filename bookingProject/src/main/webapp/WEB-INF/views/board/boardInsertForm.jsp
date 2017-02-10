@@ -52,6 +52,15 @@
 			
 		
 		});
+	
+		$("#bd_forum_name").change(function(){
+			if($(this).val() == "커뮤니티게시판"){
+				$("#bd_forum_no").val("1")
+			}
+			else if($(this).val() == "문의게시판"){
+				$("#bd_forum_no").val("2")
+			}
+		})
 		
 	//저장버튼 클릭시 이벤트
 		$("#boardInsertBtn").click(function(){
@@ -190,7 +199,7 @@
 						<div class="single-blog-post" id="boardInsert" >
 							<form id="bd_writeForm" name="bd_writeForm" >
 							<!--게시판 번호 자동으로 넘겨주게 설정할것 지금은 기본 1 -->
-							<input type="hidden" name="bd_forum_no" id="bd_forum_no" value=>
+							<input type="hidden" name="bd_forum_no" id="bd_forum_no" value="1">
 							
 							<table summary="게시글 작성" class="tb">
 								<colgroup>
