@@ -200,8 +200,7 @@
 						<label></label>
 						<object class="thumbnail" data="/images/bookImg/${detail.isbn}.jpg" type="image/jpg">
 								  	<img src="/images/bookImg/no_book_img.png"/>
-								  	
-					  	</object>
+							  	</object>
 						
 					</div>
 					<div class="col-sm-8" id="test3">
