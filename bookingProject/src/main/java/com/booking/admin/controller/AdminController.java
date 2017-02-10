@@ -1,4 +1,4 @@
-package com.booking.admin.member.controller;
+package com.booking.admin.controller;
 
 import java.net.HttpCookie;
 import java.util.List;
@@ -21,9 +21,9 @@ import com.booking.common.paging.Paging;
 import com.booking.member.vo.MemberVO;
 
 @Controller
-@RequestMapping(value="admin/member")
-public class AdminMemberController {
-	Logger logger = Logger.getLogger(AdminMemberController.class);
+@RequestMapping(value="admin")
+public class AdminController {
+	Logger logger = Logger.getLogger(AdminController.class);
 	
 	
 	@Autowired
