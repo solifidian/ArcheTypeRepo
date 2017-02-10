@@ -41,87 +41,14 @@
 	
 	<script type="text/javascript">
 	
-	
+	var idReg = /^[A-za-z0-9]{6,10}/g;//영문 대문자 또는 소문자 또는 숫자로 시작하는 아이디, 길이는 6~10자, 끝날때 제한 없음
+	var nameReg = /^[가-힣]{2,4}|[a-zA-Z]{2,10}\s[a-zA-Z]{2,10}$/;	//이름 정규식 한글 영문 둘다
 	var regExp = /^01([0|1|6|7|8|9]?)-?([0-9]{3,4})-?([0-9]{4})$/;
 	var regEmailId = /([\w-\.]+)/;
 	var regEmailDomain = /((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
 
 	
 	$(function(){
-		
-	/*본인인증 업데이트 2/9   */
-		var auth=0;//본인인증 키 
-	//email 본인 인증 메일 전송
-	 $("#auth").click(function(){
-		 var email = $("#m_emailId").val();
-		 var domain = $("#m_domain").val();
-		 var mail=email+"@"+ domain
-		    $("#m_email").val(mail);
-		 
-		 if(!chkSubmit($("#m_emailId"),"이메일 주소를")) return;
-		 else if(!chkSubmit($("#m_domain"),"도메인 주소를")) return;
-		 else{
-		 alert("등록한 email로 가서 인증 코드를 확인해주세요 ")
-         $.ajax({
-             url : "/member/emailchk.do",
-             type : "post",
-             dataType : "text",
-             data : {"m_email":mail},
-             error : function() {
-             alert('오류입니다. 관리자에게 문의하세요.');
-             },
-             success : function(result) {
-                if(result=="success"){
-                   alert("이메일이 발송되었습니다..");
-                   $("#auth").attr('disabled', 'true');
-                   $("#msg").append("<form><input type='text' id='authpass' placeholder='인증코드를 입력해주세요'></form").append("<input type='button' class='authbtn' value='코드인증'>")
-               
-                      //이메일 코드 인증부분
-           			     $(".authbtn").click(function(){
-	    	                var authkey=$("#authpass").val()
-           			    	 
-           			    	$.ajax({
-           		             url : "/member/emailconfirm.do?key="+authkey,
-           		             type : "get",
-           		             dataType : "text",
-           		             error : function() {
-           		             alert('오류입니다. 관리자에게 문의하세요.');
-           		             },
-           		             success : function(result) {
-           		                if(result=="success"){
-           		                   alert("인증완료");
-           		                   $("#auth").attr('disabled', 'true');
-           		                   $("#msg").html("인증완료")
-           		                    auth=1
-           		                           		           			 
-           		                
-           		                
-           		                }
-           		                else if(result!="success"){
-           		                   alert("본인 인증에 실패 했습니다 다시 시도해주세요 .");
-           		                   $("#msg").hide();
-           		                   $("#auth").removeAttr("disabled");
-           		                }
-           		             }
-           		          });/* ajax종료  */
-           			    	 
-	    					
-	    					
-						    })
-                
-                
-                }
-                else if(result=="1"){
-                   alert("본인 인증에 실패 했습니다 다시 시도해주세요 .");
-                   $("#msg").append("본인인증을 다시 시도해주세요")
-                }
-             }
-          });/*이메일 발송 ajax종료  */
-		 }/*else종료 */
-	 })
-	
-	 
-		
 		
 	//sns연동
 /* 	 var SNS = {
@@ -161,6 +88,11 @@
 		//아이디 중복 확인 버튼 클릭시
 		$("#idChkBtn").click(function(){
 		    if(!chkSubmit($("#m_id"),"아이디를")) return;
+			else if(!idReg.test($("#m_id").val())){
+				alert("아이디는 영문 대문자 또는 소문자 또는 숫자로 시작하며 길이는 6~10자로 설정해주세요.");
+				$("#m_id").focus();
+				return;
+			}
             else{
                $.ajax({
                   url : "/member/idChk.do",
@@ -188,21 +120,36 @@
 		 
 		//회원가입 버튼 클릭시 처리 이벤트
 		$("#memberInsertBtn").click(function(){
-			if(!chkSubmit($('#m_id'),"아이디를")) return;
+			if(!chkSubmit($('#m_id'),"아이디를")) return;		
 			else if(!chkSubmit($('#m_pwd'),"비밀번호를")) return;
+			else if($("#m_pwd").val()== $("#m_id").val()){
+				alert("비밀번호는 아이디와 동일하게 설정하실수 없습니다. 다시 설정해주세요.");
+				$("#m_pwd").focus();				
+				return;
+			}
+			//비밀번호 유효성 체크 한번 더 !		
+			else if(!checkPassword($("#m_pwd").val()))return;
+			
+			
 			else if(!chkSubmit($('#m_pwdChk'),"비밀번호 확인을")) return;
+		
 			else if(!chkSubmit($('#m_nick'),"닉네임을")) return;
 			else if(!chkSubmit($('#m_name'),"이름을")) return;
+			else if(!nameReg.test($("#m_name").val())){
+				alert("잘못된 이름 형식입니다. 다시 확인해주세요.한글은 2 ~ 4글자(공백 없음) , 영문은 Firstname(2 ~ 10글자) (space) Lastname(2 ~10글자)로 입력해 주세요.");
+				$("#m_name").focus();
+				return;
+			}
 			else if(!chkSubmit($('#m_birth'),"생년월일을")) return;	
 			else if(!chkSubmit($('#m_emailId'),"이메일을")) return;
-			else if (!regEmailId.test( $("#m_emailId").val() ) ) {
+			else if (!regEmailId.test( $("#m_emailId").val())) {
 			      alert("잘못된 이메일 형식입니다. 다시 확인해주세요.");
 			      $("#m_emailId").focus();
 			      return ;
 			}
 			
 			else if(!chkSubmit($('#m_domain'),"도메인을")) return;
-			else if (!regEmailDomain.test( $("#m_domain").val() ) ) {
+			else if (!regEmailDomain.test( $("#m_domain").val())) {
 			      alert("잘못된 도메인형식입니다. 다시 확인해주세요.");
 			      $("#m_emailDomain").focus();
 			      return;
@@ -218,13 +165,7 @@
 			else if($('#m_pwd').val()!= $('#m_pwdChk').val()){
 				alert("비밀번호가 일치하지 않습니다. 다시 입력해주세요!!");
 				return;
-			}
-			/*본인인증 추가 2/9 윤지환  */
-			else if(auth!=1){
-			//auth 값이 1이면 인증 완료 0이면 실패 
-			   alert("본인 인증을 진행해주세요 ")
-				return
-			}
+			}	 
 			else{
 				var email = $("#m_emailId").val();
 			    var domain = $("#m_domain").val();
@@ -239,9 +180,9 @@
 						alert ("오류입니다. 관리자에게 문의하세요.");
 					},
 					success : function(result){
-						if(result == "1"){
+						if(result =="SUCCESS"){
 							alert($("#m_id").val()+"님 회원가입을 축하드립니다.");
-							location.href="/member/loginPage.do"
+							location.href="/member/memberLoginPage.do";
 						}
 					}
 					
@@ -250,11 +191,50 @@
 			
 		});
 		
-	
+		//textarea maxlength설정
+		$("#m_comment").on('keyup',function(){
+			if($(this).val().length>4000){
+				alert("글자수는 영문4000, 한글 2000자로 제한됩니다!")
+				$(this).val($(this).val().subString(0,4000));
+				$("#m_comment").focus();
+			}
+	});
 
 		
 	});/* 최상위 function 종결 */
 	
+	//비밀번호 체크 숫자와 영문자 조합으로 10~15자리를 사용해야함
+
+	function checkPassword(id,password){
+		if(!/^[a-zA-Z0-9]{8,15}$/.test($("#m_pwd").val())){
+			alert('숫자와 영문자 조합으로 8~15자리를 사용해야 합니다.');
+			$("#m_pwd").focus();
+			return false;
+		}
+		
+		var checkNumber = ($("#m_pwd").val()).search(/[0-9]/g);
+		var checkEnglish = ($("#m_pwd").val()).search(/[a-z]/ig);
+		
+		if(checkNumber <0 || checkEnglish <0){
+			alert("숫자와 영문자를 혼용하여야 합니다.");
+			$("#m_pwd").focus();
+			return false;
+		}
+		if(/(\w)\1\1\1/.test($("#m_pwd").val())){
+			alert('444같은 문자를 4번 이상 사용하실 수 없습니다.');
+			$("#m_pwd").focus();
+			return false;
+		}
+		if(($("#m_pwd").val()).search($("#m_id").val()) > -1){
+			alert("비밀번호에 아이디가 포함되었습니다.");
+			$("#m_pwd").focus();
+			return false;
+		}
+			return true;
+		}
+	
+
+
 	
 	
 	//우편번호
@@ -316,8 +296,6 @@
 		
 	<div class="contentTB">	
 	
-	
-	
 	<h5 id="line" >기본정보입력</h5>
 	<p>(*)가 표시되어있는 항목은 필수 입력 사항 입니다.</p>
 		<form id="memberInsertF" name="memberInsertF">
@@ -329,7 +307,7 @@
 	
 		
 		
-			<table class="table table-bordered" >
+			<table class="InsertTable" >
 				<colgroup>
 					<col width="15%">
 					<col width="85%">
@@ -338,13 +316,12 @@
 					<td class="tc">*아이디</td>
 					<td><input type="text" id="m_id" name="m_id" maxlength="20" >
 						<input type="button" id="idChkBtn" class="btn btn-default" name="idChkBtn" value="중복확인">
-						<span class="add">(4자~12자리의 영문자, 숫자 / @,#$등 특수문자는 제외)</span></td>
+						<span class="add">(아이디는 영문,숫자를 조합하실수 있으며 길이는 6~10자로 설정해주세요. / @,#$등 특수문자는 제외)</span></td>
 				</tr>
 				<tr>
 					<td class="tc">*비밀번호</td>
 					<td><input type="password" id="m_pwd" name="m_pwd" maxlength="20" >
-						<span class="add"> 영문 대문자, 소문자, 숫자, 특수문자 중 2가지 이상을 조합한 10자 이상, 
-    						또는 3가지 이상 조합한 8자 이상을 권장합니다.</span></td>
+						<span class="add"> 숫자와 영문자 조합으로 8~15자리로 설정해주세요.</span></td>
 				</tr>
 				<tr>
 					<td class="tc">*비밀번호 재입력</td>
@@ -381,7 +358,6 @@
 							<option value="nate.com">nate.com</option>
 							<option value="hanmail.net">hanmail.net</option>						
 						</select>
-						<input type="button" class="btn btn-default" value="본인인증" id="auth"/> <span id="msg"></span>
 					</td>
 				</tr>				
 			
@@ -401,9 +377,9 @@
 		            </td>		
 				<tr>
 					<td class="tc">메모</td>
-					<td><textarea id="m_memo" name="m_memo" placeholder="메모를 입력하세요..."></textarea></td>
+					<td><textarea id="m_comment" name="m_comment" placeholder="메모를 입력하세요..." ></textarea></td>
 				</tr>
-				<tr>
+				<!-- <tr>
 					<td class="tc">SNS연동</td>
 					<td >
 						<a href=""><i class="fa fa-facebook" onclick="SNS.facebook('http://www.facebook.com')"></i></a>
@@ -411,7 +387,7 @@
 						<a href=""><i class="fa fa-dribbble"></i></a>
 						<a href=""><i class="fa fa-google-plus"></i></a>					
 					</td>
-				</tr>				
+				</tr>	 -->			
 			</table>
 		</form>
 		
@@ -419,7 +395,7 @@
 	
 	
 		<div class="insertFormBut">
-				<input type="button" value="회원가입" class="btn btn-default	" id="memberInsertBtn">
+				<input type="button" value="회원가입" class="btn btn-default" id="memberInsertBtn">
 				<input type="button" value="뒤로" class="btn btn-default" id="back">
 		</div><!-- "contentBtn" 끝 -->
 	
