@@ -316,4 +316,3 @@ public class BoardController {
 		return "redirect:"+url;
 	}
 }
-

@@ -8,4 +8,5 @@ import com.booking.member.vo.MemberVO;
 public interface AdminMemberService {
 	
 	public List<MemberVO> memberList(MemberVO mvo);
+	public int memberListTotal(MemberVO mvo);
 }

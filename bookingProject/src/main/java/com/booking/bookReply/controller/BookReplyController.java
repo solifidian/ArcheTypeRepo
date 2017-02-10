@@ -38,11 +38,11 @@ public class BookReplyController {
 		logger.info("br_update_time:");
 	
 		try{
-			entity = new ResponseEntity<>(bookReplyService.bReplyList(isbn), HttpStatus.OK);
+			entity = new ResponseEntity<List<BookReplyVO>>(bookReplyService.bReplyList(isbn), HttpStatus.OK);
 		
 		}catch(Exception e){
 			e.printStackTrace();
-			entity = new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+			entity = new ResponseEntity<List<BookReplyVO>>(HttpStatus.BAD_REQUEST);
 		}
 		
 		model.addAttribute("replyDetail", entity);

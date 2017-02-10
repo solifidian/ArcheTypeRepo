@@ -34,7 +34,7 @@ public class TaggingController {
 			entity = new ResponseEntity<List<TaggingVO>>(taggingService.tagList(isbn), HttpStatus.OK);
 		}catch(Exception e){
 			e.printStackTrace();
-			entity = new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+			entity = new ResponseEntity<List<TaggingVO>>(HttpStatus.BAD_REQUEST);
 		}
 		
 		// 성공시 "SUCCESS" 반환
@@ -60,7 +60,7 @@ public class TaggingController {
 			}
 		}catch(Exception e){
 			e.printStackTrace();
-			entity = new ResponseEntity<>(e.getMessage(),HttpStatus.BAD_REQUEST);
+			entity = new ResponseEntity<String>(e.getMessage(),HttpStatus.BAD_REQUEST);
 		}
 		
 		// 성공시 "SUCCESS" 반환
@@ -82,7 +82,7 @@ public class TaggingController {
 			}
 		}catch(Exception e){
 			e.printStackTrace();
-			entity = new ResponseEntity<>(e.getMessage(),HttpStatus.BAD_REQUEST);
+			entity = new ResponseEntity<String>(e.getMessage(),HttpStatus.BAD_REQUEST);
 		}
 		
 		// 성공시 "SUCCESS" 반환
@@ -104,7 +104,7 @@ public class TaggingController {
 			}
 		}catch(Exception e){
 			e.printStackTrace();
-			entity = new ResponseEntity<>(e.getMessage(),HttpStatus.BAD_REQUEST);
+			entity = new ResponseEntity<String>(e.getMessage(),HttpStatus.BAD_REQUEST);
 		}
 		
 		// 성공시 "SUCCESS" 반환

@@ -66,7 +66,7 @@ public class AdminMemberController {
 		Paging.setBookPaging(mvo);
 		
 		List<MemberVO> memberList = adminMemberService.memberList(mvo);
-		//mvo.setSearchTotal(memberList.get(0).getSearchTotal());
+		mvo.setSearchTotal(adminMemberService.memberListTotal(mvo));
 		
 		logger.info("searchTotal : "+mvo.getSearchTotal());
 		logger.info("orderTarget : "+mvo.getOrderTarget());
@@ -80,7 +80,7 @@ public class AdminMemberController {
 		return "admin/member/memberList";
 	}
 	
-	@RequestMapping(value="/adminLogin", method = RequestMethod.GET)
+	@RequestMapping(value="/adminLogin", method = RequestMethod.POST)
 	public String adminLogin(@ModelAttribute MemberVO mvo, Model model, HttpServletRequest request, HttpSession session){
 		logger.info("adminLogin Called");
 		String resultData = ""; // SUCCESS 단어가 들어가있으면 성공으로 간주
