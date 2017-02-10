@@ -39,7 +39,7 @@ public class BookController {
 		return "book/bookOrder";
 	}
 	
-	//외국도서 목록
+	//it도서 목록
 	@RequestMapping(value="/bookForeign.do")
 	public String bookForeign(){
 		return "book/bookForeign";
