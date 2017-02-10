@@ -1,3 +1,4 @@
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 		  <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -9,6 +10,10 @@
 		}
 		.pagination{
 			
+		}
+		.thumbnail {
+			max-height:120px; min-height:120px;
+			min-width:90px; max-width:90px;
 		}
 	</style>
 	<script type="text/javascript" src="/resources/include/js/listCommon.js"></script>
@@ -76,8 +81,8 @@
 			 $(".wishListInsertBtn").click(function(){
 				 var isbn=$(this).parents("tr").attr("data-num");
 				 $("#isbn").val(num);
-//				 alert(cart_ip)
-//				 alert(num)
+				 alert(cart_ip)
+				 alert(num)
 				  //1=바로구매 0=x		 
 				 if(m_id==""){
 					 alert("로그인 페이지로 이동")
@@ -136,7 +141,7 @@
 				 var num=$(this).parents("tr").attr("data-num");
 				 var m_id="${sessionScope.memSession.m_id}"
 				 var amount= $(this).parents("tr").find("input[type='text']").val();
-//				alert(amount)	
+				alert(amount)	
 				 if( m_id==""){
 					 m_id="0";
 				 }else if( m_id!=""){
@@ -145,7 +150,7 @@
 				$("#isbn").val(num) 
 				$("#m_id").val(m_id) 
 				$("#cart_amount").val(amount)
-//				alert(m_id);
+				alert(m_id);
 				 
 				$.ajax({
 					   url:"/cart/cartInsert.do",
@@ -188,7 +193,7 @@
 			 
 			 $("#marketbtn").click(function(){
 				 var num=$(this).parents("tr").attr("data-num");
-//				 alert(num)
+				 alert(num)
 				 
 			 })
 			 
@@ -229,6 +234,7 @@
 		
 		 <!--검색 조건 테이블 영역  -->
 		<div class="row">
+				
 	          	<!-- 전체 리스트 제어 폼 -->
 	          	<form class="navbar-form navbar-left" id="searchForm" method="get" action="/book/bookSearch.do">
 	          		<!-- 페이지 정렬을 위한 hidden input들 -->
@@ -243,8 +249,10 @@
 	          		<input type="hidden" name="orderDirection" id="orderDirection" value="${listData.orderDirection}"/>
 	          		
 	          		<!-- 키워드 검색 -->
-	          		<div class="form-inline">
+
 		          		<h3><span class="label label-default">검색</span></h3>
+		          	
+
 			          	<select class="form-control" name="searchMode" id="searchMode">
 			      			<option value="allSch">전체</option>
 			      			<option value="titleSch">글제목</option>
@@ -254,41 +262,30 @@
 			      			<option value="seriesSch">시리즈명</option>
 			      		</select>
 			      		<input type="text" class="form-control" name="keyword" id="keyword" value="${listData.keyword}"/>
-		      		</div>
-		      		<br/><br/>
+
+		      		
 		      			      		
 		      		<!-- 일자 검색 -->
-		      		<div class="form-inline">
+
 		          		<h3><span class="label label-default">일자 검색</span></h3>
 		          		<input type="hidden" class="form-control" name="searchDateMode" id="searchDateMode" value="publishSch">
 			          	<input type="date" class="form-control" name="searchStartDate" id="searchStartDate" value="${listData.searchStartDate}">
-			          	<input type="date" class="form-control" name="searchEndDate" id="searchEndDate" value="${listData.searchEndDate}">
-			          	<button id="searchKeywordBtn" class="btn btn-primary">검색</button>
-		          	</div>
+			     		<input type="date" class="form-control" name="searchEndDate" id="searchEndDate" value="${listData.searchEndDate}">
+
+		          		<button id="searchKeywordBtn" class="btn btn-primary">검색</button>
+
 	          	</form>
+	       
         </div>
 		
-		<!--검색 조건 테이블 영역  -->
-		<div class="row">
-			<div class="col-md-8 col-md-offset-4">
-	               <table class="table table-bordered">
-	               <tr>
-	               <td>새로나온책</td>
-	               <td>베스트셀러</td>
-	               <td>정가 인하</td>
-	               <td>이벤트 도서</td>
-	               <td>회원 리뷰</td>
-	               </tr>
-	               </table>
-	       </div>
-	    </div>
+		
 	    
 	    
 	    
 	    <!--검색창 영역  -->
-	    	<div class="navbar-form navbar-left" role="navigation">
-         		
-         		<div class="form-inline">
+	    <div class="row">
+	    	
+         		<div class="col-md-3 col-md-offset-9">
          			<label for="form-control">페이지당 표시 건 수
 	         		<select class="form-control" name="pageSizeChange" id="pageSizeChange" >	         			
 	         			<option value="5">5</option>
@@ -299,7 +296,8 @@
         			</label>
          		</div>
          		
-           </div>
+           
+         </div>
 	         <div class="col-sm-12 padding-right">
 			        
 	         
@@ -320,7 +318,7 @@
 						
 						<c:forEach var="d" items="${bookList}">							
 							<tr data-num="${d.isbn}">
-							  <td class="col-sm-2">
+							  <td class="col-sm-1">
 							  	<object class="thumbnail" data="/images/bookImg/${d.isbn}.jpg" type="image/jpg">
 								  	<img src="/images/bookImg/no_book_img.png"/>
 							  	</object>
@@ -398,8 +396,3 @@
 								
 		 <!--메인종료  -->
 						
-					
-						
-						
-					
-	</section>
