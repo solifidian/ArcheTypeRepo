@@ -96,23 +96,20 @@ public class BookController {
 	
 	// 책 상세보기 페이지로
 	@RequestMapping(value="/bookDetail.do", method=RequestMethod.GET)
-	public String bookDetail(@RequestParam String isbn,BookVO bvo, Model model, HttpServletRequest request, HttpSession session){
+	public String bookDetail(@RequestParam String isbn, Model model, HttpServletRequest request, HttpSession session){
 		logger.info("BookDetail 호출 성공");
 		logger.info("isbn = " + isbn);
 
 		
 		BookVO detail = new BookVO();
 		detail = bookService.bookSelect(isbn);
-		detail = bookService.bookDetail(bvo);
+		
+		
 		CategoryVO ctvo = new CategoryVO();
-		List<CategoryVO> ctvoList = categoryService.categoryBoxList(ctvo);
-		
-		model.addAttribute("cateList",ctvoList);
-		
-		
+		List<CategoryVO> ctvoList = categoryService.categoryBoxList(ctvo);		
+		model.addAttribute("cateList",ctvoList);		
 		model.addAttribute("detail", detail);
-		session.setAttribute("id", "test");
-		
+		session.setAttribute("id", "test");		
 		return "book/bookDetail";
 	}
 	

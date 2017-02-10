@@ -45,7 +45,7 @@
 	$(function(){
 		//목록버튼 클릭시 이벤트
 		$("#boardListBtn").click(function(){
-			if($("#bd_post_no") == 1){
+			if($("#bd_forum_no") == 1){
 				location.href= "/board/boardList.do";			//커뮤니티게시판으로
 			}else{
 				location.href= "/board/questionBoardList.do";	//문의게시판으로

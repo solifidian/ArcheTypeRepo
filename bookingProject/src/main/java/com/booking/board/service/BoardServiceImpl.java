@@ -67,6 +67,9 @@ public class BoardServiceImpl implements BoardService{
 		result = boardDAO.boardDelete(bd_post_no);
 		return result;
 	}
+	
+
+	
 
 	//비밀번호 체크
 	@Override
