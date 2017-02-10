@@ -44,9 +44,11 @@
 	//목록버튼 클릭시 이벤트
 		$("#boardListBtn").click(function(){
 			
-			if($("#bd_forum_no") == 1){
+			if($("#bd_forum_name") == "커뮤니티게시판"){
+				$("#bd_forum_no").val() == 1;
 				location.href= "/board/boardList.do";	//기본 커뮤니티 게시판으로
 			}else{
+				$("#bd_forum_no").val() == 2;
 				location.href= "/board/questionBoardList.do";	//문의게시판으로
 			}
 			
@@ -201,8 +203,8 @@
 									<td class="ac">게시판이름</td>
 									<td>
 										<select id="bd_forum_name" id="bd_forum_name">
-											<option value="1">커뮤니티게시판
-											<option value="2">문의게시판
+											<option value="커뮤니티게시판" >커뮤니티게시판
+											<option value="문의게시판" >문의게시판
 										</select>
 									</td>
 								</tr>

@@ -213,6 +213,7 @@
 						<div class="single-blog-post">
 						<form name="f_data" id="f_data" method="POST">
 							<input type="hidden" name="bd_post_no" class="bd_post_no" value="${detail.bd_post_no}" />
+							<input type="hidden" name="bd_forum_no" class="bd_forum_no" value="${detail.bd_forum_no}" />
 							
 						</form>
 <!-- ================== 비밀번호 확인 버튼 및 버튼 추가 시작 ==================== -->
@@ -281,10 +282,10 @@
 <!-- ============== 상세 정보 보여주기  종료 ========== -->
 <!-- ============== 다음글/전글읽기 시작 ========== -->
 					<div class="pager-area">
-						<ul class="pager pull-right">
+					<!-- 	<ul class="pager pull-right">
 							<li><a href="#">Pre</a></li>
 							<li><a href="#">Next</a></li>
-						</ul>
+						</ul> -->
 					</div><!--/class="pager-area"  -->
 <!-- ============== 다음글/전글읽기 종료 ========== -->
 				</div><!-- /class="blog-post-area" -->
