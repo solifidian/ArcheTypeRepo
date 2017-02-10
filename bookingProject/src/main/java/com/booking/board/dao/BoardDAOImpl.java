@@ -6,7 +6,6 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.booking.board.vo.BoardVO;
-import com.booking.board.vo.FaqVO;
 
 public class BoardDAOImpl implements BoardDAO{
 
@@ -60,9 +59,5 @@ public class BoardDAOImpl implements BoardDAO{
 	public int boardListCnt(BoardVO bvo) {
 		return (Integer)session.selectOne("boardListCnt", bvo);
 	}
-	
-	//FAQ 리스트 보기
-	public List<FaqVO> faqList(){
-		return session.selectList("faqList");
-	}
+
 }

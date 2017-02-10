@@ -23,7 +23,6 @@
 		<typeAlias type="com.booking.coupon.vo.CouponVO" alias="coupon" />
 		
 		<typeAlias type="com.booking.board.vo.BoardVO" alias="board" />
-		<typeAlias type="com.booking.board.vo.FaqVO" alias="faq" />
 		<typeAlias type="com.booking.reply.vo.ReplyVO" alias="reply" />
 	
 	

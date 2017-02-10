@@ -238,48 +238,5 @@
 
 
 
-
-
-
-<!-- FAQ 게시글 목록 -->
-<sql id="faqCommon">
-	/* board - boardList */
-	   SELECT   fnq_no
-			,fnq_title
-			,fnq_content
-			,fnq_reply_content
-			,fnq_update
-			,fnq_editdate
-			,fnq_category
-			,fnq_writer
-		FROM BOOKING_FNQ
-</sql>
- 
-
-<select id="faqList" resultType="faq">
-	/* faqBoardList */
-	   SELECT   fnq_no
-			,fnq_title
-			,fnq_content
-			,fnq_reply_content
-			,fnq_update
-			,fnq_editdate
-			,fnq_category
-			,fnq_writer
-		FROM BOOKING_FNQ
-</select>
-
-
-<!--
-<select id="faqListCnt" parameterType="faq" resultType="int">
-	/* faq - faqListCnt */
-	SELECT NVL(count(1), 0) FROM
-	(SELECT list.*, ROWNUM AS RNUM
-		FROM (
-			<include refid="faqCommon"></include>
-			order fnq_no desc
-		) list
-	)
-</select> -->
 </mapper>
 

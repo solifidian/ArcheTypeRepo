@@ -44,11 +44,11 @@
 			//쿠폰이미지 클릭 시 쿠폰 획득 
 			$("#couponImg").click(function(){
 				
-				alert("야야")
+//				alert("야야")
 				 $.ajax({
 					 url:"/coupon/couponInsert.do",
 					 success:function(resultData){
-						 alert(resultData)
+//						 alert(resultData)
 						 if(resultData == "success"){
 							 alert("발급완료 했습니다")
 							 window.open('', '_self').close();
@@ -56,7 +56,7 @@
 							 alert("이미 받은 쿠폰 입니다.")
 							 window.open('', '_self').close();
 						 }else if(resultData == "fail"){
-							 alert("발급 실패 했습니다ㅣ.")
+							 alert("발급 실패 했습니다.")
 							 window.open('', '_self').close();
 						 }
 						 else{ 
