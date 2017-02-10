@@ -58,11 +58,19 @@ public class BoardController {
 	      logger.info("total = " + total);
 	      bvo.setSearchTotal(total);
 		
+	     //카테고리 세팅
+	      CategoryVO ctvo = new CategoryVO();
+			List<CategoryVO> cateList = categoryService.categoryBoxList(ctvo);
+	      
 		//페이지 세팅
 		Paging.setBookPaging(bvo);
-		List<BoardVO> boardList = boardService.boardList(bvo);
-		CategoryVO ctvo = new CategoryVO();
-		List<CategoryVO> cateList = categoryService.categoryBoxList(ctvo);
+		if(bvo.getBd_forum_no()==1){
+			List<BoardVO> boardList = boardService.boardList(bvo);
+		}else{
+			List<BoardVO> questionBoardList = boardService.questionBoardList(bvo);
+		}
+		
+		
 		
 		model.addAttribute("cateList",cateList);
 		model.addAttribute("boardList", boardList);

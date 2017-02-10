@@ -41,14 +41,12 @@
 <script type="text/javascript">
 	$(function(){
 		
-	//목록버튼 클릭시 이벤트
+	//저장버튼 클릭시 이벤트 - 목록으로
 		$("#boardListBtn").click(function(){
 			
-			if($("#bd_forum_name") == "커뮤니티게시판"){
-				$("#bd_forum_no").val() == 1;
+			if($("#bd_forum_name") == "커뮤니티게시판"){	
 				location.href= "/board/boardList.do";	//기본 커뮤니티 게시판으로
-			}else{
-				$("#bd_forum_no").val() == 2;
+			}else{			
 				location.href= "/board/questionBoardList.do";	//문의게시판으로
 			}
 			
@@ -192,7 +190,7 @@
 						<div class="single-blog-post" id="boardInsert" >
 							<form id="bd_writeForm" name="bd_writeForm" >
 							<!--게시판 번호 자동으로 넘겨주게 설정할것 지금은 기본 1 -->
-							<input type="hidden" name="bd_forum_no" value="${bd_forum_name}">
+							<input type="hidden" name="bd_forum_no" id="bd_forum_no" value=>
 							
 							<table summary="게시글 작성" class="tb">
 								<colgroup>
@@ -202,7 +200,7 @@
 								<tr>
 									<td class="ac">게시판이름</td>
 									<td>
-										<select id="bd_forum_name" id="bd_forum_name">
+										<select id="bd_forum_name" name="bd_forum_name">
 											<option value="커뮤니티게시판" >커뮤니티게시판
 											<option value="문의게시판" >문의게시판
 										</select>

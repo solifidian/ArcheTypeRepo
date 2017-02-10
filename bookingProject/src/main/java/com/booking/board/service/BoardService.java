@@ -19,6 +19,8 @@ public interface BoardService {
 	public int pwdConfirm(BoardVO bvo);
 
 	public int boardListCnt(BoardVO bvo);
+
+	public List<BoardVO> questionBoardList(BoardVO bvo);
 	
 	
 
