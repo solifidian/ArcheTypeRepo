@@ -3,6 +3,7 @@ package com.booking.admin.sitelog.controller;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.booking.admin.sitelog.service.SiteLogService;
 import com.booking.admin.sitelog.vo.SiteLogVO;
 import com.booking.common.paging.Paging;
+import com.booking.member.vo.MemberVO;
 
 @Controller
 @RequestMapping(value = "admin/sitelog")
@@ -26,8 +28,23 @@ public class SiteLogController {
 	private SiteLogService siteLogService;
 	
 	@RequestMapping(value = "/siteLogList", method = RequestMethod.GET)
-	public String siteLogList(@ModelAttribute SiteLogVO slvo, Model model){
+	public String siteLogList(@ModelAttribute SiteLogVO slvo, Model model, HttpServletRequest request){
 		logger.info("siteLogList Called");
+		
+		/************* 관리자 계정아닐시 로그인 페이지로 던짐 시작***************/
+		HttpSession session = request.getSession(false);
+		if(session == null){
+			return "redirect:/admin/member/adminLoginPage.do";
+		}
+		MemberVO memSession
+		= (MemberVO)session.getAttribute("memSession");
+		if(memSession == null){
+			return "redirect:/admin/member/adminLoginPage.do";
+		}
+		else if(!memSession.getM_id().equals("admin")){
+			return "redirect:/admin/member/adminLoginPage.do";
+		}
+		/************* 관리자 계정아닐시 로그인 페이지로 던짐 끝***************/
 		
 		//listData default nvl
 		if(slvo.getOrderDirection() == null){

@@ -3,6 +3,7 @@ package com.booking.admin.book.controller;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +21,7 @@ import com.booking.admin.book.vo.BookStockVO;
 import com.booking.admin.sitelog.service.SiteLogService;
 import com.booking.book.vo.BookVO;
 import com.booking.common.paging.Paging;
+import com.booking.member.vo.MemberVO;
 
 @Controller
 @RequestMapping(value="/admin/book")
@@ -40,6 +42,21 @@ public class AdminBookController {
 	public String bookList(@ModelAttribute BookVO bvo, Model model, HttpServletRequest request){
 		logger.info("bookList Called");
 		
+		/************* 관리자 계정아닐시 로그인 페이지로 던짐 시작***************/
+		HttpSession session = request.getSession(false);
+		if(session == null){
+			return "redirect:/admin/member/adminLoginPage.do";
+		}
+		MemberVO memSession
+		= (MemberVO)session.getAttribute("memSession");
+		if(memSession == null){
+			return "redirect:/admin/member/adminLoginPage.do";
+		}
+		else if(!memSession.getM_id().equals("admin")){
+			return "redirect:/admin/member/adminLoginPage.do";
+		}
+		/************* 관리자 계정아닐시 로그인 페이지로 던짐 끝***************/
+			
 		//listData default nvl
 		if(bvo.getOrderDirection() == null){
 			bvo.setOrderDirection("desc");
@@ -69,6 +86,21 @@ public class AdminBookController {
 	@RequestMapping(value="/bookInfoList", method = RequestMethod.GET)
 	public String bookInfoList(@ModelAttribute BookVO bvo, Model model, HttpServletRequest request){
 		logger.info("bookInfoList Called");
+		
+		/************* 관리자 계정아닐시 로그인 페이지로 던짐 시작***************/
+		HttpSession session = request.getSession(false);
+		if(session == null){
+			return "redirect:/admin/member/adminLoginPage.do";
+		}
+		MemberVO memSession
+		= (MemberVO)session.getAttribute("memSession");
+		if(memSession == null){
+			return "redirect:/admin/member/adminLoginPage.do";
+		}
+		else if(!memSession.getM_id().equals("admin")){
+			return "redirect:/admin/member/adminLoginPage.do";
+		}
+		/************* 관리자 계정아닐시 로그인 페이지로 던짐 끝***************/
 		
 		//listData default nvl
 		if(bvo.getOrderDirection() == null){
@@ -102,6 +134,21 @@ public class AdminBookController {
 	@RequestMapping(value="/tagTestPage", method = RequestMethod.GET)
 	public String testPage(@ModelAttribute BookVO bvo, Model model, HttpServletRequest request){
 		logger.info("bookInfoList Called");
+
+		/************* 관리자 계정아닐시 로그인 페이지로 던짐 시작***************/
+		HttpSession session = request.getSession(false);
+		if(session == null){
+			return "redirect:/admin/member/adminLoginPage.do";
+		}
+		MemberVO memSession
+		= (MemberVO)session.getAttribute("memSession");
+		if(memSession == null){
+			return "redirect:/admin/member/adminLoginPage.do";
+		}
+		else if(!memSession.getM_id().equals("admin")){
+			return "redirect:/admin/member/adminLoginPage.do";
+		}
+		/************* 관리자 계정아닐시 로그인 페이지로 던짐 끝***************/
 		
 		//listData default nvl
 		if(bvo.getOrderDirection() == null){
@@ -181,6 +228,21 @@ public class AdminBookController {
 	public String bookStockList(@ModelAttribute BookStockVO bsvo, Model model, HttpServletRequest request){
 		logger.info("bookStockList Called");
 		
+		/************* 관리자 계정아닐시 로그인 페이지로 던짐 시작***************/
+		HttpSession session = request.getSession(false);
+		if(session == null){
+			return "redirect:/admin/member/adminLoginPage.do";
+		}
+		MemberVO memSession
+		= (MemberVO)session.getAttribute("memSession");
+		if(memSession == null){
+			return "redirect:/admin/member/adminLoginPage.do";
+		}
+		else if(!memSession.getM_id().equals("admin")){
+			return "redirect:/admin/member/adminLoginPage.do";
+		}
+		/************* 관리자 계정아닐시 로그인 페이지로 던짐 끝***************/
+		
 		//listData default nvl
 		if(bsvo.getOrderDirection() == null){
 			bsvo.setOrderDirection("desc");
@@ -241,6 +303,20 @@ public class AdminBookController {
 	public String bookReleaseList(@ModelAttribute BookReleaseVO brvo, Model model, HttpServletRequest request){
 		logger.info("bookReleaseList Called");
 		
+		/************* 관리자 계정아닐시 로그인 페이지로 던짐 시작***************/
+		HttpSession session = request.getSession(false);
+		if(session == null){
+			return "redirect:/admin/member/adminLoginPage.do";
+		}
+		MemberVO memSession
+		= (MemberVO)session.getAttribute("memSession");
+		if(memSession == null){
+			return "redirect:/admin/member/adminLoginPage.do";
+		}
+		else if(!memSession.getM_id().equals("admin")){
+			return "redirect:/admin/member/adminLoginPage.do";
+		}
+		/************* 관리자 계정아닐시 로그인 페이지로 던짐 끝***************/
 		//listData default nvl
 		if(brvo.getOrderDirection() == null){
 			brvo.setOrderDirection("desc");
