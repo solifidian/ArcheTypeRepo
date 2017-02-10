@@ -35,7 +35,7 @@ var m_id="${sessionScope.memSession.m_id}";
 var c_id="${cookie.JSESSIONID.value}";
 
 $(function(){
-//	 alert("m_id"+m_id)
+	 alert("m_id"+m_id)
 	$("#nonMemberPurchaseAgree").hide();
 	listAll();
 	
@@ -64,7 +64,7 @@ $(function(){
 	$("#useCoupon").click(function(){
 		
 		var couponratio=$("#coupon").val()
-//		alert(couponratio)
+		alert(couponratio)
 		//쿠폰값이 null일 경우 쿠폰 값을 적용x
 		if(couponratio==null){
 		$("#lastTotPrice").html((total+delivery)+"원");  //합계 +배송비용

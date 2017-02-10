@@ -10,7 +10,12 @@
     <meta name="author" content="">
     <title>Home | E-Shopper</title>
   
-	
+	<style type="text/css">
+		.slideImg > img{
+			max-height:500px;
+			min-height:500px;
+		}
+	</style>
  
 
 
@@ -37,7 +42,7 @@
 			
 			$("#mypage").click(function(){
 				if(id==0) {
-//					alert(id);
+					alert(id);
 					location.href="/memeber/memberLoginPage.do";
 				}
 				else {
@@ -107,7 +112,7 @@
 									</p>
 									<button type="button" class="btn btn-default get">Get it now</button>
 								</div>
-								<div class="col-sm-6">
+								<div class="col-sm-6 slideImg">
 									<img src="http://bimage.interpark.com/goods_image/9/8/4/2/263969842g.jpg" class="girl img-responsive" alt="" />
 								</div>
 							</div>
@@ -119,7 +124,7 @@
 기적 같은 사랑이라는 테마 속에, 또 하나의 메시지를 소설에 담았다. </p>
 									<button type="button" class="btn btn-default get">Get it now</button>
 								</div>
-								<div class="col-sm-6">
+								<div class="col-sm-6 slideImg">
 									<img src="http://image.yes24.com/momo/TopCate1048/MidCate005/103197776.jpg" class="girl img-responsive" alt="" />
 								</div>
 							</div>
@@ -132,7 +137,7 @@
 									</p>
 									<button type="button" class="btn btn-default get">Get it now</button>
 								</div>
-								<div class="col-sm-6">
+								<div class="col-sm-6 slideImg">
 									<img src="http://bimage.interpark.com/goods_image/8/8/5/9/237228859g.jpg" class="girl img-responsive" alt="" />
 								</div>
 							</div>
@@ -180,23 +185,23 @@
 												<c:choose>
 													<c:when test="${cate2.cat_step == 2 && cate2.cat_root == root && (cate2.cat_no == 3 || cate2.cat_no == 7 ||cate2.cat_no == 28 )}">									
 																<ul><li>
-																	
-
+																	<c:choose>
+																		<c:when test="${cate2.cat_no ==3 }">
 																		<a data-toggle="collapse" data-parent="#tap${root}" href="#tap${cate2.cat_no}">
 																			<span class="badge pull-right"><i class="fa fa-plus"></i></span>
 																			<c:out value="${cate2.cat_name}"/>
 																			<c:set var="root2" value="${cate2.cat_no}"/>
 																		</a>
-																		
-																	<c:choose>
-																		<c:when test="${cate2.cat_no ==3 }">
-																			<c:set var="in_set" value="in"/>
 																		</c:when>
 																		<c:otherwise>
-																			<c:set var="in_set" value="in"/>
+																		<a data-toggle="collapse" data-parent="#tap${root}" href="#tap${cate2.cat_no}">
+																			<span class="badge pull-right"><i class="fa fa-plus"></i></span>
+																			<c:out value="${cate2.cat_name}"/>
+																			<c:set var="root2" value="${cate2.cat_no}"/>
+																		</a>
 																		</c:otherwise>
 																	</c:choose>
-																		<div id="tap${root2}" class="panel-collapse collapse in">
+																	<div id="tap${root2}" class="panel-collapse collapse">
 																		<div class="panel-body">
 																		<c:forEach var="cate3" items="${cateList}">
 																		<c:choose>

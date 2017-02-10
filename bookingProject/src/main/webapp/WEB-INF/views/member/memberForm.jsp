@@ -378,7 +378,7 @@
 					<td class="tc">메모</td>
 					<td><textarea id="m_comment" name="m_comment" placeholder="메모를 입력하세요..." ></textarea></td>
 				</tr>
-				<!-- <tr>
+				<tr>
 					<td class="tc">SNS연동</td>
 					<td >
 						<a href=""><i class="fa fa-facebook" onclick="SNS.facebook('http://www.facebook.com')"></i></a>
@@ -386,7 +386,7 @@
 						<a href=""><i class="fa fa-dribbble"></i></a>
 						<a href=""><i class="fa fa-google-plus"></i></a>					
 					</td>
-				</tr>	 -->			
+				</tr>				
 			</table>
 		</form>
 		

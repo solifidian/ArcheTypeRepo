@@ -18,7 +18,7 @@ $(function(){
 	 $(".nowPurchaseBtn").click(function(){
 	alert("이것은 바로구매입니다.")
 		 var isbnv=$(this).parents("tr").attr("data-num");
-//		 	alert(isbn)
+		 	alert(isbn)
 		  var isbn=$("#isbn").val(isbnv);
 		  $("#nowpay").val(1); 
 		  $("#cart_amount").val(1);

@@ -32,7 +32,7 @@
 							<div id="bookAndPeople" class="panel-collapse collapse">
 								<div class="panel-body">
 										<ul>
-											<li><a href="/board/questionBoardList.do">문의게시판 </a></li>
+											<li><a href="/board/boardList.do">문의게시판 </a></li>
 											<li><a href="/book/bookFAQ.do">FAQ </a></li>											
 										</ul>
 								</div><!--class: panel-body끝  -->
@@ -53,7 +53,7 @@
 									<div class="panel-body">
 										<ul>
 											<li><a href="">정책 </a></li>
-																				
+											<li><a href="">정책 </a></li>										
 										</ul>
 									</div><!--class: panel-body끝  -->
 							</div><!-- id:review 끝 -->							
@@ -72,7 +72,7 @@
 								<div class="panel-body">
 									<ul>
 										<li><a href="">정책 </a></li>
-																
+										<li><a href="">정책 </a></li>										
 									</ul>
 								</div><!--class: panel-body끝  -->
 							</div><!-- id:review 끝 -->
@@ -82,8 +82,8 @@
 								<h2>정책</h2>
 								<div class="brands-name">
 									<ul class="nav nav-pills nav-stacked">
-										<li><a href=""> <span class="pull-right"></span>정책</a></li>
-													
+										<li><a href=""> <span class="pull-right">(#)</span>정책</a></li>
+										<li><a href=""> <span class="pull-right">(#)</span>정책</a></li>									
 									</ul>
 								</div>
 						</div><!--/리뷰-->
