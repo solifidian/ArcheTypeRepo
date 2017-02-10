@@ -28,9 +28,24 @@ public class AdminPurchaseController {
 	
 	// 마이페이지로 이동
 	@RequestMapping(value="/purchaseList.do")
-	public String memberMypage(@ModelAttribute Purchase_DeliveryVO listVO, Model model){
+	public String memberMypage(@ModelAttribute Purchase_DeliveryVO listVO, Model model, HttpServletRequest request){
 		logger.info("memberMypage 호출 성공");
-
+		
+		/************* 관리자 계정아닐시 로그인 페이지로 던짐 시작***************/
+		HttpSession session = request.getSession(false);
+		if(session == null){
+			return "redirect:/admin/member/adminLoginPage.do";
+		}
+		MemberVO memSession
+		= (MemberVO)session.getAttribute("memSession");
+		if(memSession == null){
+			return "redirect:/admin/member/adminLoginPage.do";
+		}
+		else if(!memSession.getM_id().equals("admin")){
+			return "redirect:/admin/member/adminLoginPage.do";
+		}
+		/************* 관리자 계정아닐시 로그인 페이지로 던짐 끝***************/
+		
 		/* *******************************
 		 * session으로부터 M_no 전달.
 		 * null이면 0으로 반환
