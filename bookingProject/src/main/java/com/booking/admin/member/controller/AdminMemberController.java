@@ -40,21 +40,6 @@ public class AdminMemberController {
 	public String memberList(@ModelAttribute MemberVO mvo, Model model, HttpServletRequest request){
 		logger.info("memberList Called");
 		
-		/************* 관리자 계정아닐시 로그인 페이지로 던짐 시작***************/
-		HttpSession session = request.getSession(false);
-		if(session == null){
-			return "redirect:/admin/member/adminLoginPage.do";
-		}
-		MemberVO memSession
-		= (MemberVO)session.getAttribute("memSession");
-		if(memSession == null){
-			return "redirect:/admin/member/adminLoginPage.do";
-		}
-		else if(!memSession.getM_id().equals("admin")){
-			return "redirect:/admin/member/adminLoginPage.do";
-		}
-		/************* 관리자 계정아닐시 로그인 페이지로 던짐 끝***************/
-		
 		//listData default nvl
 		if(mvo.getOrderDirection() == null){
 			mvo.setOrderDirection("desc");
@@ -85,7 +70,7 @@ public class AdminMemberController {
 		logger.info("adminLogin Called");
 		String resultData = ""; // SUCCESS 단어가 들어가있으면 성공으로 간주
 		String resultMessage = ""; // ""으로 놔두면 alert 안 뜸
-		String redirectURL = "/admin/sitelog/siteLogList.do";
+		String redirectURL = "/book/bookIndex.do";
 		
 		String id = mvo.getM_id();
 		String pwd = mvo.getM_pwd();
@@ -94,19 +79,13 @@ public class AdminMemberController {
 		MemberVO memVO = new MemberVO();
 		
 		memVO = memberService.memberLogin(mvo);
-		
 		if(memVO!=null){
-			if(memVO.getM_id().equals("admin")){
-				session.setAttribute("memSession", memVO);
-				resultData = "LOGIN SUCCESS";
-				resultMessage = "";
-				siteLogService.siteLogUpdate(request,"Login(Admin)","ID : "+memVO.getM_id());
-			}
-			else{
-				resultData = "LOGIN FAILED";
-				resultMessage = "관리자 계정이 아닙니다";
-			}
+			session.setAttribute("memSession", memVO);
+			resultData = "LOGIN SUCCESS";
+			resultMessage = "";
+			siteLogService.siteLogUpdate(request,"Login","ID : "+memVO.getM_id());
 		}else {
+			
 			resultData = "LOGIN FAILED";
 			resultMessage = "아이디나 패스워드가 틀렸습니다";
 			
@@ -116,11 +95,11 @@ public class AdminMemberController {
 		model.addAttribute("resultMessage", resultMessage);
 		model.addAttribute("redirectURL", redirectURL);
 		
-		return "common/resultPage";
+		return "admin/sitelog/siteLogList";
 	}
 	
 	@RequestMapping(value="/adminLoginPage", method = RequestMethod.GET)
-	public String adminLoginPage(Model model){
+	public String adminLoginPage(@ModelAttribute MemberVO mvo, Model model, HttpServletRequest request, HttpSession session){
 		logger.info("adminLoginPage Called");
 		return "admin/adminLoginPage";
 	}
