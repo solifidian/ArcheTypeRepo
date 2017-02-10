@@ -196,7 +196,15 @@
 																		</a>
 																		</c:otherwise>
 																	</c:choose>
-																	<div id="tap${root2}" class="panel-collapse collapse">
+																	<c:choose>
+																		<c:when test="${cate2.cat_no ==3 }">
+																			<div id="tap${root2}" class="panel-collapse collapse in">
+																		</c:when>
+																		<c:otherwise>
+																			<div id="tap${root2}" class="panel-collapse collapse">
+																		</c:otherwise>
+																	</c:choose>
+																	
 																		<div class="panel-body">
 																		<c:forEach var="cate3" items="${cateList}">
 																		<c:choose>
