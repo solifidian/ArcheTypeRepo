@@ -36,7 +36,7 @@
 			
 			$("#mypage").click(function(){
 				if(id==0) {
-					alert(id);
+//					alert(id);
 					location.href="/memeber/memberLoginPage.do";
 				}
 				else {

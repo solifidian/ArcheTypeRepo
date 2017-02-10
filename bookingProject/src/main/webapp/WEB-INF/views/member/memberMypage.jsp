@@ -36,7 +36,7 @@
       		$(".goDetail").click(function(){
       			$('#mtable > tbody:last').html("");
       			var p_no = $(this).parents("tr").attr("data-num");
-      			alert(p_no);
+ //     			alert(p_no);
       			$("#p_no").val(p_no);
       			console.log("주문번호 : "+p_no);
       			 $.ajax({
@@ -61,7 +61,7 @@
       		//배송추적 클릭시 이동
       		$(".goDelivery").click(function(){      			
       			var site = $(this).parents("tr").attr("data-num");
-      			alert(site);
+//      			alert(site);
       			console.log("web site : "+site);
       			// 택배회사 주소 넣기
       			window.open("http://"+site);
@@ -150,7 +150,7 @@
 								</div>
 							</div>
 							<hr />
-							<div class="panel panel-default">
+						<!-- 	<div class="panel panel-default">
 								<div class="panel-heading">
 									<h4 class="panel-title"><a href="#">1:1문의 내역</a></h4>
 								</div>
@@ -159,7 +159,7 @@
 								<div class="panel-heading">
 									<h4 class="panel-title"><a href="#">게시판 활동 내역</a></h4>
 								</div>
-							</div>
+							</div> -->
 						</div><!--/category-products-->
 
 					</div>

@@ -359,7 +359,7 @@
 						<td class="tc">메모</td>
 						<td><textarea id="m_comment" name="m_comment" placeholder="메모를 입력하세요...">${sessionScope.memSession.m_comment}</textarea></td>
 					</tr>
-					<tr>
+					<!-- <tr>
 						<td class="tc">SNS연동</td>
 						<td >
 						페이스북
@@ -367,7 +367,7 @@
 						트위터
 							<img class="snsImage" onclick="SNS.tweeter('http://www.twitter.com')" src="http://icons.iconarchive.com/icons/danleech/simple/1024/twitter-icon.png" />
 						</td>
-					</tr>				
+					</tr>		 -->		
 				</table>
 			
 			</form>
