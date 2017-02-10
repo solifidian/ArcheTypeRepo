@@ -42,7 +42,7 @@ public class SearchController {
 		return "search/searchpage";
 	}
 	
-	//해외도서목록
+/*	//해외도서목록
 	@RequestMapping(value="/bookForeignList.do")
 	public String bookForeignList(@ModelAttribute SearchVO svo,Model model, HttpSession session,  HttpServletResponse response ){
 		logger.info("bookForeignList 호출");		
@@ -66,7 +66,7 @@ public class SearchController {
 	    model.addAttribute("bookList", list);
 	    model.addAttribute("listData", svo);
 		return "book/bookDomestic";
-	}
+	}*/
 	
 	
 	/*@RequestMapping(value="/searchdetail.do",method=RequestMethod.GET)

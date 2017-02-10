@@ -39,7 +39,7 @@ public class BookController {
 		return "book/bookOrder";
 	}
 	
-	//외국도서 목록
+	//it도서 목록
 	@RequestMapping(value="/bookForeign.do")
 	public String bookForeign(){
 		return "book/bookForeign";
@@ -85,6 +85,13 @@ public class BookController {
 	public String errorPage(){
 		return "book/error";
 	}
+	
+	//FAQ틀
+	@RequestMapping(value="/bookFAQ.do")
+	public String bookFAQ(){
+		return "book/bookFAQ";
+	}
+	
 	
 	
 	// 책 상세보기 페이지로
