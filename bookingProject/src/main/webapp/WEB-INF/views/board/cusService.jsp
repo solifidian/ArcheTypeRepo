@@ -14,7 +14,7 @@
 			
 			//문의게시판으로 가기 버튼
 			$("#cusBtn1").click(function(){
-				location.href="/board/questionBoardList.do";
+				location.href="/board/boardList.do";
 			});
 			
 			
@@ -48,7 +48,7 @@
 							<div id="bookAndPeople" class="panel-collapse collapse">
 								<div class="panel-body">
 										<ul>
-											<li><a href="/board/questionBoardList.do">문의게시판 </a></li>
+											<li><a href="/board/boardList.do">문의게시판 </a></li>
 											<li><a href="/book/bookFAQ.do">FAQ </a></li>											
 										</ul>
 								</div><!--class: panel-body끝  -->

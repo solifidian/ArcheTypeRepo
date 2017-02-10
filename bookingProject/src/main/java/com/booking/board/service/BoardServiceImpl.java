@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.booking.board.dao.BoardDAO;
 import com.booking.board.vo.BoardVO;
+import com.booking.board.vo.FaqVO;
 import com.booking.reply.dao.ReplyDAO;
 import com.booking.reply.vo.ReplyVO;
 
@@ -81,6 +82,14 @@ public class BoardServiceImpl implements BoardService{
 	@Override
 	public int boardListCnt(BoardVO param) {
 		return boardDAO.boardListCnt(param);
+	}
+	
+	//FAQ 게시글 목록
+	@Override
+	public List<FaqVO> faqList() {
+		List<FaqVO> myList = null;
+		myList = boardDAO.faqList();		
+		return myList;
 	}
 
 

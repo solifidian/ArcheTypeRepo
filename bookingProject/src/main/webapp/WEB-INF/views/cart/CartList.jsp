@@ -24,7 +24,7 @@
  	 
 	 $("#continueShoppingBtn").click(function(){
 			alert("메인페이지로 이동")
-			location.href="/book/bookIndex.do"
+			location.href="/search/search.do"
 				
 			})
 	 //비회원 주문 하기

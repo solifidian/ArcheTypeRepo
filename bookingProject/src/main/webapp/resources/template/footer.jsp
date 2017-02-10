@@ -25,7 +25,7 @@
 				</div>
 			</div>
 		</div>
-	
+		<img src="/resources/images/ab.gif" alt="" />
 		<div class="footer-widget">
 			<div class="container">
 				<div class="row">
@@ -83,7 +83,7 @@
 				</div>
 			</div>
 		</div>
-	<img src="/resources/images/ab.gif" alt="" />
+		
 		<div class="footer-bottom">
 			<div class="container">
 				<div class="row">

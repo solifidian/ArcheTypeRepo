@@ -17,11 +17,11 @@ $(function(){
 	
 	  //장바구니 아이템 삭제
 	  $("#aa").click(function(){
-	  alert("아이템이 삭제되었습니다.");
+		  alert("aa")
 	  })
 	  
 	  $(".deletebtn1").click(function(){
-//		alert();
+		alert();
 		
 		/* $("#cat_no").val(cat_no);
 		
@@ -88,7 +88,7 @@ $(function(){
 		var isbn=$(this).parents("tr").attr("data-num");
 	   
 	
-//		 alert(isbn)
+		 alert(isbn)
 		 if(confirm("선택하신 책을 삭제 하겠습니까?")){
 					 $.ajax({
 						 type:'POST',
