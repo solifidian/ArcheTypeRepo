@@ -11,8 +11,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.booking.admin.book.service.CategoryService;
 import com.booking.board.service.BoardService;
 import com.booking.board.vo.BoardVO;
+import com.booking.book.vo.CategoryVO;
 import com.booking.common.paging.Paging;
 
 @Controller
@@ -22,6 +24,9 @@ public class BoardController {
 	
 	@Autowired
 	private BoardService boardService;
+	
+	@Autowired
+	private CategoryService categoryService;
 	
 		
 	/***********************************
@@ -56,7 +61,10 @@ public class BoardController {
 		//페이지 세팅
 		Paging.setBookPaging(bvo);
 		List<BoardVO> boardList = boardService.boardList(bvo);
+		CategoryVO ctvo = new CategoryVO();
+		List<CategoryVO> cateList = categoryService.categoryBoxList(ctvo);
 		
+		model.addAttribute("cateList",cateList);
 		model.addAttribute("boardList", boardList);
 		model.addAttribute("data", bvo);
 	
@@ -64,6 +72,36 @@ public class BoardController {
 		
 		return "board/boardList";
 	}
+	
+	/***********************************
+	 *개인정보 취급방침
+	 * ***************************/
+	@RequestMapping(value="/boardInfo.do")
+	public String boardInfo(){
+		logger.info("boardInfo 호출 성공");
+		
+		return "board/boardInfo";
+	}
+	/***********************************
+	 *고객센터
+	 * ***************************/
+	@RequestMapping(value="/cusService.do")
+	public String cusService(){
+		logger.info("cusService 호출 성공");
+		
+		return "board/cusService";
+	}
+	
+	/***********************************
+	 *문의 게시판 출력
+	 * ***************************/
+	@RequestMapping(value="/questionBoardList.do")
+	public String questionBoardList(){
+		logger.info("questionBoardList 호출 성공");
+		
+		return "board/QuestionBoardList";
+	}
+	
 	
 	/***********************************
 	 * 글쓰기 폼 출력하기

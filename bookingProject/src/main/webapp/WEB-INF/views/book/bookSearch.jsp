@@ -1,14 +1,19 @@
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 		  <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 		  <%@ taglib prefix="tag" uri="/WEB-INF/tld/custom_tag.tld" %>
-          <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-          
-          <fmt:formatNumber value=”${data.b_abprice}” pattern=”###,###,###”/>
 	<head>
 	<style>
 		span.currentPage{
-			color:red;
+			background-color:grey;
+		}
+		.pagination{
+			
+		}
+		.thumbnail {
+			max-height:120px; min-height:120px;
+			min-width:90px; max-width:90px;
 		}
 	</style>
 	<script type="text/javascript" src="/resources/include/js/listCommon.js"></script>
@@ -60,7 +65,7 @@
 				 				 
 				 $("#searchform").attr({
 						"method":"get",
-						"action":"/purchase/purchaseList.do?m_id="+m_id+"&isbn="+isbn
+						"action":"/purchase/purchaseList.do?isbn="+isbn
 													
 						})
 						$("#searchform").submit();
@@ -74,10 +79,11 @@
 			 
 			 //위시리스트 버튼 클릭 시 
 			 $(".wishListInsertBtn").click(function(){
-				 var num=$(this).parents("tr").attr("data-num");
+				 var isbn=$(this).parents("tr").attr("data-num");
 				 $("#isbn").val(num);
+				 alert(cart_ip)
 				 alert(num)
-						 
+				  //1=바로구매 0=x		 
 				 if(m_id==""){
 					 alert("로그인 페이지로 이동")
 				 }else{
@@ -85,7 +91,7 @@
 					 $.ajax({
 						   url:"/wish/wishInsert.do",
 						   type:"POST",
-						   data:$("#searchform").serialize(),
+						   data:isbn,
 						   dataType:"text",
 						   error:function(request,status,error){
 							   alert("code : " + request.status + "\r\ nmessage : "
@@ -228,6 +234,7 @@
 		
 		 <!--검색 조건 테이블 영역  -->
 		<div class="row">
+				
 	          	<!-- 전체 리스트 제어 폼 -->
 	          	<form class="navbar-form navbar-left" id="searchForm" method="get" action="/book/bookSearch.do">
 	          		<!-- 페이지 정렬을 위한 hidden input들 -->
@@ -242,8 +249,10 @@
 	          		<input type="hidden" name="orderDirection" id="orderDirection" value="${listData.orderDirection}"/>
 	          		
 	          		<!-- 키워드 검색 -->
-	          		<div class="form-inline">
+
 		          		<h3><span class="label label-default">검색</span></h3>
+		          	
+
 			          	<select class="form-control" name="searchMode" id="searchMode">
 			      			<option value="allSch">전체</option>
 			      			<option value="titleSch">글제목</option>
@@ -253,61 +262,52 @@
 			      			<option value="seriesSch">시리즈명</option>
 			      		</select>
 			      		<input type="text" class="form-control" name="keyword" id="keyword" value="${listData.keyword}"/>
-		      		</div>
-		      		<br/><br/>
+
+		      		
 		      			      		
 		      		<!-- 일자 검색 -->
-		      		<div class="form-inline">
+
 		          		<h3><span class="label label-default">일자 검색</span></h3>
 		          		<input type="hidden" class="form-control" name="searchDateMode" id="searchDateMode" value="publishSch">
 			          	<input type="date" class="form-control" name="searchStartDate" id="searchStartDate" value="${listData.searchStartDate}">
-			          	<input type="date" class="form-control" name="searchEndDate" id="searchEndDate" value="${listData.searchEndDate}">
-			          	<button id="searchKeywordBtn" class="btn btn-primary">검색</button>
-		          	</div>
+			     		<input type="date" class="form-control" name="searchEndDate" id="searchEndDate" value="${listData.searchEndDate}">
+
+		          		<button id="searchKeywordBtn" class="btn btn-primary">검색</button>
+
 	          	</form>
+	       
         </div>
 		
-		<!--검색 조건 테이블 영역  -->
-		<div class="row">
-		<div class="col-md-8 col-md-offset-4">
-	               <table class="table table-bordered">
-	               <tr>
-	               <td>새로나온책</td>
-	               <td>베스트셀러</td>
-	               <td>정가 인하</td>
-	               <td>이벤트 도서</td>
-	               <td>회원 리뷰</td>
-	               </tr>
-	               </table>
-	                      
-	            
-	             </div>
-	             
-	    </div>
+		
 	    
 	    
 	    
 	    <!--검색창 영역  -->
-	    	<div class="well">
-	         	<div class="col-sm-6">
-	         		<label class="col-sm-4">페이지당 표시 건 수</label>
-	         		<select class="col-sm-2" name="pageSizeChange" id="pageSizeChange" >	         			
+	    <div class="row">
+	    	
+         		<div class="col-md-3 col-md-offset-9">
+         			<label for="form-control">페이지당 표시 건 수
+	         		<select class="form-control" name="pageSizeChange" id="pageSizeChange" >	         			
 	         			<option value="5">5</option>
 	         			<option value="10">10</option>
 	         			<option value="30">30</option>
 	         		</select>
-	         		건
-	         		&nbsp;&nbsp;/&nbsp;검색 결과 :${listData.searchTotal}건
-	         	</div>
-	            <div class="paginationBar text-center paginate">
-	            	<tag:PagingBar page="${listData.page}" searchTotal="${listData.searchTotal}" pageSize="${listData.pageSize}"/>
-	            </div>         
-           </div>
+	         		/ 검색 결과 :${listData.searchTotal}건
+        			</label>
+         		</div>
+         		
+           
+         </div>
 	         <div class="col-sm-12 padding-right">
 			        
 	         
 					<div class="features_items"><!--features_items-->
-						<h2 class="title text-center">Features Items</h2>
+						<h2 class="title text-center">도서 목록</h2>
+						<div class="row">
+				            <div class="paginationBar text-center paginate">
+				            	<tag:PagingBar page="${listData.page}" searchTotal="${listData.searchTotal}" pageSize="${listData.pageSize}"/>
+				            </div>
+	            		</div>
 						<table class="col-sm-12" >
 						
 						<c:if test="${empty bookList }">
@@ -318,10 +318,10 @@
 						
 						<c:forEach var="d" items="${bookList}">							
 							<tr data-num="${d.isbn}">
-							  <td class="col-sm-2">
-							  	<span class="thumbnail">
-							  		<img class="img-thumnail" src="/images/NoImageIcon.png">
-							  	</span>
+							  <td class="col-sm-1">
+							  	<object class="thumbnail" data="/images/bookImg/${d.isbn}.jpg" type="image/jpg">
+								  	<img src="/images/bookImg/no_book_img.png"/>
+							  	</object>
 							  </td>
 							  <td class="col-sm-8" >
 							 
@@ -337,8 +337,7 @@
 							  <form class="form-horizontal" id="searchform" name="searchform">
 							  
  								<input type="hidden" id="isbn" name="isbn"  />
- 								<input type="hidden" id="cart_ip" name="cart_ip" value="${cookie.JSESSIONID.value}" />
- 								<input type="hidden" id="nowpay" name="nowpay"  />
+ 								<input type="hidden" id="nowpay" name="nowpay" value=0  />
  								 <div class="form-group">
 							  
 							  <span class="cartInsertBtn"><input type="button" class="btn btn-default" value="장바구니"  />	</span>																			
@@ -397,8 +396,3 @@
 								
 		 <!--메인종료  -->
 						
-					
-						
-						
-					
-	</section>

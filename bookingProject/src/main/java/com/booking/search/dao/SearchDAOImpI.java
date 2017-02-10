@@ -47,4 +47,28 @@ public class SearchDAOImpI implements SearchDAO{
 	public List<BookVO> bookList(BookVO bvo){
 		return session.selectList("bookList",bvo);
 	}
+
+	@Override
+	public List<SearchVO> bookForeignList(BookVO bvo) {
+		// TODO Auto-generated method stub
+		return session.selectList("bookForeignList", bvo);
+	}
+
+	@Override
+	public List<SearchVO> bookForeignList(SearchVO svo) {
+		
+		return session.selectList("bookForeignList", svo);
+	}
+
+	@Override
+	public List<SearchVO> bookDomesticList(SearchVO svo) {
+		// TODO Auto-generated method stub
+		return session.selectList("bookDomesticList",svo);
+	}
+
+	@Override
+	public List<SearchVO> bookDomesticList(BookVO bvo) {
+		// TODO Auto-generated method stub
+		return session.selectList("bookDomesticList", bvo);
+	}
 }

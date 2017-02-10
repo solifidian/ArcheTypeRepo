@@ -17,5 +17,8 @@ public interface SearchDAO {
 	public BookVO bookSelect(String isbn);
 	public String isbnCheck(String isbn);
 	
-	
+	public List<SearchVO> bookForeignList(SearchVO svo);
+	public List<SearchVO> bookForeignList(BookVO bvo);
+	public List<SearchVO> bookDomesticList(SearchVO svo);
+	public List<SearchVO> bookDomesticList(BookVO bvo);
 }

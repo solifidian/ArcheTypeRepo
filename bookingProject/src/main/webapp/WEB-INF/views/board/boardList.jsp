@@ -36,7 +36,7 @@
 		.searchBox{ background: #F0F0E9;border: medium none;color: #B2B2B2;font-family: 'roboto';
     				font-size: 12px;font-weight: 300; height: 35px;outline: medium none;
     				padding-left: 10px; width: 155px;
-    				background-image:url(/resources/include/assets/images/home/searchicon.png);
+    				background-image:url(/resources/images/home/searchicon.png);
     				background-repeat: no-repeat; background-position: 380px;}
 /*페이징 버튼 부분*/
 		#boardPage{text-align:center;}
@@ -228,7 +228,7 @@
 						
 <!--현재 하는 이벤트 이미지 첨부  -->
 						<div class="shipping text-center"><!--이벤트-->
-								<img src="/resources/include/assets/images/home/shipping.jpg" alt="" />
+								<img src="/resources/images/home/shipping.jpg" alt="" />
 						</div><!--/이벤트-->
 													
 					</div><!--/카테고리 class: panel-group category-products  -->

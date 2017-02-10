@@ -16,12 +16,16 @@
 			
 			$(function(){
 				var searchMode = "<c:out value='${listData.searchMode}'/>";
-				var searchDateMode = "<c:out value='${listData.searchDateMode}'/>"
+				var searchDateMode = "<c:out value='${listData.searchDateMode}'/>";
+				var searchCat_no = "<c:out value='${listData.cat_no}'/>";
 				if(searchMode != ''){
 					$("#searchMode").val(searchMode);
 				}
 				if(searchDateMode != ''){
 					$("#searchDateMode").val(searchDateMode);
+				}
+				if(searchCat_no != '' && searchCat_no != 0){
+					makeCateBoxSearched("#categoryBoxes",searchCat_no);
 				}
 			})
 		</script>

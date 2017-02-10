@@ -23,7 +23,8 @@ public class CategoryServiceImpl implements CategoryService{
 	}
 	@Override
 	public CategoryVO categoryOne(int cat_no){
-		return categoryDAO.categorySelectOne(cat_no);
+		CategoryVO ctvo = categoryDAO.categorySelectOne(cat_no);
+		return categoryDAO.categorySelectToParent(ctvo);
 	}
 	@Override
 	public List<CategoryVO> categorySelectList(int cat_no){
@@ -39,7 +40,10 @@ public class CategoryServiceImpl implements CategoryService{
 		CategoryVO ctvo = new CategoryVO();
 		if(bvo.getCat_no() >= 1){
 			ctvo = categoryOne(bvo.getCat_no());
-			if(ctvo.getLc() != null){
+			if(ctvo.getLc2() != null){
+				cateStr = ctvo.getLc2();
+			}
+			else if(ctvo.getLc() != null){
 				cateStr = ctvo.getLc();
 			}
 			else if(ctvo.getMc() != null){
@@ -57,23 +61,30 @@ public class CategoryServiceImpl implements CategoryService{
 	}
 	@Override
 	public String categoryLongName(BookVO bvo){
-		String cateStr = "NONE";
+		String cateStr = "";
 		CategoryVO ctvo = new CategoryVO();
 		if(bvo.getCat_no() >= 1){
 			ctvo = categoryOne(bvo.getCat_no());
 			if(ctvo != null){
-				if(ctvo.getLc() != null){
-					cateStr = ctvo.getHc()+" > "+ctvo.getMc()+" > " +ctvo.getLc();
+				if(ctvo.getHc() != null){
+					cateStr += ctvo.getHc();
+					
+					if(ctvo.getMc() != null){
+						cateStr += " > "+ctvo.getMc();
+						
+						if(ctvo.getLc() != null){
+							cateStr += " > "+ctvo.getLc();
+							
+							if(ctvo.getLc2() != null){
+								cateStr += " > "+ctvo.getLc2();
+							}
+						}
+					}
 				}
-				else if(ctvo.getMc() != null){
-					cateStr = ctvo.getMc();
-				}
-				else if(ctvo.getHc() != null){
-					cateStr = ctvo.getHc();
-				}
-				else{
-					cateStr = "NONE";
-				}
+
+			}
+			else{
+				cateStr = "NONE";
 			}
 			
 		}

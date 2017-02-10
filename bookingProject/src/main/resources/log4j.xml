@@ -19,11 +19,15 @@
 		<level value="TRACE" />
 	</logger>
 	
+	<logger name="com.booking.admin.**">
+		<level value="TRACE" />
+	</logger>
+	
 	<logger name="com.booking.admin.book">
 		<level value="TRACE" />
 	</logger>
 	
-	<logger name="com.booking.**.**">
+	<logger name="com.booking.admin.purchase">
 		<level value="TRACE" />
 	</logger>
 	

@@ -80,26 +80,26 @@ public class PagingBarTag extends TagSupport{
 			/* first, prev 버튼 생성*/
 			if(page > 1){
 				sb.append("<li><a href='javascript:goPage(1);'>");
-				sb.append("<span class='glyphicon glyphicon-step-backward'></span></a></li>");
+				sb.append("<<</a></li>");
 				sb.append("<li><a href='javascript:goPage("+(page-1)+");'>");
-				sb.append("<span class='glyphicon glyphicon-arrow-left'></span></a></li>");
+				sb.append("<</a></li>");
 			}
 			
 			for(int i = currentFirst; i <= lastPage && i < currentFirst + listSize && i <= currentLast; i++){
 				if(page == i){
-					sb.append("<li><a href='javascript:;'><span class='currentPage'>"+i+"</span></a></li>");
+					sb.append("<li class='active'><a href='javascript:;'>"+i+"</a></li>");
 				}else{
-					sb.append("<li><a href='javascript:goPage("+i+");'><span>"+i+"</span></a></li>");
+					sb.append("<li><a href='javascript:goPage("+i+");'>"+i+"</a></li>");
 				}
 			}
 			
 			/* next, end 버튼 생성*/
 			if(page < lastPage){
 				sb.append("<li><a href='javascript:goPage("+(page+1)+");'>");
-				sb.append("<span class='glyphicon glyphicon-arrow-right'></span></a></li>");
+				sb.append("></a></li>");
 	
 				sb.append("<li><a href='javascript:goPage("+lastPage+");'>");
-				sb.append("<span class='glyphicon glyphicon-step-forward'></span></a></li>");
+				sb.append(">></a></li>");
 			}
 		sb.append("</div>");
 		

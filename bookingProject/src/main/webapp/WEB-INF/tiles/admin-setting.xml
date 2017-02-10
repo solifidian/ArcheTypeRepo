@@ -14,6 +14,9 @@
 	<definition name="admin/member/*" extends="adminPage">
 		<put-attribute name="main" value="/WEB-INF/views/admin/member/{1}.jsp"/>
 	</definition>
+	<definition name="admin/purchase/*" extends="adminPage">
+		<put-attribute name="main" value="/WEB-INF/views/admin/purchase/{1}.jsp"/>
+	</definition>
 	<definition name="admin/sitelog/*" extends="adminPage">
 		<put-attribute name="main" value="/WEB-INF/views/admin/sitelog/{1}.jsp"/>
 	</definition>

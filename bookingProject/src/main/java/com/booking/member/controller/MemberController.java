@@ -83,19 +83,19 @@ public class MemberController {
 			if(listVO.getPur_del_mode().equals("deliveryTable")){
 				listVO.setSearchMode("deliveryTable");
 				dvoList = memberService.myDelivery(listVO);
-				listVO.setSearchTotal(memberService.myDeliveryCnt(mvo));
+				listVO.setSearchTotal(memberService.myDeliveryCnt(listVO));
 			}
 			//주문 내역이 선택
 			else if(listVO.getPur_del_mode().equals("purchaseTable")){
 				listVO.setSearchMode("purchaseTable");
 				pvoList = memberService.myPurchase(listVO);
-				listVO.setSearchTotal(memberService.myPurchaseCnt(mvo));
+				listVO.setSearchTotal(memberService.myPurchaseCnt(listVO));
 			}
 		}else{
 			//default값은 주문 내역으로
 			listVO.setSearchMode("purchaseTable");
 			pvoList = memberService.myPurchase(listVO);
-			listVO.setSearchTotal(memberService.myPurchaseCnt(mvo));
+			listVO.setSearchTotal(memberService.myPurchaseCnt(listVO));
 		}
 				
 		model.addAttribute("purchase", pvoList);
@@ -225,20 +225,20 @@ public class MemberController {
 	 
 			
 	//회원등록
-	
+
+	@ResponseBody
 	@RequestMapping(value="/memberInsert.do")
 	public String memberInsert(@ModelAttribute MemberVO mvo){
 		logger.info("memberInsert 호출 성공");
 			
-		int result = 0;
-		String url = "";
+		int result = 0;		
+		String resultStr ="FAILED";
 		
 		result = memberService.memberInsert(mvo);
-		if(result == 1){
-			url = "/member/memberLoginPage.do";	//로그인 페이지로 돌아가게 바꿀것!
-		}
-		
-		return "redirect:"+url;
+		if(result==1){
+			resultStr ="SUCCESS";
+		}		
+		return resultStr;
 	}
 	
 	//회원수정 폼 출력
@@ -312,7 +312,7 @@ public class MemberController {
 			url = "/book/bookIndex.do";	//회원탈퇴후 메인화면으로 돌리기
 		}
 		
-		 return "redirect : " +url;
+		 return "redirect:" +url;
 	}
 	
 	//아이디 중복체크

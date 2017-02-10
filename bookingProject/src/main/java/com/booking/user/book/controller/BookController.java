@@ -15,7 +15,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.booking.admin.book.service.CategoryService;
 import com.booking.book.vo.BookVO;
+import com.booking.book.vo.CategoryVO;
 import com.booking.common.paging.Paging;
 import com.booking.user.book.service.BookService;
 
@@ -28,17 +30,27 @@ public class BookController {
 	@Autowired
 	private BookService bookService;
 	
-	/*@RequestMapping(value="/boardlist.do")
-	public String index(){
-		return "book/boardlist";
-	}*/
+	@Autowired
+	private CategoryService categoryService;
 	
-	
-	
+		
 	@RequestMapping(value="/bookOrder.do")
 	public String bookOrder(){
 		return "book/bookOrder";
 	}
+	
+	//it도서 목록
+	@RequestMapping(value="/bookForeign.do")
+	public String bookForeign(){
+		return "book/bookForeign";
+	}
+	
+	//국내도서 목록
+	@RequestMapping(value="/bookDomestic.do")
+	public String bookDomestic(){
+		return "book/bookDomestic";
+	}
+	
 	
 	//이달의 책
 	@RequestMapping(value="/bookMonth.do")
@@ -46,10 +58,25 @@ public class BookController {
 		return "book/bookMonth";
 	}
 	
+	//베스트셀러
+	@RequestMapping(value="/bookBestSeller.do")
+	public String bookBestSeller(){
+		return "book/bookBestSeller";
+	}
+	
+	//신간
+	@RequestMapping(value="/bookNew.do")
+	public String bookNew(){
+		return "book/bookNew";
+	}
+	
 	
 	//index페이지로 이동
 	@RequestMapping(value="/bookIndex.do")
-	public String bookIndex(){
+	public String bookIndex(@ModelAttribute CategoryVO ctvo, Model model){
+		List<CategoryVO> ctvoList = categoryService.categoryBoxList(ctvo);
+		
+		model.addAttribute("cateList",ctvoList);
 		return "book/bookIndex";
 	}
 	
@@ -97,6 +124,7 @@ public class BookController {
 		Paging.setBookPaging(bvo);
 		
 		List<BookVO> bookList = bookService.bookList(bvo);
+		if(bookList != null)
 		bvo.setSearchTotal(bookList.get(0).getSearchTotal());
 		
 		logger.info("searchTotal : "+bvo.getSearchTotal());

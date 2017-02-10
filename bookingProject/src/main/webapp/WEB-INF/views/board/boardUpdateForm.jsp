@@ -45,7 +45,12 @@
 	$(function(){
 		//목록버튼 클릭시 이벤트
 		$("#boardListBtn").click(function(){
-			location.href= "/board/boardList.do";
+			if($("#bd_post_no") == 1){
+				location.href= "/board/boardList.do";			//커뮤니티게시판으로
+			}else{
+				location.href= "/board/questionBoardList.do";	//문의게시판으로
+			}
+			
 		});
 		
 		//수정버튼 클릭시 이벤트
@@ -145,10 +150,10 @@
 								<h2>말머리</h2>
 								<div class="brands-name">
 									<ul class="nav nav-pills nav-stacked">
-										<li><a href=""> <span class="pull-right">(0)</span>전체</a></li>
-										<li><a href=""> <span class="pull-right">(0)</span>리뷰</a></li>
-										<li><a href=""> <span class="pull-right">(0)</span>사담</a></li>
-										<li><a href=""> <span class="pull-right">(0)</span>기타</a></li>
+										<li><a href=""> <span class="pull-right"></span>전체</a></li>
+										<li><a href=""> <span class="pull-right"></span>리뷰</a></li>
+										<li><a href=""> <span class="pull-right"></span>사담</a></li>
+										<li><a href=""> <span class="pull-right"></span>기타</a></li>
 															
 									</ul>
 								</div>
@@ -179,7 +184,7 @@
 						<div class="single-blog-post" id="boardUpdate" >
 							<form id="bd_updateForm" name="bd_updateForm" >
 <!--게시판 번호 자동으로 넘겨주게 주석 풀것 -->
-							<input type="hidden" name="bd_forum_no" value="1"<%-- "${updateData.bd_forum_no}" --%> >
+							<input type="hidden" name="bd_forum_no" value="${updateData.bd_forum_no}" /> 
 							<input type="hidden" name="bd_post_no" value="${updateData.bd_post_no}" />
 							
 							<table summary="게시글 수정" class="tb">

@@ -1,5 +1,7 @@
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -36,7 +38,7 @@
 			
 			$("#mypage").click(function(){
 				if(id==0) {
-					alert(id);
+//					alert(id);
 					location.href="/memeber/memberLoginPage.do";
 				}
 				else {
@@ -84,7 +86,6 @@
 	<form id="hidden_form">
 		<input type="hidden" id="m_id" name="m_id">
 	</form>
-	<input type="button" id="mypage" value="mypage">
 	<section id="slider"><!--slider-->
 		<div class="container">
 			<div class="row">
@@ -158,128 +159,73 @@
 				<div class="col-sm-3">
 					<div class="left-sidebar">
 						<h2>Category</h2>
-						<div class="panel-group category-products" id="accordian"><!--category-productsr-->
-							<div class="panel panel-default">
-								<div class="panel-heading">
-									<h4 class="panel-title">
-										<a data-toggle="collapse" data-parent="#accordian" href="#sportswear">
-											<span class="badge pull-right"><i class="fa fa-plus"></i></span>
-											대분류1
-										</a>
-									</h4>
-								</div>
-								<div id="sportswear" class="panel-collapse collapse">
-									<div class="panel-body">
-										<ul>
-											<li><a href="#">소분류1 </a></li>
-											<li><a href="#">소분류2 </a></li>
-											<li><a href="#">소분류3 </a></li>
-											<li><a href="#">소분류4</a></li>
-											<li><a href="#">소분류5 </a></li>
-										</ul>
-									</div>
-								</div>
+						<div class="panel-group category-products" id="accordian"  role="tablist" aria-multiselectable="true">
+							<c:if test="${empty cateList }">
+								No DATA
+							</c:if>
+							<div class="panel-group">
+							<c:forEach var="cate" items="${cateList}">
+								<c:choose>
+									<c:when test="${cate.cat_step == 1}">
+										<div class="panel panel-default">
+											<div class="panel-body">
+													<a data-toggle="collapse" data-parent="#accordian" href="#tap${cate.cat_no}">
+														<span class="badge pull-right"><i class="fa fa-plus"></i></span>
+														<c:out value="${cate.cat_name}"/>
+														<c:set var="root" value="${cate.cat_no}"/>
+													</a>
+											</div>
+											<div id="tap${root}" class="panel-collapse collapse in">
+												<div class="panel-body">
+												<c:forEach var="cate2" items="${cateList}">
+												<c:choose>
+													<c:when test="${cate2.cat_step == 2 && cate2.cat_root == root && (cate2.cat_no == 3 || cate2.cat_no == 7 ||cate2.cat_no == 28 )}">									
+																<ul><li>
+																	
+
+																		<a data-toggle="collapse" data-parent="#tap${root}" href="#tap${cate2.cat_no}">
+																			<span class="badge pull-right"><i class="fa fa-plus"></i></span>
+																			<c:out value="${cate2.cat_name}"/>
+																			<c:set var="root2" value="${cate2.cat_no}"/>
+																		</a>
+																		
+																	<c:choose>
+																		<c:when test="${cate2.cat_no ==3 }">
+																			<c:set var="in_set" value="in"/>
+																		</c:when>
+																		<c:otherwise>
+																			<c:set var="in_set" value="in"/>
+																		</c:otherwise>
+																	</c:choose>
+																		<div id="tap${root2}" class="panel-collapse collapse in">
+																		<div class="panel-body">
+																		<c:forEach var="cate3" items="${cateList}">
+																		<c:choose>
+																		<c:when test="${cate3.cat_step == 3 && cate3.cat_root == root2}">		
+																			<ul><li><a href="/book/bookSearch.do?cat_no=${cate3.cat_no}">
+																				<c:out value="${cate3.cat_name}"/>
+																			</a></li></ul>
+																		</c:when>
+																		</c:choose>
+																		</c:forEach>
+																		</div>
+																	</div>		
+																</li></ul>
+														
+													</c:when>
+												</c:choose>
+												</c:forEach>
+											</div>
+											<c:remove var="root"/>
+											</div>
+										</div>
+									</c:when>
+								</c:choose>
+							</c:forEach>
 							</div>
-							<div class="panel panel-default">
-								<div class="panel-heading">
-									<h4 class="panel-title">
-										<a data-toggle="collapse" data-parent="#accordian" href="#mens">
-											<span class="badge pull-right"><i class="fa fa-plus"></i></span>
-											대분류2
-										</a>
-									</h4>
-								</div>
-								<div id="mens" class="panel-collapse collapse">
-									<div class="panel-body">
-										<ul>
-											<li><a href="#">소분류1</a></li>
-											<li><a href="#">소분류2</a></li>
-											<li><a href="#">소분류3</a></li>
-											<li><a href="#">소분류4</a></li>
-											
-										</ul>
-									</div>
-								</div>
-							</div>
-							
-							<div class="panel panel-default">
-								<div class="panel-heading">
-									<h4 class="panel-title">
-										<a data-toggle="collapse" data-parent="#accordian" href="#womens">
-											<span class="badge pull-right"><i class="fa fa-plus"></i></span>
-											대분류3
-										</a>
-									</h4>
-								</div>
-								<div id="womens" class="panel-collapse collapse">
-									<div class="panel-body">
-										<ul>
-											<li><a href="#">소분류1</a></li>
-											<li><a href="#">소분류2</a></li>
-											<li><a href="#">소분류3</a></li>
-											<li><a href="#">소분류4</a></li>
-										</ul>
-									</div>
-								</div>
-							</div>
-							<div class="panel panel-default">
-								<div class="panel-heading">
-									<h4 class="panel-title"><a href="#">중분류1</a></h4>
-								</div>
-							</div>
-							<div class="panel panel-default">
-								<div class="panel-heading">
-									<h4 class="panel-title"><a href="#">중분류2</a></h4>
-								</div>
-							</div>
-							<div class="panel panel-default">
-								<div class="panel-heading">
-									<h4 class="panel-title"><a href="#">중분류3</a></h4>
-								</div>
-							</div>
-							<div class="panel panel-default">
-								<div class="panel-heading">
-									<h4 class="panel-title"><a href="#">중분류4</a></h4>
-								</div>
-							</div>
-							<div class="panel panel-default">
-								<div class="panel-heading">
-									<h4 class="panel-title"><a href="#">중분류5</a></h4>
-								</div>
-							</div>
-							<div class="panel panel-default">
-								<div class="panel-heading">
-									<h4 class="panel-title"><a href="#">중분류6</a></h4>
-								</div>
-							</div>
-							<div class="panel panel-default">
-								<div class="panel-heading">
-									<h4 class="panel-title"><a href="#">중분류7</a></h4>
-								</div>
-							</div>
-						</div><!--/category-products-->
-					
-						<div class="brands_products"><!--brands_products-->
-							<h2>Brands</h2>
-							<div class="brands-name">
-								<ul class="nav nav-pills nav-stacked">
-									<li><a href="#"> <span class="pull-right">(50)</span>분류1</a></li>
-									<li><a href="#"> <span class="pull-right">(56)</span>분류2</a></li>
-									<li><a href="#"> <span class="pull-right">(27)</span>분류3</a></li>
-									<li><a href="#"> <span class="pull-right">(32)</span>분류4</a></li>
-									<li><a href="#"> <span class="pull-right">(5)</span>분류5</a></li>
-									<li><a href="#"> <span class="pull-right">(9)</span>분류6</a></li>
-									<li><a href="#"> <span class="pull-right">(4)</span>분류7</a></li>
-								</ul>
-							</div>
-						</div><!--/brands_products-->
-						
-						
-						
-						
-					
 					</div>
-				</div>
+		</div>
+		</div>
 				
 				<div class="col-sm-9 padding-right">
 					
@@ -685,4 +631,5 @@
 	
 
 </body>
+
 </html>
