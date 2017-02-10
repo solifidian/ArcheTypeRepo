@@ -28,20 +28,11 @@
 	<li class="active">
 	<a href="javascript:;">주문 관리</a></li>
 	<li><a href="/admin/purchase/purchaseList.do">주문 리스트</a></li>
-	<li><a href="javascript:;">예약 리스트</a></li>
-	<li><a href="javascript:;">배송 리스트</a></li>
+	<li><a href="/admin/purchase/deliveryList.do">배송 리스트</a></li>
 </ul>
 
 <ul class="nav nav-sidebar">
 	<li class="active">
 	<a href="javascript:;">게시물 관리</a></li>
-	<li><a href="javascript:;">게시판 리스트</a></li>
-	<li><a href="javascript:;">게시물 리스트</a></li>
-</ul>
-
-<ul class="nav nav-sidebar">
-	<li class="active">
-	<a href="javascript:;">이슈 알림 및 이벤트</a></li>
-	<li><a href="javascript:;">이벤트 리스트</a></li>
-	<li><a href="javascript:;">알림판 리스트</a></li>
+	<li><a href="/admin/purchase/boardList.do">게시물 리스트</a></li>
 </ul>
