@@ -35,7 +35,7 @@ public class Util {
 	  }
 	
 	//ip호출 메서드 
-	  public String ip() {
+	  public static String ip() {
 		    String ip = "";
 		    InetAddress Address;
 		    try {
