@@ -48,6 +48,80 @@
 	
 	$(function(){
 		
+	/*본인인증 업데이트 2/9   */
+		var auth=0;//본인인증 키 
+	//email 본인 인증 메일 전송
+	 $("#auth").click(function(){
+		 var email = $("#m_emailId").val();
+		 var domain = $("#m_domain").val();
+		 var mail=email+"@"+ domain
+		    $("#m_email").val(mail);
+		 
+		 if(!chkSubmit($("#m_emailId"),"이메일 주소를")) return;
+		 else if(!chkSubmit($("#m_domain"),"도메인 주소를")) return;
+		 else{
+		 alert("등록한 email로 가서 인증 코드를 확인해주세요 ")
+         $.ajax({
+             url : "/member/emailchk.do",
+             type : "post",
+             dataType : "text",
+             data : {"m_email":mail},
+             error : function() {
+             alert('오류입니다. 관리자에게 문의하세요.');
+             },
+             success : function(result) {
+                if(result=="success"){
+                   alert("이메일이 발송되었습니다..");
+                   $("#auth").attr('disabled', 'true');
+                   $("#msg").append("<form><input type='text' id='authpass' placeholder='인증코드를 입력해주세요'></form").append("<input type='button' class='authbtn' value='코드인증'>")
+               
+                      //이메일 코드 인증부분
+           			     $(".authbtn").click(function(){
+	    	                var authkey=$("#authpass").val()
+           			    	 
+           			    	$.ajax({
+           		             url : "/member/emailconfirm.do?key="+authkey,
+           		             type : "get",
+           		             dataType : "text",
+           		             error : function() {
+           		             alert('오류입니다. 관리자에게 문의하세요.');
+           		             },
+           		             success : function(result) {
+           		                if(result=="success"){
+           		                   alert("인증완료");
+           		                   $("#auth").attr('disabled', 'true');
+           		                   $("#msg").html("인증완료")
+           		                    auth=1
+           		                           		           			 
+           		                
+           		                
+           		                }
+           		                else if(result!="success"){
+           		                   alert("본인 인증에 실패 했습니다 다시 시도해주세요 .");
+           		                   $("#msg").hide();
+           		                   $("#auth").removeAttr("disabled");
+           		                }
+           		             }
+           		          });/* ajax종료  */
+           			    	 
+	    					
+	    					
+						    })
+                
+                
+                }
+                else if(result=="1"){
+                   alert("본인 인증에 실패 했습니다 다시 시도해주세요 .");
+                   $("#msg").append("본인인증을 다시 시도해주세요")
+                }
+             }
+          });/*이메일 발송 ajax종료  */
+		 }/*else종료 */
+	 })
+	
+	 
+		
+		
 	//sns연동
 /* 	 var SNS = {
                 facebook: function (link, description) {
@@ -143,7 +217,13 @@
 			else if($('#m_pwd').val()!= $('#m_pwdChk').val()){
 				alert("비밀번호가 일치하지 않습니다. 다시 입력해주세요!!");
 				return;
-			} 
+			}
+			/*본인인증 추가 2/9 윤지환  */
+			else if(auth!=1){
+			//auth 값이 1이면 인증 완료 0이면 실패 
+			   alert("본인 인증을 진행해주세요 ")
+				return
+			}
 			else{
 				var email = $("#m_emailId").val();
 			    var domain = $("#m_domain").val();
@@ -235,6 +315,8 @@
 		
 	<div class="contentTB">	
 	
+	
+	
 	<h5 id="line" >기본정보입력</h5>
 	<p>(*)가 표시되어있는 항목은 필수 입력 사항 입니다.</p>
 		<form id="memberInsertF" name="memberInsertF">
@@ -246,7 +328,7 @@
 	
 		
 		
-			<table class="InsertTable" >
+			<table class="table table-bordered" >
 				<colgroup>
 					<col width="15%">
 					<col width="85%">
@@ -298,6 +380,7 @@
 							<option value="nate.com">nate.com</option>
 							<option value="hanmail.net">hanmail.net</option>						
 						</select>
+						<input type="button" class="btn btn-default" value="본인인증" id="auth"/> <span id="msg"></span>
 					</td>
 				</tr>				
 			
@@ -335,7 +418,7 @@
 	
 	
 		<div class="insertFormBut">
-				<input type="button" value="회원가입" class="btn btn-default" id="memberInsertBtn">
+				<input type="button" value="회원가입" class="btn btn-default	" id="memberInsertBtn">
 				<input type="button" value="뒤로" class="btn btn-default" id="back">
 		</div><!-- "contentBtn" 끝 -->
 	

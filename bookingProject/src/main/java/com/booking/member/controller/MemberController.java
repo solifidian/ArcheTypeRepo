@@ -7,12 +7,14 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -20,6 +22,8 @@ import com.booking.admin.sitelog.service.SiteLogService;
 import com.booking.book.vo.Purchase_DeliveryVO;
 
 import com.booking.common.util.Util;
+import com.booking.common.util.email.EmailVO;
+import com.booking.common.util.email.Emailsend;
 import com.booking.book.vo.Purchase_relVO;
 import com.booking.common.paging.Paging;
 import com.booking.member.service.MemberService;
@@ -221,6 +225,7 @@ public class MemberController {
 	 
 			
 	//회원등록
+	
 	@RequestMapping(value="/memberInsert.do")
 	public String memberInsert(@ModelAttribute MemberVO mvo){
 		logger.info("memberInsert 호출 성공");
@@ -364,4 +369,72 @@ public class MemberController {
 						
 		return result.getM_pwd();
 	}
+	
+	
+	
+	
+	
+	//본인인증 관련 추가 부분
+    //이메일 발송
+	 @ResponseBody
+	 @RequestMapping(value="/emailchk.do")
+	 public String emailchk(@ModelAttribute MemberVO mvo, HttpSession session){
+	 logger.info("이메일 발송 호출 성공");
+	 String key=session.getId();
+	 String result="";
+	
+	 //키 암호화
+	 String shakey=Util.sha256(key);
+	 
+	 
+	 //인증 여부 확인 
+	   
+	 
+        /* String url = "http://172.16.9.173:8080/member/emailconfirm.do?key=" + shakey; */
+         String url = key;   
+         EmailVO vo = new EmailVO();
+         vo.setEmailFrom("yoonjh238@gmail.com");
+         vo.setEmailFromName("도서왕 북킹.");
+
+         vo.setEmailTo(mvo.getM_email());
+         vo.setEmailToName(mvo.getM_email());
+         vo.setEmailSubject("관리자 본인인증 메일 ");
+         vo.setEmailMsg("booking code : "+url);
+      
+         Emailsend se = new Emailsend();
+         se.sendEmail(vo);
+
+         result = "success";
+	 
+	 
+	 
+	 return result;
+     
+	 
+	 }
+
+	 //이메일 인증
+	 @ResponseBody
+	 @RequestMapping(value="/emailconfirm.do",method=RequestMethod.GET)
+	 public String emailconfirm(@RequestParam("key") String key,Model model ,HttpSession session){
+		 logger.info("이메일 인증 호출 성공");
+		 String serverkey=session.getId();
+		 	 
+		 String result="";
+		 
+		 //키 암호화
+		 String shakey=Util.sha256(key);
+		
+		 if(serverkey.equals(key)){
+			 logger.info("본인인증 성공");
+			 result="success";
+			 
+		 }else{
+			 logger.info("본인 인증 실패");
+		 }
+		 
+		 
+		 return result;
+	 }
+	
 }

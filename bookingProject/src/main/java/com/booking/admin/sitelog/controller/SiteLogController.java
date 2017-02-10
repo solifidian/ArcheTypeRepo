@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.booking.admin.sitelog.service.SiteLogService;
 import com.booking.admin.sitelog.vo.SiteLogVO;
 import com.booking.common.paging.Paging;
+import com.booking.common.util.Util;
 
 @Controller
 @RequestMapping(value = "admin/sitelog")
@@ -56,6 +57,12 @@ public class SiteLogController {
 	public String siteLogInsert(HttpServletRequest request, Model model){
 		logger.info("siteLogInsert Called");
 		String log_ip = request.getRemoteAddr();
+		
+
+		
+		
+		
+		
 		logger.info("siteLog ip : "+log_ip);
 		String log_title = request.getParameter("log_title");
 		String log_comment = request.getParameter("log_comment");
