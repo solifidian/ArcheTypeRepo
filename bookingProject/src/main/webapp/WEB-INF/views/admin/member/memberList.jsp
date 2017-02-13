@@ -82,15 +82,15 @@
 	        <form id="bookEditForm">
 	            <table class="table table-striped">
 	           		<colgroup>
-	           			<col width="12%"/>
-	           			<col width="15%"/>
 	           			<col width="10%"/>
 	           			<col width="10%"/>
-	           			<col width="8%"/>
 	           			<col width="10%"/>
-	           			<col width="15%"/>
+	           			<col width="10%"/>
+	           			<col width="10%"/>
 	           			<col width="5%"/>
 	           			<col width="10%"/>
+	           			<col width="15%"/>
+	           			<col width="20%"/>
 	           		</colgroup>
 	              <thead>
 	                <tr>
@@ -115,8 +115,15 @@
 	               					<td>${member.m_id}</td>
 	               					<td>${member.m_nick}</td>
 	               					<td>${member.m_name}</td>
-	               					<td>${member.m_birth}</td>
-	               					<td>${member.m_sex}</td>
+	               					<td>${member.m_birth}</td>	
+               						<c:choose>
+               							<c:when test="${member.m_sex eq 1}">
+               								<td>남</td>
+               							</c:when>
+               							<c:when test="${member.m_sex eq 2}">
+               								<td>여</td>
+               							</c:when>
+               						</c:choose>
 	               					<td>${member.m_phone}</td>
 	               					<td>${member.m_email}</td>
 	               					<td>${member.m_update}</td>
