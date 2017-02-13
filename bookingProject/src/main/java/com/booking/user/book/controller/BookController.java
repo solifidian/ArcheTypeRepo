@@ -149,8 +149,8 @@ public class BookController {
 		Paging.setBookPaging(bvo);
 		
 		List<BookVO> bookList = bookService.bookList(bvo);
-		if(bookList != null)
-		bvo.setSearchTotal(bookList.get(0).getSearchTotal());
+		bvo.setSearchTotal(bookService.bookSearchTotal(bvo));
+		
 		
 		logger.info("searchTotal : "+bvo.getSearchTotal());
 		logger.info("orderTarget : "+bvo.getOrderTarget());

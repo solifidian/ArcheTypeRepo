@@ -223,7 +223,8 @@
 <!--	================ 리스트 시작 ======================  -->
 <!--  	================= 상세 페이지 이동을 위한 form ==========-->
 						<form name="detailForm" id="detailForm">
-							<input type="hidden" name="bd_post_no" id="bd_post_no">							
+							<input type="hidden" name="bd_post_no" id="bd_post_no" value="">
+							<input type ="hidden" name="bd_forum_no" id="bd_forum_no" value="2">					
 						</form>
 
 						<div id="boardList">

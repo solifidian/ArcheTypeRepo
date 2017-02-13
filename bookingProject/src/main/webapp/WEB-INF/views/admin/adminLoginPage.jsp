@@ -29,7 +29,15 @@
 	    <![endif]-->
 	    
 		<style type="text/css">
+<<<<<<< HEAD
 			
+=======
+			.form-signin{
+				width:320px;
+				margin:auto;
+				text-align:center;
+			}
+>>>>>>> 68268a1d9ad67018590671e19cdf031bc642bf5b
 		</style>
 		
 		<script type="text/javascript">
@@ -41,6 +49,7 @@
 		 
 	<body>
 		<div class="container">
+<<<<<<< HEAD
 		      <form class="form-signin">
 		        <h2 class="form-signin-heading">관리자 계정으로 접속해주세요</h2>
 		        <label for="inputEmail" class="sr-only">ID</label>
@@ -48,6 +57,18 @@
 		        <label for="inputPassword" class="sr-only">Password</label>
 		        <input type="password" id="inputPassword" class="form-control" placeholder="Password" required>
 		        <button class="btn btn-lg btn-primary btn-block" type="submit">접그</button>
+=======
+		      <form class="form-signin" method="post" action="/admin/member/adminLogin.do">
+		        <h2 class="form-signin-heading">관리자 계정으로 접속</h2>
+		        
+		        <label for="m_id" class="sr-only">ID</label>
+		        <input type="text" id="m_id" name="m_id" class="form-control" placeholder="관리자 계정" required autofocus>
+		        
+		        <label for="m_pwd" class="sr-only">Password</label>
+		        <input type="password" id="m_pwd" name="m_pwd" class="form-control" placeholder="Password" required>
+		        
+		        <button class="btn btn-lg btn-primary btn-block" type="submit">접속</button>
+>>>>>>> 68268a1d9ad67018590671e19cdf031bc642bf5b
 		      </form>
    		</div> <!-- /container -->
 		<!-- Bootstrap core JavaScript
