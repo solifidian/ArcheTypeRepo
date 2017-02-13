@@ -81,7 +81,6 @@
 		 }
 	 
 	</script>
-	<h1>3번 ${sessionScope.memVO.m_id}</h1>
 	<form id="hidden_form">
 		<input type="hidden" id="m_id" name="m_id">
 	</form>
