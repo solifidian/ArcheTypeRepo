@@ -11,12 +11,16 @@
     <title>Home | E-Shopper</title>
   
 	
- 
-
-
-</head><!--/head-->
-
-<body>
+	<style>
+		section#slider img.img-responsive{
+			max-height:300px;
+			max-width:300px;
+		}
+		section#slider div#slider-carousel{
+			min-heigth:1000px;
+			box-sizing: border-box;
+		}
+	</style>
 	<script src="/resources/include/js/jquery-1.12.4.min.js"></script>
 	<script>
 	 var id="${sessionScope.memSession.m_id}";
@@ -81,10 +85,17 @@
 		 }
 	 
 	</script>
+
+
+</head><!--/head-->
+
+<body>
+	
 	<form id="hidden_form">
 		<input type="hidden" id="m_id" name="m_id">
 	</form>
-	<section id="slider"><!--slider-->
+	<!--------------- slider -------------------->
+	<section id="slider">
 		<div class="container">
 			<div class="row">
 				<div class="col-sm-12">
@@ -94,7 +105,6 @@
 							<li data-target="#slider-carousel" data-slide-to="1"></li>
 							<li data-target="#slider-carousel" data-slide-to="2"></li>
 						</ol>
-						
 						<div class="carousel-inner">
 							<div class="item active">
 								<div class="col-sm-6">
@@ -107,7 +117,7 @@
 									<button type="button" class="btn btn-default get">Get it now</button>
 								</div>
 								<div class="col-sm-6">
-									<img src="http://bimage.interpark.com/goods_image/9/8/4/2/263969842g.jpg" class="girl img-responsive" alt="" />
+									<img src="http://bimage.interpark.com/goods_image/9/8/4/2/263969842g.jpg" class="img-responsive" alt="" />
 								</div>
 							</div>
 							<div class="item">
@@ -119,7 +129,7 @@
 									<button type="button" class="btn btn-default get">Get it now</button>
 								</div>
 								<div class="col-sm-6">
-									<img src="http://image.yes24.com/momo/TopCate1048/MidCate005/103197776.jpg" class="girl img-responsive" alt="" />
+									<img src="http://image.yes24.com/momo/TopCate1048/MidCate005/103197776.jpg" class="img-responsive" alt="" />
 								</div>
 							</div>
 							
@@ -132,12 +142,11 @@
 									<button type="button" class="btn btn-default get">Get it now</button>
 								</div>
 								<div class="col-sm-6">
-									<img src="http://bimage.interpark.com/goods_image/8/8/5/9/237228859g.jpg" class="girl img-responsive" alt="" />
+									<img src="http://bimage.interpark.com/goods_image/8/8/5/9/237228859g.jpg" class="img-responsive" alt="" />
 								</div>
 							</div>
 							
 						</div>
-						
 						<a href="#slider-carousel" class="left control-carousel hidden-xs" data-slide="prev">
 							<i class="fa fa-angle-left"></i>
 						</a>
@@ -149,8 +158,10 @@
 				</div>
 			</div>
 		</div>
-	</section><!--/slider-->
+	</section>
+	<!----------------------- /slider -------------------->
 	
+	<!-------------------- Category Tab -------------------->
 	<section>
 		<div class="container">
 			<div class="row">
@@ -179,14 +190,11 @@
 												<c:choose>
 													<c:when test="${cate2.cat_step == 2 && cate2.cat_root == root && (cate2.cat_no == 3 || cate2.cat_no == 7 ||cate2.cat_no == 28 )}">									
 																<ul><li>
-																	
-
 																		<a data-toggle="collapse" data-parent="#tap${root}" href="#tap${cate2.cat_no}">
 																			<span class="badge pull-right"><i class="fa fa-plus"></i></span>
 																			<c:out value="${cate2.cat_name}"/>
 																			<c:set var="root2" value="${cate2.cat_no}"/>
 																		</a>
-																		
 																	<c:choose>
 																		<c:when test="${cate2.cat_no ==3 }">
 																			<c:set var="in_set" value="in"/>
@@ -224,10 +232,13 @@
 					</div>
 		</div>
 		</div>
+		<!-------------------- /Category Tab -------------------->
 				
+		<!-------------------- Main Tab-------------------->
 				<div class="col-sm-9 padding-right">
 					
-					<div class="recommended_items"><!--recommended_items-->
+			<!--------------  recommended items ------------->
+					<div class="recommended_items">
 						<h2 class="title text-center">2016년 출시 상품</h2>
 						
 						<div id="recommended-item-carousel" class="carousel slide" data-ride="carousel">
@@ -243,7 +254,7 @@
 													<img class="thumnail" src="/images/bookImg/${etc.isbn}.jpg" />
 													<h2>${etc.b_abprice}</h2>
 													<p>${etc.b_title}</p>
-													<a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
+													<a href="" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
 												</div>
 												
 											</div>
@@ -255,10 +266,10 @@
 							</div>
 
 						</div>
-					</div><!--/recommended_items-->
+					</div>
+			<!-------------- /recommended items ---------------->
 					
-					<!-- 사이드 바  -->
-					
+		<!-------------------- /Main Tab-------------------->	
 				</div>
 			</div>
 		</div>
