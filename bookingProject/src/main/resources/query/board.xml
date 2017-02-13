@@ -103,10 +103,75 @@
 				rnum between #{searchStartRow} and #{searchEndRow}
 			</if>
 		</if>
+		<if test="bd_forum_no != null and bd_forum_no != '' ">
+		 		bd_forum_no = 1;
+		</if>
 	</where>
 
 
 </select>
+
+<!-- 문의 게시판 목록 -->
+<select id="questionBoardList" resultType="board">
+	/* board - questionBoardList */
+	   SELECT   bd_forum_no,
+		        bd_forum_name,
+		        bd_post_no,
+		        bd_category,
+		        bd_head,
+		        bd_title,
+		        bd_writer,
+		        bd_update,      
+		        bd_editdate,   
+		        bd_status,
+		        bd_readcnt,
+		        bd_score,
+		        bd_reindent,
+		        bd_restep,   
+		        bd_reroot,
+		        (select count(re_no) from booking_community_board_reply r where bd_post_no = r.bd_post_no) as bd_rcount 
+		        		
+	FROM (SELECT list.*, rownum as rnum FROM(
+		<include refid="boardCommon"></include>
+		<choose>
+			<when test="orderTarget == 'bd_post_no'">
+				order by bd_post_no
+			</when>
+			<when test="orderTarget == 'bd_editdate'">
+				order by bd_editdate
+			</when>
+		
+			<when test="orderTarget == 'bd_score'">
+				order by bd_score
+			</when>
+			<when test="orderTarget == 'bd_readcnt'">
+				order by bd_readcnt
+			</when>		
+		</choose>
+		<choose>
+			<when test="orderDirection == 'ASC'">
+				ASC
+			</when>
+			<when test="orderDirection == 'DESC'">
+				DESC
+			</when>
+		</choose>
+		) list
+	)
+	<where>
+		<if test="searchStartRow != null and searchStartRow != ''">
+			<if test="searchEndRow != null and searchEndRow !=''">
+				rnum between #{searchStartRow} and #{searchEndRow}
+			</if>
+		</if>
+		<if test="bd_forum_no != null and bd_forum_no != '' ">
+		 		bd_forum_no = 2;
+		</if>
+	</where>
+
+
+</select>
+
 
 <!-- 글쓰기  -->
 <insert id="boardInsert" parameterType="board">

@@ -21,7 +21,7 @@ public class CouponDAOImpI implements CouponDAO{
 	@Override
 	public int couponCheck(CouponVO cvo) {
 		// TODO Auto-generated method stub
-		return (int)session.selectOne("couponCheck");
+		return (Integer)session.selectOne("couponCheck");
 	}
 
 }

@@ -86,5 +86,13 @@ public class BoardServiceImpl implements BoardService{
 		return boardDAO.boardListCnt(param);
 	}
 
+	//문의게시판 목록
+	@Override
+	public List<BoardVO> questionBoardList(BoardVO bvo) {
+		List<BoardVO> myList = null;
+		myList = boardDAO.questionBoardList(bvo);		
+		return myList;
+	}
+
 
 }

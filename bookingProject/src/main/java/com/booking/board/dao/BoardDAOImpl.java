@@ -60,4 +60,10 @@ public class BoardDAOImpl implements BoardDAO{
 		return (Integer)session.selectOne("boardListCnt", bvo);
 	}
 
+	//문의게시글 구현
+	@Override
+	public List<BoardVO> questionBoardList(BoardVO bvo) {
+		return session.selectList("questionBoardList");
+	}
+
 }
