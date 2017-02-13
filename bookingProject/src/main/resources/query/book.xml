@@ -221,15 +221,6 @@
 		(rel_no, isbn, rel_name, rel_name_no, rel_amount)
 		values(#{rel_no}, #{isbn}, #{rel_name}, #{rel_name_no}, #{rel_amount})
 	</insert>
-	<insert id="bookInsert" parameterType="book">
-		insert into booking_book_data
-		(isbn, b_title, b_author, pub_name, cat_no, b_pubdate, b_abprice
-			, b_index, b_comment, b_complain
-			, series_name, series_no, series_no_sub)
-		values(#{isbn}, #{b_title}, #{b_author}, #{pub_name}, #{cat_no}, #{b_pubdate}, #{b_abprice}
-				, #{b_index}, #{b_comment}, #{b_complain}
-				, #{series_name}, #{series_no}, #{series_no_sub})
-	</insert>
 	<!-- update Query -->
 	<update id="bookStockIn" parameterType="bookStock">
 		update booking_book_data
