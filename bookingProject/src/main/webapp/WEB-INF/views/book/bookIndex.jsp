@@ -23,6 +23,8 @@
 			max-height:200px;
 			margin:auto;
 		}
+		
+		#col{color:orange; font-weight:bold; margin-top:10px;}
 	</style>
 	<script src="/resources/include/js/jquery-1.12.4.min.js"></script>
 	
@@ -350,8 +352,9 @@
 												<object class="book-thumb thumbnail" data="/images/bookImg/${etc.isbn}.jpg" type="image/jpg">
 												  <img src="/images/bookImg/no_book_img.png"/>
 												</object>
-												<h2>${etc.b_abprice}</h2>
-												<p>${etc.b_title}</p>
+												<p id="col" >${etc.b_title}</p>
+												<p>${etc.b_abprice}원</p>
+		
 												<a href="javascript:cartInsert('${etc.isbn}');" id="cartBtn" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>장바구니에 담기</a>
 											</div>
 										</div>
