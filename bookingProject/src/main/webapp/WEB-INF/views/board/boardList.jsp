@@ -27,7 +27,7 @@
 <title>게시판 리스트</title>
 </head>
 <style>
-		#pageSizeChange{width:50px; }
+		#pageSizeChange{width:110px; }
 		.contentBtn{text-align:center;}
 		.selectSize{width:90px; height:35px;}
 		.dateSize{width:150px;}
@@ -239,6 +239,26 @@
 				<div class="blog-post-area">
 					<h2 class="title text-center">커뮤니티 게시판</h2>
 <!--	================ 리스트 시작 ======================  -->
+
+<!-- ============페이지 네비게이션 시작 ==================-->
+            <div class="well">
+	         	<div class="navbar-right">
+	         		페이지당 표시 건 수
+	         		<select name="pageSizeChange" id="pageSizeChange" >
+     				    <option value="">선택하세요</option>   			
+	         			<option value="1">1</option>
+	         			<option value="2">2</option>
+	         			<option value="5">5</option>
+	         			<option value="10">10</option>
+	         			<option value="30">30</option>
+	         		</select>건
+	         		&nbsp;&nbsp;/&nbsp;총 레코드수 : ${total}건
+	         	</div>
+	            <div class="paginationBar text-center paginate" id="boardPage">
+	            	<tag:PagingBar page="${data.page}" searchTotal="${data.searchTotal}" pageSize="${data.pageSize}"/>
+	            </div>                        
+         	 </div>
+<!-- ============페이지 네비게이션 종료 ================== -->
 <!--  	================= 상세 페이지 이동을 위한 form ==========-->
 						<form name="detailForm" id="detailForm">
 							<input type="hidden" name="bd_post_no" id="bd_post_no">							
@@ -318,28 +338,7 @@
 		</div>
 		<br><br>
 <!-- ============글쓰기 버튼 출력 종료 ================== -->
-<!-- ============페이지 네비게이션 시작 ==================-->
-            <div class="well">
-	         	<div class="navbar-left">
-	         		페이지당 표시 건 수
-	         		<select name="pageSizeChange" id="pageSizeChange" >	         			
-	         			<option value="1">1</option>
-	         			<option value="2">2</option>
-	         			<option value="5">5</option>
-	         			<option value="10">10</option>
-	         			<option value="30">30</option>
-	         		</select>건
-	         		&nbsp;&nbsp;/&nbsp;검색 결과 :${data.searchTotal}건
-	         	</div>
-	            
-	            
-	            
-	            <div class="paginationBar text-center paginate" id="boardPage">
-	            	<tag:PagingBar page="${data.page}" searchTotal="${data.searchTotal}" pageSize="${data.pageSize}"/>
-	            </div>            
-            
-         	 </div>
-<!-- ============페이지 네비게이션 종료 ================== -->
+
 <br><br>
 <!-- ============검색 ================== -->
 <!-- 전체 리스트 제어 폼 -->
