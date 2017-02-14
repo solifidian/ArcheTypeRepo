@@ -100,7 +100,9 @@
 	    	 		
 	    		<div class="col-sm-9">    			   			
 					<h2 class="title text-center"> <strong>개인정보</strong> 취급 방침</h2>    			    				    				
+			
 					<div>
+					
 					<h4>기타 개인정보침해에 대한 신고 또는 상담이 필요하신 경우에는 아래 기관으로 문의하시기 바랍니다. </h4>
 						<br>
 						<p>개인정보침해신고센터 (www.118.or.kr / 118)</p>

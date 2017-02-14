@@ -27,7 +27,7 @@
 <title>게시판 리스트</title>
 </head>
 <style>
-		#pageSizeChange{width:50px; }
+		#pageSizeChange{width:110px; }
 		.contentBtn{text-align:center;}
 		.selectSize{width:90px; height:35px;}
 		.dateSize{width:150px;}
@@ -60,7 +60,7 @@
 		
 		//글쓰기버튼 클릭 이벤트
 		$("#InsertFormBtn").click(function(){
-			location.href="/board/boardInsertForm.do";
+			location.href="/board/boardInsertForm.do?";
 		});
 		
 		//제목 클릭시 상세 페이지 이동을 위한 처리 이벤트
@@ -149,6 +149,7 @@
 					<h2>Category</h2>
 					<div class="panel-group category-products" id="accordian"><!-- 카테고리  -->
 					
+						<!-- 포럼 게시판 패널 -->
 						<div class="panel panel-default">
 							<div class="panel-heading">
 								<h4 class="panel-title">
@@ -161,28 +162,52 @@
 							<div id="bookAndPeople" class="panel-collapse collapse">
 								<div class="panel-body">
 										<ul>
-											<li><a href="">이슈 </a></li>
-											<li><a href="">칼럼 </a></li>											
+											<li><a href="/board/boardList.do?bd_forum_no=1">자유 포럼</a></li>
+											<li><a href="/board/boardList.do?bd_forum_no=2">국내도서 포럼</a></li>											
+											<li><a href="/board/boardList.do?bd_forum_no=3">해외도서 포럼</a></li>
+											<li><a href="/board/boardList.do?bd_forum_no=4">전문서적 포럼</a></li>
 										</ul>
 								</div><!--class: panel-body끝  -->
 							</div><!-- id:review 끝 -->				
 						</div><!--class: panel panel-default 끝  -->
-						
 						
 						<div class="panel panel-default">
 							<div class="panel-heading">
 								<h4 class="panel-title">
 									<a data-toggle="collapse" data-parent="#accordian" href="#powerBook">
 										<span class="badge pull-right"><i class="fa fa-plus"></i></span>
-											파워북로거
+										파워북로거
+									</a>
+								</h4>
+							</div><!--class: panel-heading끝  -->
+							<div id="bookAndPeople" class="panel-collapse collapse">
+								<div class="panel-body">
+										<ul>
+											<li><a href="/board/boardList.do?bd_forum_no=11">도서 이야기</a></li>
+											<li><a href="/board/boardList.do?bd_forum_no=12">국내도서 평가 포럼</a></li>											
+											<li><a href="/board/boardList.do?bd_forum_no=13">해외도서 평가 포럼</a></li>
+											<li><a href="/board/boardList.do?bd_forum_no=14">전문서적 평가 포럼</a></li>
+										</ul>
+								</div><!--class: panel-body끝  -->
+							</div><!-- id:review 끝 -->				
+						</div><!--class: panel panel-default 끝  -->
+						
+						
+						<!-- 문의 게시판 패널 -->
+						<div class="panel panel-default">
+							<div class="panel-heading">
+								<h4 class="panel-title">
+									<a data-toggle="collapse" data-parent="#accordian" href="#powerBook">
+										<span class="badge pull-right"><i class="fa fa-plus"></i></span>
+											문의 포럼
 									</a>
 								</h4>
 							</div><!--class: panel-heading끝  -->
 							<div id="powerBook" class="panel-collapse collapse">
 									<div class="panel-body">
 										<ul>
-											<li><a href="">베스트 북로거 </a></li>
-											<li><a href="">파워 북로거 </a></li>										
+											<li><a href="/board/boardList.do?bd_forum_no=31">묻고 답하기 게시판</a></li>
+											<li><a href="/board/boardList.do?bd_forum_no=32">도서 질문 게시판</a></li>											
 										</ul>
 									</div><!--class: panel-body끝  -->
 							</div><!-- id:review 끝 -->							
@@ -200,22 +225,11 @@
 							<div id="event" class="panel-collapse collapse">
 								<div class="panel-body">
 									<ul>
-										<li><a href="">진행중인 이벤트 </a></li>
-										<li><a href="">완료된 이벤트 </a></li>										
+										<li><a href="/board/boardList.do?bd_forum_no=51">진행중 이벤트 게시판</a></li>
 									</ul>
 								</div><!--class: panel-body끝  -->
 							</div><!-- id:review 끝 -->
 						</div><!--class: panel panel-default 끝  -->	
-						
-						<div class="brands_products"><!-- 리뷰 -->
-								<h2>Review</h2>
-								<div class="brands-name">
-									<ul class="nav nav-pills nav-stacked">
-										<li><a href=""> <span class="pull-right">(#)</span>해외소설</a></li>
-										<li><a href=""> <span class="pull-right">(#)</span>국내소설</a></li>									
-									</ul>
-								</div>
-						</div><!--/리뷰-->
 							
 	<!--우선 딱히 쓸것같진 않아서 우선 주석처리함  -->
 					<!-- 	<div class="price-range">price-range
@@ -239,6 +253,26 @@
 				<div class="blog-post-area">
 					<h2 class="title text-center">커뮤니티 게시판</h2>
 <!--	================ 리스트 시작 ======================  -->
+
+<!-- ============페이지 네비게이션 시작 ==================-->
+            <div class="well">
+	         	<div class="navbar-right">
+	         		페이지당 표시 건 수
+	         		<select name="pageSizeChange" id="pageSizeChange" >
+     				    <option value="">선택하세요</option>   			
+	         			<option value="1">1</option>
+	         			<option value="2">2</option>
+	         			<option value="5">5</option>
+	         			<option value="10">10</option>
+	         			<option value="30">30</option>
+	         		</select>건
+	         		&nbsp;&nbsp;/&nbsp;총 레코드수 : ${total}건
+	         	</div>
+	            <div class="paginationBar text-center paginate" id="boardPage">
+	            	<tag:PagingBar page="${data.page}" searchTotal="${data.searchTotal}" pageSize="${data.pageSize}"/>
+	            </div>                        
+         	 </div>
+<!-- ============페이지 네비게이션 종료 ================== -->
 <!--  	================= 상세 페이지 이동을 위한 form ==========-->
 						<form name="detailForm" id="detailForm">
 							<input type="hidden" name="bd_post_no" id="bd_post_no">							
@@ -318,28 +352,7 @@
 		</div>
 		<br><br>
 <!-- ============글쓰기 버튼 출력 종료 ================== -->
-<!-- ============페이지 네비게이션 시작 ==================-->
-            <div class="well">
-	         	<div class="navbar-left">
-	         		페이지당 표시 건 수
-	         		<select name="pageSizeChange" id="pageSizeChange" >	         			
-	         			<option value="1">1</option>
-	         			<option value="2">2</option>
-	         			<option value="5">5</option>
-	         			<option value="10">10</option>
-	         			<option value="30">30</option>
-	         		</select>건
-	         		&nbsp;&nbsp;/&nbsp;검색 결과 :${data.searchTotal}건
-	         	</div>
-	            
-	            
-	            
-	            <div class="paginationBar text-center paginate" id="boardPage">
-	            	<tag:PagingBar page="${data.page}" searchTotal="${data.searchTotal}" pageSize="${data.pageSize}"/>
-	            </div>            
-            
-         	 </div>
-<!-- ============페이지 네비게이션 종료 ================== -->
+
 <br><br>
 <!-- ============검색 ================== -->
 <!-- 전체 리스트 제어 폼 -->

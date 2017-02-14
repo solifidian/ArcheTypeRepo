@@ -289,6 +289,10 @@
 	
 	<!--  -->
 	<select id="randomList" resultType="book">
-	select isbn, b_title, b_author from booking_book_data where  <![CDATA[rownum <= 3 ]]> order by dbms_random.value
+	 <!-- select isbn, b_title, b_author  from  (select isbn, b_title, b_author from booking_book_data  order by dbms_random.value) -->
+     select isbn, b_title, b_author  from  (select isbn, b_title, b_author from booking_book_data  order by dbms_random.value)
+          where <![CDATA[rownum <= 3 ]]> and <![CDATA[length(b_title)>=5]]> and <![CDATA[length(b_title)<=7]]>
+
+          
 	</select>
 </mapper>

@@ -281,16 +281,14 @@
 		          	</form>
 			</div>
 		</div>
-		<!--검색 조건 테이블 영역  -->
+		<!-------------- 검색 조건 테이블 영역  ------------>
 	    
 	    <h2 class="title text-center">도서 목록</h2>
-	    
-	    
     <!--
-    	 네비게이션 바 영역 시작
-    		pagingBarTag가 필요
-   			표시 건 수는 listData.searchTotal을 필요로 함
-   			searchTotal은 Control 영역에서 listData에 넣어주어야 함
+    	네비게이션 바 영역 시작
+    	pagingBarTag가 필요
+   		표시 건 수는 listData.searchTotal을 필요로 함
+   		searchTotal은 Control 영역에서 listData에 넣어주어야 함
    	-->
 	    <div class="row">
 	    	<div class="navbar-form navbar-left" role="navigation">
