@@ -168,45 +168,27 @@
 							<li data-target="#slider-carousel" data-slide-to="2"></li>
 						</ol>
 						<div class="carousel-inner">
-							<div class="item active">
-								<div class="col-sm-6">
-									<h1><span>도깨비</span>포토 에세이</h1>
-									<h2>쓸쓸하고 찬란한 신</h2>
-									<p>
-									매회 방영 즉시 뜨거운 화제가 되었던 초감동 에피소드들과 명대사들, 스토리가 생생하게 담겨 있는 ‘포토에세이’
-									한 번도 공개된 적 없던 공유-이동욱-육성재-김고은-유인나의 완벽한 케미가 돋보이는 초고화질 현장 스틸컷
-									</p>
-									<button type="button" class="btn btn-default get">Get it now</button>
-								</div>
-								<div class="col-sm-6">
-									<img src="http://bimage.interpark.com/goods_image/9/8/4/2/263969842g.jpg" class="img-responsive" alt="" />
-								</div>
-							</div>
-							<div class="item">
-								<div class="col-sm-6">
-									<h1><span>너의 이름은</span>+부록</h1>
-									<h2>너의이름은 Another Side : Earthbound </h2>
-									<p>애니메이션 차세대 거장으로 거듭난 신카이 마코토 감독이
-기적 같은 사랑이라는 테마 속에, 또 하나의 메시지를 소설에 담았다. </p>
-									<button type="button" class="btn btn-default get">Get it now</button>
-								</div>
-								<div class="col-sm-6">
-									<img src="http://image.yes24.com/momo/TopCate1048/MidCate005/103197776.jpg" class="img-responsive" alt="" />
-								</div>
-							</div>
-							
-							<div class="item">
-								<div class="col-sm-6">
-									<h1><span>유시민의</span>글쓰기 특강</h1>
-									<h2>유시민의 30년 베스트셀러 영업기밀</h2>
-									<p>글쓰기가 두려운 그대들이여, 이제 원하는 대로 글을 써보자!
-									</p>
-									<button type="button" class="btn btn-default get">Get it now</button>
-								</div>
-								<div class="col-sm-6">
-									<img src="http://bimage.interpark.com/goods_image/8/8/5/9/237228859g.jpg" class="img-responsive" alt="" />
-								</div>
-							</div>
+							<!-- slide forEach start -->
+							<c:choose>
+								<c:when test="${not empty randomList}" >
+									<c:forEach var="randomList" items="${randomList}" varStatus="cnt">
+											<div class="item <c:if test='${cnt.index eq 0}'>active</c:if>">
+												<div class="col-sm-6">
+													<h1><span>${randomList.b_title }</span></h1>
+													<h2>${randomList.b_author}</h2>
+													<p>이 달의 기대작 모음</p>
+													<button type="button" class="btn btn-default get">자세히보기</button>
+												</div>
+												<div class="col-sm-6">
+													<img src="/images/bookImg/${randomList.isbn}.jpg" class="img-responsive" alt="현재 이미지 준비중입니다." />
+												</div>
+											</div>
+									</c:forEach>
+								</c:when>
+								<c:otherwise>
+									<h1>아아아아 안나온다</h1>
+								</c:otherwise>
+							</c:choose>
 							
 						</div>
 						<a href="#slider-carousel" class="left control-carousel hidden-xs" data-slide="prev">
@@ -289,17 +271,14 @@
 																	</c:otherwise>
 																</c:choose>
 																<div class="panel-heading" role="tab" id="heading${cate2.cat_no}">
-																	<a data-toggle="collapse"
-																	class="${collapse_set}" data-parent="#tab${root}" href="#collapse${cate2.cat_no}"
-																	aria-expanded="${aria_set}" aria-controls="collapse${cate2.cat_no}">
+																	<a data-toggle="collapse" class="${collapse_set}" data-parent="#tab${root}" href="#collapse${cate2.cat_no}" aria-expanded="${aria_set}" aria-controls="collapse${cate2.cat_no}">
 																		<span class="badge pull-right"><i class="fa fa-plus"></i></span>
 																		<c:out value="${cate2.cat_name}"/>
 																		<c:set var="root2" value="${cate2.cat_no}"/>
 																		
 																	</a>
-																	
-																</div>
 																
+																</div>
 																<div id="collapse${root2}" class="panel-collapse collapse ${in_set}" role="tabpanel" aria-labelledby="heading${root2}">
 																	<div class="panel-body">
 																		<c:forEach var="cate3" items="${cateList}">

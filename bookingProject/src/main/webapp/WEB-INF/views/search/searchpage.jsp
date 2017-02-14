@@ -86,7 +86,7 @@
 				
 				 var num=$(this).parents("tr").attr("data-num");
 				 $("#isbn").val(num);
-				 alert(num)
+				 //alert(num)
 						
 						 
 				 if(m_id==""){

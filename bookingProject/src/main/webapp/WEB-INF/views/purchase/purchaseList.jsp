@@ -77,7 +77,7 @@ $(function(){
 	
 	//결제 버튼 클릭 시 
 	$("#purchaseBtn").click(function(){
-		alert($("#coupon").val())  
+		 
 		var couponname=$(this).attr("data-name");
 		alert(couponname)
 		var couponratio=$("#coupon").val()
@@ -91,7 +91,7 @@ $(function(){
 		var coupon_code=couponratio;
 		var p_discount=couponratio;
 		var nowpay=0;
-		alert(paymethod+name+address+mobile+home)
+		
 		
 		if(m_id==""){
 			m_id='0';
@@ -112,7 +112,7 @@ $(function(){
 				}
 		
 		
-		alert(agree)
+		
 			
 		$("#m_id").val(m_id)
 		$("#m_phone").val(mobile)
@@ -156,13 +156,9 @@ $(function(){
 				if(!chkSubmit($('#nomemberPurchaseAgree'),"비회원 주문동의를")) return;
 		}
 		else{
-		 $("#purchaseHiddenForm").attr({
-	        	"method":"post",
-	        	"action":"/purchase/purchaseUpdate.do"
-	        })
-	        $("#purchaseHiddenForm").submit();
+		
 	    
-		}/* else 종료 */		
+		
 		
 		IMP.request_pay({
 		    pg : 'inicis', // version 1.1.0부터 지원.
@@ -201,8 +197,10 @@ $(function(){
 		        })
 		        $("#purchaseHiddenForm").submit();
 		    }
-		    alert(msg);
+		  
 		}); 
+		
+		}/* else 종료 */		
 	}) 
 	 
 	 
@@ -224,14 +222,14 @@ $(function(){
 		
 		var url="";
 		if(isbn==""){
-			alert("정상구매")
+			//alert("정상구매")
 			//isbn값이 ""일경우 정상 구매
 		   url="/carttable/cart.do?m_id="+m_id+"&cart_ip="+cart_ip
 		   
 		}else{
 			//isbn 값이 있을 경우 즉시구매한 isbn정보만 호출 
 		   url="/carttable/cart.do?m_id="+m_id+"+&cart_ip="+cart_ip+"&isbn="+isbn
-		   alert("즉시구매")
+		  // alert("즉시구매")
 		}
 			
 				
@@ -259,7 +257,7 @@ $(function(){
 	
     function point(total , point){
     	var x=total*point
-    	alert(x)
+    	//alert(x)
     	
     }
 

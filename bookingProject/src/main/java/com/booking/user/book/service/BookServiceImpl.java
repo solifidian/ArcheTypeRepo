@@ -102,4 +102,11 @@ public class BookServiceImpl implements BookService {
 		List<BookVO> list5 =bookDAO.list5();
 		return list5;
 	}
+	
+	@Override
+	public List<BookVO> randomList() {
+		// TODO Auto-generated method stub
+		List<BookVO> randomList =bookDAO.randomList();
+		return randomList;
+	}
 }

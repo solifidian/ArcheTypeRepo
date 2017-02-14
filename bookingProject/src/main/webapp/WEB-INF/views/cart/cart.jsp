@@ -15,32 +15,14 @@ var cartSize=0; //카트에 들어있는 책의 수량
 $(function(){
 	listAll();
 	
-	  //장바구니 아이템 삭제
-	  $("#aa").click(function(){
-	  alert("아이템이 삭제되었습니다.");
-	  })
-	  
-	  $(".deletebtn1").click(function(){
-//		alert();
-		
-		/* $("#cat_no").val(cat_no);
-		
-		$("#cartform").attr({
-			"method":"post",
-			"action":"/cart/cartdelete.do"
-			
-			
-		})
-		$("#cartform").submit()	; */
-		
-	})
+	
 	//장바구니 책 수량 업데이트 
 	 $(document).on("blur",".CartAmountUpdate",function(){
 		var isbn=$(this).parents("tr").attr("data-num");
 		var cart_amount= $(this).parents("tr").find("input").val();
 		
 		
-		alert(cart_amount)
+		//alert(cart_amount)
 	/*     var m_id="${sessionScope.memSession.m_id}";
 	    
 	    if(m_id!="")
@@ -51,7 +33,7 @@ $(function(){
 		var cart_ip="${cookie.JSESSIONID.value}" */
 		$("#isbn").val(isbn);
 		$("#cart_amount").val(cart_amount);
-		alert(isbn+"//"+cart_amount)
+		//alert(isbn+"//"+cart_amount)
 		
 		 	 $.ajax({
 				 type:'GET',
