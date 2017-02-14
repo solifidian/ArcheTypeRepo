@@ -12,7 +12,6 @@
 		}
 		.book-thumb{
 			max-height:200px;
-			max-width:200px;
 		}
 	</style>
 	<script type="text/javascript" src="/resources/include/js/listCommon.js"></script>
@@ -290,7 +289,7 @@
 		</div>
 		<!--검색 조건 테이블 영역  -->
 	    
-	    <h2 class="title text-center">도서 목록</h2>
+	    <h2 class="title text-center">도서 목록 ${cookie.JSSESIONID}</h2>
 	    
 	    
     <!--
