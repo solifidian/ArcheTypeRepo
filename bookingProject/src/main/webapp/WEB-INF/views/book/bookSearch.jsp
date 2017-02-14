@@ -4,12 +4,6 @@
 		  <%@ taglib prefix="tag" uri="/WEB-INF/tld/custom_tag.tld" %>
 	<head>
 	<style>
-		span.currentPage{
-			background-color:grey;
-		}
-		.pagination{
-			
-		}
 		.book-thumb{
 			max-height:200px;
 		}
