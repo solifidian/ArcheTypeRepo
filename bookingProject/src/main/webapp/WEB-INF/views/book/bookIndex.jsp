@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <title>Home | E-Shopper</title>
-  
+
 	
 	<style>
 		section#slider img.img-responsive{
@@ -27,7 +27,9 @@
 	</style>
 	<script src="/resources/include/js/jquery-1.12.4.min.js"></script>
 	<script>
-	 var id="${sessionScope.memSession.m_id}";
+	 
+	
+	var id="${sessionScope.memSession.m_id}";
 	 if(id=="")id=0;
 	 
 		$(function(){
@@ -39,9 +41,41 @@
 					 coupon_pop()
 				}
 				
-			}
+			}	
 			
 			
+/* 			//addToCart버튼 클릭시				
+			$("#cartBtn").click(function(){
+				if(id==null || id==""){
+					alert("로그인 창으로 이동 하시겠습니까?");
+					location.href="/member/memberLoginPage.do";
+				}else {
+					$.ajax({
+						   url:"/cart/cartInsert.do",
+						   type:"POST",
+						   data : $("#cartForm").serialize(),
+						   dataType:"text",
+						   error:function(request,status,error){
+							   alert("code : " + request.status + "\r\ nmessage : "
+								       + request.reponseText + "\r\n error : " + error);
+							   alert("시스템 오류입니다.")
+						   },
+						   success:function(Data){
+							    if(Data=="SUCCESS"){					 				
+					 				if(confirm("장바구니에 추가 되었습니다  장바구니로 이동하시겠습니까?")){
+					 					location.href = "/cart/cartlist.do";					 					
+					 				}
+					 				
+					 				else{					 					
+					 					return;
+					 				}
+					 
+							    }
+						   }					 
+				 })	
+				}
+			}); */
+	
 			
 			$("#mypage").click(function(){
 				if(id==0) {
@@ -61,7 +95,32 @@
 			
 		});
 		
-	
+		//장바구니에 넣기
+		function cartInsert(isbn){
+			var cart_amount = 1;
+		
+			$.ajax({
+				url:"/cart/cartInsert.do",
+				type:"POST",
+				data:"isbn="+isbn+"&cart_amount="+cart_amount,
+			    dataType:"text",			   
+			   success:function(Data){
+				    if(Data=="SUCCESS"){				    	
+		 				if(confirm("장바구니에 추가 되었습니다  장바구니로 이동하시겠습니까?")){
+		 					location.href = "/cart/cartlist.do";					 					
+		 				}else{	
+		 					return;
+		 				}		 
+				    }
+			   	},error:function(request,status,error){			  
+				   alert("code : " + request.status + "\r\ nmessage : "
+					       + request.reponseText + "\r\n error : " + error);
+				   alert("시스템 오류입니다.")
+			   	}	
+			});
+		}
+		
+		
 		//팝업 오늘 하루보기 쿠키 체크 function
 		function getCookie(name) { 
 			   var cookieName = name + "=";
@@ -256,15 +315,13 @@
 									<div class="col-sm-4">
 										<div class="product-image-wrapper">
 											<div class="single-products">
-												
-												
 												<div class="productinfo text-center">
 													<object class="book-thumb thumbnail" data="/images/bookImg/${etc.isbn}.jpg" type="image/jpg">
 													  <img src="/images/bookImg/no_book_img.png"/>
 													</object>
 													<h2>${etc.b_abprice}</h2>
 													<p>${etc.b_title}</p>
-													<a href="" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
+													<a href="javascript:cartInsert('${etc.isbn}');" id="cartBtn" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>장바구니에 담기</a>
 												</div>
 												
 											</div>

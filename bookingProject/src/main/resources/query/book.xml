@@ -250,7 +250,7 @@
 	<!--bookindex 별도 리스트  2016년 책만 찾아옴 -->
 	<select id="etcListCall" resultType="book">
 	
-	select isbn, b_title,b_abprice from booking_book_data where b_title like '%2016%' 
+	select isbn, b_title, b_abprice from booking_book_data where b_title like '%2016%' 
 			
 	</select>
 	

@@ -39,18 +39,7 @@ public class BookController {
 		return "book/bookOrder";
 	}
 	
-	//it도서 목록
-	@RequestMapping(value="/bookForeign.do")
-	public String bookForeign(){
-		return "book/bookForeign";
-	}
-	
-	//국내도서 목록
-	@RequestMapping(value="/bookDomestic.do")
-	public String bookDomestic(){
-		return "book/bookDomestic";
-	}
-	
+
 	
 	//이달의 책
 	@RequestMapping(value="/bookMonth.do")

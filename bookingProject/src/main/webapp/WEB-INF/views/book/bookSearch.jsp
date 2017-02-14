@@ -283,7 +283,7 @@
 		</div>
 		<!--검색 조건 테이블 영역  -->
 	    
-	    <h2 class="title text-center">도서 목록 ${cookie.JSSESIONID}</h2>
+	    <h2 class="title text-center">도서 목록</h2>
 	    
 	    
     <!--
@@ -304,6 +304,7 @@
 	         		/ 검색 결과 :${listData.searchTotal}건
         			</label>
          		</div>
+		  <h3><a href="/book/bookDetail.do?isbn=${d.isbn}">${d.b_title}</a></h3>
            </div>
            <div class="navbar-form navbar-right">
 	         <div class="paginationBar text-center paginate">
@@ -313,7 +314,6 @@
 	    </div>
 	    
 	<!---------------- 네비게이션 바 영역 종료 --------------->
-	
 	         
 		<div class="col-sm-12 padding-right">
 			<div class="features_items"><!--features_items-->
@@ -348,8 +348,6 @@
 									  	<input type="text" size="1" id="cart_amount" name="cart_amount" value="1" /> 수량
 								  	</div>
 								</form>
-						
-							  
 							  </td>
 							</tr>
 							</c:forEach>
@@ -358,10 +356,5 @@
 						
 						</div>
 						</div>
-		 <!--메인종료  -->
-						
-					
-						
-						
-					
+		 <!--메인종료  -->			
 	</section>

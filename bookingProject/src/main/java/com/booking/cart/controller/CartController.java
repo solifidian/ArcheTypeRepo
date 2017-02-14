@@ -38,13 +38,12 @@ public class CartController {
 	}
 	
 	
-	//책 insert 호출
+	//카트 insert 호출
 	@ResponseBody
 	@RequestMapping(value="/cartInsert.do" , method=RequestMethod.POST)
 	public String cartInsert(@ModelAttribute CartVO cvo,Model model, HttpServletRequest request, HttpSession session) {
-		logger.info("책 insert");
-		logger.info("isbn 호출"+cvo.getIsbn());
-		
+		logger.info("cartInsert 호출 성공");
+		logger.info("isbn  : "+cvo.getIsbn());	
 		
 	/*	//책 insert프로세스 
 			1. isbn번호와 user id, cart_amount를 입력 받는다.
@@ -62,16 +61,15 @@ public class CartController {
 		 * 세션 확인
 		 * memSession is not null = 회원
 		 *********************************/
-		String m_id = "0";
+		String m_id = "";
 		int m_no = 0;
 		MemberVO memSession = (MemberVO)session.getAttribute("memSession");
 		
 		if(memSession != null && !memSession.getM_id().equals("")){
 			logger.info("회원 확인 됨");
-			m_id = memSession.getM_id();
-			
+			m_id = memSession.getM_id();			
 			m_no = memSession.getM_no();
-			
+			logger.info("m_no 호출"+memSession.getM_no());
 		}
 		/*********** 세션 확인 종료 ***********/
 		
@@ -88,7 +86,7 @@ public class CartController {
 		logger.info("cart_ip = "+cart_ip);
 		int value =0;
 		String result="";
-		String isbn=cvo.getIsbn();
+		String isbn = cvo.getIsbn();
 		cvo.setM_no(m_no);
 		cvo.setM_id(m_id);
 		//장바구니에 같은 isbn번호가 있는지 체크
@@ -97,15 +95,15 @@ public class CartController {
 		//logger.info("입력 amount는"+cvo.getCart_amount());
 		
 		//같은 번호가 없을 경우 insert
-		logger.info("입력 isbn"+cvo.getIsbn());
+		logger.info("입력 isbn : "+cvo.getIsbn());
 		if(isbnvalue==0){
 		  value=cartservice.cartInsert(cvo);
-		  logger.info("insert value"+value);
+		  logger.info("insert value : "+value);
 		//같은 번호가 있을 경우 수량 update
 		}
 		else if(isbnvalue==1){
 		  value=cartservice.cartUpdate(cvo);
-		  logger.info("update value"+value);
+		  logger.info("update value : "+value);
 		}
 		  
 		//insert 및 update가 성공(1)일 경우 return 값은 "success"

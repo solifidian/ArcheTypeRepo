@@ -37,10 +37,12 @@
    </where>
   </delete>
   
+  
    <!-- 책 추가 .-->
   <insert id="cartInsert" parameterType="cart" >
    <!-- 장바구니에 책 추가 cart_ip= 쿠키 name .-->
-   insert into BOOKING_CART_REL(isbn,m_no,cart_amount,cart_ip) values(#{isbn},#{m_no},#{cart_amount},#{cart_ip})
+   insert into BOOKING_CART_REL(isbn, m_no, cart_amount, cart_ip) 
+   	values (#{isbn},#{m_no},#{cart_amount},#{cart_ip})
   </insert>
   
   
