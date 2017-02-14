@@ -45,7 +45,7 @@
 					dataType:"text",				
 					data : JSON.stringify({
 						isbn : isbn,
-						br_writer :1,
+						br_writer :"${sessionScope.memSession.m_nick}",
 						br_score :$("#br_score").val(),
 						br_content:$("#br_content").val()
 					}),
@@ -279,6 +279,8 @@
 						<form id="comment_form " class="form-inline">
 						  <div class="well well-lg">
 						 	 <div class="form-group">
+						 	
+						 	 		<label>${sessionScope.memSession.m_nick} : </label>
     								<label for="2"><i class="fa fa-star"></i></label>
    									<select name="br_score" id="br_score" class="form-control size" >
 										<option value="5" selected>★★★★★															
