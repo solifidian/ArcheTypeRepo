@@ -251,24 +251,37 @@
 											</div>
 										</div>
 										<div id="collapse${root}" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="heading${root}">
+										<ul>
+		
 											<div class="panel-body">
+											<div class="panel-group" id="tab${root}" role="tablist" aria-multiselectable="true">
 											<c:forEach var="cate2" items="${cateList}">
 												<c:choose>
-													<c:when test="${cate2.cat_step == 2 && cate2.cat_root == root && (cate2.cat_no == 3 || cate2.cat_no == 7 ||cate2.cat_no == 28 )}">									
-														<ul>
-															<li>
+													<c:when test="${cate2.cat_step == 2 && cate2.cat_root == root}">						
+														<div class="panel panel-default">
+																<c:choose>
+																	<c:when test="${cate2.cat_no ==3 }">
+																		<c:set var="collapse_set" value="collapsed"/>
+																		<c:set var="aria_set" value="true"/>
+																		<c:set var="in_set" value="in"/>
+																	</c:when>
+																	<c:otherwise>
+																		<c:set var="collapse_set" value="collapsed"/>
+																		<c:set var="aria_set" value="false"/>
+																		<c:set var="in_set" value=""/>
+																	</c:otherwise>
+																</c:choose>
 																<div class="panel-heading" role="tab" id="heading${cate2.cat_no}">
-																	<a data-toggle="collapse" data-parent="#collapse${root}" href="#collapse${cate2.cat_no}">
+																	<li><a data-toggle="collapse"
+																	class="${collapse_set}" data-parent="#tab${root}" href="#collapse${cate2.cat_no}"
+																	aria-expanded="${aria_set}" aria-controls="collapse${cate2.cat_no}">
 																		<span class="badge pull-right"><i class="fa fa-plus"></i></span>
 																		<c:out value="${cate2.cat_name}"/>
 																		<c:set var="root2" value="${cate2.cat_no}"/>
-																	</a>
+																		
+																	</a></li>
 																</div>
-																<c:if test="${cate2.cat_no ==3 }">
-																	<c:set var="in_set" value="in"/>
-																</c:if>
-																<div id="collapse${root2}" class="panel-collapse collapse ${in_set}">
-																	<c:remove var="in_set"/>
+																<div id="collapse${root2}" class="panel-collapse collapse ${in_set}" role="tabpanel" aria-labelledby="heading${root2}">
 																	<div class="panel-body">
 																		<c:forEach var="cate3" items="${cateList}">
 																			<c:choose>
@@ -280,14 +293,20 @@
 																			</c:choose>
 																		</c:forEach>
 																	</div>
-																</div>		
-															</li>
-														</ul>
+																</div>
+														</div>	
+														
+														<c:remove var="collapse_set"/>
+														<c:remove var="aria_set"/>
+														<c:remove var="in_set"/>
 													</c:when>
 												</c:choose>
+												
 											</c:forEach>
+											<c:remove var="root"/>
 											</div>
-										<c:remove var="root"/>
+											</div>
+										</ul>
 										</div>
 									</div>
 								</c:when>
