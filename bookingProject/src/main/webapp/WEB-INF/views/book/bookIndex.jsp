@@ -10,7 +10,6 @@
     <meta name="author" content="">
     <title>Home | E-Shopper</title>
 
-	
 	<style>
 		section#slider img.img-responsive{
 			max-height:300px;
@@ -24,8 +23,11 @@
 			max-height:200px;
 			margin:auto;
 		}
+		
+		#col{color:orange; font-weight:bold; margin-top:10px;}
 	</style>
 	<script src="/resources/include/js/jquery-1.12.4.min.js"></script>
+	
 	<script>
 	 
 	
@@ -154,10 +156,7 @@
 
 <body>
 	
-	<form id="hidden_form">
-		<input type="hidden" id="m_id" name="m_id">
-	</form>
-	<!--------------- slider -------------------->
+	<!--------------- slider section Start -------------------->
 	<section id="slider">
 		<div class="container">
 			<div class="row">
@@ -204,14 +203,33 @@
 			</div>
 		</div>
 	</section>
-	<!----------------------- /slider -------------------->
-	<!-- Accordion Test Start-->
-	
-	<!-- Accordion Test End -->
-	<!-------------------- Category Tab -------------------->
+	<!----------------------- slider section End-------------------->
+
+	<!-------------------- Category Tab & recommand item Section Start -------------------->
 	<section>
 		<div class="container">
-			<div class="row">
+		<!--------------- row Start --------------->
+			<div class="row"> 
+			<!--
+				Category Tab Start (Left)
+				부트스트랩의 collapse를 이용함
+				컨트롤 영역의 CategoryController로부터 Category리스트를 받아옴.
+				Attribute에 추가 되어있어야 데이터가 표시됨.
+				
+				@cateList	List<CategoryVO>
+				@cate	대분류 item
+				@root	각 대분류에 대응하는 중분류를 뽑아 태그를 작성하기 위해 대분류를  c:out 으로 변수 선언 함
+						중분류의 forEach가 끝나면 remove됨
+				@cate2	중분류 item
+				@root2	각 중분류에 대응하는 소분류를 뽑아 태그를 작(생략)
+				
+				@collapse_set 	첫번째 카테고리 탭만 최초에 펼쳐져 있도록 하기 위해 사용됨
+								중분류 작성 마지막에 remove됨
+				@aria_set		상동
+				@in_set			상동
+				
+				현재 카테고리 DB가 입력이 되어있는 3, 7, 28번 분류만 표시되도록 해놓음
+			 -->
 			<div class="col-sm-3">
 				<div class="left-sidebar">
 					<h2>Category</h2>
@@ -232,6 +250,7 @@
 												</a>
 											</div>
 										</div>
+										<ul><li>
 										<div id="collapse${root}" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="heading${root}">
 										<ul>
 		
@@ -239,7 +258,7 @@
 											<div class="panel-group" id="tab${root}" role="tablist" aria-multiselectable="true">
 											<c:forEach var="cate2" items="${cateList}">
 												<c:choose>
-													<c:when test="${cate2.cat_step == 2 && cate2.cat_root == root}">						
+													<c:when test="${cate2.cat_step == 2 && cate2.cat_root == root && (cate2.cat_no == 3 || cate2.cat_no == 7 || cate2.cat_no == 28) }">					
 														<div class="panel panel-default">
 																<c:choose>
 																	<c:when test="${cate2.cat_no ==3 }">
@@ -254,14 +273,13 @@
 																	</c:otherwise>
 																</c:choose>
 																<div class="panel-heading" role="tab" id="heading${cate2.cat_no}">
-																	<li><a data-toggle="collapse"
-																	class="${collapse_set}" data-parent="#tab${root}" href="#collapse${cate2.cat_no}"
-																	aria-expanded="${aria_set}" aria-controls="collapse${cate2.cat_no}">
+																	<a data-toggle="collapse" class="${collapse_set}" data-parent="#tab${root}" href="#collapse${cate2.cat_no}" aria-expanded="${aria_set}" aria-controls="collapse${cate2.cat_no}">
 																		<span class="badge pull-right"><i class="fa fa-plus"></i></span>
 																		<c:out value="${cate2.cat_name}"/>
 																		<c:set var="root2" value="${cate2.cat_no}"/>
 																		
-																	</a></li>
+																	</a>
+																
 																</div>
 																<div id="collapse${root2}" class="panel-collapse collapse ${in_set}" role="tabpanel" aria-labelledby="heading${root2}">
 																	<div class="panel-body">
@@ -276,72 +294,64 @@
 																		</c:forEach>
 																	</div>
 																</div>
-														</div>	
-														
+														</div>
 														<c:remove var="collapse_set"/>
 														<c:remove var="aria_set"/>
 														<c:remove var="in_set"/>
 													</c:when>
 												</c:choose>
 												
-											</c:forEach>
-											<c:remove var="root"/>
+											</c:forEach>									<c:remove var="root"/>
 											</div>
 											</div>
-										</ul>
 										</div>
+										</li></ul>
 									</div>
 								</c:when>
 							</c:choose>
-						</c:forEach>
+						</c:forEach>		
 					</div>
 				</div>
 			</div>
+			<!------- Category Tab End (Left) -------->
 			
-		<!-------------------- /Category Tab -------------------->
-				
-		<!-------------------- Main Tab-------------------->
-				<div class="col-sm-9 padding-right">
-					
-			<!--------------  recommended items ------------->
-					<div class="recommended_items">
-						<h2 class="title text-center">2016년 출시 상품</h2>
-						
-						<div id="recommended-item-carousel" class="carousel slide" data-ride="carousel">
-							<div class="carousel-inner">
-								<div class="item active">	
-									
-									<c:forEach var="etc" items="${etcList}">
-									
-									<div class="col-sm-4">
-										<div class="product-image-wrapper">
-											<div class="single-products">
-												<div class="productinfo text-center">
-													<object class="book-thumb thumbnail" data="/images/bookImg/${etc.isbn}.jpg" type="image/jpg">
-													  <img src="/images/bookImg/no_book_img.png"/>
-													</object>
-													<h2>${etc.b_abprice}</h2>
-													<p>${etc.b_title}</p>
-													<a href="javascript:cartInsert('${etc.isbn}');" id="cartBtn" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>장바구니에 담기</a>
-												</div>
-												
+			<!-------------------- Main Tab (Right) Start -------------------->
+			<div class="col-sm-9 padding-right">
+				<!--------------  recommended items Start ------------->
+				<div class="recommended_items">
+					<h2 class="title text-center">2016년 출시 상품</h2>
+					<div id="recommended-item-carousel" class="carousel slide" data-ride="carousel">
+						<div class="carousel-inner">
+							<div class="item active">	
+								<c:forEach var="etc" items="${etcList}">
+								<div class="col-sm-4">
+									<div class="product-image-wrapper">
+										<div class="single-products">
+											<div class="productinfo text-center">
+												<object class="book-thumb thumbnail" data="/images/bookImg/${etc.isbn}.jpg" type="image/jpg">
+												  <img src="/images/bookImg/no_book_img.png"/>
+												</object>
+												<p id="col" >${etc.b_title}</p>
+												<p>${etc.b_abprice}원</p>
+		
+												<a href="javascript:cartInsert('${etc.isbn}');" id="cartBtn" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>장바구니에 담기</a>
 											</div>
 										</div>
 									</div>
-									</c:forEach>
-								 
 								</div>
+								</c:forEach>
 							</div>
-
 						</div>
 					</div>
-			<!-------------- /recommended items ---------------->
-					
-		<!-------------------- /Main Tab-------------------->	
 				</div>
+				<!-------------- recommended items End ---------------->
 			</div>
+			<!-------------------- Main Tab (Right) End -------------------->
+			</div>
+			<!----------- row End ------------->
 		</div>
 	</section>
+	<!-------------------- Category Tab & recommand item Section End -------------------->
 	
 	
 	

@@ -27,7 +27,11 @@
       <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
-    
+    <style>
+    	.center{text-align:center;}
+    	.enter{margin-bottom:30px;}
+    	.col{background-color:white;}
+    </style>
     <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
     <script type="text/javascript">
     	$(function(){
@@ -57,46 +61,51 @@
   <body>
 
     <div class="container">
-	
-    
-	<h5 id="line">이달의 책</h5>
+      	<div class="col-sm-14">
+       		<div class="well col page-header">
+       			<h1 class="center"><i class="glyphicon glyphicon-book"></i> <span class="">  이달의 책</span></h1>
+       		</div>
+       	
+       	
       <!-- Example row of columns -->
-      <div class="row">
-       
-        <div class="col-lg-4">
+      <div class="row">       	
+ 
+       	
+        <div class="col-lg-4 enter">
         <div class="well"> 
         	<%-- 첫번째  책 제목  --%>
           <h2>110만 독자가 선택한 우리시대 최고의 교양서</h2>
           <p class="text-danger">설명 </p>
-          <p><img src="http://image.yes24.com/momo/scmfiles/AdvertFiles/201701/2578228_170112101530.jpg" /></p>
-          <p><a class="btn btn-primary" href="#" id="b_month1" role="button">자세히 보기 &raquo;</a></p>
+          <p class="center"><img src="http://image.yes24.com/momo/scmfiles/AdvertFiles/201701/2578228_170112101530.jpg" /></p>
+          <p class="center"><a class="btn btn-primary" href="#" id="b_month1" role="button">자세히 보기 &raquo;</a></p>
         </div>
         
         </div>
         
-        <div class="col-lg-4">
+        <div class="col-lg-4 enter">
         <div class="well">  
         	<%-- 두번째 책 제목  --%>
           <h2>성장하는 민주 시민을 위한 책 내일을 위한 책</h2>
           <p>설명</p>
-          <p><img src="http://image.yes24.com/momo/scmfiles/AdvertFiles/201701/2576035_170111051733.jpg" /></p>
-          <p><a class="btn btn-primary" href="#" id="b_month2" role="button">자세히 보기 &raquo;</a></p>
+          <p class="center"> <img src="http://image.yes24.com/momo/scmfiles/AdvertFiles/201701/2576035_170111051733.jpg" /></p>
+          <p class="center"><a class="btn btn-primary" href="#" id="b_month2" role="button">자세히 보기 &raquo;</a></p>
        </div>
        
        </div>
        
-        <div class="col-lg-4">
+        <div class="col-lg-4 enter">
         <div class="well">  
         	<%-- 세번째  책 제목  --%>
           <h2>12가지 법칙이 만드는 피할 수 없는 미래</h2>
           <p>설명</p>
-          <p><img src="http://image.yes24.com/momo/scmfiles/AdvertFiles/201701/2575768_170112033903.jpg" /></p>
-          <p><a class="btn btn-primary" href="#" id="b_month3" role="button">자세히 보기 &raquo;</a></p>
+          <p class="center"><img src="http://image.yes24.com/momo/scmfiles/AdvertFiles/201701/2575768_170112033903.jpg" /></p>
+          <p class="center"><a class="btn btn-primary" href="#" id="b_month3" role="button">자세히 보기 &raquo;</a></p>
         </div>
         
         </div>
       </div>
       
+      </div>
       
 	
      

@@ -53,31 +53,19 @@ public class BoardController {
 		logger.info("searchStartDate ="+bvo.getSearchStartDate());
 		logger.info("searchEndDate =" + bvo.getSearchEndDate());
 		
-		// 전체 레코드 수 구현
-	      int total = boardService.boardListCnt(bvo);
-	      logger.info("total = " + total);
-	      bvo.setSearchTotal(total);
-		
-	     //카테고리 세팅
-	      CategoryVO ctvo = new CategoryVO();
-			List<CategoryVO> cateList = categoryService.categoryBoxList(ctvo);
-	      
+
 		//페이지 세팅
 		Paging.setBookPaging(bvo);
-		if(bvo.getBd_forum_no()==1){
-			List<BoardVO> boardList = boardService.boardList(bvo);
-			model.addAttribute("boardList", boardList);
-		}else{
-			List<BoardVO> boardList = boardService.questionBoardList(bvo);
-			model.addAttribute("boardList", boardList);
-		}
 		
-		
-		
-		model.addAttribute("cateList",cateList);
-		
-		
+		List<BoardVO> boardList = boardService.boardList(bvo);
+		model.addAttribute("boardList", boardList);
+
+		// 전체 레코드 수 구현
+	    int total = boardService.boardListCnt(bvo);
+	    logger.info("total = " + total);
 	
+		logger.info("searchTotal : " + bvo.getSearchTotal());
+		model.addAttribute("total", total);	
 		
 		return "board/boardList";
 	}

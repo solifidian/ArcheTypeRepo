@@ -6,7 +6,7 @@ import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.TagSupport;
 
 public class PagingBarTag extends TagSupport{
-
+	private static final long serialVersionUID = 1L;
 	/*************************************
 	 * @param page			현제 페이지 번호
 	 * @param searchTotal	전체 조회된 row 수

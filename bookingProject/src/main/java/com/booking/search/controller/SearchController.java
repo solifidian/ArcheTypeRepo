@@ -14,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.booking.common.util.Util;
 import com.booking.search.service.SearchService;
@@ -41,35 +42,9 @@ public class SearchController {
 			
 		return "search/searchpage";
 	}
+
 	
-/*	//해외도서목록
-	@RequestMapping(value="/bookForeignList.do")
-	public String bookForeignList(@ModelAttribute SearchVO svo,Model model, HttpSession session,  HttpServletResponse response ){
-		logger.info("bookForeignList 호출");		
-			
-		List<SearchVO> list=searchService.bookForeignList(svo);
-		//결제 완료 페이지에 뿌려줄 데이터
-	    model.addAttribute("fore", list); 
-	    model.addAttribute("bookList", list);	
-	    model.addAttribute("listData", svo);
-		return "book/bookForeign";
-	}
-	
-	//국내도서목록
-	@RequestMapping(value="/bookDomesticList.do")
-	public String bookDomesticList(@ModelAttribute SearchVO svo,Model model, HttpSession session,  HttpServletResponse response ){
-		logger.info("bookDomesticList 호출");		
-			
-		List<SearchVO> list=searchService.bookDomesticList(svo);
-		//결제 완료 페이지에 뿌려줄 데이터
-	    model.addAttribute("dome", list); 
-	    model.addAttribute("bookList", list);
-	    model.addAttribute("listData", svo);
-		return "book/bookDomestic";
-	}*/
-	
-	
-	/*@RequestMapping(value="/searchdetail.do",method=RequestMethod.GET)
+	@RequestMapping(value="/searchdetail.do",method=RequestMethod.GET)
 	public String booksearchdetail(@ModelAttribute SearchVO svo, Model model) {
 		
 		logger.info("searchdetail 호출");
@@ -77,8 +52,7 @@ public class SearchController {
 		vo=searchService.booksearchdetail(svo);
 		model.addAttribute("data",vo);
 		
-		return "booking/searchdetailpage";
-		
-	}*/
+		return "booking/searchdetailpage";		
+	}
 	
 }
