@@ -232,62 +232,53 @@
 				</script> 
 				  
 	
-				<form id="b_detail">
-				<input type="hidden" name="isbn" id="isbn" value="${detail.isbn}">
-				
-				<div class="col-sm-9 padding-right d_form" >
-					<div class="col-sm-4 tt" id="test2">
-						<label></label>
-						<object class="thumbnail" data="/images/bookImg/${detail.isbn}.jpg" type="image/jpg">
+			<form id="b_detail">
+			<input type="hidden" name="isbn" id="isbn" value="${detail.isbn}">					  
+			<div class="col-sm-9 padding-right">
+				<div class="product-details"><!--product-details-->
+						<div class="col-sm-4">						
+					  		<div class="view-product">
+								<object class="thumbnail" data="/images/bookImg/${detail.isbn}.jpg" type="image/jpg">
 								  	<img src="/images/bookImg/no_book_img.png"/>
 							  	</object>
-						
-					</div>
-					<div class="col-sm-8" id="test3">
-						<div class="row-sm-6 tet tt" id="test4">
-							<label>도서  : ${detail.b_title}</label>
-							
-							<label>저자  : ${detail.b_author}</label>	
-						</div>
-						
-						<div class="row-sm-6 tet2" id="test5">
-							<div class="col-sm-7 tet3 tt" id="test5-1">
-								<label>가격 : ${detail.b_abprice} 원</label> 
+								<h3>ZOOM</h3>
 							</div>
-							
-							<div class="col-sm-5 tet3 tt" id="test5-2">
-								출간일 : ${detail.b_pubdate}
-								<br>
-								출판사 : ${detail.pub_name}
-								<br>
-								isbn 코드 : ${detail.isbn}
-							</div>
-						</div>
 						
-						<div class="row-sm-6 tet tt" id="test6">
-							<label>
-								배송비 안내<br>
-								배송비 : 2500 원<br>
-								도착 예정 일: 결제 후 1일 발송 예정
-								
-							
-							</label>
 						</div>
-						
-						<div class="row-sm-6 tet tt" id="test7">
-							<label>수량 : <input type="text" name="cart_amount"  value="1" id="cart_amount" class="num"  style="width:20px; text-align:center;"/>
+					
+					<div class="col-sm-7">
+						<div class="product-information"><!--/product-information-->
+							<img src="/resources/images/product-details/new.jpg" class="newarrival" alt="" />
+							<h2>${detail.b_title}</h2>
+							<p>저자 : ${detail.b_author}</p>
+							<img src="/resources/images/product-details/rating.png" alt="" />
+							<br>
+							<span>
+								<span> ${detail.b_abprice} 원</span><br>
+								<label>수량 : </label>
+								<input type="text" name="cart_amount"  value="1" id="cart_amount" class="num"  style="width:20px; text-align:center;"/>
 								<input type="button" id="bt_up" class="bt_up" value="+" />
 								<input type="button" id="bt_down" class="bt_down" value="-" />
-                				
-                			</label><br>
-							<input type="button" class="btn btn-default add-to-cart bu" id="b_buy" name="b_buy" value="구매하기">
-							<input type="button" class="btn btn-default add-to-cart bu" id="b_cart" name="b_cart" value="장바구니">
-						</div>
-						
-					
+								
+								<!-- <button type="button" class="btn btn-fefault cart">
+									<i class="fa fa-shopping-cart"></i>
+									Add to cart
+								</button> -->
+							</span>
+							<br>
+							<p><b>출간일 :</b>${detail.b_pubdate}</p>
+							<p><b>출판사 :</b>${detail.pub_name}</p>
+							<p><b>isbn 코드 :</b> ${detail.isbn}</p>
+							<p>배송비 안내<br>
+								배송비 : 2500 원<br>
+								도착 예정 일: 결제 후 1일 발송 예정</p>
+							<a href=""><img src="/resources/images/product-details/share.png" class="share img-responsive"  alt="" /></a>
+						</div><!--/product-information-->
 					</div>
+				</div><!--/product-details-->
 					
-				</div>
+			</div>
+			
 				</form>
 				<div class="col-sm-9 padding-right">
 						<hr></hr>
