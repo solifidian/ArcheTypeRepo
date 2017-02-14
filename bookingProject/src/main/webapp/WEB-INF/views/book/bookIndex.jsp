@@ -313,18 +313,16 @@
 																		</c:forEach>
 																	</div>
 																</div>
-														</div>	
+														</div><!-- /class : panel panel-default -->
 														<c:remove var="collapse_set"/>
 														<c:remove var="aria_set"/>
 														<c:remove var="in_set"/>
 													</c:when>
 												</c:choose>
 											</c:forEach>
-											
 											<c:remove var="root"/>
 											</div>
-											</div>
-										
+											</div><!-- /class : panel-body -->
 										</div>
 										</li></ul>
 									</div>
@@ -332,8 +330,9 @@
 							</c:choose>
 						</c:forEach>		
 					</div>
-				</div>
-			</div>
+				</div><!--  /class : left-sidebar -->
+			</div><!-- /class : col-sm-3 -->
+			
 			<!------- Category Tab End (Left) -------->
 			
 			<!-------------------- Main Tab (Right) Start -------------------->

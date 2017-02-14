@@ -6,6 +6,7 @@
 		<put-attribute name="title" value="도서왕 Booking"></put-attribute>
 		<put-attribute name="header" value="/resources/template/header.jsp"></put-attribute>
 		<put-attribute name="footer" value="/resources/template/footer.jsp"></put-attribute>
+		<put-attribute name="left" value=""></put-attribute>
 		<put-attribute name="body" value=""></put-attribute>
 	</definition>
 	
@@ -37,6 +38,7 @@
     </definition>
     
    	<definition name="board/*" extends="content">
+   	  <put-attribute name="left" value="/WEB-INF/views/board/boardLeft.jsp" />
       <put-attribute name="body" value="/WEB-INF/views/board/{1}.jsp" />
     </definition>
     
