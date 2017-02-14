@@ -118,7 +118,7 @@
 	    		<div class="col-sm-9">  			   			
 					<h2 class="title text-center"> <strong>고객센터</strong></h2>    			    				    				
 					<div>
-						<img src="/resources/images/ping.png">
+						<img src="/resources/images/service.png">
 					
 						
 					</div>
