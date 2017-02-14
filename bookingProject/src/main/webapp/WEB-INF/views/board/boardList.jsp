@@ -242,7 +242,7 @@
 
 <!-- ============페이지 네비게이션 시작 ==================-->
             <div class="well">
-	         	<div class="navbar-left">
+	         	<div class="navbar-right">
 	         		페이지당 표시 건 수
 	         		<select name="pageSizeChange" id="pageSizeChange" >
      				    <option value="">선택하세요</option>   			
