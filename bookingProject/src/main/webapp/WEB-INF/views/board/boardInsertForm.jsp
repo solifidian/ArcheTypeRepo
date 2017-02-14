@@ -199,8 +199,6 @@
 						<div class="single-blog-post" id="boardInsert" >
 							<form id="bd_writeForm" name="bd_writeForm" >
 							<!--게시판 번호 자동으로 넘겨주게 설정할것 지금은 기본 1 -->
-							<input type="hidden" name="bd_forum_no" id="bd_forum_no" value="1">
-							
 							<table summary="게시글 작성" class="tb">
 								<colgroup>
 									<col width="17%" />
@@ -209,11 +207,12 @@
 								<tr>
 									<td class="ac">게시판이름</td>
 									<td>
-										<select id="bd_forum_name" name="bd_forum_name">
-											<option value="커뮤니티게시판" >커뮤니티게시판
-											<option value="문의게시판" >문의게시판
+										<select id="bd_forum_no" name="bd_forum_no">
+											<option value="1" >커뮤니티게시판
+											<option value="2" >문의게시판
 										</select>
 									</td>
+									
 								</tr>
 								<tr>
 									<td class="ac">카테고리</td>

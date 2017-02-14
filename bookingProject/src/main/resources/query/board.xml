@@ -22,6 +22,14 @@
 			bd_reroot			
 	FROM booking_community_board
 	<where>
+		<choose>
+			<when test="bd_forum_no != null and bd_forum_no != '' and bd_forum_no != 0">
+				bd_forum_no = #{bd_forum_no}
+			</when>
+			<otherwise>
+				bd_forum_no = 1
+			</otherwise>
+		</choose>
 		<if test="searchMode == 'bd_post_no' ">
 			<![CDATA[bd_post_no LIKE '%' || #{keyword} || '%']]>			
 		</if>
@@ -44,7 +52,7 @@
 			<if test="searchEndDate != null and searchEndDate != ''">
 				<![CDATA[to_char(bd_editdate, 'YY-MM-DD HH:mm') between #{searchStartDate} and #{searchEndDate}]]>
 			</if>
-		</if>		
+		</if>
 	</where>
 </sql>
 
