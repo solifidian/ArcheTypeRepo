@@ -68,6 +68,10 @@ public class BookController {
 		//별도 책 호출
 		List<BookVO> etcbookList=bookService.etcListCall();
 		
+		
+		//랜덤 책 3권 호출
+		List<BookVO> randomList = bookService.randomList();
+		
 		//List<BookVO> list1=bookService.list1();
 		/*List<BookVO> list2=bookService.list2();
 		/*List<BookVO> list3=bookService.list3();
@@ -77,6 +81,7 @@ public class BookController {
 		
 		model.addAttribute("cateList",ctvoList);
 		model.addAttribute("etcList" ,etcbookList);
+		model.addAttribute("randomList", randomList);
 		/*	model.addAttribute("list2" ,list1);
 	/*	model.addAttribute("list2" ,list2);
 		model.addAttribute("List3" ,list3);

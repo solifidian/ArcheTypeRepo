@@ -28,13 +28,13 @@
 		
 		
 		$("#purchaseListBtn").click(function(){
-			alert("구매내역페이지로 이동")
+			//alert("구매내역페이지로 이동")
 			location.href="/member/memberMypage.do"
 				
 		})
 		
 		$("#continueShoppingBtn").click(function(){
-			alert("메인페이지로 이동")
+			//alert("메인페이지로 이동")
 			location.href="/book/bookIndex.do"
 			
 		})

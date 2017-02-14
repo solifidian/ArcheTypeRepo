@@ -21,5 +21,7 @@ public interface BookDAO {
 	public List<BookVO> list3();
 	public List<BookVO> list4();
 	public List<BookVO> list5();
+	
+	public List<BookVO> randomList();
 
 }

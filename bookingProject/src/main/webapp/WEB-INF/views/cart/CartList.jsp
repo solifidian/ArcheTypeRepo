@@ -23,13 +23,13 @@
 	 //쇼핑 계속하기
  	 
 	 $("#continueShoppingBtn").click(function(){
-			alert("메인페이지로 이동")
+			//alert("메인페이지로 이동")
 			location.href="/book/bookIndex.do"
 				
 			})
 	 //비회원 주문 하기
 	 $("#noMemberPurchaseBtn").click(function(){
-			 alert("비회원구매")
+			 //alert("비회원구매")
 	 //회원이 비회원주문 클릭했을  경우 로그인 창으로 이동
 		 if(m_id!='0'){
 			alert("회원 구매를 이용해주세요 ")
