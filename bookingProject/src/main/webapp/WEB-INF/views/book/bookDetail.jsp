@@ -201,11 +201,7 @@
 					
 					//장바구니 버튼 클릭시
 					$("#b_cart").click(function(){
-						if(s_id==null || s_id==""){
-							alert("로그인 창으로 이동 하시겠습니까?");
-						}else {
-
-							$.ajax({
+						$.ajax({
 								   url:"/cart/cartInsert.do",
 								   type:"POST",
 								   data:$("#b_detail").serialize(),
@@ -234,7 +230,7 @@
 							 
 							 
 						 })	
-						}
+						
 					});
 				
 				
