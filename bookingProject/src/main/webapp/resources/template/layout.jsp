@@ -38,21 +38,27 @@
 		 <tiles:insertAttribute name="header"/>
 	</header><!--/header-->
 	
-	<section id="section1"><!--메인-->
-		
-		
-		
-		
+	<section id="top">
 		<div class="container">
-				<div class="col-md-12">
-						<tiles:insertAttribute name="left"/>
-							
-						 <tiles:insertAttribute name="body"/>
-				
-					
-				</div>
+			<div class="row">
+				<tiles:insertAttribute name="top"/>
 			</div>
-	</section><!--/section1종료-->
+		</div>
+	</section>
+	
+	<section id="main">
+		<div class="container">
+			<!--------------- row Start --------------->
+			
+			<div class="row">
+				<tiles:insertAttribute name="left"/>
+				<div class="col-sm-9 padding-right">
+					<tiles:insertAttribute name="body"/>
+				</div><!-- /class : col-sm-9 padding-right -->
+			</div><!-- /class : row -->
+			<!--------------- row Start --------------->
+		</div>	
+	</section><!--/id : main-->
 	
 	
 	<footer id="footer"><!--Footer-->

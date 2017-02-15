@@ -133,20 +133,31 @@
 				$("#page").val(1);
 			
 		});
-		 
-	
-	
-		
+
 	});/* 최상위 종료  */
-	
 </script>
+
 <body>
 <section>
 	<div class="container">
 		<div class="row">
 			<div class="col-sm-9">
 				<div class="blog-post-area">
-					<h2 class="title text-center">커뮤니티 게시판</h2>
+					<h2 class="title text-center">
+						<c:choose>
+							<c:when test="${data.bd_forum_no == 1}">자유 포럼</c:when>
+							<c:when test="${data.bd_forum_no == 2}">국내도서 포럼</c:when>
+							<c:when test="${data.bd_forum_no == 3}">해외도서 포럼</c:when>
+							<c:when test="${data.bd_forum_no == 4}">전문서적 포럼</c:when>
+							<c:when test="${data.bd_forum_no == 11}">도서 이야기</c:when>
+							<c:when test="${data.bd_forum_no == 12}">국내도서 평가 포럼</c:when>
+							<c:when test="${data.bd_forum_no == 13}">해외도서 평가 포럼</c:when>
+							<c:when test="${data.bd_forum_no == 14}">전문서적 평가 포럼</c:when>
+							<c:when test="${data.bd_forum_no == 31}">묻고 답하기 게시판</c:when>
+							<c:when test="${data.bd_forum_no == 32}">도서 질문 게시판</c:when>
+							<c:when test="${data.bd_forum_no == 51}">진행중 이벤트 게시판</c:when>
+						</c:choose>
+					</h2>
 <!--	================ 리스트 시작 ======================  -->
 
 <!-- ============페이지 네비게이션 시작 ==================-->
@@ -253,7 +264,7 @@
 <!-- 전체 리스트 제어 폼 -->
 			<div class="search_div">
           	<form class="navbar-form navbar-left" id="searchForm" method="get" action="/board/boardList.do">
-          	          			
+          	        <input type="hidden" name="bd_forum_no" value="${data.bd_forum_no}"/>
 	          		<!-- 페이지 정렬을 위한 hidden input들 -->
 	          		<input type="hidden" name="page" id="page" value="${data.page}"/>
 	          		<input type="hidden" name="pageSize" id="pageSize" value="${data.pageSize}"/>
