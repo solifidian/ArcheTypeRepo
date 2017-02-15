@@ -21,7 +21,8 @@
 	
 </style>
 <script type="text/javascript">
-
+var s_id = "${sessionScope.memSession.m_id}";
+var s_nick = "${sessionScope.memSession.m_nick}";
 	$(function(){
 		//기본 댓글 목록 불러오기
 		var isbn = "<c:out value='${detail.isbn}'/>"; 
@@ -31,54 +32,66 @@
 		
 	//입력버튼 클릭시
 		$("#replyInsertBtn").click(function(){
-			
-			 if(!chkSubmit($("#br_content"),"내용을"))return;
-			else{
-				var insertUrl = "/bookReplies/bReplyInsert.do";				
-				$.ajax({	
-					url : insertUrl,
-					type :"POST",
-					headers : {
-						"Content-Type" : "application/json",
-						"X-HTTP-Method-Override" :"POST"
-					}, 
-					dataType:"text",				
-					data : JSON.stringify({
-						isbn : isbn,
-						br_writer :"${sessionScope.memSession.m_nick}",
-						br_score :$("#br_score").val(),
-						br_content:$("#br_content").val()
-					}),
-					error : function(){
-						alert("시스템 오류입니다. 다시한번 확인해 주세요.")
-					},
-					success : function(resultData){
-						if(resultData == "SUCCESS"){
-							alert("댓글 등록이 완료되었습니다.");
-							dataReset();
-							listAll(isbn);
-						}
-					}						
-				});
-			}
+			if(s_id==null || s_id==""){
+				alert("로그인 후 이용히 가능합니다.");
+				location.href="/member/memberLoginPage.do";
+			}else {
+				 if(!chkSubmit($("#br_content"),"내용을"))return;
+					else{
+						var insertUrl = "/bookReplies/bReplyInsert.do";				
+						$.ajax({	
+							url : insertUrl,
+							type :"POST",
+							headers : {
+								"Content-Type" : "application/json",
+								"X-HTTP-Method-Override" :"POST"
+							}, 
+							dataType:"text",				
+							data : JSON.stringify({
+								isbn : isbn,
+								br_writer :"${sessionScope.memSession.m_nick}",
+								br_score :$("#br_score").val(),
+								br_content:$("#br_content").val()
+							}),
+							error : function(){
+								alert("시스템 오류입니다. 다시한번 확인해 주세요.")
+							},
+							success : function(resultData){
+								if(resultData == "SUCCESS"){
+									alert("댓글 등록이 완료되었습니다.");
+									dataReset();
+									listAll(isbn);
+								}
+							}						
+						});
+					}
+			}			
 			
 		});
 		
 		//수정하기 버튼 눌렀을때 수정폼 출력
-		$(document).on("click",".replyUpdateBtn",function(){		
-			var currLi = $(this).parents("li");
-			currLi.find("input[type='button']").hide();
-			var conText = currLi.children().find("p").html();
-			var conArea = currLi.children().find("p");				
-			conArea.html("");
-			var score = "<select name='newscore' class='form-control' id='newscore'><option value='5' selected>★★★★★<option value='4'>★★★★☆<option value='3'>★★★☆☆<option value='2'>★★☆☆☆<option value='1'>★☆☆☆☆	</select>";
-			var data = "<textArea name='content' id='content'>"+conText+"</textArea>";
-			data += score;
-			data += "<input type='button' class='update_btn btn btn-primary ' value='수정완료'>";
-			data += "<input type='button' class='reset_btn btn btn-primary' value='수정취소'>";
-			
-			conArea.html(data);
-			
+		$(document).on("click",".replyUpdateBtn",function(){
+			var writer = $(this).parents("li").find("input#br_writer").val();			
+			if(s_id==null || s_id==""){
+				alert("로그인 후 이용히 가능합니다.");
+				location.href="/member/memberLoginPage.do";
+			}else if(s_nick != writer){
+				alert("작성 한 본인만 수정 가능합니다.");
+			}else {
+				if(s_nick == writer);
+				var currLi = $(this).parents("li");
+				currLi.find("input[type='button']").hide();
+				var conText = currLi.children().find("p").html();
+				var conArea = currLi.children().find("p");				
+				conArea.html("");
+				var score = "<select name='newscore' class='form-control' id='newscore'><option value='5' selected>★★★★★<option value='4'>★★★★☆<option value='3'>★★★☆☆<option value='2'>★★☆☆☆<option value='1'>★☆☆☆☆	</select>";
+				var data = "<textArea name='content' id='content'>"+conText+"</textArea>";
+				data += score;
+				data += "<input type='button' class='update_btn btn btn-primary ' value='수정완료'>";
+				data += "<input type='button' class='reset_btn btn btn-primary' value='수정취소'>";
+				
+				conArea.html(data);
+			}
 		});
 		
 		//수정취소 버튼 클릭시
@@ -120,33 +133,41 @@
 		});
 		
 		//댓글 삭제를 위한 ajax 연동처리
-		$(document).on("click",".replyDeleteBtn",function(){			
-			var currLi = $(this).parents("li");
-			replyNum = currLi.attr("data-num");			
-			var br_no = $(this).parents("li").attr("data-num");
-			var br_content = $("#content").val();			
-
-				if(confirm("선택하신 댓글을 삭제하시겠습니까?")){
-					$.ajax({
-						url : '/bookReplies/'+br_no+".do",
-						type : 'delete',
-						header :{
-							"Content-Type" :"application/json",
-							"X-HTTP-Method-Override" : "DELETE"
-						},
-						data : JSON.stringify({
-							br_score : br_score,
-							br_content : br_content}),
-						dataType : 'text',
-						success : function(result){
-							console.log("result:"+result);
-							if(result == 'SUCCESS'){
-								alert("삭제 완료되었습니다.");
-								listAll(isbn);
+		$(document).on("click",".replyDeleteBtn",function(){
+			var writer = $(this).parents("li").find("input#br_writer").val();			
+			if(s_id==null || s_id==""){
+				alert("로그인 후 이용히 가능합니다.");
+				location.href="/member/memberLoginPage.do";
+			}else if(s_nick != writer){
+				alert("작성 한 본인만 삭제 가능합니다.");
+			}else {			
+				var currLi = $(this).parents("li");
+				replyNum = currLi.attr("data-num");			
+				var br_no = $(this).parents("li").attr("data-num");
+				var br_content = $("#content").val();			
+	
+					if(confirm("선택하신 댓글을 삭제하시겠습니까?")){
+						$.ajax({
+							url : '/bookReplies/'+br_no+".do",
+							type : 'delete',
+							header :{
+								"Content-Type" :"application/json",
+								"X-HTTP-Method-Override" : "DELETE"
+							},
+							data : JSON.stringify({
+								br_score : br_score,
+								br_content : br_content}),
+							dataType : 'text',
+							success : function(result){
+								console.log("result:"+result);
+								if(result == 'SUCCESS'){
+									alert("삭제 완료되었습니다.");
+									listAll(isbn);
+								}
 							}
-						}
-					});
-				}			
+						});
+					}
+				}
 		});
 
 		
@@ -182,6 +203,12 @@
 		var new_li = $("<li>");
 		new_li.attr("data-num",br_no);
 		new_li.addClass("comment_item media");
+		
+		//히든값 저장해서 넘김
+		var new_hidden = $("<input>");
+		new_hidden.attr("type","hidden");
+		new_hidden.attr({"name":"br_writer","id":"br_writer"});
+		new_hidden.val(br_writer);
 		
 		//하나의 댓글을 감싸는 <div>
 		var area_div = $("<div>");
@@ -242,7 +269,7 @@
 
 		
 		//전체조립					
-		area_div.append(ul_img).append(content_p).append(up_input).append(del_input);	
+		area_div.append(new_hidden).append(ul_img).append(content_p).append(up_input).append(del_input);	
 		new_li.append(area_div);
 		$("#comment_list").append(new_li);		
 	

@@ -37,14 +37,17 @@ public class ReplyController {
 		ResponseEntity<List<ReplyVO>> entity = null;
 		ReplyVO rvo = new ReplyVO();
 		logger.info("re_update_time:");
+		
 		try{
 			entity = new ResponseEntity<List<ReplyVO>>(replyService.replyList(bd_post_no), HttpStatus.OK);
+			
 			
 		}catch(Exception e){
 			e.printStackTrace();
 			entity = new ResponseEntity<List<ReplyVO>>(HttpStatus.BAD_REQUEST);
 		}
-			return entity;
+			
+		return entity;
 	}
 	
 	/***************************************
