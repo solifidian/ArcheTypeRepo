@@ -14,8 +14,16 @@
   
   select nvl(( select 1 
                    from booking_member_coupon_rel 
-  					       where m_no=#{m_no} and coupon_no=#{coupon_no}),0) as status
-  					           from dual
+                   
+                   
+   <where>
+    <!--만약 세션이 존재한다면 회원 번호로 검색  -->
+     <if test="m_no!=0" >m_no=#{m_no} and coupon_no=#{coupon_no}),0) as status </if>
+     
+    
+   </where>
+  	from dual				      
+  					         
   
   </select>
 

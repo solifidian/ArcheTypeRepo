@@ -96,8 +96,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-      ${cookie.JSESSIONID.value}  
-	  ${sessionScope.memSession.m_id} 세션스코프
+ 
 	<section id="cart_items">
 		<div class="container">
 			<div class="breadcrumbs">
