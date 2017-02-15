@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
-<html>
+<html> 
 	<!--------------- slider section Start -------------------->
 	<section id="slider">
 		<div class="container">
@@ -24,16 +24,16 @@
 													<h1><span>${randomList.b_title }</span></h1>
 													<h2>${randomList.b_author}</h2>
 													<p>이 달의 기대작 모음</p>
-													<button type="button" class="btn btn-default get">자세히보기</button>
+													<a href="/book/bookDetail.do?isbn=${randomList.isbn}"><button type="button" class="btn btn-default get">자세히보기</button></a>
 												</div>
 												<div class="col-sm-6">
-													<img src="/images/bookImg/${randomList.isbn}.jpg" class="img-responsive" alt="현재 이미지 준비중입니다." />
+													<img src="/images/bookImg/${randomList.isbn}.jpg" class="img-responsive" alt="" onerror="this.src = '/images/nobook.jpg'" />
 												</div>
 											</div>
 									</c:forEach>
 								</c:when>
 								<c:otherwise>
-									<h1>아아아아 안나온다</h1>
+									<h1>책정보가 없습니다.</h1>
 								</c:otherwise>
 							</c:choose>
 							
