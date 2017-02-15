@@ -49,20 +49,20 @@
 	<select id="memberList" parameterType="member" resultType="member">
 		/* MemberLogin 조회 */
 		select m_no
-				, m_id 
-				, m_pwd 
+				, REGEXP_REPLACE(m_id, '.','*', 3) as m_id 
+				<!-- , m_pwd  -->
 				, m_nick 
-				, m_name
+				,REGEXP_REPLACE(m_name, '.', '*',2) as m_name
 				, to_char(m_birth, 'YYYY-MM-DD') as m_birth
 				, m_sex
-				, m_phone
-				, m_email
+				,CONCAT('010-****-',SUBSTR(m_phone,8, LENGTH(m_phone))) as m_phone
+				,CONCAT('***',SUBSTR(m_email, 4, LENGTH(m_email))) as m_email
 				, m_comment
 				, m_rank
 				, m_point
 				, m_update
 				, m_editdate
-				, m_home_address
+				,CONCAT('***',SUBSTR(m_home_address, 4, LENGTH(m_home_address))) as m_home_address
 				, m_post_address
 		from (
 			select list.*, rownum as rnum 
