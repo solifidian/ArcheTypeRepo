@@ -19,10 +19,6 @@
 		<level value="TRACE" />
 	</logger>
 	
-	<logger name="com.booking.admin.**">
-		<level value="TRACE" />
-	</logger>
-	
 	<logger name="com.booking.admin.book">
 		<level value="TRACE" />
 	</logger>

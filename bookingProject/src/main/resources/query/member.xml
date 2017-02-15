@@ -158,7 +158,7 @@
 		 and d.del_num is not null  
 		 order by p.p_no
 		</select>
-		<select id="purchaseDetail" parameterType="delivery" resultType="rel">
+		<select id="purchaseDetail" parameterType="int" resultType="rel">
 		 /* memberDetail - 주문내역 책, 수량 */
 		 select 
 		 b.b_title

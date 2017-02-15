@@ -323,22 +323,73 @@
 						<div class="carousel-inner">
 							<div class="item active">	
 								<c:forEach var="etc" items="${etcList}">
+								
+								
 								<div class="col-sm-4">
 									<div class="product-image-wrapper">
 										<div class="single-products">
+										
 											<div class="productinfo text-center">
-												<object class="book-thumb thumbnail" data="/images/bookImg/${etc.isbn}.jpg" type="image/jpg">
+											<object class="book-thumb thumbnail" data="/images/bookImg/${etc.isbn}.jpg" type="image/jpg">
 												  <img src="/images/bookImg/no_book_img.png"/>
 												</object>
+												
 												<p id="col" >${etc.b_title}</p>
 												<p>${etc.b_abprice}원</p>
 		
 												<a href="javascript:cartInsert('${etc.isbn}');" id="cartBtn" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>장바구니에 담기</a>
 											</div>
+											
+											<div class="product-overlay">
+												<div class="overlay-content">
+													<h2>${etc.b_abprice}원</h2>
+													<p>${etc.b_title}</p>
+													<a href="javascript:cartInsert('${etc.isbn}');" id="cartBtn" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>장바구니에 담기</a>
+												</div>
+											</div>
+											
 										</div>
+										
+										
 									</div>
 								</div>
+								
+								
 								</c:forEach>
+								
+								
+						<div class="col-sm-4">
+							<div class="product-image-wrapper">
+								
+								
+								<div class="single-products">
+									<div class="productinfo text-center">
+										<img src="images/shop/product8.jpg" alt="" />
+										<h2>$56</h2>
+										<p>Easy Polo Black Edition</p>
+										<a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
+									</div>
+									<div class="product-overlay">
+										<div class="overlay-content">
+											<h2>$56</h2>
+											<p>Easy Polo Black Edition</p>
+											<a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
+										</div>
+									</div>
+									<img src="images/home/sale.png" class="new" alt="" />
+								</div>
+
+								<div class="choose">
+									<ul class="nav nav-pills nav-justified">
+										<li><a href=""><i class="fa fa-plus-square"></i>Add to wishlist</a></li>
+										<li><a href=""><i class="fa fa-plus-square"></i>Add to compare</a></li>
+									</ul>
+								</div>
+
+
+							</div>
+						</div>
+								
 							</div>
 						</div>
 					</div>

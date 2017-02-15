@@ -136,9 +136,9 @@ public class MemberServiceImpl implements MemberService {
 	
 	//주문 상세정보
 	@Override
-	public List<Purchase_relVO> purchaseDetail(Purchase_DeliveryVO pvo){
+	public List<Purchase_relVO> purchaseDetail(int p_no){
 		List<Purchase_relVO> result = null;
-		result = memberDAO.purchaseDetail(pvo);
+		result = memberDAO.purchaseDetail(p_no);
 		return result;
 	}
 	
