@@ -52,18 +52,6 @@ public class BookController {
 		return "book/bookMonth";
 	}
 	
-	//베스트셀러
-	@RequestMapping(value="/bookBestSeller.do")
-	public String bookBestSeller(){
-		return "book/bookBestSeller";
-	}
-	
-	//신간
-	@RequestMapping(value="/bookNew.do")
-	public String bookNew(){
-		return "book/bookNew";
-	}
-	
 	
 	//index페이지로 이동
 	@RequestMapping(value="/bookIndex.do")
@@ -83,9 +71,13 @@ public class BookController {
 		List<BookVO> list4=bookService.list4();
 		List<BookVO> list5=bookService.list5();*/
 		
+		//추천도서 호출
+		List<BookVO> recommendList1 = bookService.recommendList();
+		List<BookVO> recommendList2 = bookService.recommendList();
+		List<BookVO> recommendList3 = bookService.recommendList();
 		
-		model.addAttribute("etcList" ,etcbookList);
-		model.addAttribute("randomList", randomList);
+		
+		
 		/*	model.addAttribute("list2" ,list1);
 	/*	model.addAttribute("list2" ,list2);
 		model.addAttribute("List3" ,list3);
@@ -93,10 +85,17 @@ public class BookController {
 		model.addAttribute("List5" ,list5);*/
 		CategoryVO ctvo = new CategoryVO();
 		List<CategoryVO> ctvoList = categoryService.categoryBoxList(ctvo);
-		model.addAttribute("cateList",ctvoList);
 		
-		/*공학 영상 에너지 이론 건축
-		*/
+		
+		model.addAttribute("cateList",ctvoList);
+
+		model.addAttribute("recommendList1", recommendList1);
+		model.addAttribute("recommendList2", recommendList2);
+		model.addAttribute("recommendList3", recommendList3);
+		
+		model.addAttribute("etcList" ,etcbookList);
+		model.addAttribute("randomList", randomList);
+		
 		return "bookIndex";
 	}
 	
@@ -125,11 +124,21 @@ public class BookController {
 		BookVO detail = new BookVO();
 		detail = bookService.bookSelect(isbn);
 		
+		//랜덤으로 책 추천 recommendList
+		
+				
+		List<BookVO> recommendList1 = bookService.recommendList();
+		List<BookVO> recommendList2 = bookService.recommendList();
+		List<BookVO> recommendList3 = bookService.recommendList();
 		
 		CategoryVO ctvo = new CategoryVO();
-		List<CategoryVO> ctvoList = categoryService.categoryBoxList(ctvo);		
+		List<CategoryVO> ctvoList = categoryService.categoryBoxList(ctvo);	
+		
 		model.addAttribute("cateList",ctvoList);		
 		model.addAttribute("detail", detail);
+		model.addAttribute("recommendList1", recommendList1);
+		model.addAttribute("recommendList2", recommendList2);
+		model.addAttribute("recommendList3", recommendList3);
 		session.setAttribute("id", "test");
 		
 		return "book/bookDetail";

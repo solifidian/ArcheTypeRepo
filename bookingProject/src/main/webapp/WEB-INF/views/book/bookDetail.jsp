@@ -9,7 +9,13 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-
+	<style>
+		.book-thumb{
+			max-height:200px;
+			max-width:100px;
+			margin:auto;
+		}
+	</style>
  
 
 
@@ -145,7 +151,8 @@
 					.d_form .bu {margin-top:10px;}
 					.d_form .tt {border:1px gray dashed;}
 					#b_cart{margin:10px 20px; width:200px;}
-						
+					#cartBtn{width:150px;}	
+					#divSize{width:350px; height:350px; margin:30px 30px;}
 				</style>
 				<script src="/resources/include/js/jquery-1.12.4.min.js"></script>
 				<script type="text/javascript">
@@ -250,8 +257,8 @@
 						
 						</div>
 					
-					<div class="col-sm-7">
-						<div class="product-information"><!--/product-information-->
+					<div class="col-sm-7" id="divSize">
+						<div class="product-information" ><!--/product-information-->
 							<img src="/resources/images/product-details/new.jpg" class="newarrival" alt="" />
 							<h2>${detail.b_title}</h2>
 							<p>저자 : ${detail.b_author}</p>
@@ -281,6 +288,7 @@
 		                 	</p>
 						</div><!--/product-information-->
 					</div>
+					<br>
 				</div><!--/product-details-->
 					
 			</div>
@@ -290,102 +298,84 @@
 						<hr></hr>
 						
 					 <div class="recommended_items"><!--recommended_items-->
-						<h2 class="title text-center">관련 상품</h2>
+						<h2 class="title text-center">추천 도서</h2>
 						
-						<div id="recommended-item-carousel" class="carousel slide" data-ride="carousel">
-							<div class="carousel-inner">
-								<div class="item active">	
-									<div class="col-sm-4">
-										<div class="product-image-wrapper">
-											<div class="single-products">
-												<div class="productinfo text-center">
-													<img src="/images/home/recommend1.jpg" alt="" />
-													<h2>가격</h2>
-													<p>상품이름</p>
-													<a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
+						<div id="recommended-item-carousel" class="carousel slide" data-ride="carousel">						
+								<ol class="carousel-indicators">
+									<li data-target="#recommended-item-carousel" data-slide-to="0" class="active"></li>
+									<li data-target="#recommended-item-carousel" data-slide-to="1"></li>
+									<li data-target="#recommended-item-carousel" data-slide-to="2"></li>
+								</ol>
+							<div class="carousel-inner">													
+								<div class="item active">
+									<c:forEach var="reco" items="${recommendList1}">
+										<div class="col-sm-4">
+												<div class="product-image-wrapper">
+													<div class="single-products">
+														<div class="productinfo text-center">
+															<object class="book-thumb thumbnail" data="/images/bookImg/${reco.isbn}.jpg" type="image/jpg">
+															  <img src="/images/bookImg/no_book_img.png"/>
+															</object>
+															<h2>${reco.b_abprice} 원</h2>
+															<p>${reco.b_title}</p>															
+															<a href="/book/bookDetail.do?isbn=${reco.isbn}" class="btn btn-fefault cart" id="cartBtn">
+															 <i class="fa fa-shopping-cart"></i>상세 정보 보기</a> </div>										
+													</div>
 												</div>
-												
-											</div>
-										</div>
-									</div>
-									<div class="col-sm-4">
-										<div class="product-image-wrapper">
-											<div class="single-products">
-												<div class="productinfo text-center">
-													<img src="/images/home/recommend2.jpg" alt="" />
-													<h2>가격</h2>
-													<p>상품이름</p>
-													<a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
-												</div>
-												
-											</div>
-										</div>
-									</div>
-									<div class="col-sm-4">
-										<div class="product-image-wrapper">
-											<div class="single-products">
-												<div class="productinfo text-center">
-													<img src="/images/home/recommend3.jpg" alt="" />
-													<h2>가격</h2>
-													<p>상품이름</p>
-													<a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
-												</div>
-												
-											</div>
-										</div>
-									</div>
+											</div>									
+									</c:forEach>
 								</div>
-								<div class="item">	
-									<div class="col-sm-4">
-										<div class="product-image-wrapper">
-											<div class="single-products">
-												<div class="productinfo text-center">
-													<img src="/images/home/recommend1.jpg" alt="" />
-													<h2>가격</h2>
-													<p>상품이름</p>
-													<a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
-												</div>
-												
-											</div>
-										</div>
-									</div>
-									<div class="col-sm-4">
-										<div class="product-image-wrapper">
-											<div class="single-products">
-												<div class="productinfo text-center">
-													<img src="/images/home/recommend2.jpg" alt="" />
-													<h2>가격</h2>
-													<p>상품이름</p>
-													<a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
-												</div>
-												
-											</div>
-										</div>
-									</div>
-									<div class="col-sm-4">
-										<div class="product-image-wrapper">
-											<div class="single-products">
-												<div class="productinfo text-center">
-													<img src="/images/home/recommend3.jpg" alt="" />
-													<h2>가격</h2>
-													<p>상품이름</p>
-													<a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
-												</div>
-												
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-							 <a class="left recommended-item-control" href="#recommended-item-carousel" data-slide="prev">
-								<i class="fa fa-angle-left"></i>
-							  </a>
-							  <a class="right recommended-item-control" href="#recommended-item-carousel" data-slide="next">
-								<i class="fa fa-angle-right"></i>
-							  </a>			
+								
+								<div class="item">
+									<c:forEach var="reco" items="${recommendList2}">
+											<div class="col-sm-4">
+													<div class="product-image-wrapper">
+														<div class="single-products">
+															<div class="productinfo text-center">
+																<object class="book-thumb thumbnail" data="/images/bookImg/${reco.isbn}.jpg" type="image/jpg">
+																  <img src="/images/bookImg/no_book_img.png"/>
+																</object>
+																<h2>${reco.b_abprice} 원</h2>
+																<p>${reco.b_title}</p>															
+																<a href="/book/bookDetail.do?isbn=${reco.isbn}" class="btn btn-fefault cart" id="cartBtn">
+															 <i class="fa fa-shopping-cart"></i>상세 정보 보기</a> </div>										
+														</div>
+													</div>
+												</div>									
+										</c:forEach>										
+								</div>	
+								
+								<div class="item">
+									<c:forEach var="reco" items="${recommendList3}">
+										<div class="col-sm-4">
+												<div class="product-image-wrapper">
+													<div class="single-products">
+														<div class="productinfo text-center">
+															<object class="book-thumb thumbnail" data="/images/bookImg/${reco.isbn}.jpg" type="image/jpg">
+															  <img src="/images/bookImg/no_book_img.png"/>
+															</object>
+															<h2>${reco.b_abprice} 원</h2>
+															<p>${reco.b_title}</p>															
+															<a href="/book/bookDetail.do?isbn=${reco.isbn}" class="btn btn-fefault cart" id="cartBtn">
+															 <i class="fa fa-shopping-cart"></i>상세 정보 보기</a></div>										
+														</div>
+													</div>
+												</div>									
+									</c:forEach>										
+								</div>	
+						
+							 
+							  							  		
 						</div>
+						<a class="left recommended-item-control" href="#recommended-item-carousel" data-slide="prev">
+							<i class="fa fa-angle-left"></i>
+					   </a>
+					  
+					  <a class="right recommended-item-control" href="#recommended-item-carousel" data-slide="next">
+						<i class="fa fa-angle-right"></i>
+					  </a>	
 					</div><!--/recommended_items-->
-				
+				</div>
 					
 					
 					
@@ -393,7 +383,7 @@
 					
 					<!-- 사이드 바  -->
 					
-				</div>
+		
 							
 				<div class="col-sm-12 padding-right">
 				
@@ -489,7 +479,30 @@
 								<div class="col-sm-12 tte">
 								 	<div class="row" id="tab2">
 								 		<h3 class="alert alert-warning" >환불/교환 규정</h3>
-								 		<p>${detail.b_complain}</p>
+								 		<p>${detail.b_complain}
+								 		<c:if test="${detail.b_complain == '' }">
+								 			전자상거래 등에서의 소비자보호에 관한 법률 제17조(청약철회등)
+								 			 ① 통신판매업자와 재화등의 구매에 관한 계약을 체결한 소비자는 다음 각 호의 기간(거래당사자가 다음 각 호의 기간보다 긴 기간으로 약정한 경우에는 그 기간을 말한다)
+								 			  이내에 해당 계약에 관한 청약철회등을 할 수 있다.
+								 			   1. 제13조제2항에 따른 계약내용에 관한 서면을 받은 날부터 7일.
+								 			    다만, 그 서면을 받은 때보다 재화등의 공급이 늦게 이루어진 경우에는 재화등을 공급받거나 재화등의 공급이 시작된 날부터 7일 2.
+								 			     제13조제2항에 따른 계약내용에 관한 서면을 받지 아니한 경우, 통신판매업자의 주소 등이 적혀 있지 아니한 서면을 받은 경우 또는 통신판매업자의 주소 변경 등의 사유로
+								 			      제1호의 기간에 청약철회등을 할 수 없는 경우에는 통신판매업자의 주소를 안 날 또는 알 수 있었던 날부터 7일 ② 소비자는 다음 각 호의 어느 하나에 해당하는 경우에는
+								 			       통신판매업자의 의사에 반하여 제1항에 따른 청약철회등을 할 수 없다. 다만, 통신판매업자가 제6항에 따른 조치를 하지 아니하는 경우에는 제2호부터 제4호까지의 규정에
+								 			        해당하는 경우에도 청약철회등을 할 수 있다. 1. 소비자에게 책임이 있는 사유로 재화등이 멸실되거나 훼손된 경우.
+								 			         다만, 재화등의 내용을 확인하기 위하여 포장 등을 훼손한 경우는 제외한다. 
+								 			         2. 소비자의 사용 또는 일부 소비로 재화등의 가치가 현저히 감소한 경우 
+								 			         3. 시간이 지나 다시 판매하기 곤란할 정도로 재화등의 가치가 현저히 감소한 경우
+								 			          4. 복제가 가능한 재화등의 포장을 훼손한 경우 
+								 			         5. 그 밖에 거래의 안전을 위하여 대통령령으로 정하는 경우
+								 			          ③ 소비자는 제1항 및 제2항에도 불구하고 재화등의 내용이 표시·광고의 내용과 다르거나 계약내용과 다르게 이행된 경우에는 그 재화등을 공급받은 날부터 3개월 이내,
+								 			           그 사실을 안 날 또는 알 수 있었던 날부터 30일 이내에 청약철회등을 할 수 있다. ④ 제1항 또는 제3항에 따른 청약철회등을 서면으로 하는 경우에는
+								 			            그 의사표시가 적힌 서면을 발송한 날에 그 효력이 발생한다. ⑤ 제1항부터 제3항까지의 규정을 적용할 때 재화등의 훼손에 대하여 소비자의 책임이 있는지 여부,
+								 			             재화등의 구매에 관한 계약이 체결된 사실 및 그 시기, 재화등의 공급사실 및 그 시기 등에 관하여 다툼이 있는 경우에는 통신판매업자가 이를 증명하여야 한다.
+								 			              ⑥ 통신판매업자는 제2항제2호부터 제4호까지의 규정에 따라 청약철회등이 불가능한 재화등의 경우에는 그 사실을 재화등의 포장이나 그 밖에 소비자가 쉽게 알 수 있는 곳에 
+								 			              명확하게 적거나 시험 사용 상품을 제공하는 등의 방법으로 청약철회등의 권리 행사가 방해받지 아니하도록 조치하여야 한다.
+								 		</c:if>
+								 		</p>
 								 	</div>
 								</div>
 							</div>			
@@ -508,10 +521,11 @@
 					</div><!--/category-tab-->
 
 					</div>
-					</div>
+				</div>
 					
 			</div>
 		</div>
+	</div>
 	</section>
 	
 	

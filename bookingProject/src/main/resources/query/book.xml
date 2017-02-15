@@ -18,7 +18,7 @@
 			,to_char(b_pubdate,'YYYY-MM-DD') as b_pubdate , b_update , to_char(b_editdate,'YYYY-MM-DD') as b_editdate , b_size , b_pagesize
 			,b_abprice , b_stock, b_totscore, cat_no , pub_name
 			from booking_book_data
-			where isbn = '978-89-381-1028-2'
+			where isbn = #{isbn}
 	</select>
 	<!-- 
 		book search for admin query
@@ -215,6 +215,7 @@
 		(st_no, isbn, st_name, st_name_no, st_amount)
 		values(#{st_no}, #{isbn}, #{st_name}, ${st_name_no}, #{st_amount})
 	</insert>
+	
 	<insert id="bookReleaseInsert" parameterType="bookRelease">
 		<selectKey keyProperty="rel_no" resultType="int" order="BEFORE">
 			select booking_book_release_seq.nextval from dual
@@ -223,17 +224,20 @@
 		(rel_no, isbn, rel_name, rel_name_no, rel_amount)
 		values(#{rel_no}, #{isbn}, #{rel_name}, #{rel_name_no}, #{rel_amount})
 	</insert>
+	
 	<!-- update Query -->
 	<update id="bookStockIn" parameterType="bookStock">
 		update booking_book_data
 		set b_stock = b_stock + #{st_amount}
 		where isbn = #{isbn}
 	</update>
+	
 	<update id="bookReleaseOut" parameterType="bookRelease">
 		update booking_book_data
 		set b_stock = b_stock - #{rel_amount}
 		where isbn = #{isbn}
 	</update>
+	
 	<update id="bookUpdate" parameterType="book">
 		update booking_book_data
 		set b_title = #{b_title}
@@ -258,10 +262,8 @@
 	
 	
 	<!--bookindex 별도 리스트  2016년 책만 찾아옴 -->
-	<select  id="list1" resultType="book">
-	
-	select isbn, b_title, b_abprice, b_author from booking_book_data where b_title like '%공학%' and <![CDATA[ rownum <=4 ]]>
-	
+	<select  id="list1" resultType="book">	
+	select isbn, b_title, b_abprice, b_author from booking_book_data where b_title like '%공학%' and <![CDATA[ rownum <=4 ]]>	
 	</select>
 	
 		<!--bookindex 별도 리스트  2016년 책만 찾아옴 -->
@@ -290,18 +292,22 @@
 	</select>	
 	
 	<!--  -->
+	
 	<select id="randomList" resultType="book">
 	 <!-- select isbn, b_title, b_author  from  (select isbn, b_title, b_author from booking_book_data  order by dbms_random.value) -->
-     select isbn, b_title, b_author  from  (select isbn, b_title, b_author from booking_book_data  order by dbms_random.value)
-          where <![CDATA[rownum <= 3 ]]> and <![CDATA[length(b_title)>=5]]> and <![CDATA[length(b_title)<=7]]>
-
-          
+     select isbn, b_title, b_author  from  (select isbn, b_title, b_author from booking_book_data  order by dbms_random.value())
+          where <![CDATA[rownum <= 3 ]]> and <![CDATA[length(b_title)>=5]]> and <![CDATA[length(b_title)<=7]]>          
 	</select>
 	
-	
+
 	<!-- 이달의 책 3 -->
 	<select id="monthList" resultType="book">
 		select isbn, b_title, b_author from booking_book_data where b_title like '%회로이론%'
+
+	<select id="recommendList" resultType="book">
+	select isbn, b_title, b_author, b_abprice from (select isbn, b_title, b_author, b_abprice from booking_book_data order by dbms_random.value())
+		where <![CDATA[rownum <= 3 ]]> 
+
 	</select>
 	
 	

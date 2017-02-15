@@ -82,6 +82,7 @@ public class PurchaseController {
 				 //즉시구매 값이 1일 경우 호출함 
 			      if(pvo.getNowpay()==1){
 			    	  PurchaseVO vo=purchaseService.nowPay(pvo.getIsbn());
+			    	  vo.setM_post_address(memSession.getM_post_address());
 			    	  model.addAttribute("data",vo);
 			    	  model.addAttribute("pay",pvo.getNowpay());
 			    	  model.addAttribute("coupon",cvo);
@@ -106,7 +107,7 @@ public class PurchaseController {
 		
 	
 		
-		
+	
 		//결제 완료 시 정보를 booking_purchase에 등록  
 			@RequestMapping(value="/purchaseUpdate.do" , method=RequestMethod.POST)
 			public String purchaseUpdate(@ModelAttribute PurchaseVO pvo, Model model , HttpSession session){
@@ -155,16 +156,19 @@ public class PurchaseController {
 			    	 *  memberSerive의 purchaseDetail로 처리가 끝난 구매 기록을 읽어와 도서 출고 정황을 확인
 			    	 *  일단 출고 된 것으로 보고 '구매로 인한 출고 예정'이라고 기록 되도록 한다 
 			    	 ************************************/
+			    	logger.info("release처리 1단계 p_no : "+pvo.getP_no());
 			    	List<Purchase_relVO> purelList = memberSerivce.purchaseDetail(pvo.getP_no());
+			    	logger.info("release처리 1단계 purelist.size() : "+purelList.size());
 			    	//출고를 위한 VO
 			    	List<BookReleaseVO> releaseList = new ArrayList<BookReleaseVO>();
+			    	
 			    	/************************************
 			    	 * @St_name : 출고 설명
 			    	 * @St_name_no: 각종 번호 기록용, 이 경우는 주문 번호가 기록 됨
 			    	 * relaseList에 담아 각자 realse 테이블에 Inseet및 재고량 변경
 			    	 **************************************/
 			    	for(Purchase_relVO item : purelList){
-			    		logger.info("release처리 1단계");
+			    		logger.info("release처리 2단계");
 			    		BookReleaseVO rsvo = new BookReleaseVO();
 			    		rsvo.setIsbn(item.getIsbn());
 			    		rsvo.setRel_amount(item.getP_amount());

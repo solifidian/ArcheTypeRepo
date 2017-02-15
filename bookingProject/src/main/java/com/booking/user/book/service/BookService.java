@@ -22,5 +22,6 @@ public interface BookService {
 	
 	public List<BookVO> randomList();
 	public List<BookVO> monthList();
+	public List<BookVO> recommendList();
 	
 }

@@ -33,7 +33,6 @@ var delivery=2500;/* 배송비 */
 var point=0.01; //적립금 1%
 var m_id="${sessionScope.memSession.m_id}";
 var c_id="${cookie.JSESSIONID.value}";
-
 $(function(){
 //	 alert("m_id"+m_id)
 	$("#nonMemberPurchaseAgree").hide();
@@ -49,6 +48,7 @@ $(function(){
 	 //배송지 정보에 사용자 정보 부분이 hide됩니다.
 	 $("#purchaseUserInfo").hide();
 	}
+	
 	
 	
 	//validate
@@ -77,9 +77,9 @@ $(function(){
 	
 	//결제 버튼 클릭 시 
 	$("#purchaseBtn").click(function(){
-		 
+		alert("결제하기")
 		var couponname=$(this).attr("data-name");
-		alert(couponname)
+		
 		var couponratio=$("#coupon").val()
 		var paymethod = $(':radio[name="pay"]:checked').val(); //페이방법
 		var name=$("#name").val();  //배송자 연락처
@@ -152,13 +152,11 @@ $(function(){
 		else if(!chkSubmit($('#address1'),"주소를")) return;
 		else if(!chkSubmit($('#address2'),"상세 주소를")) return;
 		else if(!chkSubmit($('#purchaseAgree'),"주문동의를")) return;
-		else if(m_id==0){
+		else if(m_id==''){
 				if(!chkSubmit($('#nomemberPurchaseAgree'),"비회원 주문동의를")) return;
 		}
 		else{
-		
-	    
-		
+			
 		
 		IMP.request_pay({
 		    pg : 'inicis', // version 1.1.0부터 지원.
@@ -182,7 +180,7 @@ $(function(){
 		        
 		        $("#purchaseHiddenForm").attr({
 		        	"method":"post",
-		        	"action":"purchase/purchaseUpdate.do"
+		        	"action":"/purchase/purchaseUpdate.do"
 		        })
 		        $("#purchaseHiddenForm").submit();
 		        
@@ -191,11 +189,7 @@ $(function(){
 		        var msg = '결제에 실패하였습니다.';
 		        msg += '에러내용 : ' + rsp.error_msg;
 		        
-		        $("#purchaseHiddenForm").attr({
-		        	"method":"post",
-		        	"action":"/purchase/purchaseUpdate.do"
-		        })
-		        $("#purchaseHiddenForm").submit();
+		        alert("결제에 실패했습니다.")
 		    }
 		  
 		}); 
@@ -260,11 +254,11 @@ $(function(){
     	//alert(x)
     	
     }
-
+    
 	function addNewItem(isbn, b_title,cart_amount,b_abprice,b_pagesize) {
 		
 		var emoti="<span class='deletebtn'> <i class='fa fa-times'></i></span>"
-		var img="<span class='thumbnail'><img src='/resources/include/assets/images/do.jpg' alt=''></span>"
+		var img="<span class='thumbnail'><img src='/resources/images/bookImg/"+isbn+".jpg' alt=''></span>"
 		var amount="<span>"+cart_amount+"</span>"
 		var data="<div class='posi'><input type='text' class='pwdvalue' name='pwdvalue'>"
     		data+="<input type='button' class='pwdchk_btn' value='비밀번호확인'> ";
@@ -343,8 +337,7 @@ $(function(){
 <title>Insert title here</title>
 </head>
 <body>
-      ${cookie.JSESSIONID.value}  
-	  ${sessionScope.memSession.m_id} 세션스코프
+      
 	    
 	  
 	  <!-- purchase 정보를 전달하기 위한  히든 폼  -->

@@ -162,7 +162,7 @@ $(function(){
 	function addNewItem(isbn, b_title,cart_amount,b_abprice,b_pagesize) {
 		
 		var emoti="<span class='deletebtn'> <i class='fa fa-times'></i></span>"
-		var img="<div class='col-xs-6 col-md-3'><img src='' class='img-su' alt=''><div>"
+		var img="<div class='thumbnail'><img src='/resources/images/bookImg/"+isbn+".jpg' alt=''><div>"
 		var amount="<input type='text' size='1' class='CartAmountUpdate' value="+cart_amount+" >"
 	
     		
