@@ -175,6 +175,16 @@
 
 									<a href="javascript:cartInsert('${etc.isbn}');" id="cartBtn" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>장바구니에 담기</a>
 								</div>
+								<div class="product-overlay">
+									<div class="overlay-content">
+										<h2>${etc.b_abprice}원</h2>										
+										<p>${etc.b_title}</p>
+										<p>저자 : ${etc.b_author}</p>
+										
+										<a href="javascript:cartInsert('${etc.isbn}');" id="cartBtn" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>장바구니에 담기</a>
+									</div>
+								</div>
+								
 							</div>
 						</div>
 					</div>

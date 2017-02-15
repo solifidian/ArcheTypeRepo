@@ -108,6 +108,8 @@
 			</when>
 		</choose>
 	</sql>
+	
+	
 	<!-- select Query -->
 	<select id="bookList" parameterType="book" resultType="book">
 	select isbn, b_title, b_author, b_pubdate, b_abprice, b_stock, pub_name
@@ -250,7 +252,7 @@
 	<!--bookindex 별도 리스트  2016년 책만 찾아옴 -->
 	<select id="etcListCall" resultType="book">
 	
-	select isbn, b_title, b_abprice from booking_book_data where b_title like '%2016%' 
+	select isbn, b_title, b_abprice, b_author from booking_book_data where b_title like '%2016%' 
 			
 	</select>
 	
@@ -258,32 +260,32 @@
 	<!--bookindex 별도 리스트  2016년 책만 찾아옴 -->
 	<select  id="list1" resultType="book">
 	
-	select isbn, b_title,b_abprice from booking_book_data where b_title like '%공학%' and <![CDATA[ rownum <=4 ]]>
+	select isbn, b_title, b_abprice, b_author from booking_book_data where b_title like '%공학%' and <![CDATA[ rownum <=4 ]]>
 	
 	</select>
 	
 		<!--bookindex 별도 리스트  2016년 책만 찾아옴 -->
 	<select  id="list2" resultType="book">
 	
-	select isbn, b_title,b_abprice from booking_book_data where b_title like '%에너지%' and <![CDATA[ rownum <=4 ]]>
+	select isbn, b_title,b_abprice, b_author from booking_book_data where b_title like '%에너지%' and <![CDATA[ rownum <=4 ]]>
 	
 	</select>
 	
 
 	<select  id="list3" resultType="book">
 	
-	select isbn, b_title,b_abprice from booking_book_data where b_title like '%에너지%' and <![CDATA[ rownum <=4 ]]>
+	select isbn, b_title,b_abprice, b_author from booking_book_data where b_title like '%에너지%' and <![CDATA[ rownum <=4 ]]>
 	
 	</select>	
 	
 	<select  id="list4" resultType="book">
 	
-	select isbn, b_title,b_abprice from booking_book_data where b_title like '%건축%' and <![CDATA[ rownum <=4 ]]>
+	select isbn, b_title,b_abprice, b_author from booking_book_data where b_title like '%건축%' and <![CDATA[ rownum <=4 ]]>
 	
 	</select>	
 	<select  id="list5" resultType="book">
 	
-	select isbn, b_title,b_abprice from booking_book_data where b_title like '%건축%' and <![CDATA[ rownum <=4 ]]>
+	select isbn, b_title,b_abprice, b_author from booking_book_data where b_title like '%건축%' and <![CDATA[ rownum <=4 ]]>
 	
 	</select>	
 	
