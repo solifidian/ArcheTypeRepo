@@ -82,6 +82,7 @@ public class PurchaseController {
 				 //즉시구매 값이 1일 경우 호출함 
 			      if(pvo.getNowpay()==1){
 			    	  PurchaseVO vo=purchaseService.nowPay(pvo.getIsbn());
+			    	  vo.setM_post_address(memSession.getM_post_address());
 			    	  model.addAttribute("data",vo);
 			    	  model.addAttribute("pay",pvo.getNowpay());
 			    	  model.addAttribute("coupon",cvo);
@@ -106,73 +107,10 @@ public class PurchaseController {
 		
 	
 		
-		@RequestMapping(value="/purchaseUpdate.do" , method=RequestMethod.POST)
-		public String purchaseUpdate(@ModelAttribute PurchaseVO pvo, Model model , HttpSession session){
-			 /**********************************
-			 * 세션 확인
-			 * memSession is not null = 회원
-			 *********************************/
-			String m_id = "0";
-			int m_no = 0;
-			MemberVO memSession = (MemberVO)session.getAttribute("memSession");
-			
-			if(memSession != null && !memSession.getM_id().equals("")){
-				logger.info("회원 확인 됨");
-				m_id = memSession.getM_id();
-				
-				m_no = memSession.getM_no();
-				
-				 pvo.setM_id(m_id);
-				 pvo.setM_no(m_no);
-			}
-			/*********** 세션 확인 종료 ***********/
-			
-			
-			//결제 완료 시 정보를 booking_purchase에 등록 성공 시 해당 카트에 있던 각 책의 정보를 저장  
-	    	int bookpurchaserel=purchaseService.purchaseBookRel(pvo);
-	    	logger.info(bookpurchaserel+"결제 정보  booking_purchase에 저장 0은 e등록안됨");
-	    	
-	    	/*************************************
-	    	 *  출고 처리 구간
-	    	 *  memberSerive의 purchaseDetail로 처리가 끝난 구매 기록을 읽어와 도서 출고 정황을 확인
-	    	 *  일단 출고 된 것으로 보고 '구매로 인한 출고 예정'이라고 기록 되도록 한다 
-	    	 ************************************/
-	    	logger.info("release처리 1단계 p_no : "+pvo.getP_no());
-	    	List<Purchase_relVO> purelList = memberSerivce.purchaseDetail(pvo.getP_no());
-	    	logger.info("release처리 1단계 purelist.size() : "+purelList.size());
-	    	//출고를 위한 VO
-	    	List<BookReleaseVO> releaseList = new ArrayList<BookReleaseVO>();
-	    	
-	    	/************************************
-	    	 * @St_name : 출고 설명
-	    	 * @St_name_no: 각종 번호 기록용, 이 경우는 주문 번호가 기록 됨
-	    	 * relaseList에 담아 각자 realse 테이블에 Inseet및 재고량 변경
-	    	 **************************************/
-	    	for(Purchase_relVO item : purelList){
-	    		logger.info("release처리 2단계");
-	    		BookReleaseVO rsvo = new BookReleaseVO();
-	    		rsvo.setIsbn(item.getIsbn());
-	    		rsvo.setRel_amount(item.getP_amount());
-	    		rsvo.setRel_name("고객 구매로 인한 출고 예정");
-	    		rsvo.setRel_name_no(item.getP_no());
-	    		releaseList.add(rsvo);
-	    	}
-	    	/***********************************************
-	    	* adminBookService의 bookReleaseInsert는
-	    	* 처리 중에 자동으로 bookDB의 재고량 변경도 처리 해줌.
-	    	* 추가적으로 service의 bookReleaseOut을 사용해 줄 필요 전혀 없음
-	    	************************************************/
-	    	for(BookReleaseVO item : releaseList){
-	    		adminBookService.bookReleaseInsert(item);
-	    	}
-	    	/****************** 출고 처리 종료  *****************/
-	    	
-			return "purchase/purchaseUpdate";
-		}
-		
+	
 		//결제 완료 시 정보를 booking_purchase에 등록  
-			@RequestMapping(value="/purchaseUpdate2.do" , method=RequestMethod.POST)
-			public String purchaseUpdate2(@ModelAttribute PurchaseVO pvo, Model model , HttpSession session){
+			@RequestMapping(value="/purchaseUpdate.do" , method=RequestMethod.POST)
+			public String purchaseUpdate(@ModelAttribute PurchaseVO pvo, Model model , HttpSession session){
 				logger.info("회원 결제 완료 페이지 호출"+pvo.getNowpay());
 			    logger.info(pvo.getM_id()+pvo.getM_phone()+pvo.getM_post_address()+pvo.getP_method()+pvo.getCookie_name()+pvo.getCoupon_code());
 			  

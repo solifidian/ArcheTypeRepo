@@ -180,7 +180,7 @@ $(function(){
 		        
 		        $("#purchaseHiddenForm").attr({
 		        	"method":"post",
-		        	"action":"purchase/purchaseUpdate.do"
+		        	"action":"/purchase/purchaseUpdate.do"
 		        })
 		        $("#purchaseHiddenForm").submit();
 		        
