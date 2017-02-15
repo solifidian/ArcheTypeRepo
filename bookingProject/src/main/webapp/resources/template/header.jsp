@@ -155,16 +155,17 @@
 								 </li>	 -->				
 								<li><a href="/book/bookMonth.do">이달의책</a></li>	
 								<li><a href="/book/bookSearch.do" class="active" >도서 검색</a></li>	
-								<li class="dropdown"><a href="#">커뮤니티<i class="fa fa-angle-down"></i></a>
+								<li class="dropdown"><a href="#">커뮤니티 포럼<i class="fa fa-angle-down"></i></a>
                                     <ul role="menu" class="sub-menu">
-                                        <li><a href="/board/boardList.do">커뮤니티 게시판</a></li>
-                                        
+                                        <li><a href="/board/boardList.do?bd_forum_no=1">북&피플</a></li>
+                                        <li><a href="/board/boardList.do?bd_forum_no=11">파워북로거</a></li>
+                                        <li><a href="/board/boardList.do?bd_forum_no=51">진행중 이벤트 게시판</a></li>
                                     </ul>
                                 </li>
                                  <li class="dropdown"><a href="" >고객센터<i class="fa fa-angle-down"></i></a>
 									 <ul role="menu" class="sub-menu">
 								 	  	<li><a href="/board/cusService.do">고객센터</a></li>    	
-							 			<li><a href="/board/questionBoardList.do">문의게시판</a></li>					
+							 			<li><a href="/board/boardList.do?bd_forum_no=31">문의게시판</a></li>					
 										
 									 </ul>
 								 </li>	
