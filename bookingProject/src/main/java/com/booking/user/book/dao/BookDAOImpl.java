@@ -79,4 +79,9 @@ public class BookDAOImpl implements BookDAO{
 		// TODO Auto-generated method stub
 		return session.selectList("randomList");
 	}
+
+	@Override
+	public List<BookVO> recommendList() {
+		return session.selectList("recommendList");
+	}
 }

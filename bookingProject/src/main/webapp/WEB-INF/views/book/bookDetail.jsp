@@ -145,7 +145,8 @@
 					.d_form .bu {margin-top:10px;}
 					.d_form .tt {border:1px gray dashed;}
 					#b_cart{margin:10px 20px; width:200px;}
-						
+					#cartBtn{width:150px;}	
+					#divSize{width:350px; height:350px; margin:30px 30px;}
 				</style>
 				<script src="/resources/include/js/jquery-1.12.4.min.js"></script>
 				<script type="text/javascript">
@@ -250,8 +251,8 @@
 						
 						</div>
 					
-					<div class="col-sm-7">
-						<div class="product-information"><!--/product-information-->
+					<div class="col-sm-7" id="divSize">
+						<div class="product-information" ><!--/product-information-->
 							<img src="/resources/images/product-details/new.jpg" class="newarrival" alt="" />
 							<h2>${detail.b_title}</h2>
 							<p>저자 : ${detail.b_author}</p>
@@ -281,6 +282,7 @@
 		                 	</p>
 						</div><!--/product-information-->
 					</div>
+					<br>
 				</div><!--/product-details-->
 					
 			</div>
@@ -290,102 +292,84 @@
 						<hr></hr>
 						
 					 <div class="recommended_items"><!--recommended_items-->
-						<h2 class="title text-center">관련 상품</h2>
+						<h2 class="title text-center">추천 도서</h2>
 						
-						<div id="recommended-item-carousel" class="carousel slide" data-ride="carousel">
-							<div class="carousel-inner">
-								<div class="item active">	
-									<div class="col-sm-4">
-										<div class="product-image-wrapper">
-											<div class="single-products">
-												<div class="productinfo text-center">
-													<img src="/images/home/recommend1.jpg" alt="" />
-													<h2>가격</h2>
-													<p>상품이름</p>
-													<a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
+						<div id="recommended-item-carousel" class="carousel slide" data-ride="carousel">						
+								<ol class="carousel-indicators">
+									<li data-target="#recommended-item-carousel" data-slide-to="0" class="active"></li>
+									<li data-target="#recommended-item-carousel" data-slide-to="1"></li>
+									<li data-target="#recommended-item-carousel" data-slide-to="2"></li>
+								</ol>
+							<div class="carousel-inner">													
+								<div class="item active">
+									<c:forEach var="reco" items="${recommendList1}">
+										<div class="col-sm-4">
+												<div class="product-image-wrapper">
+													<div class="single-products">
+														<div class="productinfo text-center">
+															<object class="book-thumb thumbnail" data="/images/bookImg/${reco.isbn}.jpg" type="image/jpg">
+															  <img src="/images/bookImg/no_book_img.png"/>
+															</object>
+															<h2>${reco.b_abprice} 원</h2>
+															<p>${reco.b_title}</p>															
+															<button type="button" class="btn btn-fefault cart" id="cartBtn">
+															 <i class="fa fa-shopping-cart"></i> 장바구니에 담기</button> </div>										
+													</div>
 												</div>
-												
-											</div>
-										</div>
-									</div>
-									<div class="col-sm-4">
-										<div class="product-image-wrapper">
-											<div class="single-products">
-												<div class="productinfo text-center">
-													<img src="/images/home/recommend2.jpg" alt="" />
-													<h2>가격</h2>
-													<p>상품이름</p>
-													<a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
-												</div>
-												
-											</div>
-										</div>
-									</div>
-									<div class="col-sm-4">
-										<div class="product-image-wrapper">
-											<div class="single-products">
-												<div class="productinfo text-center">
-													<img src="/images/home/recommend3.jpg" alt="" />
-													<h2>가격</h2>
-													<p>상품이름</p>
-													<a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
-												</div>
-												
-											</div>
-										</div>
-									</div>
+											</div>									
+									</c:forEach>
 								</div>
-								<div class="item">	
-									<div class="col-sm-4">
-										<div class="product-image-wrapper">
-											<div class="single-products">
-												<div class="productinfo text-center">
-													<img src="/images/home/recommend1.jpg" alt="" />
-													<h2>가격</h2>
-													<p>상품이름</p>
-													<a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
-												</div>
-												
-											</div>
-										</div>
-									</div>
-									<div class="col-sm-4">
-										<div class="product-image-wrapper">
-											<div class="single-products">
-												<div class="productinfo text-center">
-													<img src="/images/home/recommend2.jpg" alt="" />
-													<h2>가격</h2>
-													<p>상품이름</p>
-													<a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
-												</div>
-												
-											</div>
-										</div>
-									</div>
-									<div class="col-sm-4">
-										<div class="product-image-wrapper">
-											<div class="single-products">
-												<div class="productinfo text-center">
-													<img src="/images/home/recommend3.jpg" alt="" />
-													<h2>가격</h2>
-													<p>상품이름</p>
-													<a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
-												</div>
-												
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-							 <a class="left recommended-item-control" href="#recommended-item-carousel" data-slide="prev">
-								<i class="fa fa-angle-left"></i>
-							  </a>
-							  <a class="right recommended-item-control" href="#recommended-item-carousel" data-slide="next">
-								<i class="fa fa-angle-right"></i>
-							  </a>			
+								
+								<div class="item">
+									<c:forEach var="reco" items="${recommendList2}">
+											<div class="col-sm-4">
+													<div class="product-image-wrapper">
+														<div class="single-products">
+															<div class="productinfo text-center">
+																<object class="book-thumb thumbnail" data="/images/bookImg/${reco.isbn}.jpg" type="image/jpg">
+																  <img src="/images/bookImg/no_book_img.png"/>
+																</object>
+																<h2>${reco.b_abprice} 원</h2>
+																<p>${reco.b_title}</p>															
+																<button type="button" class="btn btn-fefault cart" id="cartBtn">
+																 <i class="fa fa-shopping-cart"></i> 장바구니에 담기</button> </div>										
+														</div>
+													</div>
+												</div>									
+										</c:forEach>										
+								</div>	
+								
+								<div class="item">
+									<c:forEach var="reco" items="${recommendList3}">
+										<div class="col-sm-4">
+												<div class="product-image-wrapper">
+													<div class="single-products">
+														<div class="productinfo text-center">
+															<object class="book-thumb thumbnail" data="/images/bookImg/${reco.isbn}.jpg" type="image/jpg">
+															  <img src="/images/bookImg/no_book_img.png"/>
+															</object>
+															<h2>${reco.b_abprice} 원</h2>
+															<p>${reco.b_title}</p>															
+															<button type="button" class="btn btn-fefault cart" id="cartBtn">
+															 <i class="fa fa-shopping-cart"></i> 장바구니에 담기</button> </div>										
+														</div>
+													</div>
+												</div>									
+									</c:forEach>										
+								</div>	
+						
+							 
+							  							  		
 						</div>
+						<a class="left recommended-item-control" href="#recommended-item-carousel" data-slide="prev">
+							<i class="fa fa-angle-left"></i>
+					   </a>
+					  
+					  <a class="right recommended-item-control" href="#recommended-item-carousel" data-slide="next">
+						<i class="fa fa-angle-right"></i>
+					  </a>	
 					</div><!--/recommended_items-->
-				
+				</div>
 					
 					
 					
@@ -393,7 +377,7 @@
 					
 					<!-- 사이드 바  -->
 					
-				</div>
+		
 							
 				<div class="col-sm-12 padding-right">
 				
@@ -508,7 +492,7 @@
 					</div><!--/category-tab-->
 
 					</div>
-					</div>
+				</div>
 					
 			</div>
 		</div>

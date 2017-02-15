@@ -155,7 +155,6 @@
 </head><!--/head-->
 
 <body>
-
 	<!--------------  recommended items Start ------------->
 	<div class="recommended_items">
 		<h2 class="title text-center">2016년 출시 상품</h2>
@@ -195,6 +194,92 @@
 		</div>
 	</div>
 	<!-------------- recommended items End ---------------->
+	<br><br>
+	<!--------------  recommended items Start ------------->
+	<div class="recommended_items">
+		<h2 class="title text-center">BOOKING 추천 도서</h2>
+			<div id="recommended-item" class="carousel slide" data-ride="carousel">						
+					<ol class="carousel-indicators">
+						<li data-target="#recommended-item" data-slide-to="0" class="active"></li>
+						<li data-target="#recommended-item" data-slide-to="1"></li>
+						<li data-target="#recommended-item" data-slide-to="2"></li>
+					</ol>
+					
+				<div class="carousel-inner">													
+					<div class="item active">
+						<c:forEach var="reco" items="${recommendList1}">
+							<div class="col-sm-4">
+									<div class="product-image-wrapper">
+										<div class="single-products">
+											<div class="productinfo text-center">
+												<object class="book-thumb thumbnail" data="/images/bookImg/${reco.isbn}.jpg" type="image/jpg">
+												  <img src="/images/bookImg/no_book_img.png"/>
+												</object>
+												<h2>${reco.b_abprice} 원</h2>
+												<p>${reco.b_title}</p>															
+											
+												<a href="javascript:cartInsert('${reco.isbn}');" id="cartBtn" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>장바구니에 담기</a>	 
+											</div>										
+										</div>
+									</div>
+								</div>									
+						</c:forEach>
+					</div>
+					
+					<div class="item">
+						<c:forEach var="reco" items="${recommendList2}">
+								<div class="col-sm-4">
+										<div class="product-image-wrapper">
+											<div class="single-products">
+												<div class="productinfo text-center">
+													<object class="book-thumb thumbnail" data="/images/bookImg/${reco.isbn}.jpg" type="image/jpg">
+													  <img src="/images/bookImg/no_book_img.png"/>
+													</object>
+													<h2>${reco.b_abprice} 원</h2>
+													<p>${reco.b_title}</p>															
+												<!-- 	<button type="button" class="btn btn-fefault cart" id="cartBtn">
+													 <i class="fa fa-shopping-cart"></i> 장바구니에 담기</button> -->
+													 <a href="javascript:cartInsert('${reco.isbn}');" id="cartBtn" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>장바구니에 담기</a>	 
+												</div>										
+											</div>
+										</div>
+									</div>									
+							</c:forEach>										
+					</div>	
+					
+					<div class="item">
+						<c:forEach var="reco" items="${recommendList3}">
+							<div class="col-sm-4">
+									<div class="product-image-wrapper">
+										<div class="single-products">
+											<div class="productinfo text-center">
+												<object class="book-thumb thumbnail" data="/images/bookImg/${reco.isbn}.jpg" type="image/jpg">
+												  <img src="/images/bookImg/no_book_img.png"/>
+												</object>
+												<h2>${reco.b_abprice} 원</h2>
+												<p>${reco.b_title}</p>															
+												<!-- <button type="button" class="btn btn-fefault cart" id="cartBtn">
+												 <i class="fa fa-shopping-cart"></i> 장바구니에 담기</button>  -->
+												 <a href="javascript:cartInsert('${reco.isbn}');" id="cartBtn" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>장바구니에 담기</a>	 
+												 </div>										
+											</div>
+										</div>
+									</div>									
+						</c:forEach>										
+					</div>				 
+				  							  		
+			</div>
+				<a class="left recommended-item-control" href="#recommended-item" data-slide="prev">
+					<i class="fa fa-angle-left"></i>
+			   </a>
+			  
+			  <a class="right recommended-item-control" href="#recommended-item" data-slide="next">
+				<i class="fa fa-angle-right"></i>
+			  </a>
+		</div>
+	</div>
+	<!-------------- recommended items End ---------------->
+	
 
 </body>
 </html>
