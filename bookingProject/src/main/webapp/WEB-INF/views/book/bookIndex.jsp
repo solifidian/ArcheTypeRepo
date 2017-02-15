@@ -173,7 +173,7 @@
 												<div class="col-sm-6">
 													<h1><span>${randomList.b_title }</span></h1>
 													<h2>${randomList.b_author}</h2>
-													
+													 
 													<a href="/book/bookDetail.do?isbn=${randomList.isbn}"><button type="button" class="btn btn-default get">자세히보기</button></a>
 												</div>
 												<div class="col-sm-6">
