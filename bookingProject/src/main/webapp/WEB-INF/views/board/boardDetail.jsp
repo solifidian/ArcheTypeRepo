@@ -94,6 +94,8 @@
 						}else if(butChk == 2){
 							if(confirm("정말 삭제하시겠습니까? 댓글도 함께 삭제됩니다")){
 								goUrl = "/board/boardDelete.do";
+							}else{
+								return;
 							}
 							
 						}
