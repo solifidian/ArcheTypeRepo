@@ -179,6 +179,7 @@
 		from booking_book_data
 		<include refid="standardSearchQuery"></include>
 	</select>
+	
 	<select id="bookStockTotal" parameterType="bookStock" resultType="int">
 		select count(st_no) as searchTotal
 		from booking_book_stock
@@ -306,6 +307,7 @@
 	<select id="monthList" resultType="book">
 		select isbn, b_title, b_author from booking_book_data where b_title like '%회로이론%'
 	</select>
+
 	<select id="recommendList" resultType="book">
 	select isbn, b_title, b_author, b_abprice from (select isbn, b_title, b_author, b_abprice from booking_book_data order by dbms_random.value())
 		where <![CDATA[rownum <= 3 ]]> 
