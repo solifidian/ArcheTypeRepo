@@ -62,9 +62,9 @@ public class BoardController {
 
 		// 전체 레코드 수 구현
 	    int total = boardService.boardListCnt(bvo);
+	    bvo.setSearchTotal(total);
 	    logger.info("total = " + total);
 		logger.info("searchTotal : " + bvo.getSearchTotal());
-		bvo.setSearchTotal(total);
 		
 		model.addAttribute("data", bvo);
 		

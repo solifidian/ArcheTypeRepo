@@ -62,9 +62,9 @@ public class BookController {
 	
 	//index페이지로 이동
 	@RequestMapping(value="/bookIndex.do")
-	public String bookIndex(@ModelAttribute CategoryVO ctvo, Model model){
+	public String bookIndex(Model model){
 		
-		List<CategoryVO> ctvoList = categoryService.categoryBoxList(ctvo);
+		
 		//별도 책 호출
 		List<BookVO> etcbookList=bookService.etcListCall();
 		
@@ -79,7 +79,6 @@ public class BookController {
 		List<BookVO> list5=bookService.list5();*/
 		
 		
-		model.addAttribute("cateList",ctvoList);
 		model.addAttribute("etcList" ,etcbookList);
 		model.addAttribute("randomList", randomList);
 		/*	model.addAttribute("list2" ,list1);
@@ -87,11 +86,13 @@ public class BookController {
 		model.addAttribute("List3" ,list3);
 		model.addAttribute("List4" ,list4);
 		model.addAttribute("List5" ,list5);*/
-		
+		CategoryVO ctvo = new CategoryVO();
+		List<CategoryVO> ctvoList = categoryService.categoryBoxList(ctvo);
+		model.addAttribute("cateList",ctvoList);
 		
 		/*공학 영상 에너지 이론 건축
 		*/
-		return "book/bookIndex";
+		return "bookIndex";
 	}
 	
 	//에러404 페이지로 이동
@@ -103,6 +104,7 @@ public class BookController {
 	//FAQ틀
 	@RequestMapping(value="/bookFAQ.do")
 	public String bookFAQ(){
+
 		return "book/bookFAQ";
 	}
 	
@@ -123,7 +125,8 @@ public class BookController {
 		List<CategoryVO> ctvoList = categoryService.categoryBoxList(ctvo);		
 		model.addAttribute("cateList",ctvoList);		
 		model.addAttribute("detail", detail);
-		session.setAttribute("id", "test");		
+		session.setAttribute("id", "test");
+		
 		return "book/bookDetail";
 	}
 	
@@ -153,6 +156,9 @@ public class BookController {
 		model.addAttribute("bookList", bookList);
 		model.addAttribute("listData", bvo);
 		
+		CategoryVO ctvo = new CategoryVO();
+		List<CategoryVO> ctvoList = categoryService.categoryBoxList(ctvo);
+		model.addAttribute("cateList",ctvoList);
 		//siteLogService.siteLogUpdate(request, "bookList Move", "test");
 
 		return "book/bookSearch";

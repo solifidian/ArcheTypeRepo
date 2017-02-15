@@ -17,7 +17,7 @@
 									</a>
 								</h4>
 							</div><!--class: panel-heading끝  -->
-							<div id="bookAndPeople" class="panel-collapse collapse">
+							<div id="bookAndPeople" class="panel-collapse collapse in">
 								<div class="panel-body">
 										<ul>
 											<li><a href="/board/boardList.do?bd_forum_no=1">자유 포럼</a></li>
@@ -38,7 +38,7 @@
 									</a>
 								</h4>
 							</div><!--class: panel-heading끝  -->
-							<div id="bookAndPeople" class="panel-collapse collapse">
+							<div id="powerBook" class="panel-collapse collapse">
 								<div class="panel-body">
 										<ul>
 											<li><a href="/board/boardList.do?bd_forum_no=11">도서 이야기</a></li>
@@ -55,15 +55,16 @@
 						<div class="panel panel-default">
 							<div class="panel-heading">
 								<h4 class="panel-title">
-									<a data-toggle="collapse" data-parent="#accordian" href="#powerBook">
+									<a data-toggle="collapse" data-parent="#accordian" href="#support">
 										<span class="badge pull-right"><i class="fa fa-plus"></i></span>
-											문의 포럼
+											문의 게시판
 									</a>
 								</h4>
 							</div><!--class: panel-heading끝  -->
-							<div id="powerBook" class="panel-collapse collapse">
+							<div id="support" class="panel-collapse collapse">
 									<div class="panel-body">
 										<ul>
+											<li><a href="/board/cusService.do">고객센터</a></li>
 											<li><a href="/board/boardList.do?bd_forum_no=31">묻고 답하기 게시판</a></li>
 											<li><a href="/board/boardList.do?bd_forum_no=32">도서 질문 게시판</a></li>											
 										</ul>
