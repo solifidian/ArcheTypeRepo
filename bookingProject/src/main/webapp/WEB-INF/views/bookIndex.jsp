@@ -171,8 +171,6 @@
 									</object>
 									<p id="col" >${etc.b_title}</p>
 									<p>${etc.b_abprice}원</p>
-
-									<a href="javascript:cartInsert('${etc.isbn}');" id="cartBtn" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>장바구니에 담기</a>
 								</div>
 								<div class="product-overlay">
 									<div class="overlay-content">
@@ -180,7 +178,7 @@
 										<p>${etc.b_title}</p>
 										<p>저자 : ${etc.b_author}</p>
 										
-										<a href="javascript:cartInsert('${etc.isbn}');" id="cartBtn" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>장바구니에 담기</a>
+										<a href="/book/bookDetail.do?isbn=${etc.isbn}" id="cartBtn" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>상세 정보 보기</a>
 									</div>
 									<img src="/resources/images/home/new.png" class="new" alt="" />
 								</div>
@@ -218,7 +216,7 @@
 												<h2>${reco.b_abprice} 원</h2>
 												<p>${reco.b_title}</p>															
 											
-												<a href="javascript:cartInsert('${reco.isbn}');" id="cartBtn" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>장바구니에 담기</a>	 
+												<a href="/book/bookDetail.do?isbn=${reco.isbn}" id="cartBtn" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>상세 정보 보기</a>	 
 											</div>										
 										</div>
 									</div>
@@ -239,7 +237,7 @@
 													<p>${reco.b_title}</p>															
 												<!-- 	<button type="button" class="btn btn-fefault cart" id="cartBtn">
 													 <i class="fa fa-shopping-cart"></i> 장바구니에 담기</button> -->
-													 <a href="javascript:cartInsert('${reco.isbn}');" id="cartBtn" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>장바구니에 담기</a>	 
+													 <a href="/book/bookDetail.do?isbn=${reco.isbn}" id="cartBtn" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>상세 정보 보기</a>	 
 												</div>										
 											</div>
 										</div>
@@ -260,7 +258,7 @@
 												<p>${reco.b_title}</p>															
 												<!-- <button type="button" class="btn btn-fefault cart" id="cartBtn">
 												 <i class="fa fa-shopping-cart"></i> 장바구니에 담기</button>  -->
-												 <a href="javascript:cartInsert('${reco.isbn}');" id="cartBtn" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>장바구니에 담기</a>	 
+												 <a href="/book/bookDetail.do?isbn=${reco.isbn}" id="cartBtn" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>상세 정보 보기</a>	 
 												 </div>										
 											</div>
 										</div>
