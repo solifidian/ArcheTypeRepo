@@ -234,7 +234,7 @@
 											<td>${board.bd_category}</td>
 											<td>${board.bd_head}</td>
 											<td class="goDetail tal">${board.bd_title}(${board.bd_rcount})</td>
-											<td class="name">${board.bd_writer}</td>
+											<td class="name goDetail tal">${board.bd_writer}</td>
 											<td>${board.bd_update}</td>
 											<td>${board.bd_readcnt}</td>
 											<td>${board.bd_score}</td>	

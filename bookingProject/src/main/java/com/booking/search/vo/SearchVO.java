@@ -17,8 +17,8 @@ public class SearchVO {
 	    private String b_painter 	="";
 	    private String b_translator ="";
 	    private int i_no 		=0;
-	    
-	    
+	
+	
 		public String getIsbn() {
 			
 			return isbn;

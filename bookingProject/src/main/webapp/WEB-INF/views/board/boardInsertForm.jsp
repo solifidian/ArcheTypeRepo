@@ -23,6 +23,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <script src="/resources/include/js/jquery-1.12.4.min.js"></script>
 <script src="/resources/include/js/common.js"></script>
+
 <!-- CKEDITOR 소스 -->
 <script src="//cdn.ckeditor.com/4.6.2/standard/ckeditor.js"></script>
 <script src="/resources/include/js/build-config.js"></script>
@@ -70,7 +71,7 @@
 			if(!chkSubmit($("#bd_forum_name"),"게시판 이름을"))return;
 			else if(!chkSubmit($("#bd_writer"),"작성자를"))return;
 			else if(!chkSubmit($("#bd_title"),"글제목을"))return;
-			else if(content == ''){
+			else if(content ==""){
 				alert("글 내용을 입력해 주세요.");
 				content.focus();
 				return false;

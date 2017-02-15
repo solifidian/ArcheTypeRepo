@@ -7,7 +7,7 @@ public class BookVO extends ListCommonVO{
 	private String isbn; // ISBN number
 	
 	private String b_title = ""; // 도서명
-	private String b_author = ""; // 글
+	private String b_author = ""; // 저자
 	
 	private String b_pubdate = ""; // 출판일
 	private String b_update = ""; // 등록일
@@ -31,7 +31,16 @@ public class BookVO extends ListCommonVO{
 	private String series_name = ""; // 시리즈 명
 	private int series_no; // 시리즈 주 번호
 	private int series_no_sub; // 시리즈 부 번호
+	private int br_rcount =0;			//딸린댓글 갯수
+    
 	
+	
+	public int getBr_rcount() {
+		return br_rcount;
+	}
+	public void setBr_rcount(int br_rcount) {
+		this.br_rcount = br_rcount;
+	}
 	public String getIsbn() {
 		return isbn;
 	}

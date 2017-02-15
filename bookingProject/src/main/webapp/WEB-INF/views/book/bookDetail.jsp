@@ -273,7 +273,7 @@
 									<input type="button" id="bt_up" class="bt_up" value="+" />
 									<input type="button" id="bt_down" class="bt_down" value="-" />
 									<br>
-									 <button type="button" class="btn btn-fefault cart" id="b_cart">
+									 <button type="button" class="btn btn-default cart" id="b_cart">
 									 <i class="fa fa-shopping-cart"></i>장바구니에 담기</button> 
 								</span>	
 							<br>
@@ -318,7 +318,7 @@
 															</object>
 															<h2>${reco.b_abprice} 원</h2>
 															<p>${reco.b_title}</p>															
-															<a href="/book/bookDetail.do?isbn=${reco.isbn}" class="btn btn-fefault cart" id="cartBtn">
+															<a href="/book/bookDetail.do?isbn=${reco.isbn}" class="btn btn-default cart" id="cartBtn">
 															 <i class="fa fa-shopping-cart"></i>상세 정보 보기</a> </div>										
 													</div>
 												</div>
@@ -337,7 +337,7 @@
 																</object>
 																<h2>${reco.b_abprice} 원</h2>
 																<p>${reco.b_title}</p>															
-																<a href="/book/bookDetail.do?isbn=${reco.isbn}" class="btn btn-fefault cart" id="cartBtn">
+																<a href="/book/bookDetail.do?isbn=${reco.isbn}" class="btn btn-default cart" id="cartBtn">
 															 <i class="fa fa-shopping-cart"></i>상세 정보 보기</a> </div>										
 														</div>
 													</div>
@@ -356,7 +356,7 @@
 															</object>
 															<h2>${reco.b_abprice} 원</h2>
 															<p>${reco.b_title}</p>															
-															<a href="/book/bookDetail.do?isbn=${reco.isbn}" class="btn btn-fefault cart" id="cartBtn">
+															<a href="/book/bookDetail.do?isbn=${reco.isbn}" class="btn btn-default cart" id="cartBtn">
 															 <i class="fa fa-shopping-cart"></i>상세 정보 보기</a></div>										
 														</div>
 													</div>
