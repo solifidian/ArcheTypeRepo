@@ -32,5 +32,5 @@ public List<Purchase_DeliveryVO> myPurchase(Purchase_DeliveryVO listVO);
 
 	public MemberVO findPwd(MemberVO mvo);
 	
-	public List<Purchase_relVO> purchaseDetail(Purchase_DeliveryVO pvo);
+	public List<Purchase_relVO> purchaseDetail(int p_no);
 }

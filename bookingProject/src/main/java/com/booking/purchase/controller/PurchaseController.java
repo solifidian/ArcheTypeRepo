@@ -1,5 +1,6 @@
 package com.booking.purchase.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -15,8 +16,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.booking.admin.book.service.AdminBookService;
+import com.booking.admin.book.vo.BookReleaseVO;
+import com.booking.book.vo.BookVO;
+import com.booking.book.vo.Purchase_relVO;
 import com.booking.common.util.Util;
 import com.booking.coupon.vo.CouponVO;
+import com.booking.member.service.MemberService;
 import com.booking.member.vo.MemberVO;
 import com.booking.purchase.service.PurchaseService;
 import com.booking.purchase.vo.PurchaseVO;
@@ -29,6 +35,11 @@ public class PurchaseController {
 	@Autowired
 	public PurchaseService purchaseService;
 
+	@Autowired
+	private AdminBookService adminBookService;
+	
+	@Autowired
+	private MemberService memberSerivce;
 	
 	//회원 주문 페이지 호출
 			@RequestMapping(value="/purchaseList.do" )
@@ -127,7 +138,7 @@ public class PurchaseController {
 			    int nowpay=pvo.getNowpay();//1=즉시구매 0=일반구매
 			  //결제 완료 시 정보를 booking_purchase에 등록  
 			    result=purchaseService.purchaseUpdate(pvo);
-			   
+			    
 			    
 			    
 			    System.out.println("받은 m_id"+m_id);
@@ -139,9 +150,41 @@ public class PurchaseController {
 			    	int bookpurchaserel=purchaseService.purchaseBookRel(pvo);
 			    	logger.info(bookpurchaserel+"결제 정보  booking_purchase에 저장 0은 e등록안됨");
 			    	
+			    	/*************************************
+			    	 *  출고 처리 구간
+			    	 *  memberSerive의 purchaseDetail로 처리가 끝난 구매 기록을 읽어와 도서 출고 정황을 확인
+			    	 *  일단 출고 된 것으로 보고 '구매로 인한 출고 예정'이라고 기록 되도록 한다 
+			    	 ************************************/
+			    	List<Purchase_relVO> purelList = memberSerivce.purchaseDetail(pvo.getP_no());
+			    	//출고를 위한 VO
+			    	List<BookReleaseVO> releaseList = new ArrayList<BookReleaseVO>();
+			    	/************************************
+			    	 * @St_name : 출고 설명
+			    	 * @St_name_no: 각종 번호 기록용, 이 경우는 주문 번호가 기록 됨
+			    	 * relaseList에 담아 각자 realse 테이블에 Inseet및 재고량 변경
+			    	 **************************************/
+			    	for(Purchase_relVO item : purelList){
+			    		logger.info("release처리 1단계");
+			    		BookReleaseVO rsvo = new BookReleaseVO();
+			    		rsvo.setIsbn(item.getIsbn());
+			    		rsvo.setRel_amount(item.getP_amount());
+			    		rsvo.setRel_name("고객 구매로 인한 출고 예정");
+			    		rsvo.setRel_name_no(item.getP_no());
+			    		releaseList.add(rsvo);
+			    	}
+			    	/***********************************************
+			    	* adminBookService의 bookReleaseInsert는
+			    	* 처리 중에 자동으로 bookDB의 재고량 변경도 처리 해줌.
+			    	* 추가적으로 service의 bookReleaseOut을 사용해 줄 필요 전혀 없음
+			    	************************************************/
+			    	for(BookReleaseVO item : releaseList){
+			    		adminBookService.bookReleaseInsert(item);
+			    	}
+			    	/****************** 출고 처리 종료  *****************/
+			    	
 			     	//사용한 쿠폰 삭제
 				     if(pvo.getP_discount()!=0 ){
-				    	 logger.info("discpont"+pvo.getP_discount());
+				    	logger.info("discpont"+pvo.getP_discount());
 				    	int couponResult=purchaseService.useCouponDelete(pvo);
 				        logger.info(couponResult+"사용한 쿠폰 삭제 1은 삭제 0은 안삭제");
 				     }

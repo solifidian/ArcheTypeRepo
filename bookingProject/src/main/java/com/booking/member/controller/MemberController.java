@@ -120,7 +120,7 @@ public class MemberController {
 		logger.info("요청받은 주문번호 = "+pvo.getP_no());
 		
 		
-		List<Purchase_relVO> plist = memberService.purchaseDetail(pvo);
+		List<Purchase_relVO> plist = memberService.purchaseDetail(pvo.getP_no());
 		logger.info(plist);
 		logger.info("사이즈"+plist.size());
 		
@@ -129,7 +129,7 @@ public class MemberController {
 		
 		
 		try {
-			entity = new ResponseEntity<List<Purchase_relVO>> (memberService.purchaseDetail(pvo), HttpStatus.OK);
+			entity = new ResponseEntity<List<Purchase_relVO>> (memberService.purchaseDetail(pvo.getP_no()), HttpStatus.OK);
 			logger.info("성공"+entity);
 		}catch (Exception e) {
 			entity = new ResponseEntity<List<Purchase_relVO>> (HttpStatus.BAD_REQUEST);

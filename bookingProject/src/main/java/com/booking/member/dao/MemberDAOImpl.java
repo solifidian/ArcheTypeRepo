@@ -95,7 +95,7 @@ public class MemberDAOImpl implements MemberDAO {
 	}
 	//주문 상세보기 클릭
 	@Override
-	public List<Purchase_relVO> purchaseDetail(Purchase_DeliveryVO pvo){
-		return session.selectList("purchaseDetail", pvo);
+	public List<Purchase_relVO> purchaseDetail(int p_no){
+		return session.selectList("purchaseDetail", p_no);
 	}
 }
