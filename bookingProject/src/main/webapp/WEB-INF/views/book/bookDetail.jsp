@@ -18,81 +18,119 @@
 <body>
 	
 	<h1>${sessionScope.memSession.m_id}</h1>
+	
+		<!-------------------- Category Tab & recommand item Section Start -------------------->
 	<section>
-		
 		<div class="container">
-			<div class="row">
-				<div class="col-sm-3">
-					<div class="left-sidebar">
-						<h2>Category</h2>
-						<div class="panel-group category-products" id="accordian"  role="tablist" aria-multiselectable="true">
-							<c:if test="${empty cateList }">
-								No DATA
-							</c:if>
-							<div class="panel-group">
-							<c:forEach var="cate" items="${cateList}">
-								<c:choose>
-									<c:when test="${cate.cat_step == 1}">
-										<div class="panel panel-default">
-											<div class="panel-body">
-													<a data-toggle="collapse" data-parent="#accordian" href="#tap${cate.cat_no}">
-														<span class="badge pull-right"><i class="fa fa-plus"></i></span>
-														<c:out value="${cate.cat_name}"/>
-														<c:set var="root" value="${cate.cat_no}"/>
-													</a>
-											</div>
-											<div id="tap${root}" class="panel-collapse collapse in">
-												<div class="panel-body">
-												<c:forEach var="cate2" items="${cateList}">
-												<c:choose>
-													<c:when test="${cate2.cat_step == 2 && cate2.cat_root == root && (cate2.cat_no == 3 || cate2.cat_no == 7 ||cate2.cat_no == 28 )}">									
-																<ul><li>
-																	
-
-																		<a data-toggle="collapse" data-parent="#tap${root}" href="#tap${cate2.cat_no}">
-																			<span class="badge pull-right"><i class="fa fa-plus"></i></span>
-																			<c:out value="${cate2.cat_name}"/>
-																			<c:set var="root2" value="${cate2.cat_no}"/>
-																		</a>
-																		
-																	<c:choose>
-																		<c:when test="${cate2.cat_no ==3 }">
-																			<c:set var="in_set" value="in"/>
-																		</c:when>
-																		<c:otherwise>
-																			<c:set var="in_set" value="in"/>
-																		</c:otherwise>
-																	</c:choose>
-																		<div id="tap${root2}" class="panel-collapse collapse in">
-																		<div class="panel-body">
-																		<c:forEach var="cate3" items="${cateList}">
-																		<c:choose>
-																		<c:when test="${cate3.cat_step == 3 && cate3.cat_root == root2}">		
-																			<ul><li><a href="/book/bookSearch.do?cat_no=${cate3.cat_no}">
-																				<c:out value="${cate3.cat_name}"/>
-																			</a></li></ul>
-																		</c:when>
-																		</c:choose>
-																		</c:forEach>
-																		</div>
-																	</div>		
-																</li></ul>
-														
-													</c:when>
-												</c:choose>
-												</c:forEach>
-											</div>
-											<c:remove var="root"/>
+		<!--------------- row Start --------------->
+			<div class="row"> 
+			<!--
+				Category Tab Start (Left)
+				부트스트랩의 collapse를 이용함
+				컨트롤 영역의 CategoryController로부터 Category리스트를 받아옴.
+				Attribute에 추가 되어있어야 데이터가 표시됨.
+				
+				@cateList	List<CategoryVO>
+				@cate	대분류 item
+				@root	각 대분류에 대응하는 중분류를 뽑아 태그를 작성하기 위해 대분류를  c:out 으로 변수 선언 함
+						중분류의 forEach가 끝나면 remove됨
+				@cate2	중분류 item
+				@root2	각 중분류에 대응하는 소분류를 뽑아 태그를 작(생략)
+				
+				@collapse_set 	첫번째 카테고리 탭만 최초에 펼쳐져 있도록 하기 위해 사용됨
+								중분류 작성 마지막에 remove됨
+				@aria_set		상동
+				@in_set			상동
+				
+				현재 카테고리 DB가 입력이 되어있는 3, 7, 28번 분류만 표시되도록 해놓음
+			 -->
+			<div class="col-sm-3">
+				<div class="left-sidebar">
+					<h2>Category</h2>
+					<div class="panel-group category-products" id="bookCategoryTab"  role="tablist">
+						<c:if test="${empty cateList }">
+							No DATA
+						</c:if>
+						<c:forEach var="cate" items="${cateList}">
+							<c:choose>
+								<c:when test="${cate.cat_step == 1}">
+									<div class="panel panel-default">
+										<div class="panel-body">
+											<div class="panel-heading" role="tab" id="heading${cate.cat_no}">
+												<a data-toggle="collapse" data-parent="#bookCategoryTab" href="#collapse${cate.cat_no}" aria-expanded="true">
+													<span class="badge pull-right"><i class="fa fa-plus"></i></span>
+													<c:out value="${cate.cat_name}"/>
+													<c:set var="root" value="${cate.cat_no}"/>
+												</a>
 											</div>
 										</div>
-									</c:when>
-								</c:choose>
-							</c:forEach>
-							</div>
+										<ul><li>
+										<div id="collapse${root}" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="heading${root}">
+											<div class="panel-body">
+											<div class="panel-group" id="tab${root}" role="tablist" aria-multiselectable="true">
+											<c:forEach var="cate2" items="${cateList}">
+												<c:choose>
+													<c:when test="${cate2.cat_step == 2 && cate2.cat_root == root && (cate2.cat_no == 3 || cate2.cat_no == 7 || cate2.cat_no == 28) }">					
+														<div class="panel panel-default">
+																<c:choose>
+																	<c:when test="${cate2.cat_no ==3 }">
+																		<c:set var="collapse_set" value="collapsed"/>
+																		<c:set var="aria_set" value="true"/>
+																		<c:set var="in_set" value="in"/>
+																	</c:when>
+																	<c:otherwise>
+																		<c:set var="collapse_set" value="collapsed"/>
+																		<c:set var="aria_set" value="false"/>
+																		<c:set var="in_set" value=""/>
+																	</c:otherwise>
+																</c:choose>
+																<div class="panel-heading" role="tab" id="heading${cate2.cat_no}">
+																	<a data-toggle="collapse"
+																	class="${collapse_set}" data-parent="#tab${root}" href="#collapse${cate2.cat_no}"
+																	aria-expanded="${aria_set}" aria-controls="collapse${cate2.cat_no}">
+																		<span class="badge pull-right"><i class="fa fa-plus"></i></span>
+																		<c:out value="${cate2.cat_name}"/>
+																		<c:set var="root2" value="${cate2.cat_no}"/>
+																		
+																	</a>
+																	
+																</div>
+																
+																<div id="collapse${root2}" class="panel-collapse collapse ${in_set}" role="tabpanel" aria-labelledby="heading${root2}">
+																	<div class="panel-body">
+																		<c:forEach var="cate3" items="${cateList}">
+																			<c:choose>
+																				<c:when test="${cate3.cat_step == 3 && cate3.cat_root == root2}">		
+																					<ul><li><a href="/book/bookSearch.do?cat_no=${cate3.cat_no}">
+																						<c:out value="${cate3.cat_name}"/>
+																					</a></li></ul>
+																				</c:when>
+																			</c:choose>
+																		</c:forEach>
+																	</div>
+																</div>
+														</div>	
+														<c:remove var="collapse_set"/>
+														<c:remove var="aria_set"/>
+														<c:remove var="in_set"/>
+													</c:when>
+												</c:choose>
+											</c:forEach>
+											
+											<c:remove var="root"/>
+											</div>
+											</div>
+										
+										</div>
+										</li></ul>
+									</div>
+								</c:when>
+							</c:choose>
+						</c:forEach>		
 					</div>
+				</div>
 			</div>
-		</div>
-				
+			<!------- Category Tab End (Left) -------->
 				 
 				<style>
 					/* #test {background-color:black; }
@@ -194,62 +232,53 @@
 				</script> 
 				  
 	
-				<form id="b_detail">
-				<input type="hidden" name="isbn" id="isbn" value="${detail.isbn}">
-				
-				<div class="col-sm-9 padding-right d_form" >
-					<div class="col-sm-4 tt" id="test2">
-						<label></label>
-						<object class="thumbnail" data="/images/bookImg/${detail.isbn}.jpg" type="image/jpg">
+			<form id="b_detail">
+			<input type="hidden" name="isbn" id="isbn" value="${detail.isbn}">					  
+			<div class="col-sm-9 padding-right">
+				<div class="product-details"><!--product-details-->
+						<div class="col-sm-4">						
+					  		<div class="view-product">
+								<object class="thumbnail" data="/images/bookImg/${detail.isbn}.jpg" type="image/jpg">
 								  	<img src="/images/bookImg/no_book_img.png"/>
 							  	</object>
-						
-					</div>
-					<div class="col-sm-8" id="test3">
-						<div class="row-sm-6 tet tt" id="test4">
-							<label>도서  : ${detail.b_title}</label>
-							
-							<label>저자  : ${detail.b_author}</label>	
-						</div>
-						
-						<div class="row-sm-6 tet2" id="test5">
-							<div class="col-sm-7 tet3 tt" id="test5-1">
-								<label>가격 : ${detail.b_abprice} 원</label> 
+								<h3>ZOOM</h3>
 							</div>
-							
-							<div class="col-sm-5 tet3 tt" id="test5-2">
-								출간일 : ${detail.b_pubdate}
-								<br>
-								출판사 : ${detail.pub_name}
-								<br>
-								isbn 코드 : ${detail.isbn}
-							</div>
-						</div>
 						
-						<div class="row-sm-6 tet tt" id="test6">
-							<label>
-								배송비 안내<br>
-								배송비 : 2500 원<br>
-								도착 예정 일: 결제 후 1일 발송 예정
-								
-							
-							</label>
 						</div>
-						
-						<div class="row-sm-6 tet tt" id="test7">
-							<label>수량 : <input type="text" name="cart_amount"  value="1" id="cart_amount" class="num"  style="width:20px; text-align:center;"/>
+					
+					<div class="col-sm-7">
+						<div class="product-information"><!--/product-information-->
+							<img src="/resources/images/product-details/new.jpg" class="newarrival" alt="" />
+							<h2>${detail.b_title}</h2>
+							<p>저자 : ${detail.b_author}</p>
+							<img src="/resources/images/product-details/rating.png" alt="" />
+							<br>
+							<span>
+								<span> ${detail.b_abprice} 원</span><br>
+								<label>수량 : </label>
+								<input type="text" name="cart_amount"  value="1" id="cart_amount" class="num"  style="width:20px; text-align:center;"/>
 								<input type="button" id="bt_up" class="bt_up" value="+" />
 								<input type="button" id="bt_down" class="bt_down" value="-" />
-                				
-                			</label><br>
-							<input type="button" class="btn btn-default add-to-cart bu" id="b_buy" name="b_buy" value="구매하기">
-							<input type="button" class="btn btn-default add-to-cart bu" id="b_cart" name="b_cart" value="장바구니">
-						</div>
-						
-					
+								
+								<!-- <button type="button" class="btn btn-fefault cart">
+									<i class="fa fa-shopping-cart"></i>
+									Add to cart
+								</button> -->
+							</span>
+							<br>
+							<p><b>출간일 :</b>${detail.b_pubdate}</p>
+							<p><b>출판사 :</b>${detail.pub_name}</p>
+							<p><b>isbn 코드 :</b> ${detail.isbn}</p>
+							<p>배송비 안내<br>
+								배송비 : 2500 원<br>
+								도착 예정 일: 결제 후 1일 발송 예정</p>
+							<a href=""><img src="/resources/images/product-details/share.png" class="share img-responsive"  alt="" /></a>
+						</div><!--/product-information-->
 					</div>
+				</div><!--/product-details-->
 					
-				</div>
+			</div>
+			
 				</form>
 				<div class="col-sm-9 padding-right">
 						<hr></hr>

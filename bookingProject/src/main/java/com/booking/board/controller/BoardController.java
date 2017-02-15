@@ -9,12 +9,12 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.booking.admin.book.service.CategoryService;
 import com.booking.board.service.BoardService;
 import com.booking.board.vo.BoardVO;
-import com.booking.book.vo.CategoryVO;
 import com.booking.common.paging.Paging;
 
 @Controller
@@ -39,7 +39,7 @@ public class BoardController {
 		//정렬에 대한 기본값 설정
 		if(bvo.getOrderTarget()==null)bvo.setOrderTarget("bd_post_no");
 		if(bvo.getOrderDirection()==null)bvo.setOrderDirection("DESC");
-		
+		if(bvo.getBd_forum_no()==0)bvo.setBd_forum_no(1);
 		
 		//정렬에 대한 데이터 확인
 		logger.info("orderTarget = " + bvo.getOrderTarget());
@@ -63,9 +63,10 @@ public class BoardController {
 		// 전체 레코드 수 구현
 	    int total = boardService.boardListCnt(bvo);
 	    logger.info("total = " + total);
-	
 		logger.info("searchTotal : " + bvo.getSearchTotal());
-		model.addAttribute("total", total);	
+		bvo.setSearchTotal(total);
+		
+		model.addAttribute("data", bvo);
 		
 		return "board/boardList";
 	}
@@ -104,9 +105,10 @@ public class BoardController {
 	 * 글쓰기 폼 출력하기
 	 * ***************************/
 	@RequestMapping(value="/boardInsertForm.do")
-	public String boardInsertForm(){
+	public String boardInsertForm(@RequestParam int bd_forum_no, Model model){
 		logger.info("boardInsertForm 호출 성공");
 		
+		model.addAttribute("bd_forum_no",bd_forum_no);
 		return "board/boardInsertForm";
 	}
 	
