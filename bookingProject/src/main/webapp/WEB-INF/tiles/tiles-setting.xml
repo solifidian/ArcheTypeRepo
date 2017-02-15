@@ -6,10 +6,16 @@
 		<put-attribute name="title" value="도서왕 Booking"></put-attribute>
 		<put-attribute name="header" value="/resources/template/header.jsp"></put-attribute>
 		<put-attribute name="footer" value="/resources/template/footer.jsp"></put-attribute>
+		<put-attribute name="top" value=""></put-attribute>
 		<put-attribute name="left" value=""></put-attribute>
 		<put-attribute name="body" value=""></put-attribute>
 	</definition>
 	
+	<definition name="bookIndex" extends="content">
+      <put-attribute name="top" value="/WEB-INF/views/book/sliderTop.jsp" />
+      <put-attribute name="left" value="/WEB-INF/views/book/categoryLeft.jsp" />
+      <put-attribute name="body" value="/WEB-INF/views/bookIndex.jsp" />
+    </definition>
     <definition name="book/*" extends="content">
       <put-attribute name="body" value="/WEB-INF/views/book/{1}.jsp" />
     </definition>
@@ -24,7 +30,6 @@
     <definition name="wish/*" extends="content">
       <put-attribute name="body" value="/WEB-INF/views/wish/{1}.jsp" />
     </definition>
-    
     <definition name="purchase/*" extends="content">
       <put-attribute name="body" value="/WEB-INF/views/purchase/{1}.jsp" />
     </definition>
