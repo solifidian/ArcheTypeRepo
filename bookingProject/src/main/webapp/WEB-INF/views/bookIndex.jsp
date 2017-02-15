@@ -183,6 +183,7 @@
 										
 										<a href="javascript:cartInsert('${etc.isbn}');" id="cartBtn" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>장바구니에 담기</a>
 									</div>
+									<img src="/resources/images/home/new.png" class="new" alt="" />
 								</div>
 								
 							</div>
