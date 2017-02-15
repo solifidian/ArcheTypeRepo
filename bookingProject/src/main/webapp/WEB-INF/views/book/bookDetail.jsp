@@ -133,16 +133,9 @@
 			<!------- Category Tab End (Left) -------->
 				 
 				<style>
-					/* #test {background-color:black; }
-					#test1 {background-color:red; } */
+					
 					#test2 { height:450px;}
-					#test3 { height:450px;}
-					/* #test4 {background-color:blue; }
-					#test5 {background-color:aqua; }
-					#test5-1 {background-color:gray; }
-					#test5-2 {background-color:orange; }
-					#test6 {background-color:purple; }
-					#test7 {background-color:navy; } */
+					#test3 { height:450px;}					
 					.tet {height:120px;}
 					.tet2 {height:70px;}
 					.tet3 {height:70px;}
@@ -151,6 +144,7 @@
 					.d_form label{margin-top:10px;}
 					.d_form .bu {margin-top:10px;}
 					.d_form .tt {border:1px gray dashed;}
+					#b_cart{margin:10px 20px; width:200px;}
 						
 				</style>
 				<script src="/resources/include/js/jquery-1.12.4.min.js"></script>
@@ -187,6 +181,16 @@
 			                $("#b_detail").submit();
 						}
 					});
+					//페이스북 연동 부분
+		  			$(function(d, s, id) {
+		  			  var js, fjs = d.getElementsByTagName(s)[0];
+		  			  if (d.getElementById(id)) return;
+		  			  js = d.createElement(s); js.id = id;
+		  			  js.src = "//connect.facebook.net/ko_KR/sdk.js#xfbml=1&version=v2.8&appId=170080446812154";
+		  			  fjs.parentNode.insertBefore(js, fjs);
+		  			}(document, 'script', 'facebook-jssdk'));
+
+					
 					
 					//장바구니 버튼 클릭시
 					$("#b_cart").click(function(){
@@ -241,7 +245,7 @@
 								<object class="thumbnail" data="/images/bookImg/${detail.isbn}.jpg" type="image/jpg">
 								  	<img src="/images/bookImg/no_book_img.png"/>
 							  	</object>
-								<h3>ZOOM</h3>
+								
 							</div>
 						
 						</div>
@@ -254,17 +258,17 @@
 							<img src="/resources/images/product-details/rating.png" alt="" />
 							<br>
 							<span>
-								<span> ${detail.b_abprice} 원</span><br>
-								<label>수량 : </label>
-								<input type="text" name="cart_amount"  value="1" id="cart_amount" class="num"  style="width:20px; text-align:center;"/>
-								<input type="button" id="bt_up" class="bt_up" value="+" />
-								<input type="button" id="bt_down" class="bt_down" value="-" />
+								<span> ${detail.b_abprice} 원</span></span>
 								
-								<!-- <button type="button" class="btn btn-fefault cart">
-									<i class="fa fa-shopping-cart"></i>
-									Add to cart
-								</button> -->
-							</span>
+								<span>
+									<label>수량 : </label>
+									<input type="text" name="cart_amount"  value="1" id="cart_amount" class="num"  style="width:20px; text-align:center;"/>
+									<input type="button" id="bt_up" class="bt_up" value="+" />
+									<input type="button" id="bt_down" class="bt_down" value="-" />
+									<br>
+									 <button type="button" class="btn btn-fefault cart" id="b_cart">
+									 <i class="fa fa-shopping-cart"></i>장바구니에 담기</button> 
+								</span>	
 							<br>
 							<p><b>출간일 :</b>${detail.b_pubdate}</p>
 							<p><b>출판사 :</b>${detail.pub_name}</p>
@@ -272,7 +276,9 @@
 							<p>배송비 안내<br>
 								배송비 : 2500 원<br>
 								도착 예정 일: 결제 후 1일 발송 예정</p>
-							<a href=""><img src="/resources/images/product-details/share.png" class="share img-responsive"  alt="" /></a>
+							<!--페이스북 좋아요 /공유하기 버튼 영역  -->
+							<p class="fb-like" data-href="https://www.facebook.com/greatbookbooking/" data-layout="standard" data-action="like" data-size="small" data-show-faces="false" data-share="true">
+		                 	</p>
 						</div><!--/product-information-->
 					</div>
 				</div><!--/product-details-->
@@ -412,50 +418,77 @@
 							<div class="tab-pane fade active in" id="b_intro" >
 							<style>
 								.tte{background-color:white;}
+								
+								table.tb1{
+									border-collapse:collapse;
+									text-align:left;
+									line-height:1.5;
+									border-top:1px solid #ccc;
+									border-bottom:1px solid #ccc;
+									border-left:3px solid #369;
+									margin:20px 10px;
+								}
+								table.tb1 th{
+									width : 147px;
+									padding: 10px;
+									font-weight:bold;
+									vertical-align:top;
+									color:#153d73;
+									border-right:1px solid #ccc;
+									border-bottom:1px solid #ccc;
+								}
+								table.tb1 td{
+									width : /* 349px; */1200px;
+									padding: 10px;
+									vertical-align:top;
+									border-right:1px solid #ccc;
+									border-top:1px solid #ccc;
+									border-bottom:1px solid #ccc;
+								}
+								
+								#tab2{
+									margin:20px 10px;
+								}
 							</style>
 								<div class="col-sm-12 tte">
-								 	<table>
+								 	<table class="tb1" >
 								 		<tr>
-								 			<td>isbn : </td>
+								 			<th scope="row">isbn : </th>
 								 			<td>${detail.isbn}</td>
 								 		</tr>
 								 		<tr>
-								 			<td>도서명 : </td>
+								 			<th scope="row">도서명 : </th>
 								 			<td>${detail.b_title}</td>
 								 		</tr>
 								 		<tr>
-								 			<td>쪽수 : </td>
+								 			<th scope="row">쪽수 : </th>
 								 			<td>${detail.b_pagesize}</td>
 								 		</tr>								 		
 								 		<tr>
-								 			<td>크기 : </td>
+								 			<th scope="row">크기 : </th>
 								 			<td>${detail.b_size}</td>
 								 		</tr>
 								 		<tr>
-								 			<td>출판일 : </td>
+								 			<th scope="row">출판일 : </th>
 								 			<td>${detail.b_pubdate}</td>
 								 		</tr>
-								 	
-								 	</table>
-								 	
-								 	<div class="row">
-								 		<h3>목차</h3>
-								 		<p>${detail.b_index}</p>
-								 	</div>
-								 	<div class="row">
-								 		<h3>상세</h3>
-								 		<p>${detail.b_comment}</p>
-								 	</div>
-								 	
-								 	
+								 		<tr>
+								 			<th scope="row">목차 : </th>
+								 			<td id="big">${detail.b_index}</td>
+								 		</tr>
+								 		<tr>
+								 			<th scope="row">책 상세 : </th>
+								 			<td>${detail.b_comment}</td>
+								 		</tr>							 		
+								 	</table>								 	
 								</div>
 							</div>
 							
 						
 							<div class="tab-pane fade" id="complainText" >
 								<div class="col-sm-12 tte">
-								 	<div class="row">
-								 		<h3>환불/교환 규정</h3>
+								 	<div class="row" id="tab2">
+								 		<h3 class="alert alert-warning" >환불/교환 규정</h3>
 								 		<p>${detail.b_complain}</p>
 								 	</div>
 								</div>
