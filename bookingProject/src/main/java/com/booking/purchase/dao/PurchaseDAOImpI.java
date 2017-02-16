@@ -60,4 +60,10 @@ public class PurchaseDAOImpI implements PurchaseDAO{
 		// TODO Auto-generated method stub
 		return session.delete("useCouponDelete");
 	}
+
+	@Override
+	public int searchp_no(PurchaseVO pvo) {
+		// TODO Auto-generated method stub
+		return session.selectOne("searchp_no");
+	}
 }

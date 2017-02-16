@@ -15,21 +15,15 @@
 	<insert id="purchaseUpdate" parameterType="purchase">
 	
 	 insert into BOOKING_PURCHASE(p_abprice,p_no,m_no,cookie_name,p_totprice,p_discount,coupon_code,m_phone,m_post_address,m_name,p_agreement,p_method)
-	 values(0,(booking_purchase_seq1.nextval+3),#{m_no},#{cookie_name},#{p_totprice},#{p_discount},nvl(#{coupon_code},''),#{m_phone},#{m_post_address},#{m_name},#{p_agreement},#{p_method})
+	 values(0,(booking_purchase_seq1.nextval+100),#{m_no},#{cookie_name},#{p_totprice},#{p_discount},nvl(#{coupon_code},''),#{m_phone},#{m_post_address},#{m_name},#{p_agreement},#{p_method})
 
 	</insert>
 	
 	  <!--구매완료 시 BOOKING_PURCHASE DB에 저장 후 카트에 있는 모든 내용 삭제 쿼리 (회원만 가능하며 바로구매할 경우 카트는 삭제되지 않음)  -->
 	<delete id="cartAllDelete" parameterType="purchase">
 	
-	delete booking_cart_rel 
-	 <where>
-    <!--만약 세션이 존재한다면 회원 번호로 검색  -->
-     <if test= "m_id!=null ">m_no=#{m_no} </if>
-     <!--만약 세션이 존재하지 않으면 쿠키 번호로 검색  -->
-     <if test="m_id==null || m_no=='0' ">cart_ip=#{cookie_name} </if>
-   </where>
-	
+	delete booking_cart_rel where cart_ip=#{cookie_name} 
+
 	
 	
 	</delete>
@@ -37,12 +31,19 @@
 	<!--구매완료 시 BOOKING_PURCHASE DB에 저장 후 카트에 있는 모든 내용 삭제 후 각각의 책 정보를 booking_book_purchase_rel 저장하는 쿼리 (회원만 가능하며 바로구매할 경우 카트는 삭제되지 않음)  -->
 	<insert id="purchaseBookRel" parameterType="purchase">
 	
-	insert into booking_book_purchase_rel(isbn,p_amount,p_no) 
+	<!-- insert into booking_book_purchase_rel(isbn,p_amount,p_no) 
 		select isbn,cart_amount,p_no 
 		from booking_cart_rel c inner join booking_purchase p on c.m_no=p.m_no
 		 where p.p_no=(select max(p_no)
 		from booking_purchase 
-		where m_no=#{m_no})
+		where m_no=#{m_no}) -->
+		
+			insert into booking_book_purchase_rel(isbn,p_amount,p_no)		
+		select isbn,p.cart_amount,p_no
+		from booking_purchase c inner join booking_cart_rel p on c.cookie_name=p.cart_ip
+		where p_no=(SELECT p_no
+  FROM (SELECT p_no FROM booking_purchase ORDER BY ROWNUM DESC)
+ WHERE ROWNUM = 1) and cookie_name =#{cookie_name}
 		
 	</insert>
 	
@@ -95,6 +96,11 @@
 	
 	</delete>
 	
+	
+	<select id="searchp_no" parameterType="purchase" resultType="int">
+	   SELECT p_no from (select p_no from booking_purchase where m_no=#{m_no} and cookie_name=#{cookie_name}  ORDER BY ROWNUM DESC) where  ROWNUM = 1 
+	
+	</select>
 	
 	
 	
