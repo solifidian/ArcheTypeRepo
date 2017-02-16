@@ -34,7 +34,6 @@
 							<h2>회원</h2>
 							<ul class="nav nav-pills nav-stacked">								
 								<li><a href="/wish/wishList.do">위시리스트</a></li>
-								<li><a href="/member/memberMypage.do">마이페이지</a></li>
 								<li><a href="/cart/cartlist.do">장바구니</a></li>
 							</ul>
 						</div>
@@ -44,7 +43,7 @@
 							<h2>커뮤니티</h2>
 							<ul class="nav nav-pills nav-stacked">
 								<li><a href="/board/boardList.do">자유게시판</a></li>
-								<li><a href="/search/search.do">도서검색</a></li>															
+								<li><a href="/book/bookSearch.do">도서검색</a></li>															
 							</ul>
 						</div>
 					</div>
