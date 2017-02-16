@@ -68,8 +68,7 @@
 </head>
 <body oncontextmenu="return false">
      
-	  ${sessionScope.memSession.m_id} 세션스코프
-	<section><!--결제 완료 페이지 시작  -->
+		<section><!--결제 완료 페이지 시작  -->
 	 <div class="col-sm-12 padding-right">
 		
 	

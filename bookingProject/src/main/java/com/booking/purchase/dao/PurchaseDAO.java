@@ -16,5 +16,6 @@ public interface PurchaseDAO {
 
 	public int givePoint(PurchaseVO pvo);
 	public int useCouponDelete(PurchaseVO pvo);
+	public int searchp_no(PurchaseVO pvo);
 
 }

@@ -196,14 +196,33 @@
 		(st_no, isbn, st_name, st_name_no, st_amount)
 		values(#{st_no}, #{isbn}, #{st_name}, ${st_name_no}, #{st_amount})
 	</insert>
+	
 	<insert id="bookReleaseInsert" parameterType="bookRelease">
-		<selectKey keyProperty="rel_no" resultType="int" order="BEFORE">
+	<!-- 	<selectKey keyProperty="rel_no" resultType="int" order="BEFORE">
 			select booking_book_release_seq.nextval from dual
 		</selectKey>
 		insert into booking_book_release
 		(rel_no, isbn, rel_name, rel_name_no, rel_amount)
-		values(#{rel_no}, #{isbn}, #{rel_name}, #{rel_name_no}, #{rel_amount})
+		values(booking_book_release_seq.nextval, #{isbn}, #{rel_name}, #{rel_name_no}, #{rel_amount}) -->
+		
+		<!--출고처리   -->
+		insert into booking_book_release(rel_no,rel_date,rel_name,rel_amount,rel_name_no,isbn)		
+		select booking_book_release_seq.nextval as rel_no,
+		sysdate as rel_date,
+		#{rel_name} as rel_name,
+		p.cart_amount as rel_amount,
+		p_no as rel_name_no ,
+		p.isbn
+		
+		from booking_purchase c inner join booking_cart_rel p 
+		    on c.cookie_name=p.cart_ip
+		where p_no=#{rel_name_no}
+		
+				
+		
 	</insert>
+	
+	
 	<insert id="bookInsert" parameterType="book">
 		insert into booking_book_data
 		(isbn, b_title, b_author, pub_name, cat_no, b_pubdate, b_abprice
