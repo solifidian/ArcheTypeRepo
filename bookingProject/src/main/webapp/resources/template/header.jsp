@@ -163,7 +163,7 @@
                                 </li>
                                  <li class="dropdown"><a href="" >고객센터<i class="fa fa-angle-down"></i></a>
 									 <ul role="menu" class="sub-menu">
-								 	  	<li><a href="/board/cusService.do">고객센터</a></li>    	
+								 	  	<!-- <li><a href="/board/cusService.do">고객센터</a></li> -->    	
 							 			<li><a href="/board/boardList.do?bd_forum_no=31">문의게시판</a></li>					
 										
 									 </ul>

@@ -83,12 +83,12 @@ public class BoardController {
 	/***********************************
 	 *고객센터
 	 * ***************************/
-	@RequestMapping(value="/cusService.do")
+	/*@RequestMapping(value="/cusService.do")
 	public String cusService(){
 		logger.info("cusService 호출 성공");
 		
 		return "board/cusService";
-	}
+	}*/
 	
 	/***********************************
 	 *문의 게시판 출력

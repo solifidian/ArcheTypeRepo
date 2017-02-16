@@ -140,6 +140,7 @@
 											<option value="0">========</option>
 											<option value="51">진행중 이벤트 게시판</option>
 										</select> -->
+										
 										<c:choose>
 											<c:when test="${bd_forum_no == 0}">========</c:when>
 											<c:when test="${bd_forum_no == 1}">자유 포럼</c:when>

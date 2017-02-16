@@ -64,7 +64,7 @@
 							<div id="support" class="panel-collapse collapse">
 									<div class="panel-body">
 										<ul>
-											<li><a href="/board/cusService.do">고객센터</a></li>
+											<!-- <li><a href="/board/cusService.do">고객센터</a></li> -->
 											<li><a href="/board/boardList.do?bd_forum_no=31">묻고 답하기 게시판</a></li>
 											<li><a href="/board/boardList.do?bd_forum_no=32">도서 질문 게시판</a></li>											
 										</ul>
