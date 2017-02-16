@@ -33,6 +33,10 @@ var delivery=2500;/* 배송비 */
 var point=0.01; //적립금 1%
 var m_id="${sessionScope.memSession.m_id}";
 var c_id="${cookie.JSESSIONID.value}";
+
+var couponratio=0
+var ratio=0;
+
 $(function(){
 //	 alert("m_id"+m_id)
 	$("#nonMemberPurchaseAgree").hide();
@@ -63,24 +67,29 @@ $(function(){
 	//쿠폰적용
 	$("#useCoupon").click(function(){
 		
-		var couponratio=$("#coupon").val()
-//		alert(couponratio)
+		 couponratio=$("#coupon").val();
+		
+		
+		
 		//쿠폰값이 null일 경우 쿠폰 값을 적용x
-		if(couponratio==null){
+		if(couponratio==""){
 		$("#lastTotPrice").html((total+delivery)+"원");  //합계 +배송비용
+		couponratio=0;
 		}
-		//쿠폰값이 null일 경우 쿠폰 값을 적용x
-		var ratio=couponratio*total
+		
+		
+		ratio=couponratio*total
 		$("#lastTotPrice").html(priceNumber((total-ratio)+delivery)+"원");  //합계 +배송비용
+		
 		
 	})
 	
 	//결제 버튼 클릭 시 
 	$("#purchaseBtn").click(function(){
-		alert("결제하기")
+		
 		var couponname=$(this).attr("data-name");
 		
-		var couponratio=$("#coupon").val()
+		
 		var paymethod = $(':radio[name="pay"]:checked').val(); //페이방법
 		var name=$("#name").val();  //배송자 연락처
 		var address=$("#address1").val()+"  "+$("#address2").val()//주소
@@ -178,16 +187,17 @@ $(function(){
 		        msg += '결제 금액 : ' + rsp.paid_amount;
 		        msg += '카드 승인번호 : ' + rsp.apply_num;
 		        
+		      
+		        
+		    } else {
+		        var msg = '결제에 실패하였습니다.';
+		        msg += '에러내용 : ' + rsp.error_msg;
 		        $("#purchaseHiddenForm").attr({
 		        	"method":"post",
 		        	"action":"/purchase/purchaseUpdate.do"
 		        })
 		        $("#purchaseHiddenForm").submit();
 		        
-		        
-		    } else {
-		        var msg = '결제에 실패하였습니다.';
-		        msg += '에러내용 : ' + rsp.error_msg;
 		        
 		        alert("결제에 실패했습니다.")
 		    }
@@ -627,12 +637,15 @@ $(function(){
 											          
 											  </c:if>
 											  
-												 <option value="">쿠폰을 선택하세요</option>	
+											  <c:if test="${not empty coupon}">
+													 <option value="">쿠폰을 선택하세요</option>
+											          
+											  								
 												<c:forEach var="d" items="${coupon}">	
 										        
 										        <option value="${d.coupon_discount_ratio}">${d.coupon_name}</option>
 										        </c:forEach>
-										      
+										      </c:if>
 										    
 										    </select> 
 										     

@@ -30,6 +30,8 @@ import com.booking.purchase.vo.PurchaseVO;
 @Controller
 @RequestMapping(value="/purchase")
 public class PurchaseController {
+	private static final BookReleaseVO BookReleaseVO = null;
+
 	Logger logger=Logger.getLogger(PurchaseController.class);
 	
 	@Autowired
@@ -140,6 +142,10 @@ public class PurchaseController {
 			  //결제 완료 시 정보를 booking_purchase에 등록  
 			    result=purchaseService.purchaseUpdate(pvo);
 			    
+			  //주문번호 획득  
+			    int p_no=purchaseService.searchp_no(pvo);
+			    logger.info("주문번호:"+p_no);
+			    pvo.setP_no(p_no); 
 			    
 			    
 			    System.out.println("받은 m_id"+m_id);
@@ -149,24 +155,24 @@ public class PurchaseController {
 			    if(result==1){
 			    	//결제 완료 시 정보를 booking_purchase에 등록 성공 시 해당 카트에 있던 각 책의 정보를 저장  
 			    	int bookpurchaserel=purchaseService.purchaseBookRel(pvo);
-			    	logger.info(bookpurchaserel+"결제 정보  booking_purchase에 저장 0은 e등록안됨");
-			    	
+			    	logger.info(bookpurchaserel+"결제 정보  booking_purchase에 저장 0은 등록안됨");
+			    /*				    	
 			    	/*************************************
 			    	 *  출고 처리 구간
 			    	 *  memberSerive의 purchaseDetail로 처리가 끝난 구매 기록을 읽어와 도서 출고 정황을 확인
 			    	 *  일단 출고 된 것으로 보고 '구매로 인한 출고 예정'이라고 기록 되도록 한다 
-			    	 ************************************/
+			    	 ***********************************
 			    	logger.info("release처리 1단계 p_no : "+pvo.getP_no());
 			    	List<Purchase_relVO> purelList = memberSerivce.purchaseDetail(pvo.getP_no());
 			    	logger.info("release처리 1단계 purelist.size() : "+purelList.size());
 			    	//출고를 위한 VO
 			    	List<BookReleaseVO> releaseList = new ArrayList<BookReleaseVO>();
 			    	
-			    	/************************************
+			    	*//************************************
 			    	 * @St_name : 출고 설명
 			    	 * @St_name_no: 각종 번호 기록용, 이 경우는 주문 번호가 기록 됨
 			    	 * relaseList에 담아 각자 realse 테이블에 Inseet및 재고량 변경
-			    	 **************************************/
+			    	 **************************************//*
 			    	for(Purchase_relVO item : purelList){
 			    		logger.info("release처리 2단계");
 			    		BookReleaseVO rsvo = new BookReleaseVO();
@@ -176,15 +182,31 @@ public class PurchaseController {
 			    		rsvo.setRel_name_no(item.getP_no());
 			    		releaseList.add(rsvo);
 			    	}
-			    	/***********************************************
+			    	*//***********************************************
 			    	* adminBookService의 bookReleaseInsert는
 			    	* 처리 중에 자동으로 bookDB의 재고량 변경도 처리 해줌.
 			    	* 추가적으로 service의 bookReleaseOut을 사용해 줄 필요 전혀 없음
-			    	************************************************/
+			    	************************************************//*
+			    
+			    				   
 			    	for(BookReleaseVO item : releaseList){
 			    		adminBookService.bookReleaseInsert(item);
-			    	}
+			    	}*/
 			    	/****************** 출고 처리 종료  *****************/
+			    	
+			    	
+			    	
+			    	/****************** 출고 처리   *****************/
+			    	BookReleaseVO rsvo = new BookReleaseVO();
+			    	rsvo.setRel_name_no(p_no);
+			    	rsvo.setRel_name("고객 구매로 인한 출고 예정");
+			    	
+			    	int bookRelease=adminBookService.bookReleaseInsert(rsvo);
+			    	logger.info("릴리즈인서트 수량"+bookRelease);
+			    	/****************** 출고 처리 종료  *****************/
+			    	
+			    	
+			    	
 			    	
 			     	//사용한 쿠폰 삭제
 				     if(pvo.getP_discount()!=0 ){

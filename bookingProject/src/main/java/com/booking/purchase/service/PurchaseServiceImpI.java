@@ -75,5 +75,12 @@ public class PurchaseServiceImpI implements PurchaseService {
 		return purchaseDAO.useCouponDelete(pvo);
 	}
 
+
+	@Override
+	public int searchp_no(PurchaseVO pvo) {
+		// TODO Auto-generated method stub
+		return purchaseDAO.searchp_no(pvo);
+	}
+
  
 }
