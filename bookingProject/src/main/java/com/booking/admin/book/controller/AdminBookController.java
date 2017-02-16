@@ -14,12 +14,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.booking.admin.book.service.AdminBookService;
 import com.booking.admin.book.vo.BookReleaseVO;
 import com.booking.admin.book.vo.BookStockVO;
 import com.booking.admin.sitelog.service.SiteLogService;
 import com.booking.book.vo.BookVO;
+import com.booking.common.excel.ListExcelView;
 import com.booking.common.paging.Paging;
 import com.booking.member.vo.MemberVO;
 
@@ -367,5 +369,35 @@ public class AdminBookController {
 		model.addAttribute("redirectURL", redirectURL);
 		
 		return "common/resultPage";
+	}
+	
+	/**********************************************
+	 * ListExcelView data를 Excel로 전환
+	 * 
+	 *******************************************/
+	@RequestMapping(value="/bookExcel", method = RequestMethod.GET)
+	public ModelAndView boardExcelExport(@ModelAttribute BookVO bvo, HttpServletRequest request){
+		logger.info("admin bookExcel 호출 성공");
+		
+		//listData default nvl
+		if(bvo.getOrderDirection() == null){
+			bvo.setOrderDirection("desc");
+		}
+		if(bvo.getOrderTarget() == null){
+			bvo.setOrderTarget("b_update");
+		}
+
+		List<BookVO> bookList = adminBookService.bookList(bvo);
+		if(bookList != null)
+		bvo.setSearchTotal(bookList.get(0).getSearchTotal());
+		
+		ModelAndView mav = new ModelAndView(new ListExcelView());
+		mav.addObject("list",bookList);
+		mav.addObject("template","bookData.xlsx");
+		mav.addObject("data",bvo);
+		mav.addObject("totalCnt",bvo.getSearchTotal());
+		mav.addObject("file_name","bookData");
+		
+		return mav;
 	}
 }

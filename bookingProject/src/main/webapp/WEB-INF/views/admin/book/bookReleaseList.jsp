@@ -64,7 +64,7 @@
           <div class="well">
           <div class="table-responsive">
           	<!-- 전체 리스트 제어 폼 -->
-          	<form class="navbar-form navbar-left" id="searchForm" method="get" action="/admin/book/bookStockList.do">
+          	<form class="navbar-form navbar-left" id="searchForm" method="get" action="/admin/book/bookReleaseList.do">
           		<!-- 페이지 정렬을 위한 hidden input들 -->
           		<input type="hidden" name="page" id="page" value="${listData.page}"/>
           		<input type="hidden" name="pageSize" id="pageSize" value="${listData.pageSize}"/>
@@ -100,7 +100,7 @@
          			<option value="30">30</option>
          		</select>건
          		&nbsp;&nbsp;/&nbsp;검색 결과 : ${listData.searchTotal} 건&nbsp;&nbsp;/&nbsp;
-         		<button type="button" id="excelDownBtn" class="btn btn-primary">엑셀로 다운로드</button>
+         		<!-- <button type="button" id="excelDownBtn" class="btn btn-primary">엑셀로 다운로드</button> -->
          	</div>
             <table class="table table-striped">
            		<colgroup>

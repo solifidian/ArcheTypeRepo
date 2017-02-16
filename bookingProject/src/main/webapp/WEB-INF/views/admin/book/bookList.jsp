@@ -28,6 +28,20 @@
 				if(searchCat_no != '' && searchCat_no != 0){
 					makeCateBoxSearched("#categoryBoxes",searchCat_no);
 				}
+				
+				$("#excelDownBtn").click(function(){
+					$("#searchForm").attr({
+						"method":"get",
+						"action":"/admin/book/bookExcel.do"
+					});
+					
+					$("#searchForm").submit();
+					
+					$("#searchForm").attr({
+						"method":"get",
+						"action":"/admin/book/bookList.do"
+					});
+				});
 			})
 		</script>
   </head>
