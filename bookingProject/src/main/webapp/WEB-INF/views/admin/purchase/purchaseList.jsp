@@ -14,7 +14,7 @@
 		<script type="text/javascript">
 			function addModalItem(b_title,b_author, p_amount){
 			
-				$('#mtable > tbody:last').append("<tr class='item'><td>"+b_title+"</td><td>"+b_author+"</td><td>"+p_amount+"</td></tr>")
+				$('#mtable #list').append("<tr class='item'><td>"+b_title+"</td><td>"+b_author+"</td><td>"+p_amount+"</td></tr>")
 			}
 			$(function(){
 				var searchMode = "<c:out value='${listData.searchMode}'/>";
@@ -26,16 +26,15 @@
 					$("#searchDateMode").val(searchDateMode);
 				}
 				
-				/* $(".goDetail").click(function(){
+				 $(".goDetail").click(function(){
 	      			$('#mtable > tbody:last').html("");
 	      			var p_no = $(this).parents("tr").attr("data-num");
-	 //     			alert(p_no);
 	      			$("#p_no").val(p_no);
 	      			console.log("주문번호 : "+p_no);
 	      			 $.ajax({
 			             url: "/member/boots_view.do",
 			             type: "POST",
-			 			 data : $('#detailForm').serialize(),
+			 			 data : "p_no="+p_no,
 			             success: function(data){
 								$(data).each(function(){
 									var b_title = this.b_title;
@@ -49,7 +48,7 @@
 			             }
 			        });
 	      			
-	      		}); */
+	      		});
 				
 			})
 		</script>
@@ -178,8 +177,6 @@
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
-    <script src="/resources/include/dist/js/bootstrap.min.js"></script>
-    <script src="/resources/include/assets/js/docs.min.js"></script>
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
     <script src="/resources/include/assets/js/ie10-viewport-bug-workaround.js"></script>
   </body>

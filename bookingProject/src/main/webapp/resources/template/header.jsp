@@ -4,7 +4,6 @@
 <!DOCTYPE html>
 <head>
 	<script src="/resources/include/js/jquery-1.12.4.min.js"></script>
-	<script src="/resources/include/js/bootstrap.min.js"></script>
 	<script src="/resources/include/js/jquery.scrollUp.min.js"></script>
 	<script src="/resources/include/js/price-range.js"></script>
     <script src="/resources/include/js/jquery.prettyPhoto.js"></script>

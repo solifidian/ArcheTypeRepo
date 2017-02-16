@@ -115,7 +115,7 @@
 								<tr>
 									<td class="ac">게시판이름</td>
 									<td>
-										<select id="bd_forum_no" name="bd_forum_no">
+										<!-- <select id="bd_forum_no" name="bd_forum_no">
 											<option value="1">자유 포럼</option>
 											<option value="2">국내도서 포럼</option>
 											<option value="3">해외도서 포럼</option>
@@ -130,7 +130,21 @@
 											<option value="32">도서 질문 게시판</option>
 											<option value="0">========</option>
 											<option value="51">진행중 이벤트 게시판</option>
-										</select>
+										</select> -->
+										<c:choose>
+											<c:when test="${bd_forum_no == 0}">========</c:when>
+											<c:when test="${bd_forum_no == 1}">자유 포럼</c:when>
+											<c:when test="${bd_forum_no == 2}">국내도서 포럼</c:when>
+											<c:when test="${bd_forum_no == 3}">해외도서 포럼</c:when>
+											<c:when test="${bd_forum_no == 4}">전문도서 포럼</c:when>
+											<c:when test="${bd_forum_no == 11}">도서 이야기</c:when>
+											<c:when test="${bd_forum_no == 12}">국내도서 평가 포럼</c:when>
+											<c:when test="${bd_forum_no == 13}">해외도서 평가 포럼</c:when>
+											<c:when test="${bd_forum_no == 14}">전문도서 평가 포럼</c:when>
+											<c:when test="${bd_forum_no == 31}">묻고 답하기 게시판</c:when>
+											<c:when test="${bd_forum_no == 32}">도서 질문 게시판</c:when>
+											<c:when test="${bd_forum_no == 51}">진행중 이벤트 게시판</c:when>
+										</c:choose>
 									</td>
 									
 								</tr>

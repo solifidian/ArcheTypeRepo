@@ -18,8 +18,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no"/>
 <link rel="shortcut icon" href="../../image/icon.png" />
-<link rel="apple-touch-icon" href="../../image/icon.png" />		
-
+<link rel="apple-touch-icon" href="../../image/icon.png" />	
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <script src="/resources/include/js/jquery-1.12.4.min.js"></script>
 <script src="/resources/include/js/listCommon.js"></script>

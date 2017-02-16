@@ -17,7 +17,7 @@
 									</a>
 								</h4>
 							</div><!--class: panel-heading끝  -->
-							<div id="bookAndPeople" class="panel-collapse collapse in">
+							<div id="bookAndPeople" class="panel-collapse collapse">
 								<div class="panel-body">
 										<ul>
 											<li><a href="/board/boardList.do?bd_forum_no=1">자유 포럼</a></li>
