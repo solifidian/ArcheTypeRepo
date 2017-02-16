@@ -64,7 +64,7 @@
           <div class="well">
           <div class="table-responsive">
           	<!-- 전체 리스트 제어 폼 -->
-          	<form class="navbar-form navbar-left" id="searchForm" method="get" action="/admin/book/bookStockList.do">
+          	<form class="navbar-form navbar-left" id="searchForm" method="get" action="/admin/book/bookReleaseList.do">
           		<!-- 페이지 정렬을 위한 hidden input들 -->
           		<input type="hidden" name="page" id="page" value="${listData.page}"/>
           		<input type="hidden" name="pageSize" id="pageSize" value="${listData.pageSize}"/>
