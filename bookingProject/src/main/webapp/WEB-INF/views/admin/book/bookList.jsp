@@ -28,6 +28,20 @@
 				if(searchCat_no != '' && searchCat_no != 0){
 					makeCateBoxSearched("#categoryBoxes",searchCat_no);
 				}
+				
+				$("#excelDownBtn").click(function(){
+					$("#searchForm").attr({
+						"method":"get",
+						"action":"/admin/book/bookExcel.do"
+					});
+					
+					$("#searchForm").submit();
+					
+					$("#searchForm").attr({
+						"method":"get",
+						"action":"/admin/book/bookList.do"
+					});
+				});
 			})
 		</script>
   </head>
@@ -92,7 +106,7 @@
          			<option value="30">30</option>
          		</select>건
          		&nbsp;&nbsp;/&nbsp;검색 결과 : ${listData.searchTotal} 건 &nbsp;&nbsp;/&nbsp;
-         		<!-- <button type="button" id="excelDownBtn" class="btn btn-primary">엑셀로 다운로드</button> -->
+         		<button type="button" id="excelDownBtn" class="btn btn-primary">엑셀로 다운로드</button>
          	</div>
          	<br/>
 	            <table class="table table-striped">
