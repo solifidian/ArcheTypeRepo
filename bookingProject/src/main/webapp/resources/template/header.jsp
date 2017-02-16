@@ -170,7 +170,7 @@
 									 </ul>
 								 </li>	
                                                           
-								<li><a href="/book/errorPage.do">404</a></li>							
+								<!-- <li><a href="/book/errorPage.do">404</a></li>						 -->	
 								
 							</ul>
 						</div>
