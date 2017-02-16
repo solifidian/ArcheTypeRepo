@@ -26,10 +26,9 @@
 
 <!-- CKEDITOR 소스 -->
 <script src="//cdn.ckeditor.com/4.6.2/standard/ckeditor.js"></script>
-<script src="/resources/include/js/build-config.js"></script>
-<script src="/resources/include/js/ckeditor.js"></script>
-<script src="/resources/include/js/config.js"></script>
-<script src="/resources/include/js/styles.js"></script>
+<script src="//cdn.ckeditor.com/4.6.2/standard/build-config.js"></script>
+<script src="//cdn.ckeditor.com/4.6.2/standard/config.js"></script>
+<script src="//cdn.ckeditor.com/4.6.2/standard/styles.js"></script>
 <link rel="stylesheet" href="/resources/include/css/contents.css"></link>
 
 <title>게시글 작성</title>
@@ -141,19 +140,46 @@
 											<option value="51">진행중 이벤트 게시판</option>
 										</select> -->
 										<c:choose>
-											<c:when test="${bd_forum_no == 0}">========</c:when>
-											<c:when test="${bd_forum_no == 1}">자유 포럼</c:when>
-											<c:when test="${bd_forum_no == 2}">국내도서 포럼</c:when>
-											<c:when test="${bd_forum_no == 3}">해외도서 포럼</c:when>
-											<c:when test="${bd_forum_no == 4}">전문도서 포럼</c:when>
-											<c:when test="${bd_forum_no == 11}">도서 이야기</c:when>
-											<c:when test="${bd_forum_no == 12}">국내도서 평가 포럼</c:when>
-											<c:when test="${bd_forum_no == 13}">해외도서 평가 포럼</c:when>
-											<c:when test="${bd_forum_no == 14}">전문도서 평가 포럼</c:when>
-											<c:when test="${bd_forum_no == 31}">묻고 답하기 게시판</c:when>
-											<c:when test="${bd_forum_no == 32}">도서 질문 게시판</c:when>
-											<c:when test="${bd_forum_no == 51}">진행중 이벤트 게시판</c:when>
+											<c:when test="${bd_forum_no == 0}">
+												<c:set var="bd_forum_name" value="========"/>
+											</c:when>
+											<c:when test="${bd_forum_no == 1}">
+												<c:set var="bd_forum_name" value="자유 포럼"/>
+											</c:when>
+											<c:when test="${bd_forum_no == 2}">
+												<c:set var="bd_forum_name" value="국내도서 포럼"/>
+											</c:when>
+											<c:when test="${bd_forum_no == 3}">
+												<c:set var="bd_forum_name" value="해외도서 포럼"/>
+											</c:when>
+											<c:when test="${bd_forum_no == 4}">
+												<c:set var="bd_forum_name" value="전문도서 포럼"/>
+											</c:when>
+											<c:when test="${bd_forum_no == 11}">
+												<c:set var="bd_forum_name" value="도서 이야기"/>
+											</c:when>
+											<c:when test="${bd_forum_no == 12}">
+												<c:set var="bd_forum_name" value="국내도서 평가 포럼"/>
+											</c:when>
+											<c:when test="${bd_forum_no == 13}">
+												<c:set var="bd_forum_name" value="해외도서 평가 포럼"/>
+											</c:when>
+											<c:when test="${bd_forum_no == 14}">
+												<c:set var="bd_forum_name" value="전문도서 평가 포럼"/>
+											</c:when>
+											<c:when test="${bd_forum_no == 31}">
+												<c:set var="bd_forum_name" value="묻고 답하기 게시판"/>
+											</c:when>
+											<c:when test="${bd_forum_no == 32}">
+												<c:set var="bd_forum_name" value="도서 질문 게시판"/>
+											</c:when>
+											<c:when test="${bd_forum_no == 51}">
+												<c:set var="bd_forum_name" value="진행중 이벤트 게시판"/>
+											</c:when>
 										</c:choose>
+										<input type="hidden" id="bd_forum_name" name="bd_forum_name" value="${bd_forum_name}"/>
+										<input type="hidden" id="bd_forum_no" name="bd_forum_no" value="${bd_forum_no}"/>
+										${bd_forum_name}
 									</td>
 									
 								</tr>

@@ -71,9 +71,6 @@
 					</choose>
 				</if>
 			</if>
-			
-		</where>
-		<where>
 			<if test="cat_no != null and cat_no != '' and cat_no != '0'">
 				cat_no = ${cat_no}
 					or cat_no in (select cat_no
@@ -98,6 +95,9 @@
                                       					)
                                   	)
 			</if>
+		</where>
+		<where>
+		
 		</where>
 		<if test="orderTarget != '' and orderTarget != null">
 			order by ${orderTarget}
