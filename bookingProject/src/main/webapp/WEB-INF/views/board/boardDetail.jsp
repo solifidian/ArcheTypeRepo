@@ -58,11 +58,15 @@
 			butChk = 2;
 		});
 		
-		
-	/* 	//답변버튼 클릭시 이벤트
-		$("#boardReply").click(function(){
-			$()	
-		}); */
+		//페이스북 연동 부분
+			$(function(d, s, id) {
+			  var js, fjs = d.getElementsByTagName(s)[0];
+			  if (d.getElementById(id)) return;
+			  js = d.createElement(s); js.id = id;
+			  js.src = "//connect.facebook.net/ko_KR/sdk.js#xfbml=1&version=v2.8&appId=170080446812154";
+			  fjs.parentNode.insertBefore(js, fjs);
+			}(document, 'script', 'facebook-jssdk'));
+
 		
 		//비밀번호 체크
 		$("#pwdBut").click(function(){
@@ -94,6 +98,8 @@
 						}else if(butChk == 2){
 							if(confirm("정말 삭제하시겠습니까? 댓글도 함께 삭제됩니다")){
 								goUrl = "/board/boardDelete.do";
+							}else{
+								return;
 							}
 							
 						}
@@ -202,7 +208,7 @@
 				</div><!-- /class="blog-post-area" -->
 <!-- ============== 추천하기 시작 ========== -->				
 				<div class="rating-area">
-					<ul class="ratings">
+	<%-- 				<ul class="ratings">
 						<li class="rate-this">추천</li>
 						<li>
 							<div style="cursor:pointer;float:none;margin:0 auto;" class="" onclick="" id="">
@@ -211,7 +217,7 @@
 						</li>
 						<li class="color">아이콘</li>						
 					</ul>
-<!-- ============== 추천하기 끝 ========== -->
+<!-- ============== 추천하기 끝 ========== --> --%>
 <!-- ============== 비밀글 여부확인 ========== -->
 					<ul class="tag">
 						<li>비밀글:</li>
@@ -228,9 +234,11 @@
 <!-- ==============태그  끝========== -->			
 				</div><!--/rating-area-->
 <!-- ============= 소셜 연결  시작========== -->						
-				<div class="socials-share">
-						<a href=""><img src="/resources/images/blog/socials.png" alt=""></a>
-				</div><!--/socials-share-->		
+
+	<!--페이스북 좋아요 /공유하기 버튼 영역  -->
+			<div class="fb-like col-sm-4 col-md-offset-7" data-href="https://www.facebook.com/greatbookbooking/" data-layout="standard" data-action="like" data-size="small" data-show-faces="false" data-share="true">
+           	</div>
+		
 <!-- ============= 소셜 연결  끝========== -->	
 
 <%-- 리플영역  --%>

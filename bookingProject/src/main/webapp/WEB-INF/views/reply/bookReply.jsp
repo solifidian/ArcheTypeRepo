@@ -18,6 +18,7 @@
 	#comment_list{background-color:white;}
 	ul.reply-title-bar{background-color:white}
 	#newscore{width:150px;}
+	#onlyMem{text-align:center;}
 	
 </style>
 <script type="text/javascript">
@@ -28,12 +29,20 @@ var s_nick = "${sessionScope.memSession.m_nick}";
 		var isbn = "<c:out value='${detail.isbn}'/>"; 
 		listAll(isbn);
 		
-				
+		//textarea maxlength설정
+		$("#br_content").on('keyup',function(){
+			if($(this).val().length>4000){
+				alert("글자수는 영문4000, 한글 2000자로 제한됩니다!")
+				$(this).val($(this).val().subString(0,4000));
+				$("#br_content").focus();
+			}
+	});
+		
 		
 	//입력버튼 클릭시
 		$("#replyInsertBtn").click(function(){
 			if(s_id==null || s_id==""){
-				alert("로그인 후 이용히 가능합니다.");
+				alert("로그인 후 이용이 가능합니다.");
 				location.href="/member/memberLoginPage.do";
 			}else {
 				 if(!chkSubmit($("#br_content"),"내용을"))return;
@@ -73,12 +82,13 @@ var s_nick = "${sessionScope.memSession.m_nick}";
 		$(document).on("click",".replyUpdateBtn",function(){
 			var writer = $(this).parents("li").find("input#br_writer").val();			
 			if(s_id==null || s_id==""){
-				alert("로그인 후 이용히 가능합니다.");
+				alert("로그인 후 이용이 가능합니다.");
 				location.href="/member/memberLoginPage.do";
 			}else if(s_nick != writer){
 				alert("작성 한 본인만 수정 가능합니다.");
-			}else {
-				if(s_nick == writer);
+				
+			}else if(s_nick == writer){
+				
 				var currLi = $(this).parents("li");
 				currLi.find("input[type='button']").hide();
 				var conText = currLi.children().find("p").html();
@@ -92,6 +102,7 @@ var s_nick = "${sessionScope.memSession.m_nick}";
 				
 				conArea.html(data);
 			}
+			
 		});
 		
 		//수정취소 버튼 클릭시
@@ -136,7 +147,7 @@ var s_nick = "${sessionScope.memSession.m_nick}";
 		$(document).on("click",".replyDeleteBtn",function(){
 			var writer = $(this).parents("li").find("input#br_writer").val();			
 			if(s_id==null || s_id==""){
-				alert("로그인 후 이용히 가능합니다.");
+				alert("로그인 후 이용이 가능합니다.");
 				location.href="/member/memberLoginPage.do";
 			}else if(s_nick != writer){
 				alert("작성 한 본인만 삭제 가능합니다.");
@@ -304,11 +315,12 @@ var s_nick = "${sessionScope.memSession.m_nick}";
 				<div class="replay-box">
 					<div class="row">			
 						<form id="comment_form " class="form-inline">
-						  <div class="well well-lg">
-						 	 <div class="form-group">
-						 	
-						 	 		<label>${sessionScope.memSession.m_nick} : </label>
-    								<label for="2"><i class="fa fa-star"></i></label>
+						 	<div class="well well-lg">
+							 	 <div class="form-group">							 	
+						 	 		<div id="onlyMem" class="alert alert-warning"> 회원만 작성 가능합니다. </div>		
+						 	 			 	 	
+    								<label for="2"><i class="fa fa-star"></i>별점 : </label>
+    								   								
    									<select name="br_score" id="br_score" class="form-control size" >
 										<option value="5" selected>★★★★★															
 										<option value="4">★★★★☆
@@ -316,15 +328,17 @@ var s_nick = "${sessionScope.memSession.m_nick}";
 										<option value="2">★★☆☆☆
 										<option value="1">★☆☆☆☆								
 									</select>
- 							 </div>
- 							 
-							   
-							
-							 
-							  	<textarea name="br_content" id="br_content" rows="3" placeholder="한줄평을 입력해주세요" maxlength="50"></textarea>
-								<input type="button" id="replyInsertBtn" class="btn btn-default usa" value="작성">
+									<a id="replyInsertBtn" class="btn btn-default cart"> <i class="glyphicon glyphicon-pencil"></i>댓글 작성하기   </a>							
 								</div>
-							</form>			
+										
+	 							 	
+	 						
+								  	<textarea name="br_content" id="br_content" rows="3" placeholder="한줄평을 입력해주세요" maxlength="50"></textarea>
+								</div>
+								<!-- <input type="button" id="replyInsertBtn" class="" value="작성"> -->
+															
+							</form>	
+							
 					</div><!--/class="row"  -->		
 				</div><!--/class="reply-box" -->
 			</div><!--/class="col-sm-12"  -->

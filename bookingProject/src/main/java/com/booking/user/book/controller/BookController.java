@@ -43,7 +43,12 @@ public class BookController {
 	
 	//이달의 책
 	@RequestMapping(value="/bookMonth.do")
-	public String bookMonth(){
+	public String bookMonth(Model model){
+		
+		List<BookVO> monthList = bookService.monthList();
+		
+		model.addAttribute("monthList", monthList);
+		
 		return "book/bookMonth";
 	}
 	

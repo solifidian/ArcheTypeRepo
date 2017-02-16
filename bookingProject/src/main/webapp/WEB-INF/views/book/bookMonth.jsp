@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -31,6 +32,8 @@
     	.center{text-align:center;}
     	.enter{margin-bottom:30px;}
     	.col{background-color:white;}
+    	.enter img{max-height:500px; min-height:500px;}
+    	#txt{text-align:center;}
     </style>
     <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
     <script type="text/javascript">
@@ -71,38 +74,27 @@
       <div class="row">       	
  
        	
-        <div class="col-lg-4 enter">
-        <div class="well"> 
-        	<%-- 첫번째  책 제목  --%>
-          <h2>110만 독자가 선택한 우리시대 최고의 교양서</h2>
-          <p class="text-danger">설명 </p>
-          <p class="center"><img src="http://image.yes24.com/momo/scmfiles/AdvertFiles/201701/2578228_170112101530.jpg" /></p>
-          <p class="center"><a class="btn btn-primary" href="#" id="b_month1" role="button">자세히 보기 &raquo;</a></p>
-        </div>
+		<c:choose>    
+			<c:when test="${not empty monthList}" >
+				<c:forEach var="monthList" items="${monthList}">
+						<div class="col-lg-4 enter">
+			        <div class="well"> 
+			        	<%-- 책 제목  --%>
+			          <h2 id="txt">${monthList.b_title}</h2>
+			          <p class="text-danger">대표 회로 도서 3선 </p>
+			          <p class="center"><img src="/images/bookImg/${monthList.isbn}.jpg" class="img-responsive" alt="" onerror="this.src = '/images/nobook.jpg'" /></p>
+			          <p class="center"><a class="btn btn-primary" href="/book/bookDetail.do?isbn=${monthList.isbn}" id="b_month1" role="button">자세히 보기 &raquo;</a></p>
+			        </div>
+		        </div>
+				</c:forEach>
+			</c:when>
+			<c:otherwise>
+				<h1>책정보가 없습니다.</h1>
+			</c:otherwise>
+		</c:choose>
+       						 
         
-        </div>
         
-        <div class="col-lg-4 enter">
-        <div class="well">  
-        	<%-- 두번째 책 제목  --%>
-          <h2>성장하는 민주 시민을 위한 책 내일을 위한 책</h2>
-          <p>설명</p>
-          <p class="center"> <img src="http://image.yes24.com/momo/scmfiles/AdvertFiles/201701/2576035_170111051733.jpg" /></p>
-          <p class="center"><a class="btn btn-primary" href="#" id="b_month2" role="button">자세히 보기 &raquo;</a></p>
-       </div>
-       
-       </div>
-       
-        <div class="col-lg-4 enter">
-        <div class="well">  
-        	<%-- 세번째  책 제목  --%>
-          <h2>12가지 법칙이 만드는 피할 수 없는 미래</h2>
-          <p>설명</p>
-          <p class="center"><img src="http://image.yes24.com/momo/scmfiles/AdvertFiles/201701/2575768_170112033903.jpg" /></p>
-          <p class="center"><a class="btn btn-primary" href="#" id="b_month3" role="button">자세히 보기 &raquo;</a></p>
-        </div>
-        
-        </div>
       </div>
       
       </div>

@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="tag" uri="/WEB-INF/tld/custom_tag.tld" %>
+
 		<style>
 			th.orderth:hover{
 				background-color:grey;
@@ -30,7 +31,7 @@
 			})
 		</script>
   </head>
-  <body>
+
           <h2 class="sub-header">등록 도서 리스트</h2>
           <div class="well">
 	          <div class="table-responsive">

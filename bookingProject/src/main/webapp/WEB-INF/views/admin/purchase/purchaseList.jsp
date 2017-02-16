@@ -12,7 +12,10 @@
 		</style>
 		<script type="text/javascript" src="/resources/include/js/listCommon.js"></script>
 		<script type="text/javascript">
+			function addModalItem(b_title,b_author, p_amount){
 			
+				$('#mtable #list').append("<tr class='item'><td>"+b_title+"</td><td>"+b_author+"</td><td>"+p_amount+"</td></tr>")
+			}
 			$(function(){
 				var searchMode = "<c:out value='${listData.searchMode}'/>";
 				var searchDateMode = "<c:out value='${listData.searchDateMode}'/>";
@@ -22,11 +25,61 @@
 				if(searchDateMode != ''){
 					$("#searchDateMode").val(searchDateMode);
 				}
+				
+				 $(".goDetail").click(function(){
+	      			$('#mtable > tbody:last').html("");
+	      			var p_no = $(this).parents("tr").attr("data-num");
+	      			$("#p_no").val(p_no);
+	      			console.log("주문번호 : "+p_no);
+	      			 $.ajax({
+			             url: "/member/boots_view.do",
+			             type: "POST",
+			 			 data : "p_no="+p_no,
+			             success: function(data){
+								$(data).each(function(){
+									var b_title = this.b_title;
+									var b_author = this.b_author
+									var p_amount = this.p_amount;
+									addModalItem(b_title, b_author, p_amount);
+								});
+			             },
+			             error: function(data){
+			            	 alert("fail");
+			             }
+			        });
+	      			
+	      		});
+				
 			})
 		</script>
   </head>
   <body>
-          <h2 class="sub-header">등록 도서 리스트</h2>
+  	<!--------------- Modal 영역 ------------------>
+	<div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+  		<div class="modal-dialog modal-sm" role="document">
+    		<div class="modal-content">
+    			<table class="table table-borderded tel" id="mtable">
+					<colgroup>
+						<col width="50%" />
+						<col width="30%" />
+						<col width="20%" />
+					</colgroup>
+					<thead>
+						<tr>
+							<th>책 제목</th>
+							<th>저자</th>
+							<th>수량</th>
+						</tr>
+					</thead>
+					<tbody id="list">
+						
+					</tbody>
+				</table>
+	    	</div>
+	  	</div>
+	</div>
+  	<!--------------- 검색 패널 ------------------->
+          <h2 class="sub-header">전체 주문 기록</h2>
           <div class="well">
 	          <div class="table-responsive">
 	          	<!-- 전체 리스트 제어 폼 -->
@@ -103,7 +156,7 @@
 	               					<td>${purchase.p_date}</td>
 	               					<td>${purchase.m_id}</td>
 	               					<td>${purchase.p_totprice}</td>
-	               					<td></td>
+	               					<td><button type="button" class="btn btn-primary goDetail"  data-toggle="modal" data-target=".bs-example-modal-lg">상세보기</button></td>
 	               				</tr>
 	               			</c:forEach>
 	               		</c:when>
@@ -120,11 +173,10 @@
             </div>
           </div>
 
+	
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
-    <script src="/resources/include/dist/js/bootstrap.min.js"></script>
-    <script src="/resources/include/assets/js/docs.min.js"></script>
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
     <script src="/resources/include/assets/js/ie10-viewport-bug-workaround.js"></script>
   </body>

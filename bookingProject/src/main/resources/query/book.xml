@@ -113,12 +113,14 @@
 	<!-- select Query -->
 	<select id="bookList" parameterType="book" resultType="book">
 	select isbn, b_title, b_author, b_pubdate, b_abprice, b_stock, pub_name
-			, cat_no, b_update, b_editdate, series_name, series_no, series_no_sub
+			, cat_no, b_update, b_editdate, series_name, series_no, series_no_sub,b_totscore,
+			(select count(br_no) from booking_book_reply br where isbn = br.isbn) as br_rcount
+			 
 		from (
 				select list.*, rownum as rnum 
 				from (
 						select isbn, b_title, b_author, to_char(b_pubdate,'YYYY-MM-DD') as b_pubdate
-								, b_abprice, b_stock, pub_name, cat_no, b_update, b_editdate, series_name, series_no, series_no_sub
+								, b_abprice, b_stock, pub_name, cat_no, b_update, b_editdate, series_name, series_no, series_no_sub,b_totscore
 						from booking_book_data
 						<include refid="standardSearchQuery"></include>
 				
@@ -177,6 +179,7 @@
 		from booking_book_data
 		<include refid="standardSearchQuery"></include>
 	</select>
+	
 	<select id="bookStockTotal" parameterType="bookStock" resultType="int">
 		select count(st_no) as searchTotal
 		from booking_book_stock
@@ -299,9 +302,16 @@
           where <![CDATA[rownum <= 3 ]]> and <![CDATA[length(b_title)>=5]]> and <![CDATA[length(b_title)<=7]]>          
 	</select>
 	
+
+	<!-- 이달의 책 3 -->
+	<select id="monthList" resultType="book">
+		select isbn, b_title, b_author from booking_book_data where b_title like '%회로이론%'
+	</select>
+
 	<select id="recommendList" resultType="book">
 	select isbn, b_title, b_author, b_abprice from (select isbn, b_title, b_author, b_abprice from booking_book_data order by dbms_random.value())
 		where <![CDATA[rownum <= 3 ]]> 
+
 	</select>
 	
 	

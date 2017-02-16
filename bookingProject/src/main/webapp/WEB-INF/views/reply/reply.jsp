@@ -27,6 +27,16 @@
 		var bd_post_no = "<c:out value='${detail.bd_post_no}' />";
 		listAll(bd_post_no);
 		
+	
+		//textarea maxlength설정
+		$("#re_content").on('keyup',function(){
+			if($(this).val().length>4000){
+				alert("글자수는 영문4000, 한글 2000자로 제한됩니다!")
+				$(this).val($(this).val().subString(0,4000));
+				$("#re_content").focus();
+			}
+	});
+		
 		//작성버튼 클릭시
 		$("#replyInsertBtn").click(function(){
 			if(!chkSubmit($("#re_writer"), "작성자를"))return;

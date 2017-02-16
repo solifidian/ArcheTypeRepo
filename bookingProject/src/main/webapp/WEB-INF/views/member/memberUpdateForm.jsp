@@ -48,23 +48,8 @@
 
 	
 	
-	$(function(){
-		
-	//sns연동
-/* 	 var SNS = {
-                facebook: function (link, description) {
-                    link = encodeURIComponent(link);
-                    description = encodeURIComponent(description);
-                    var url = 'http://www.facebook.com/sharer.php?u=' + link + '&amp;t=' + description;
-                    window.open(url, '', '');
-                },
-                tweeter:function(link, description) {
-                    link = encodeURIComponent(link);
-                    description = encodeURIComponent(description);
-                    var url = 'http://twitter.com/share?text=' + description + ' ' + link;
-                    window.open(url, '', '');
-                }
-            }; */
+	$(function(){	
+	
 
          //아이디랑 도메인 값 가져오기    		
        	$("#m_emailId").val(seperate[0]);
@@ -100,7 +85,18 @@
 				//no
 			}
 		});
+		
+		//textarea maxlength설정
+		$("#m_comment").on('keyup',function(){
+			if($(this).val().length>4000){
+				alert("글자수는 영문4000, 한글 2000자로 제한됩니다!")
+				$(this).val($(this).val().subString(0,4000));
+				$("#m_comment").focus();
+			}
+	});
 		 
+		
+		
 		//우편번호 수정버튼 클릭시
 		$("#addUpdateBtn").click(function(){
 			$("#addressHide").show();
@@ -358,16 +354,7 @@
 					<tr>
 						<td class="tc">메모</td>
 						<td><textarea id="m_comment" name="m_comment" placeholder="메모를 입력하세요...">${sessionScope.memSession.m_comment}</textarea></td>
-					</tr>
-					<!-- <tr>
-						<td class="tc">SNS연동</td>
-						<td >
-						페이스북
-							<img class="snsImage" onclick="SNS.facebook('http://www.facebook.com')"	src="http://lakemacholidayparks.com.au/wp-content/uploads/2014/09/facebook-icon.png" />
-						트위터
-							<img class="snsImage" onclick="SNS.tweeter('http://www.twitter.com')" src="http://icons.iconarchive.com/icons/danleech/simple/1024/twitter-icon.png" />
-						</td>
-					</tr>		 -->		
+					</tr>	
 				</table>
 			
 			</form>
@@ -379,9 +366,6 @@
 				<input type="button" value="뒤로" class="btn btn-default" id="back">
 			</div><!-- "updateFormBut" 끝 -->
 		</div><!-- "contentTB" 끝 -->
-	
-	
-		
 	
 	</div><!--"contentContainter" 끝 -->
 	

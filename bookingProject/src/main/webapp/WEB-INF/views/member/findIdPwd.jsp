@@ -94,8 +94,8 @@
 					<div class="login-form"><!--login form-->
 							<h2>아이디 찾기</h2>
 						<form id="findIdForm">
-							<input type="text"  id="name" name="m_name" placeholder="이름"/>
-							<input type="email" id="email" name="m_email" placeholder="이메일"/>
+							<input type="text"  id="name" name="m_name"  maxlength="20" placeholder="이름"/>
+							<input type="email" id="email" name="m_email"  maxlength="20" placeholder="이메일"/>
 							<button type="button" id="findIdBtn" class="btn btn-default">아이디 찾기</button>
 						</form>
 					</div><!--find id form-->
@@ -108,9 +108,9 @@
 					<div class="login-form"><!--find pwd form-->
 						<h2>비밀번호 찾기</h2>
 						<form id="findPwdForm">
-							<input type="text"  id="m_id" name="m_id" placeholder="아이디"/>
-							<input type="text"  id="m_name" name="m_name" placeholder="이름"/>
-							<input type="email" id="m_email" name="m_email" placeholder="이메일"/>
+							<input type="text"  id="m_id" name="m_id" maxlength="20" placeholder="아이디"/>
+							<input type="text"  id="m_name" name="m_name" maxlength="20"  placeholder="이름"/>
+							<input type="email" id="m_email" name="m_email"  maxlength="50" placeholder="이메일"/>
 							<button type="button" id="findPwdBtn" class="btn btn-default">비밀번호 찾기</button>
 						</form>
 					</div><!--/find pwd form-->

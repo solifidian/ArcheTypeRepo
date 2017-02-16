@@ -61,8 +61,8 @@
 					<div class="login-form "><!--login form-->
 						<h2>Login to your account</h2>
 						<form id="login_form">
-							<input type="text" name="m_id" id="m_id" placeholder="아이디를 입력해주세요"/>
-							<input type="password" id="m_pwd" name="m_pwd" placeholder="비밀번호를 입력해주세요" />					
+							<input type="text" name="m_id" id="m_id" maxlength="20" placeholder="아이디를 입력해주세요"/>
+							<input type="password" id="m_pwd" name="m_pwd" maxlength="20" placeholder="비밀번호를 입력해주세요" />					
 							
 							<div class="btn-group" role="group" aria-label="...">
 							<button type="button" class="btn btn-default " id="btn_login"><i class="glyphicon glyphicon-music" aria-hidden="true"></i> 로그인<i class="glyphicon glyphicon-music" aria-hidden="true"></i></button>

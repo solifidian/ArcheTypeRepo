@@ -22,7 +22,7 @@ public class BoardVO extends ListCommonVO {
 	private int bd_reindent;		//답글순서
 	private int bd_restep;			//답글계층
 	private int bd_reroot;			//상위글	
-	private int bd_rcount;				//딸린댓글 갯수
+	private int bd_rcount;			//딸린댓글 갯수
 	
 	
 	

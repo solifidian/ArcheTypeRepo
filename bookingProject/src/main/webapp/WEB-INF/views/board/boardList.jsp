@@ -18,8 +18,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no"/>
 <link rel="shortcut icon" href="../../image/icon.png" />
-<link rel="apple-touch-icon" href="../../image/icon.png" />		
-
+<link rel="apple-touch-icon" href="../../image/icon.png" />	
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <script src="/resources/include/js/jquery-1.12.4.min.js"></script>
 <script src="/resources/include/js/listCommon.js"></script>
@@ -213,13 +212,13 @@
 											<c:otherwise>▲</c:otherwise>
 										</c:choose>
 									</th>
-									<th data-value="bd_score" class="orderth">추천수
+						<%-- 			<th data-value="bd_score" class="orderth">추천수
 										<c:choose>
 											<c:when test="${data.orderTarget=='bd_score' and data.orderDirection=='ASC'}">▲</c:when>
 											<c:when test="${data.orderTarget=='bd_score' and data.orderDirection=='DESC'}">▼</c:when>
 											<c:otherwise>▲</c:otherwise>
 										</c:choose>
-									</th>
+									</th> --%>
 <!-- 비밀글이 필요한 게시판에서는 열어서 사용하면 됌 
 									<th>공개여부</th>-->
 								</tr>
@@ -234,10 +233,10 @@
 											<td>${board.bd_category}</td>
 											<td>${board.bd_head}</td>
 											<td class="goDetail tal">${board.bd_title}(${board.bd_rcount})</td>
-											<td class="name">${board.bd_writer}</td>
+											<td class="name goDetail tal">${board.bd_writer}</td>
 											<td>${board.bd_update}</td>
 											<td>${board.bd_readcnt}</td>
-											<td>${board.bd_score}</td>	
+							<%-- 				<td>${board.bd_score}</td>	 --%>
 <%-- 비밀글:										<td>${board.bd_status}</td>		 --%>								
 										</tr>
 									</c:forEach>

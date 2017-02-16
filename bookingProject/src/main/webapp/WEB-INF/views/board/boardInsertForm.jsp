@@ -23,6 +23,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <script src="/resources/include/js/jquery-1.12.4.min.js"></script>
 <script src="/resources/include/js/common.js"></script>
+
 <!-- CKEDITOR 소스 -->
 <script src="//cdn.ckeditor.com/4.6.2/standard/ckeditor.js"></script>
 <script src="/resources/include/js/build-config.js"></script>
@@ -62,6 +63,16 @@
 			}
 		})
 		
+		//textarea maxlength설정
+		$("#bd_content").on('keyup',function(){
+			if($(this).val().length>4000){
+				alert("글자수는 영문4000, 한글 2000자로 제한됩니다!")
+				$(this).val($(this).val().subString(0,4000));
+				$("#bd_content").focus();
+			}
+	});
+		
+		
 	//저장버튼 클릭시 이벤트
 		$("#boardInsertBtn").click(function(){
 			
@@ -70,7 +81,7 @@
 			if(!chkSubmit($("#bd_forum_name"),"게시판 이름을"))return;
 			else if(!chkSubmit($("#bd_writer"),"작성자를"))return;
 			else if(!chkSubmit($("#bd_title"),"글제목을"))return;
-			else if(content == ''){
+			else if(content ==""){
 				alert("글 내용을 입력해 주세요.");
 				content.focus();
 				return false;
@@ -105,7 +116,6 @@
 <!--	================ 리스트 시작 ======================  -->
 						<div class="single-blog-post" id="boardInsert" >
 							<form id="bd_writeForm" name="bd_writeForm" >
-							<!--게시판 번호 자동으로 넘겨주게 설정할것 지금은 기본 1 -->
 							<table summary="게시글 작성" class="tb">
 								<colgroup>
 									<col width="17%" />
@@ -114,7 +124,7 @@
 								<tr>
 									<td class="ac">게시판이름</td>
 									<td>
-										<select id="bd_forum_no" name="bd_forum_no">
+										<!-- <select id="bd_forum_no" name="bd_forum_no">
 											<option value="1">자유 포럼</option>
 											<option value="2">국내도서 포럼</option>
 											<option value="3">해외도서 포럼</option>
@@ -129,7 +139,21 @@
 											<option value="32">도서 질문 게시판</option>
 											<option value="0">========</option>
 											<option value="51">진행중 이벤트 게시판</option>
-										</select>
+										</select> -->
+										<c:choose>
+											<c:when test="${bd_forum_no == 0}">========</c:when>
+											<c:when test="${bd_forum_no == 1}">자유 포럼</c:when>
+											<c:when test="${bd_forum_no == 2}">국내도서 포럼</c:when>
+											<c:when test="${bd_forum_no == 3}">해외도서 포럼</c:when>
+											<c:when test="${bd_forum_no == 4}">전문도서 포럼</c:when>
+											<c:when test="${bd_forum_no == 11}">도서 이야기</c:when>
+											<c:when test="${bd_forum_no == 12}">국내도서 평가 포럼</c:when>
+											<c:when test="${bd_forum_no == 13}">해외도서 평가 포럼</c:when>
+											<c:when test="${bd_forum_no == 14}">전문도서 평가 포럼</c:when>
+											<c:when test="${bd_forum_no == 31}">묻고 답하기 게시판</c:when>
+											<c:when test="${bd_forum_no == 32}">도서 질문 게시판</c:when>
+											<c:when test="${bd_forum_no == 51}">진행중 이벤트 게시판</c:when>
+										</c:choose>
 									</td>
 									
 								</tr>
@@ -163,7 +187,7 @@
 								</tr>
 								<tr>
 									<td class="ac">글제목</td>
-									<td><input type="text" name="bd_title" id="bd_title" class="form-control" required="required" ></td>
+									<td><input type="text" name="bd_title" id="bd_title" class="form-control" maxlength="50" required="required" ></td>
 								</tr>
 								<tr>
 									<td class="ac vm">내용</td>

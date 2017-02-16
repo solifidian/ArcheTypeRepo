@@ -53,6 +53,15 @@
 			
 		});
 		
+		//textarea maxlength설정
+		$("#bd_content").on('keyup',function(){
+			if($(this).val().length>4000){
+				alert("글자수는 영문4000, 한글 2000자로 제한됩니다!")
+				$(this).val($(this).val().subString(0,4000));
+				$("#bd_content").focus();
+			}
+	});
+		
 		//수정버튼 클릭시 이벤트
 		
 		var content = CKEDITOR.instances.bd_content.getData();
@@ -134,7 +143,7 @@
 								</tr>
 								<tr>
 									<td class="ac">글제목</td>
-									<td><input value="${updateData.bd_title}" type="text" name="bd_title" id="bd_title" class="form-control" required="required" ></td>
+									<td><input value="${updateData.bd_title}" type="text" name="bd_title" id="bd_title" class="form-control" maxlength="50" required="required" ></td>
 								</tr>
 								<tr>
 									<td class="ac vm">내용</td>

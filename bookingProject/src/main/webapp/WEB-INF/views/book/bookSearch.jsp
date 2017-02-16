@@ -321,6 +321,7 @@
 						  	<td colspan=3> 등록 정보가 존재하지않습니다.	  
 						  </tr>
 					 </c:if>
+					 
 						<c:forEach var="d" items="${bookList}">							
 							<tr data-num="${d.isbn}">
 							  <td class="col-sm-2">
@@ -330,20 +331,19 @@
 							  </td>
 							 <td class="col-sm-8" >
 								 <h3><a href="/book/bookDetail.do?isbn=${d.isbn}">${d.b_title}</a></h3>
-								 <span> ${d.b_author} &nbps; / &nbps; ${d.b_pubdate}</span><br>
-								 <span> 리뷰(4건) 회원평점 ***** 만점에 5점 관련이벤트(0건) 중고상품(3건)</span><br>
-								 <span> ${price}원 </span><br>
-								 <span> 주제어 스마트폰 , 시력 회복법 , 생활습관 , 스트레칭 , 콘택트렌즈  더보기</span><br>
+								 <span> 저자 :  ${d.b_author} &nbsp; || &nbsp;출판일 : ${d.b_pubdate} &nbsp; || &nbsp;출판사 : ${d.pub_name} </span><br>
+								<span> 재고 : ${d.b_stock} &nbsp; || &nbsp; 총평점  : (${d.b_totscore}) &nbsp; || &nbsp; 회원댓글수(${d.br_rcount})</span><br>
+								 <h3> ${d.b_abprice}원 </h3>								
 							 </td>
 							 <td class="col-sm-1">
 							 	<form class="form-horizontal" id="searchform" name="searchform">
 	 								<input type="hidden" id="isbn" name="isbn"  />
 	 								<input type="hidden" id="nowpay" name="nowpay" value=0  />
 	 								<div class="form-group">
-									  	<span class="cartInsertBtn"><input type="button" class="btn btn-default" value="장바구니"  />	</span>																			
-									  	<span class="nowPurchaseBtn"><input type="button" class="btn btn-default" value="바로구매"  /></span>
-									  	<span class="wishListInsertBtn"><input type="button" class="btn btn-default" value="위시리스트" class="btn2" /></span>
-									  	<input type="text" size="1" id="cart_amount" name="cart_amount" value="1" /> 수량
+									  	<span class="cartInsertBtn"><input type="button" class="btn btn-primary" value="장바구니"  />	</span>																			
+									  	<span class="nowPurchaseBtn"><input type="button" class="btn btn-primary" value="바로구매"  /></span>
+									  	<span class="wishListInsertBtn"><input type="button" class="btn btn-primary" value="위시리스트" class="btn2" /></span>
+									  	 수량 : <input type="text" size="1"  id="cart_amount" name="cart_amount" value="1" />
 								  	</div>
 								</form>
 							  </td>

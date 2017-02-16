@@ -57,7 +57,7 @@
 															<c:when test="${cate2.cat_no ==3 }">
 																<c:set var="collapse_set" value="collapsed"/>
 																<c:set var="aria_set" value="true"/>
-																<c:set var="in_set" value="in"/>
+																<c:set var="in_set" value=""/>
 															</c:when>
 															<c:otherwise>
 																<c:set var="collapse_set" value="collapsed"/>
