@@ -144,6 +144,9 @@
 				<div class="blog-post-area">
 					<h2 class="title text-center">
 						<c:choose>
+							<c:when test="{bd_forum_no == 31}"><img src="/resources/images/service.png"></c:when>
+						</c:choose>
+						<c:choose>
 							<c:when test="${data.bd_forum_no == 1}">자유 포럼</c:when>
 							<c:when test="${data.bd_forum_no == 2}">국내도서 포럼</c:when>
 							<c:when test="${data.bd_forum_no == 3}">해외도서 포럼</c:when>
@@ -152,7 +155,8 @@
 							<c:when test="${data.bd_forum_no == 12}">국내도서 평가 포럼</c:when>
 							<c:when test="${data.bd_forum_no == 13}">해외도서 평가 포럼</c:when>
 							<c:when test="${data.bd_forum_no == 14}">전문서적 평가 포럼</c:when>
-							<c:when test="${data.bd_forum_no == 31}">묻고 답하기 게시판</c:when>
+							<c:when test="${data.bd_forum_no == 31}">묻고 답하기 게시판
+							<img src="/resources/images/service.png"></c:when>
 							<c:when test="${data.bd_forum_no == 32}">도서 질문 게시판</c:when>
 							<c:when test="${data.bd_forum_no == 51}">진행중 이벤트 게시판</c:when>
 						</c:choose>

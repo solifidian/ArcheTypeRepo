@@ -51,8 +51,8 @@
 						<div class="single-widget">
 							<h2>고객센터</h2>
 							<ul class="nav nav-pills nav-stacked">
-								<li><a href="/board/cusService.do">고객센터</a></li>
-								<li><a href="/board/questionBoardList.do">문의게시판</a></li>								
+								<!-- <li><a href="/board/cusService.do">고객센터</a></li> -->
+								<li><a href="/board/boardList.do?bd_forum_no=31">문의게시판</a></li>								
 							</ul>
 						</div>
 					</div>
