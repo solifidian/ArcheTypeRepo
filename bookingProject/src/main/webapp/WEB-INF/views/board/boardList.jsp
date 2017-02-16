@@ -213,13 +213,13 @@
 											<c:otherwise>▲</c:otherwise>
 										</c:choose>
 									</th>
-									<th data-value="bd_score" class="orderth">추천수
+						<%-- 			<th data-value="bd_score" class="orderth">추천수
 										<c:choose>
 											<c:when test="${data.orderTarget=='bd_score' and data.orderDirection=='ASC'}">▲</c:when>
 											<c:when test="${data.orderTarget=='bd_score' and data.orderDirection=='DESC'}">▼</c:when>
 											<c:otherwise>▲</c:otherwise>
 										</c:choose>
-									</th>
+									</th> --%>
 <!-- 비밀글이 필요한 게시판에서는 열어서 사용하면 됌 
 									<th>공개여부</th>-->
 								</tr>
@@ -237,7 +237,7 @@
 											<td class="name goDetail tal">${board.bd_writer}</td>
 											<td>${board.bd_update}</td>
 											<td>${board.bd_readcnt}</td>
-											<td>${board.bd_score}</td>	
+							<%-- 				<td>${board.bd_score}</td>	 --%>
 <%-- 비밀글:										<td>${board.bd_status}</td>		 --%>								
 										</tr>
 									</c:forEach>

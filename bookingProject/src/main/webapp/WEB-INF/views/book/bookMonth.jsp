@@ -33,6 +33,7 @@
     	.enter{margin-bottom:30px;}
     	.col{background-color:white;}
     	.enter img{max-height:500px; min-height:500px;}
+    	#txt{text-align:center;}
     </style>
     <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
     <script type="text/javascript">
@@ -79,7 +80,7 @@
 						<div class="col-lg-4 enter">
 			        <div class="well"> 
 			        	<%-- 책 제목  --%>
-			          <h2>${monthList.b_title}</h2>
+			          <h2 id="txt">${monthList.b_title}</h2>
 			          <p class="text-danger">대표 회로 도서 3선 </p>
 			          <p class="center"><img src="/images/bookImg/${monthList.isbn}.jpg" class="img-responsive" alt="" onerror="this.src = '/images/nobook.jpg'" /></p>
 			          <p class="center"><a class="btn btn-primary" href="/book/bookDetail.do?isbn=${monthList.isbn}" id="b_month1" role="button">자세히 보기 &raquo;</a></p>
