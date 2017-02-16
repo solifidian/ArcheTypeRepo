@@ -10,7 +10,7 @@
     <script src="/resources/include/js/main.js"></script>
   	<script>
   		$(function(){	
-  			
+  			 
   			$(".for-admin,.hi").hide();
   			var m_id="${sessionScope.memSession.m_id}";
   			
