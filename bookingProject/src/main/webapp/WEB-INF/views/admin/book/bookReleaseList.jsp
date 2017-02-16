@@ -100,7 +100,7 @@
          			<option value="30">30</option>
          		</select>건
          		&nbsp;&nbsp;/&nbsp;검색 결과 : ${listData.searchTotal} 건&nbsp;&nbsp;/&nbsp;
-         		<button type="button" id="excelDownBtn" class="btn btn-primary">엑셀로 다운로드</button>
+         		<!-- <button type="button" id="excelDownBtn" class="btn btn-primary">엑셀로 다운로드</button> -->
          	</div>
             <table class="table table-striped">
            		<colgroup>

@@ -368,4 +368,35 @@ public class AdminBookController {
 		
 		return "common/resultPage";
 	}
+	
+	/*ListExcelView data를 Excel로 전환
+	@RequestMapping(value="/board/boardExcel", method = RequestMethod.GET)
+	public ModelAndView boardExcelExport(@ModelAttribute BoardVO bvo){
+		logger.info("admin boardExcel 호출 성공");
+		
+		//board sort default
+		if(bvo.getOrder_by() == null) bvo.setOrder_by("b_num");
+		if(bvo.getOrder_sc() == null) bvo.setOrder_sc("desc");
+		
+		logger.info("order_by:"+bvo.getOrder_by());
+		logger.info("order_sc:"+bvo.getOrder_sc());
+		
+		//page sort setting
+		Paging.setPage(bvo);
+		
+		int totalCnt = boardService.boardListCnt(bvo);
+		logger.info("total = " + totalCnt);
+		
+		
+		List<BoardVO> boardList = boardService.boardList(bvo);
+		
+		ModelAndView mav = new ModelAndView(new ListExcelView());
+		mav.addObject("list",boardList);
+		mav.addObject("template","board.xlsx");
+		mav.addObject("data",bvo);
+		mav.addObject("totalCnt",totalCnt);
+		mav.addObject("file_name","board");
+		
+		return mav;
+	}*/
 }
