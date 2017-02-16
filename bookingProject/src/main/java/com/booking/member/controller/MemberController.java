@@ -178,6 +178,7 @@ public class MemberController {
 		return "common/resultPage";
 	}
 	
+	//로그아웃
 	@RequestMapping(value="/memberLogout.do")
 	public String memberLogout(@ModelAttribute MemberVO mvo, Model model, HttpServletRequest request, HttpSession session){
 		logger.info("memberLogout 호출 성공");
@@ -309,10 +310,11 @@ public class MemberController {
 		
 		result = memberService.memberDelete(mvo);
 		if(result == 1){
-			url = "/book/bookIndex.do";	//회원탈퇴후 메인화면으로 돌리기
+			logger.info(result);
+			url = "/member/memberLogout.do";	//회원탈퇴후 로그아웃으로
 		}
 		
-		 return "redirect:" +url;
+		 return "redirect:"+url;
 	}
 	
 	//아이디 중복체크
