@@ -85,7 +85,18 @@
 				//no
 			}
 		});
+		
+		//textarea maxlength설정
+		$("#m_comment").on('keyup',function(){
+			if($(this).val().length>4000){
+				alert("글자수는 영문4000, 한글 2000자로 제한됩니다!")
+				$(this).val($(this).val().subString(0,4000));
+				$("#m_comment").focus();
+			}
+	});
 		 
+		
+		
 		//우편번호 수정버튼 클릭시
 		$("#addUpdateBtn").click(function(){
 			$("#addressHide").show();
@@ -355,9 +366,6 @@
 				<input type="button" value="뒤로" class="btn btn-default" id="back">
 			</div><!-- "updateFormBut" 끝 -->
 		</div><!-- "contentTB" 끝 -->
-	
-	
-		
 	
 	</div><!--"contentContainter" 끝 -->
 	

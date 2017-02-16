@@ -29,7 +29,15 @@ var s_nick = "${sessionScope.memSession.m_nick}";
 		var isbn = "<c:out value='${detail.isbn}'/>"; 
 		listAll(isbn);
 		
-
+		//textarea maxlength설정
+		$("#br_content").on('keyup',function(){
+			if($(this).val().length>4000){
+				alert("글자수는 영문4000, 한글 2000자로 제한됩니다!")
+				$(this).val($(this).val().subString(0,4000));
+				$("#br_content").focus();
+			}
+	});
+		
 		
 	//입력버튼 클릭시
 		$("#replyInsertBtn").click(function(){

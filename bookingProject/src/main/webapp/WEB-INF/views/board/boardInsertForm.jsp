@@ -63,6 +63,16 @@
 			}
 		})
 		
+		//textarea maxlength설정
+		$("#bd_content").on('keyup',function(){
+			if($(this).val().length>4000){
+				alert("글자수는 영문4000, 한글 2000자로 제한됩니다!")
+				$(this).val($(this).val().subString(0,4000));
+				$("#bd_content").focus();
+			}
+	});
+		
+		
 	//저장버튼 클릭시 이벤트
 		$("#boardInsertBtn").click(function(){
 			
@@ -106,7 +116,6 @@
 <!--	================ 리스트 시작 ======================  -->
 						<div class="single-blog-post" id="boardInsert" >
 							<form id="bd_writeForm" name="bd_writeForm" >
-							<!--게시판 번호 자동으로 넘겨주게 설정할것 지금은 기본 1 -->
 							<table summary="게시글 작성" class="tb">
 								<colgroup>
 									<col width="17%" />
@@ -178,7 +187,7 @@
 								</tr>
 								<tr>
 									<td class="ac">글제목</td>
-									<td><input type="text" name="bd_title" id="bd_title" class="form-control" required="required" ></td>
+									<td><input type="text" name="bd_title" id="bd_title" class="form-control" maxlength="50" required="required" ></td>
 								</tr>
 								<tr>
 									<td class="ac vm">내용</td>
