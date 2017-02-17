@@ -170,7 +170,7 @@
 			</if>
 		</if>
 		<if test="bd_forum_no != null and bd_forum_no != '' ">
-		 		bd_forum_no = 2;
+		 		bd_forum_no = 1
 		</if>
 	</where>
 

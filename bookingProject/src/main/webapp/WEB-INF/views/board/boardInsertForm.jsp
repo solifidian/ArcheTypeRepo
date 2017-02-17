@@ -210,7 +210,17 @@
 								</tr>													
 								<tr>
 									<td class="ac">작성자</td>
-									<td><input type="text"  name="bd_writer" id="bd_writer" maxlength="15" class="form-control" required="required" ></td>
+									<td>
+										<c:choose>
+											<c:when test="${sessionScope.memSession.m_nick != null or sessionScope.memSession.m_nick != ''}">
+												<input type="hidden"  name="bd_writer" id="bd_writer" value="${sessionScope.memSession.m_nick}" />
+												${sessionScope.memSession.m_nick}
+											</c:when>
+											<c:otherwise>
+												<input type="text"  name="bd_writer" id="bd_writer" maxlength="15" class="form-control" required="required"/>
+											</c:otherwise>
+										</c:choose>
+									</td>
 								</tr>
 								<tr>
 									<td class="ac">글제목</td>

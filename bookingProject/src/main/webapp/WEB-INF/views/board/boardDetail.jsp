@@ -191,7 +191,7 @@
 										<td colspan="3">${detail.bd_title}</td>
 									</tr>																
 									<tr>
-										<td class="ac" colspan="4">${detail.bd_content}</td>
+										<td class="ac" height="400px" colspan="4">${detail.bd_content}</td>
 									</tr>
 								</tbody>	
 							</table>

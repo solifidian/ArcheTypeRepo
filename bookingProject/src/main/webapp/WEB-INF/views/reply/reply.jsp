@@ -365,19 +365,23 @@
 				<div class="replay-box">
 					<div class="row">			
 						<form id="comment_form">						
-							<div  class="text-area">
-								<div class="blank-arrow">
-									<label>Your Name</label>
+							<div class="form-inline text-area">
+								<div class="form-group">
+									<div class="blank-arrow">
+										<label for="re_writer">Your Name</label>
+									</div>
+									<span>*</span>
+									<input type="text" id="re_writer" name="re_writer" maxlength="20" placeholder="이름을 작성해주세요">
 								</div>
-								<span>*</span>
-								<input type="text" id="re_writer" name="re_writer" maxlength="20" placeholder="이름을 작성해주세요">
-								<div class="blank-arrow">
-									<label>Password</label>
+								<div class="form-group">
+									<div class="blank-arrow">
+										<label for="re_pwd">Password</label>
+									</div>
+									<span>*</span>
+									<input type="password" id="re_pwd" name="re_pwd" maxlength="15" placeholder="비밀번호를 작성해주세요">
 								</div>
-								<span>*</span>
-								<input type="password" id="re_pwd" name="re_pwd" maxlength="15" placeholder="비밀번호를 작성해주세요">
 								<div class="blank-arrow">
-									<label>content</label>
+									<label for="re_content">content</label>
 								</div>
 								<span>*</span>
 								<textarea name="re_content" id="re_content" rows="11" placeholder="내용을 작성해주세요"></textarea>
