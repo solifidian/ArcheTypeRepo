@@ -9,6 +9,7 @@
 	<sql id='standardSearchQuery'>
 		<where>
 			<if test="keyword != '' and keyword != null">
+				(
 				<choose>
 					<when test="searchMode == 'allSch'">
 						b_title like '%' || #{keyword} || '%'
@@ -37,6 +38,7 @@
 						series_name like '%' || #{keyword} || '%'
 					</when>
 				</choose>
+				)
 			</if>
 			<if test="searchStartDate != '' and searchStartDate != null">
 				<if test="searchEndDate != '' and searchEndDate != null">

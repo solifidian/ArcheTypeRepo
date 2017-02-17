@@ -79,17 +79,27 @@ function makeCateBoxSearched(target,cat_no){
 		type:"post",
 		data:"cat_no="+cat_no,
 		success:function(data){
-			console.log(data.hc_no)
-			$("#hc").remove();
-			makeCateBoxSelected(target,1,0,"hc",data.hc_no,function(){
-				if(data.hc_no != null && data.hc_no != '' && data.hc_no != '0'){
-					makeCateBoxSelected(target,2,data.hc_no,"mc",data.mc_no,function(){
-						if(data.mc_no != null && data.mc_no != ''){
-							makeCateBoxSelected(target,3,data.mc_no,"cat_no",data.lc_no);
-						}
-					});
-				}
-			});
+			console.log(data.cat_no)
+			if(data.cat_no == '0'){
+				$("#hc").remove();
+				makeCateBox("#categoryBoxes",1,0,"hc");
+			}
+			else{
+				$("#hc").remove();
+				makeCateBoxSelected(target,1,0,"hc",data.hc_no,function(){
+					if(data.hc_no != null && data.hc_no != '' && data.hc_no != '0'){
+						makeCateBoxSelected(target,2,data.hc_no,"mc",data.mc_no,function(){
+							if(data.mc_no != null && data.mc_no != ''){
+								makeCateBoxSelected(target,3,data.mc_no,"lc",data.lc_no);
+								if(data.lc_no != null && data.lc_no != ''){
+									makeCateBoxSelected(target,4,data.lc_no,"lc2",data.lc2_no);
+								}
+							}
+						});
+					}
+				});
+			}
+			
 		}
 	})
 }

@@ -78,7 +78,7 @@
 		      		
 		      		<h3><span class="label label-default">분류</span></h3>
 					<div class="form-inline" id="categoryBoxes">
-						<input type="hidden" name="cat_no" id="cat_no" value="0"/>
+						<input type="hidden" name="cat_no" id="cat_no" value="${listData.cat_no}"/>
 					</div>
 					
 		      		<br/><br/>

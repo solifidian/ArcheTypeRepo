@@ -48,8 +48,8 @@
 							$("#bookEditForm #series_name").val(data.series_name);
 							$("#bookEditForm #series_no").val(data.series_no);
 							$("#bookEditForm #series_no_sub").val(data.series_no_sub);
-							$("#bookEditForm #categoryBoxes").html("");
-							makeCateBoxFromNo("#bookEditForm #categoryBoxes",data.cat_no);
+							$("#bookEditForm #categoryBoxes").html('<input type="hidden" name="cat_no" id="cat_no" value="'+data.cat_no+'"/>');
+							makeCateBoxSearched("#bookEditForm #categoryBoxes",data.cat_no);
 						}
 					});
 				});
@@ -233,7 +233,7 @@
 					<div class="form-group col-md-4">
 						<label for="categoryBoxes">분류</label>
 						<div class="form-inline" id="categoryBoxes">
-						<input type="hidden" name="cat_no" id="cat_no" value="0"/>
+							<input type="hidden" name="cat_no" id="cat_no" value="0"/>
 						</div>
 					</div>
          	 	</div>
