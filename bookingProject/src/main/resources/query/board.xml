@@ -19,8 +19,11 @@
 			bd_score,
 			bd_reindent,
 			bd_restep,	
-			bd_reroot			
-	FROM booking_community_board
+			bd_reroot,
+			(select count(re_no) from booking_community_board_reply r 
+		        	where b.bd_forum_no = r.bd_forum_no 
+		        			and b.bd_post_no = r.bd_post_no) as bd_rcount 			
+	FROM booking_community_board b
 	<where>
 		<choose>
 			<when test="bd_forum_no != null and bd_forum_no != '' and bd_forum_no != 0">
@@ -76,7 +79,7 @@
 		        bd_reindent,
 		        bd_restep,   
 		        bd_reroot,
-		        (select count(re_no) from booking_community_board_reply r where bd_post_no = r.bd_post_no) as bd_rcount 
+		       	bd_rcount
 		        		
 	FROM (SELECT list.*, rownum as rnum FROM(
 		<include refid="boardCommon"></include>
@@ -134,8 +137,7 @@
 		        bd_reindent,
 		        bd_restep,   
 		        bd_reroot,
-		        (select count(re_no) from booking_community_board_reply r where bd_post_no = r.bd_post_no) as bd_rcount 
-		        		
+		        bd_rcount
 	FROM (SELECT list.*, rownum as rnum FROM(
 		<include refid="boardCommon"></include>
 		<choose>
