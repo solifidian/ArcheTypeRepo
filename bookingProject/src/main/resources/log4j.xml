@@ -20,7 +20,7 @@
 	</logger>
 	
 	<logger name="com.booking.admin.book">
-		<level value="TRACE" />
+		<level value="info" />
 	</logger>
 	
 	<logger name="com.booking.admin.purchase">
