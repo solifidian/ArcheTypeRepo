@@ -43,6 +43,7 @@ public class CategoryController {
 		CategoryVO ctvo = null;
 		
 		ctvo = categoryService.categoryOne(cat_no);
+		ctvo.setCat_no(cat_no);
 		
 		return ctvo;
 	}

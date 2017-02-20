@@ -21,11 +21,25 @@
 				if(searchDateMode != ''){
 					$("#searchDateMode").val(searchDateMode);
 				}
+				
+				$("#excelDownBtn").click(function(){
+					$("#searchForm").attr({
+						"method":"get",
+						"action":"/admin/sitelog/siteLogExcel.do"
+					});
+					
+					$("#searchForm").submit();
+					
+					$("#searchForm").attr({
+						"method":"get",
+						"action":"/admin/sitelog/siteLogList.do"
+					});
+				});
 			})
 		</script>
   </head>
   <body>
-          <h2 class="sub-header">등록 도서 리스트</h2>
+          <h2 class="sub-header">사이트 로그 리스트</h2>
           <div class="well">
           <div class="table-responsive">
           	<!-- 전체 리스트 제어 폼 -->
@@ -45,10 +59,9 @@
           		<h3><span class="label label-default">검색</span></h3>
 	          	<select class="form-control" name="searchMode" id="searchMode">
 	      			<option value="allSch">전체</option>
-	      			<option value="titleSch">글제목</option>
-	      			<option value="authorSch">저자</option>
-	      			<option value="publisherSch">출판사</option>
-	      			<option value="isbnSch">ISBN</option>
+	      			<option value="titleSch">title</option>
+	      			<option value="ipSch">IP</option>
+	      			<option value="commentSch">comment</option>
 	      		</select>
 	      		<input type="text" class="form-control" name="keyword" id="keyword" value="${listData.keyword}"/>
 	      		
@@ -56,11 +69,7 @@
 	      			      		
 	      		<!-- 일자 검색 -->
           		<h3><span class="label label-default">일자 검색</span></h3>
-          		<select class="form-control" name="searchDateMode" id="searchDateMode">
-	      			<option value="publishSch">발매일</option>
-	      			<option value="updateSch">등록일</option>
-	      			<option value="editdateSch">수정일</option>
-	      		</select>
+          		<input type="hidden" name="searchDateMode" id="searchDateMode" value="date"/>
 	          	<input type="date" class="form-control" name="searchStartDate" id="searchStartDate" value="${listData.searchStartDate}">
 	          	<input type="date" class="form-control" name="searchEndDate" id="searchEndDate" value="${listData.searchEndDate}">
 	          	<button id="searchKeywordBtn" class="btn btn-primary">검색</button>
@@ -77,7 +86,6 @@
          		</select>건
          		&nbsp;&nbsp;/&nbsp;검색 결과 : ${listData.searchTotal} 건 &nbsp;&nbsp;/&nbsp;
          		<button type="button" id="excelDownBtn" class="btn btn-primary">엑셀로 다운로드</button>
-	      		<button type="button"id="insertStockBtn" class="btn btn-primary">신규 도서 등록</button>
          	</div>
             <table class="table table-striped">
            		<colgroup>

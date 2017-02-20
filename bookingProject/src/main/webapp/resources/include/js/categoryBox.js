@@ -80,7 +80,7 @@ function makeCateBoxSearched(target,cat_no){
 		data:"cat_no="+cat_no,
 		success:function(data){
 			console.log(data.cat_no)
-			if(data.cat_no == '0'){
+			if(data.cat_no == 0){
 				$("#hc").remove();
 				makeCateBox("#categoryBoxes",1,0,"hc");
 			}

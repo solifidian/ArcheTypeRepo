@@ -100,7 +100,7 @@
 		</script>
   </head>
   <body>
-          <h2 class="sub-header">등록 도서 리스트</h2>
+          <h2 class="sub-header">등록 도서 상세 리스트</h2>
           <div class="well">
 	          <div class="table-responsive">
 	          	<!-- 전체 리스트 제어 폼 -->

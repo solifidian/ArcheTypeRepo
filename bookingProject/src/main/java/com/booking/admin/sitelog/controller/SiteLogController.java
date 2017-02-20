@@ -12,9 +12,12 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.booking.admin.sitelog.service.SiteLogService;
 import com.booking.admin.sitelog.vo.SiteLogVO;
+import com.booking.book.vo.BookVO;
+import com.booking.common.excel.ListExcelView;
 import com.booking.common.paging.Paging;
 import com.booking.member.vo.MemberVO;
 
@@ -91,5 +94,35 @@ public class SiteLogController {
 		siteLogService.siteLogInsert(slvo);
 		
 		return "common/returnPage";
+	}
+	
+	/**********************************************
+	 * ListExcelView data를 Excel로 전환
+	 * 
+	 *******************************************/
+	@RequestMapping(value="/siteLogExcel", method = RequestMethod.GET)
+	public ModelAndView siteLogExcelExport(@ModelAttribute SiteLogVO slvo, HttpServletRequest request){
+		logger.info("admin bookExcel 호출 성공");
+		
+		//listData default nvl
+		if(slvo.getOrderDirection() == null){
+			slvo.setOrderDirection("desc");
+		}
+		if(slvo.getOrderTarget() == null){
+			slvo.setOrderTarget("log_no");
+		}
+
+		List<SiteLogVO> siteLogList = siteLogService.siteLogList(slvo);
+		if(siteLogList != null)
+		slvo.setSearchTotal(siteLogList.get(0).getSearchTotal());
+		
+		ModelAndView mav = new ModelAndView(new ListExcelView());
+		mav.addObject("list",siteLogList);
+		mav.addObject("template","siteLogData.xlsx");
+		mav.addObject("data",slvo);
+		mav.addObject("totalCnt",slvo.getSearchTotal());
+		mav.addObject("file_name","bookData");
+		
+		return mav;
 	}
 }

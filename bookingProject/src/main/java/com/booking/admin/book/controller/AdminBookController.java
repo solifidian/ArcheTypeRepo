@@ -378,7 +378,7 @@ public class AdminBookController {
 	 * 
 	 *******************************************/
 	@RequestMapping(value="/bookExcel", method = RequestMethod.GET)
-	public ModelAndView boardExcelExport(@ModelAttribute BookVO bvo, HttpServletRequest request){
+	public ModelAndView bookExcelExport(@ModelAttribute BookVO bvo, HttpServletRequest request){
 		logger.info("admin bookExcel 호출 성공");
 		
 		//listData default nvl

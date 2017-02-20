@@ -33,15 +33,12 @@
 			</if>
 			<if test="searchStartDate != '' and searchStartDate != null">
 				<if test="searchEndDate != '' and searchEndDate != null">
+					<if test="keyword != '' and keyword != null">
+					and
+					</if>
 					<choose>
-						<when test="searchDateMode == 'publishSch'">
-							b_pubdate between #{searchStartDate} and #{searchEndDate}
-						</when>
-						<when test="searchDateMode == 'updateSch'">
-							b_update between #{searchStartDate} and #{searchEndDate}
-						</when>
-						<when test="searchDateMode == 'editdateSch'">
-							b_editdate between #{searchStartDate} and #{searchEndDate}
+						<when test="searchDateMode == 'date'">
+							log_update between #{searchStartDate} and #{searchEndDate}
 						</when>
 					</choose>
 				</if>
